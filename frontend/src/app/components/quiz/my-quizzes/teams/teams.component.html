@@ -1,0 +1,54 @@
+<table
+  mat-table
+  [dataSource]="dataSource"
+  class="mat-elevation-z8 col-12 w-100"
+>
+  <ng-container matColumnDef="teamName">
+    <th mat-header-cell *matHeaderCellDef>Team Name</th>
+    <td class="me-2" mat-cell *matCellDef="let element">
+      {{ element?.teamsDetail[0]?.teamName }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="created">
+    <th mat-header-cell *matHeaderCellDef>Organized</th>
+    <td class="me-2" mat-cell *matCellDef="let element">
+      {{ element?.createdAt | date }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="password">
+    <th mat-header-cell *matHeaderCellDef>Password</th>
+    <td mat-cell *matCellDef="let element">
+      {{
+        element?.teamsDetail[0]?.password
+          ? element?.teamsDetail[0]?.password
+          : "Not Generated"
+      }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef>Generate Password</th>
+    <td mat-cell *matCellDef="let row">
+      <a [routerLink]="['/quiz/my-quizzes']"><i class="fa fa-unlock-alt" (click)="generatePassword(row)"></i></a> 
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="play">
+    <th mat-header-cell *matHeaderCellDef>Play Quiz</th>
+    <td mat-cell *matCellDef="let row">
+     <a [routerLink]="['/quiz/my-quizzes']" > <i class="fa fa-play" (click)="playTeamQuiz(row)"></i></a> 
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+<mat-paginator
+  [pageSizeOptions]="[4, 8, 12]"
+  showFirstLastButtons
+  aria-label="Select page of Teams Quiz elements"
+  class="mb-4"
+>
+</mat-paginator>

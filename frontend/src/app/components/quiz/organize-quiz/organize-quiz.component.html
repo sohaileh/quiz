@@ -1,0 +1,66 @@
+<div class="my-account sec-padding">
+  <div class="custom-container d-flex justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      <mat-card-header class="mt-2">
+        <mat-card-title>
+          <h3 class="text-info">Organize Quiz</h3>
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <form [formGroup]="registerTeamForm">
+          <mat-form-field appearance="legacy" class="w-100 mb-4 mt-4">
+            <input
+              matInput
+              placeholder=" Team Name"
+              type="text"
+              matInput
+              minlength="3"
+              name="teamName"
+              id="idfName"
+              appFormErrorMsg
+              formControlName="teamName"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field appearance="legacy" class="w-100 mb-4">
+            <!-- <input matInput placeholder="Add Members" type="text" minlength="3" name="email" id="idEmail" appFormErrorMsg required formControlName="email" value={{email}}>  -->
+            <mat-select
+              placeholder="Add Members"
+              multiple
+              formControlName="members"
+            >
+              <mat-option
+                *ngFor="let user of organizationUsers; let i; index"
+                [value]="user"
+                >{{ user }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+
+          <mat-card-actions class="d-flex justify-content-between">
+            <button
+              class="btn-project mb-5"
+              mat-raised-button
+              color="primary"
+              type="submit"
+              (click)="registerTeams()"
+              class="btn btn-outline-info  "
+            >
+              Register Teams
+            </button>
+            <!-- <button class="btn-project mb-5"  mat-raised-button color="primary" type="submit" (click)="update()" class="w-100" >update</button>  -->
+            <!-- <button class="btn-project mb-5"  mat-raised-button color="primary" type="submit"  class="w-100 btn btn-outline-info" (click)="back()" >Back</button>  -->
+            <button
+              type="button"
+              class="btn btn-outline-info"
+              (click)="addTeam()"
+            >
+              + Add team
+            </button>
+          </mat-card-actions>
+        </form>
+      </mat-card-content>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<div class="my-account sec-padding h-100 d-flex justify-content-center">
+  <div class="col-12 col-md-10">
+    <app-teams></app-teams>
+
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      class="mat-elevation-z8 col-12 w-100"
+    >
+      <ng-container matColumnDef="event">
+        <th mat-header-cell *matHeaderCellDef>Event</th>
+        <td class="me-2" mat-cell *matCellDef="let element">
+          {{ element?.results?.output[0]?.eventName }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="organizer">
+        <th mat-header-cell *matHeaderCellDef>Organizer</th>
+        <td class="me-2" mat-cell *matCellDef="let element">
+          {{ element?.results?.output[0]?.organizationName }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="score">
+        <th mat-header-cell *matHeaderCellDef>My Score</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element?.results?.score }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="attemptedOn">
+        <th mat-header-cell *matHeaderCellDef>Attempted Date</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element?.results?.playedOn | date }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Generate Certificate</th>
+        <td mat-cell *matCellDef="let row">
+          <i class="fa fa-download" (click)="generateCertificate(row)"></i>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <mat-paginator
+      [pageSizeOptions]="[4, 8, 12]"
+      showFirstLastButtons
+      aria-label="Select page of My Quizz elements"
+    >
+    </mat-paginator>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+
+.main-slider {
+    height: 70%;
+    margin-top: 10px;
+    border: ridge 3px #ffff;
+}
+.image{
+    width:100% ;
+    height:90%;
+}
+
+@media (max-width: 639px) {  //for small mobile screens with touch
+    .main-slider {
+        height: 50%;
+        margin-top: 10px;
+        border: ridge 3px #ffff;
+    }
+    .image{
+        width:100% ;
+        height:90%;
+    }
+}

@@ -1,0 +1,237 @@
+<div class="my-account sec-padding">
+  <div class="container" fxLayoutAlign="center center">
+    <mat-card
+      fxLayout="row"
+      fxLayout.lt-sm="column"
+      fxLayoutAlign="center center"
+      class="p-0"
+    >
+      <div
+        class="my-account-wrap"
+        fxLayout="row"
+        fxLayout.lt-sm="column"
+        fxLayoutAlign="center center"
+      >
+        <div
+          class="login-wrapper"
+          fxFlex="100"
+          fxFlex.gt-md="70"
+          fxFlex.md="70"
+        >
+          <app-my-account *ngIf="router.url.includes('auth')"></app-my-account>
+          <form
+            fxLayout="row wrap"
+            fxLayoutAlign="center center"
+            [formGroup]="registerForm"
+          >
+            <div
+              fxFlex="100"
+              fxFlex.gt-sm="100"
+              class="px-5 mt-5"
+              ngClass.sm="mt-1"
+              ngClass.xs="mt-1"
+            >
+              <mat-form-field
+                appearance="legacy"
+                class="w-100"
+                *ngIf="userRole === 'admin'"
+              >
+                <input
+                  matInput
+                  placeholder="Organization"
+                  type="text"
+                  minlength="3"
+                  name="Organization"
+                  id="idorganization"
+                  appFormErrorMsg
+                  formControlName="organization"
+                  required
+                />
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" *ngIf="userRole !== 'admin'">
+                <mat-label>Select your Organization</mat-label>
+                <mat-select formControlName="organization">
+                  <mat-option
+                    *ngFor="let organization of organizations"
+                    [value]="organization._id"
+                    >{{ organization._id }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="legacy" class="w-100">
+                <input
+                  matInput
+                  placeholder="First Name"
+                  type="text"
+                  matInput
+                  minlength="3"
+                  name="FirstName"
+                  id="idfName"
+                  appFormErrorMsg
+                  formControlName="firstName"
+                  value="{{ firstName }}"
+                  required
+                />
+              </mat-form-field>
+            </div>
+            <div
+              fxFlex="100"
+              fxFlex.gt-sm="100"
+              class="px-5"
+              ngClass.sm="mt-1"
+              ngClass.xs="mt-1"
+            >
+              <mat-form-field appearance="legacy" class="w-100">
+                <input
+                  matInput
+                  placeholder="Last Name"
+                  type="text"
+                  matInput
+                  minlength="3"
+                  name="LastName"
+                  id="idlName"
+                  appFormErrorMsg
+                  required
+                  formControlName="lastName"
+                  value="{{ lastName }}"
+                />
+              </mat-form-field>
+            </div>
+            <div
+              fxFlex="100"
+              fxFlex.gt-sm="100"
+              class="px-5"
+              ngClass.sm="mt-1"
+              ngClass.xs="mt-1"
+            >
+              <mat-form-field appearance="legacy" class="w-100">
+                <input
+                  matInput
+                  placeholder="Email"
+                  type="email"
+                  matInput
+                  minlength="3"
+                  email="true"
+                  name="Email"
+                  id="idemail"
+                  appFormErrorMsg
+                  formControlName="emailAddress"
+                  required
+                  value="{{ emailAddress }}"
+                  [disabled]="emailReadOnly"
+                />
+              </mat-form-field>
+            </div>
+            <div
+              fxFlex="100"
+              fxFlex.gt-sm="100"
+              class="px-5"
+              ngClass.sm="mt-1"
+              ngClass.xs="mt-1"
+            >
+              <mat-form-field appearance="legacy" class="w-100">
+                <input
+                  matInput
+                  placeholder="Password"
+                  [type]="hide ? 'password' : 'text'"
+                  matInput
+                  minlength="6"
+                  appFormErrorMsg
+                  name="Password"
+                  id="idpassword"
+                  formControlName="password"
+                  #updatePassword
+                  required
+                />
+                <i
+                  id="icon"
+                  class="fa fa-eye-slash"
+                  (click)="showPassword()"
+                  *ngIf="hide"
+                  aria-hidden="true"
+                ></i>
+                <i
+                  id="icon"
+                  class="fa fa-eye"
+                  (click)="showPassword()"
+                  *ngIf="!hide"
+                  aria-hidden="true"
+                ></i>
+              </mat-form-field>
+            </div>
+            <label
+              *ngIf="userRole === 'admin'"
+              id="example-radio-group-label"
+              class="font-weight-bold"
+              >Choose a Role for User</label
+            >
+
+            <mat-radio-group
+              formControlName="role"
+              *ngIf="userRole === 'admin'"
+              class="mb-3 w-100 d-flex justify-content-around"
+            >
+              <mat-radio-button value="organizer">Organizer</mat-radio-button>
+              <mat-radio-button value="user">User</mat-radio-button>
+            </mat-radio-group>
+            <div
+              class="button-wrap"
+              fxLayoutAlign=""
+              fxFlex="100"
+              fxFlex.gt-sm="100"
+              class="px-5 pb-5"
+              ngClass.sm="mt-1"
+              ngClass.xs="mt-1"
+              fxLayoutGap="70px"
+            >
+              <button
+                class="btn-project mb-5"
+                mat-raised-button
+                color="primary"
+                type="submit"
+                (click)="register()"
+                class="w-100"
+                *ngIf="!updatePasswordEnable"
+              >
+                Register
+              </button>
+              <button
+                class="btn-project mb-5"
+                mat-raised-button
+                color="primary"
+                type="submit"
+                (click)="update(updatePassword.value)"
+                class="w-100"
+                *ngIf="updatePasswordEnable"
+              >
+                update
+              </button>
+              <button
+                class="btn-project mb-5"
+                mat-raised-button
+                color="primary"
+                type="submit"
+                class="w-100"
+                (click)="back()"
+              >
+                Back
+              </button>
+            </div>
+            <div
+              fxFlex="100"
+              fxFlex.gt-sm="100"
+              fxLayout="column"
+              fxLayoutAlign="center center"
+              class="px-5 mb-3"
+              ngClass.xs="mt-1"
+            >
+              <!-- <a routerLink="/auth/login" class="text-secondary">Already have an account?</a> -->
+            </div>
+          </form>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

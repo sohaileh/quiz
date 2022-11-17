@@ -1,0 +1,61 @@
+.home-header-2 {
+    // background: #465d72;
+   background:  #0688a1e3;
+
+    color: #d9d6d6;
+
+}
+
+img{
+    height: 50px;
+    margin-bottom: 1em;
+}
+.menu-container2 {
+    background: #ebe9e9 !important;
+}
+
+.icon {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.txt{
+    cursor: pointer;
+margin-left: 6px;
+}
+
+i{
+    margin-right: 1em;
+    margin-bottom: 1em;
+    cursor: pointer;
+}
+
+
+.profile{
+    border-radius: 50px;
+    width: 70px;
+    height: 70px;
+}
+
+.firstname{
+    width: 100%;
+    font-size: 23px;
+    object-fit: cover;
+    justify-content: center;
+    justify-items: center;
+}
+
+
+@media (max-width:800px) {
+   .icon{
+        padding-bottom: 10px;
+    }
+}
+.showCursor{
+    cursor: pointer;
+}
+@media (max-width: 960px) and (min-width: 600px) {
+    .call-bucket-wrap{
+        margin-bottom: 10px;
+    }
+}
+

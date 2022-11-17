@@ -1,0 +1,38 @@
+<div class="my-account sec-padding">
+  <div class="container" fxLayoutAlign="center center">
+    <mat-card fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center center" class="p-0">
+      <div class="my-account-wrap " fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="center center">
+        <div class="login-wrapper" fxFlex="100" fxFlex.gt-md="70" fxFlex.md="70">
+          <app-auth></app-auth>
+          <img src="assets/images/flags/download.jpg" fxLayoutAlign="center center" class="m-4 ">
+          <form fxLayout="row wrap" [formGroup]="loginForm">
+            <div fxFlex="100" fxFlex.gt-sm="100" class="px-5" ngClass.sm="mt-1" ngClass.xs="mt-1">
+              <mat-form-field appearance="legacy" class="w-100">
+                <input matInput placeholder="Email" type="email" matInput minlength="3" email="true" name="Email"
+                  id="idemail" appFormErrorMsg formControlName="email" required>
+                <mat-icon matPrefix class="mr-3">mail_outline</mat-icon>
+              </mat-form-field>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="100" class="px-5" ngClass.sm="mt-1" ngClass.xs="mt-1">
+              <mat-form-field appearance="legacy" class="w-100">
+                <input matInput placeholder="Password" [type]="hide ? 'password' : 'text' " matInput minlength="3"
+                  appFormErrorMsg name="Password" id="idpassword" formControlName="password" required>
+                <mat-icon matPrefix class="mr-3">key</mat-icon>
+                <i id="icon" class="fa fa-eye-slash" (click)="showPassword()" aria-hidden="true"></i>
+              </mat-form-field>
+            </div>
+            <div class="button-wrap" fxLayoutAlign="center center" fxFlex="100" fxFlex.gt-sm="100" class="px-5"
+              ngClass.sm="mt-1" ngClass.xs="mt-1">
+              <button class="btn-project mb-4" mat-raised-button color="primary" type="submit" class="w-100"
+                (click)="login()">Log in</button>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="100" fxLayoutAlign="center center" class="px-5 mb-3 mt-3" ngClass.sm="mt-1"
+              ngClass.xs="mt-1">
+              <a routerLink="/pages/ForgotPassword">Forgot Password?</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

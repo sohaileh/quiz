@@ -1,0 +1,61 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+
+.questionDetails__QuestionNumber {
+  color: #5d6cd7;
+  margin-bottom: 2px;
+  font-style: Montserrat !important;
+}
+
+.questionDetails__Text {
+  display: flex;
+  font-size: 1.2rem;
+
+  line-height: 1.3rem;
+  user-select: none;
+  font-weight: 450;
+  font-style: Montserrat !important;
+}
+
+.img {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  max-height: 50vh;
+  width: 100%;
+}
+
+.questionDetails__ImageCol {
+  position: relative;
+
+  display: flex;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  -ms-flex-negative: 1;
+  flex-shrink: 1;
+  min-height: 1px;
+  min-height: 0;
+}
+
+.questionDetails__Answers {
+  display: flex;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  -ms-flex-flow: column;
+  flex-flow: column;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.answerButton {
+  display: block;
+  outline: 0;
+}
+.option-btn {
+  text-align: start;
+}
+
+.time {
+  // background-color: #fafafa;
+  width: 100%;
+}

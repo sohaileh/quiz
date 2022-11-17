@@ -1,0 +1,96 @@
+<div
+  class="conatiner-fluid dialog d-flex flex-column w-100 align-items-center h-100"
+>
+  <mat-dialog-content>
+    <div class="d-flex align-items-center">
+      <h3 class="d-inline text-secondary">{{ quizDetails.eventName }}</h3>
+    </div>
+    <div
+      class="row font- d-flex bg-light flex-column first-row flex-md-row justify-content-md-around align-items-center ms-auto w-100 justify-content-center"
+    >
+      <div
+        class="mb-3 button-width bg-secondary text-light p-4 mt-2 d-flex flex-column justify-content-center align-items-center rounded"
+      >
+        <span>Questions</span><span>{{ quizDetails.totalQuestions }}</span>
+      </div>
+      <div
+        class="bg-secondary button-width text-light p-4 d-flex mb-2 flex-column justify-content-center align align-items-center rounded"
+      >
+        <span>Total Time</span> <span>{{ quizDetails.totalTime }} m</span>
+      </div>
+    </div>
+
+    <div class="row m-2 p-2">
+      <div class="d-flex align-items-center mb-3 mt-4">
+        <mat-icon class="me-2">calendar_today</mat-icon>
+        <span class="text-warning font-weight-bold"
+          >Terms and Condition <sup>***</sup></span
+        >
+      </div>
+
+      <div>
+        <p class="text-secondary">
+          1. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione ab
+          veritatis sit placeat, omnis nemo quaerat et tempore recusandae. Est,
+          et. Nam, consectetur enim ut similique, repellat laborum iusto
+          reprehenderit, molestiae ea illum soluta ex. Blanditiis sint molestiae
+        </p>
+
+        <p class="text-secondary">
+          2. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione ab
+          veritatis sit placeat, omnis nemo quaerat et tempore recusandae. Est,
+          et. Nam, consectetur enim ut similique, repellat laborum iusto
+          reprehenderit, molestiae ea illum soluta ex. Blanditiis sint molestiae
+        </p>
+
+        <p class="text-secondary">
+          3. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione ab
+          veritatis sit placeat, omnis nemo quaerat et tempore recusandae. Est,
+          et. Nam, consectetur enim ut similique, repellat laborum iusto
+          reprehenderit, molestiae ea illum soluta ex. Blanditiis sint molestiae
+        </p>
+
+        <p class="text-secondary">
+          4. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione ab
+          veritatis sit placeat, omnis nemo quaerat et tempore recusandae. Est,
+          et. Nam, consectetur enim ut similique, repellat laborum iusto
+          reprehenderit, molestiae ea illum soluta ex. Blanditiis sint molestiae
+        </p>
+
+        <p class="text-secondary">
+          5. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione ab
+          veritatis sit placeat, omnis nemo quaerat et tempore recusandae. Est,
+          et. Nam, consectetur enim ut similique, repellat laborum iusto
+          reprehenderit, molestiae ea illum soluta ex. Blanditiis sint molestiae
+        </p>
+
+        <p class="text-secondary">
+          6. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione ab
+          veritatis sit placeat, omnis nemo quaerat et tempore recusandae. Est,
+          et. Nam, consectetur enim ut similique, repellat laborum iusto
+          reprehenderit, molestiae ea illum soluta ex. Blanditiis sint molestiae
+        </p>
+        <p class="text-secondary">
+          7. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione ab
+          veritatis sit placeat, omnis nemo quaerat et tempore recusandae. Est,
+          et. Nam, consectetur enim ut similique, repellat laborum iusto
+          reprehenderit, molestiae ea illum soluta ex. Blanditiis sint molestiae
+        </p>
+        <p class="text-secondary">
+          8. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione ab
+          veritatis sit placeat, omnis nemo quaerat et tempore recusandae. Est,
+          et. Nam, consectetur enim ut similique, repellat laborum iusto
+          reprehenderit, molestiae ea illum soluta ex. Blanditiis sint molestiae
+        </p>
+      </div>
+      <div
+        class="row d-flex flex-column justify-content-center align-items-center w-100"
+      >
+        <mat-checkbox [(ngModel)]="ready">ready</mat-checkbox>
+        <button [disabled]="!ready" class="btn btn-info" (click)="playQuiz()">
+          Start Quiz
+        </button>
+      </div>
+    </div>
+  </mat-dialog-content>
+</div>

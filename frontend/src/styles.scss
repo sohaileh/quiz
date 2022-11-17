@@ -1,0 +1,120 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+/* You can add global styles to this file, and also import other style files */
+
+// @import '~swiper/dist/css/swiper.min.css';
+@import "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "./utils/loader.scss";
+// Color 1 scss
+@import "./assets/scss/color1.scss";
+//----Image zoom functionality for product details component
+@import "../node_modules/ngx-red-zoom/styles/base";
+@import "../node_modules/ngx-red-zoom/styles/style-magnifier";
+@import "../node_modules/ngx-red-zoom/styles/mixins/common";
+@import "../node_modules/ngx-red-zoom/styles/mixins/style-window";
+@include red-zoom-min-scale-factor(1.5, "thumb");
+.red-zoom--style--window {
+    @include red-zoom-style-window( $frame-border-width: 3px, $lens-border-width: 0px);
+    .red-zoom__lens {
+        --window-x: calc( var(--red-zoom-thumb-x, 0px) + var(--red-zoom-thumb-w, 0px) + 32px);
+        left: var(--window-x, 0px);
+        top: var(--red-zoom-thumb-y, 0px);
+        width: var(--red-zoom-thumb-w, 0px);
+        height: var(--red-zoom-thumb-h, 0px);
+    }
+}
+
+//--------------------------//
+// swiper css
+@import "swiper/scss";
+@import "swiper/scss/navigation";
+@import "swiper/scss/pagination";
+.swiper-button-prev {
+    background-color: orange;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    padding: 2px;
+    font-size: 1px;
+    color: wheat;
+}
+
+.swiper-button-next {
+    background-color: orange;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    padding: 2px;
+    color: wheat;
+}
+
+:root {
+    --swiper-navigation-size: 30px;
+}
+
+.small-carousel .swiper-button-prev {
+    background-color: transparent;
+    color: grey;
+}
+
+.small-carousel .swiper-button-next {
+    color: grey;
+    background-color: transparent;
+}
+
+ :root .small-carousel {
+    --swiper-navigation-size: 20px;
+}
+
+.relatedItems .swiper-slide {
+    width: 250px!important;
+}
+
+// quiz button style//
+.button-primary {
+    background-color: #7b84bb;
+    border: none;
+    color: white;
+    padding-right: 20px;
+    border-radius: 5px;
+}
+
+.button-primary:hover {
+    background-color: #5e6cb9;
+}
+
+.button-primary:active {
+    transform: scale(.98);
+}
+
+.button-success {
+    background-color: #2dce89;
+    border: none;
+    color: white;
+    padding-right: 20px;
+    border-radius: 5px;
+}
+
+.font-family {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.button-success:hover {
+    background-color: #19b974;
+}
+
+.button-success:active {
+    transform: scale(.98);
+}
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color: rgb(66, 134, 244);
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle {
+    color: rgb(66, 134, 244);
+    background-color: rgb(66, 134, 244);
+}
+

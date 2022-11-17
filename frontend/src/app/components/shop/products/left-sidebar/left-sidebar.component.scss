@@ -1,0 +1,62 @@
+input {
+    margin-bottom: 10px;
+}
+
+mat-expansion-panel-header {
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+p {
+    color: #777777;
+    font-size: 15px;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    margin-bottom: 5px;
+}
+
+div.product:focus {
+    text-decoration: underline;
+    font-weight: bolder;
+    background: rgb(216, 213, 213);
+}
+
+p:hover,
+p:active {
+    text-decoration: underline;
+    font-weight: bolder;
+
+}
+
+.popular-products {
+    border: 1px solid #e7e7e0;
+    border-radius: 7px;
+    margin-bottom: 30px;
+}
+
+#business {
+    padding-left: 30px;
+    padding-right: 20px;
+    width: 200px;
+    height: 200px;
+    align-content: center;
+    margin-left: 5px;
+    margin-right: 5px
+}
+
+h2 {
+    color: black;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: 10px;
+    margin-left: 25px
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.filter-sidenav {
+    height: 600px !important;
+}

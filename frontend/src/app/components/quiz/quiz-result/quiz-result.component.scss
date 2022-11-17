@@ -1,0 +1,42 @@
+.custom {
+  width: 70%;
+  height: 65%;
+  padding: 3em;
+  border-radius: 15px;
+  margin: 2em;
+}
+.percentage-content {
+  font-weight: 300;
+  font-size: 26px;
+}
+
+.row-1 {
+  margin-bottom: 4em;
+}
+
+.row-2 {
+  margin-bottom: 1.2em;
+}
+
+.row-2 h4:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 600px) {
+  .custom {
+    height: 85%;
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .custom {
+    height: 95vh;
+    width: 95vw;
+  }
+  .percentage-content {
+    font-weight: 300;
+    font-size: 26px;
+  }
+}

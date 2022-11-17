@@ -1,0 +1,25 @@
+<mat-toolbar-row fxHide fxShow.gt-sm class="container" fxLayout="row" fxLayout.xs="row"
+  fxLayoutAlign="space-between center">
+  <div class="main-menu" fxLayout="row" fxHide fxShow.gt-sm id="menu1">
+    <div autofocus tabindex="0" class="active"> <a mat-button class="mat-button home" (click)="getHome()"><i
+          class="fa fa-home icon "></i>Home</a></div> 
+     <span tabindex="1" class="active" [routerLink]="['/quiz/my-quizzes']" *ngIf="myQuiz"> <a routerLinkActive="router-link-active"  mat-button
+        class="mat-button"><i class="fa fa-quora icon"></i>My Quizzes</a></span> 
+     <!-- <span tabindex="1" class="active">
+      <a routerLinkActive="router-link-active" (click)=" getProducts() " mat-button
+        class="mat-button"><i class="fa fa fa-plus-circle icon"></i>{{sectionDetails[0]?.sectionX}}</a> 
+        <a mat-button *ngFor="let sec of sectionDetails" class="mat-button"
+        (click)="getMenuItems(sec.sectionX)"> <i
+          class='{{sec?.sectionX=== "Products" ? "fa fa-plus-circle" : "fa fa-globe"}}'
+          id="icon"></i>{{sec.sectionX}}</a> 
+         </span>  -->
+        <!-- <span tabindex="1" class="active" [routerLink]="['/auth/login']">
+          <a routerLinkActive="router-link-active" mat-button
+            class="mat-button"><i class="fa fa-sign-in icon" ></i>Sign In</a>
+            </span>  -->
+            <span tabindex="1" class="active" [routerLink]="['/admin/quiz/add-quiz'] " *ngIf="userRole === 'admin'">
+              <a routerLinkActive="router-link-active" mat-button
+                class="mat-button"><i class="fa  icon" ></i>Add Quiz</a>
+                </span> 
+   </div>
+</mat-toolbar-row>
