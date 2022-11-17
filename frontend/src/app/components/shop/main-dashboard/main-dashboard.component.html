@@ -1,0 +1,11 @@
+<div *ngIf="loaderService.isLoading" class="loading"></div>
+<app-main-carousel *ngIf="showCarousel" [slides]="slides"></app-main-carousel>
+<div class="home-2-wrap">
+
+    <div class="info-bar2-wrap">
+        <div class="container">
+            <app-product-left-sidebar (categoryEvent)="getCategory($event)"></app-product-left-sidebar>
+        </div>
+    </div>
+
+</div>

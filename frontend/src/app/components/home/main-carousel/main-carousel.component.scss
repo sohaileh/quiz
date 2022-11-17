@@ -1,0 +1,34 @@
+.main-slider {
+  height: 70%;
+  margin-top: 10px;
+  border: ridge 3px #ffff;
+}
+.image {
+  width: 100%;
+  height: 90%;
+}
+
+@import "~swiper/css";
+@import "~swiper/css/pagination";
+@import "~swiper/css/navigation";
+
+.swiper-button-prev {
+  background-color: transparent;
+}
+
+.swiper-button-next {
+  background-color: transparent;
+}
+
+@media (max-width: 639px) {
+  //for small mobile screens with touch
+  .main-slider {
+    height: 50%;
+    margin-top: 10px;
+    border: ridge 3px #ffff;
+  }
+  .image {
+    width: 100%;
+    height: 90%;
+  }
+}

@@ -1,0 +1,145 @@
+<div *ngIf="loaderService.isLoading" class="loading"></div>
+<div class="left-sidebar-wrapper sec-padding">
+    <div class="container">
+        <div fxLayout="row wrap" class="sidebar" fxHide fxShow.gt-sm fxFlex="100" fxFlex.gt-sm="20">
+            <left-sidebar (categoryEvent)="getCategory($event)"></left-sidebar>
+        </div>
+        <div fxLayout="column" fxFlex="100" fxFlex.gt-sm="80" class="card">
+            <div fxLayout="row" fxLayout.xs="column" class="filter-row mat-elevation-z1 text-muted mb-5">
+                <h3 class="mt-3 online" fxFlex="100%">Online Business Registration</h3>
+            </div>
+            <mat-card fxLayout="row" class="p-5">
+                <div class="mt-2"  fxFlex="100">
+                    <form fxLayout="row wrap" [formGroup]="BusinessRegistrationForm">
+                        <div fxLayout="column" fxFlex="100" fxFlex.gt-sm="45">
+                           
+                            <div fxLayout="row wrap" fxFlex.gt-sm="100" fxFlex="100" fxFlex.gt-md="100" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                <mat-form-field appearance="legacy" class="w-100">
+                                    <input matInput placeholder="Business Name" type="text"
+                                        formControlName="BusinessName" name="BusinessName" id="idbusinessName"
+                                        appFormErrorMsg minlength="3" required>
+                                </mat-form-field>
+                            </div>
+                            <div  fxFlex.gt-sm="100" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                <mat-form-field appearance="legacy" class="w-100">
+                                    <mat-select placeholder="Section" name="Section" id="idsection"
+                                        formControlName="section" appFormErrorMsg required>
+                                        <mat-option *ngFor="let sec of sectionDetails;" value="{{sec.sectionX}}"
+                                            (click)="getSections()">{{sec.sectionX}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex.gt-sm="100" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                <mat-form-field appearance="legacy" class="w-100">
+                                    <mat-select placeholder="Business Type" name="BusinessType" id="idbusinessType"
+                                        formControlName="BusinessType" appFormErrorMsg required>
+                                        <mat-option value="type">Select Type</mat-option>
+                                        <div *ngIf="showProducts">
+                                            <mat-option *ngFor="let category of categoryDetails;"
+                                                value={{category.productCategory}}>{{category.productCategoryX}}
+                                            </mat-option>
+                                        </div>
+                                        <div *ngIf="!showProducts">
+                                            <mat-option *ngFor="let cat of categoryDetails;"
+                                                value="{{cat.productCategoryX}}">{{cat.productCategoryX}}</mat-option>
+                                        </div>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div  fxFlex.gt-sm="100"  ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                <mat-form-field appearance="legacy" class="w-100">
+                                    <input type="text" placeholder="Address" matInput minlength="3" name="AddressLine1"
+                                        id="idaddress" formControlName="AddressLine1" appFormErrorMsg required>
+                                </mat-form-field>
+                            </div>
+
+                            <div  fxFlex.gt-sm="100"  ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                <mat-form-field appearance="legacy" class="w-100">
+                                    <input type="text" placeholder="City" matInput minlength="3" name="City" id="idcity"
+                                        formControlName="City" appFormErrorMsg required>
+                                </mat-form-field>
+                            </div>
+
+                            <div  fxFlex.gt-sm="100"  ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                <mat-form-field appearance="legacy" class="w-100">
+                                    <input type="text" matInput placeholder="State" minlength="3" name="State"
+                                        id="idstate" formControlName="State" appFormErrorMsg required>
+                                </mat-form-field>
+                            </div>
+                           
+                            <div  fxFlex.gt-sm="100"  ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                <mat-form-field appearance="legacy" class="w-100">
+                                    <input type="text" matInput placeholder="Zip" minlength="3" name="Zip" id="idzip"
+                                        formControlName="Zip" appFormErrorMsg required>
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+                        <div fxLayout="column" fxFlex="100" fxFlex.gt-sm="10"></div>
+                        <div fxLayout="column" fxFlex="100" fxFlex.gt-sm="45" class="left">
+                            <div  fxFlex.gt-sm="100"  ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                <mat-form-field appearance="legacy" class="w-100">
+                                    <input type="text" matInput placeholder="Contact Name" minlength="3"
+                                        name="ContactName" id="idcontactName" formControlName="ContactName"
+                                        appFormErrorMsg required>
+                                </mat-form-field>
+                            </div>
+                            <div  fxFlex.gt-sm="100" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                <mat-form-field appearance="legacy" class="w-100">
+                                    <input type="text" matInput placeholder="Phone" name="PhoneNumber" minlength="10"
+                                        id="idphone" formControlName="PhoneNumber" appFormErrorMsg required>
+                                </mat-form-field>
+                            </div>
+                            <div  fxFlex.gt-sm="100"  ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                <mat-form-field appearance="legacy" class="w-100">
+                                    <input type="email" matInput placeholder="Email" name="EmailAdrees" email="true"
+                                        id="idemail" formControlName="EmailAdrees" appFormErrorMsg required>
+                                </mat-form-field>
+                            </div>
+
+                            <div  fxFlex.gt-sm="100"  ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                <mat-form-field appearance="legacy" class="w-100">
+                                    <input type="text" matInput placeholder="Website" name="Website" url="true"
+                                        id="idwebsite" formControlName="Website" appFormErrorMsg required>
+                                </mat-form-field>
+                            </div>
+                            <div  fxFlex.gt-sm="100"  ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                <mat-form-field appearance="legacy" class="w-100">
+                                    <textarea matInput placeholder="Business Desciption" minlength="3"
+                                        name="BusinessDesciption" id="iddescription"
+                                        formControlName="BusinessDesciption" appFormErrorMsg required>  </textarea>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex.gt-sm="100"  ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                <mat-form-field appearance="legacy" class="w-100">
+                                    <mat-select placeholder="How did you hear about us?" name="HearaboutUs"
+                                        id="idhearAbout" formControlName="HearaboutUs" appFormErrorMsg required>
+                                        <mat-option *ngFor="let obj of hearAboutArr" value="{{obj}}">{{obj}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div  fxFlex.gt-sm="100" class="d-flex mb-2 mt-2" ngClass.sm="mt-1"
+                            ngClass.xs="mt-1">
+                            <span>Upload Images:</span><input type="file" class="form-control image"
+                                accept="image/*" (change)="getBase64($event)" multiple="input">
+                        </div>
+                        <div  fxFlex.gt-sm="100" class="mb-2" ngClass.sm="mt-1" ngClass.xs="mt-1"
+                            *ngFor="let name of imageNames">
+                            <span><i class="fa fa-circle circle mr-2" aria-hidden="true"></i></span><span>{{name|
+                                slice:0:90}} <span *ngIf="name.length  >90">...</span></span>
+                            <span><i class="fa fa-close text-warning ml-2" (click)="remove(name)"></i></span>
+                        </div>
+                          
+                        </div>
+                        <div class="button-wrap pb-4 pt-5" fxLayoutAlign="center center" fxFlex="100" fxFlex.gt-sm="100"
+                             ngClass.sm="mt-1" ngClass.xs="mt-1">
+                            <button class="btn-project mb-5" mat-raised-button color="primary" type="submit"
+                                class="w-50" (click)="registerBusiness()">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>

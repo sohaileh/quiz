@@ -1,0 +1,65 @@
+<div
+  class="conatiner-fluid dialog d-flex flex-column w-100 align-items-center h-100"
+>
+  <mat-dialog-content>
+    <div class="d-flex align-items-center mb-3">
+      <h3 class="d-inline text-secondary">Enter Your team Details</h3>
+    </div>
+    <div class="row d-flex flex-column align-items-center w-100 p-2" [formGroup]="confirmTeamForm">
+      <div class="width">
+        <mat-form-field class="w-100">
+          <mat-label>Team name</mat-label>
+          <input
+            matInput
+            type="text"
+            placeholder="Team"
+            name="Team Name"
+            formControlName="teamName"
+            appFormErrorMsg
+            required
+          />
+        </mat-form-field>
+      </div>
+      <div class="width">
+        <mat-form-field class="w-100">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            type="email"
+            placeholder="Email"
+            name="Email"
+            email
+            formControlName="member"
+            appFormErrorMsg
+            required
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="width">
+        <mat-form-field class="w-100">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            type="password"
+            placeholder="Password"
+            name="Password"
+            formControlName="password"
+            appFormErrorMsg
+            required
+            minlength="6"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row m-2 p-2">
+      <div
+        class="row d-flex flex-column justify-content-center align-items-center w-100"
+      >
+        <!-- <mat-checkbox>ready</mat-checkbox> -->
+        <button class="btn btn-info" (click)="confirmTeamPassword()">Start Quiz</button>
+      </div>
+    </div>
+  </mat-dialog-content>
+</div>

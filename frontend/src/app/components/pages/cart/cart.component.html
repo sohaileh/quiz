@@ -1,0 +1,119 @@
+<div class="container">
+ <mat-stepper class="mt-20"  #stepper>
+    <mat-step >
+      <!-- [editable]="false " -->
+      <ng-template matStepLabel>View Cart</ng-template>
+      <ng-template matStepContent>
+       <app-view-cart></app-view-cart>
+      
+        <button mat-button matStepperNext>Next Step</button>
+      </ng-template>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Billing Address</ng-template>
+      <ng-template matStepContent>
+       <app-checkout></app-checkout>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </ng-template>
+    </mat-step>
+    <mat-step [stepControl]="firstFormGroup">
+      <ng-template matStepLabel>Shipping Address</ng-template>
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Fill out your name</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>Name</mat-label>
+          <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+        </mat-form-field>
+      
+      </form>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext>Next</button>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Shipping Details
+           
+        </ng-template>
+        <ng-template matStepContent>
+          <form class="example-form mt-5" style="margin-top: 10px;" >
+              <mat-form-field appearance="fill" style="width:50%">
+                <mat-label>Favorite food</mat-label>
+                <input matInput placeholder="Ex. Pizza" value="Sushi">
+              </mat-form-field>
+              <mat-form-field appearance="fill"  style="width:50%">
+                  <mat-label>Favorite food</mat-label>
+                  <input matInput placeholder="Ex. Pizza" value="Sushi">
+                </mat-form-field>
+                <mat-form-field appearance="fill" style="width:50%">
+                  <mat-label>Favorite food</mat-label>
+                  <input matInput placeholder="Ex. Pizza" value="Sushi">
+                </mat-form-field>
+                <mat-form-field appearance="fill"  style="width:50%">
+                    <mat-label>Favorite food</mat-label>
+                    <input matInput placeholder="Ex. Pizza" value="Sushi">
+                  </mat-form-field>
+             
+            </form>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </ng-template>
+   
+       
+      </mat-step>
+      <mat-step>
+       <ng-template matStepLabel>Payment Information
+          
+       </ng-template>
+       <p>This content was rendered eagerly</p>
+       <button mat-button matStepperPrevious>Back</button>
+       <button mat-button matStepperNext>Next</button>
+     </mat-step>
+     <mat-step>
+       <ng-template matStepLabel>Order Confirmation
+          
+       </ng-template>
+       <p>This content was rendered eagerly</p>
+       <button mat-button matStepperPrevious>Back</button>
+       <button mat-button matStepperNext>Next</button>
+       <button mat-button (click)="stepper.reset()">Reset</button>
+     </mat-step>
+  </mat-stepper> 
+ <!-- <mat-tab-group mat-stretch-tabs>
+    <mat-tab label="View Cart">
+      <app-view-cart></app-view-cart>
+    </mat-tab>
+    <mat-tab label="Billing Address">
+      <app-checkout></app-checkout>
+    </mat-tab>
+    <mat-tab label="Shipping Address">
+      <app-checkout></app-checkout>
+    </mat-tab>
+    <mat-tab label=" Shipping Details">
+      <form class="example-form mt-5" style="margin-top: 10px;" >
+        <mat-form-field appearance="fill" style="width:50%">
+          <mat-label>Favorite food</mat-label>
+          <input matInput placeholder="Ex. Pizza" value="Sushi">
+        </mat-form-field>
+        <mat-form-field appearance="fill"  style="width:50%">
+            <mat-label>Favorite food</mat-label>
+            <input matInput placeholder="Ex. Pizza" value="Sushi">
+          </mat-form-field>
+          <mat-form-field appearance="fill" style="width:50%">
+            <mat-label>Favorite food</mat-label>
+            <input matInput placeholder="Ex. Pizza" value="Sushi">
+          </mat-form-field>
+          <mat-form-field appearance="fill"  style="width:50%">
+              <mat-label>Favorite food</mat-label>
+              <input matInput placeholder="Ex. Pizza" value="Sushi">
+            </mat-form-field>
+       
+      </form>
+    </mat-tab>
+    <mat-tab label="Payment Information">
+      <app-checkout></app-checkout>
+    </mat-tab>
+    <mat-tab label="Order Confirmation">
+      <app-checkout></app-checkout>
+    </mat-tab>
+</mat-tab-group> -->
+</div>

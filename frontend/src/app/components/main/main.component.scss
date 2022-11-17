@@ -1,0 +1,65 @@
+.welcome-message {
+    color: white !important;
+    width: 100%;
+}
+
+.widgets-left {
+    color: rgb(210, 208, 208) !important;
+    font-size: 12px !important;
+}
+
+.welcome {
+    margin-left: 1060px;
+}
+
+.registration-label {
+    margin-left: 6px;
+    cursor: pointer;
+}
+
+mat-toolbar {
+    min-height: 20px !important;
+    height: 32px !important;
+}
+
+p:focus {
+    text-decoration: underline;
+    font-weight: bolder;
+}
+
+@media (max-width:600px) {
+    .welcome {
+        margin-left: 6px !important;
+        margin-top: -20px;
+    }
+
+    .welcome-message {
+        display: block !important;
+        margin-top: 30px;
+    }
+
+    mat-toolbar {
+        height: 62px !important;
+    }
+}
+
+@media (max-width: 1250px) and (min-width: 600px) {
+    .welcome-message {
+        display: flex !important;
+        margin-top: 5px
+    }
+
+    .welcome {
+        margin-left: auto !important;
+    }
+}
+
+@media (max-width: 960px) and (min-width: 600px) {
+    span {
+        margin-bottom: 25px;
+    }
+
+    .welcome-message {
+        margin-bottom: 10px;
+    }
+}

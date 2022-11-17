@@ -1,0 +1,62 @@
+
+<div class="left-sidebar-wrapper sec-padding">
+    <div class="container">
+        <div class="sidebar-wrapper" fxLayout='row' fxLayout.lt-md="column">
+         <left-sidebar (categoryEvent)="getCategory($event)"></left-sidebar>
+
+         
+         <div fxFlex="75" fxFlex.lt-sm="100" class="all-products" ngClass.gt-sm="p-left">
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" 
+                class="filter-row mat-elevation-z1 text-muted">
+                <!-- <button *ngIf="!sidenavOpen" mat-icon-button (click)="sidenav.toggle()" fxHide.lt-md="true">
+                    <mat-icon>more_vert</mat-icon>
+                </button> -->
+                <div fxHide.lt-md="true">
+                    <select (change)="onChangeSorting($event.target.value)">
+                        <option value="asc">Sorting items</option>
+                        <option value="asc">Ascending Order</option>
+                        <option value="desc">Descending Order</option>
+                        <option value="a-z">Alphabetically, A-Z</option>
+                        <option value="z-a">Alphabetically, Z-A</option>
+                        <option value="low">Price, low to high</option>
+                        <option value="high">Price, high to low</option>
+                    </select>
+
+                </div>
+                <h4 class="items" *ngIf="ActiveTask=='Featured'">Featured Items Found</h4>
+                <h4 class="items" *ngIf="ActiveTask=='Category'">Items Found ({{totalRecords}})</h4>
+                <div>
+
+                    <button mat-icon-button (click)="changeViewType('list', 100)" fxHide.lt-md="true">
+                        <mat-icon>view_list</mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="changeViewType('list', 33.3)" fxHide.lt-md="true">
+                        <mat-icon>view_module</mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="changeViewType('list', 25)" fxHide.lt-md="true">
+                        <mat-icon>view_comfy</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <div fxLayout="row wrap" class="products-wrapper">
+                <div *ngFor="let products of featuredItems | orderBy:sortByOrder | paginate: { itemsPerPage: 12, currentPage: page, totalItems: totalItems  }"
+                    fxFlex="100" [fxFlex.gt-sm]="viewCol" fxFlex.sm="50" class="col">
+                    <div class="product-box">
+                        <app-product [product]="products"></app-product>
+                    </div>
+                </div>
+            </div>
+
+            <div fxLayout="row wrap ">
+                <div fxFlex="100">
+                    <mat-card class="p-0 text-center no-shadow">
+                        <pagination-controls class="product-pagination" (pageChange)="onPageChanged($event)">
+                        </pagination-controls>
+                    </mat-card>
+                </div>
+            </div>
+
+        </div>
+         </div>
+         </div>
+         </div>

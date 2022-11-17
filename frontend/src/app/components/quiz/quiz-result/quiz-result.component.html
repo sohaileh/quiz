@@ -1,0 +1,55 @@
+<div class="my-account sec-padding d-flex flex-column align-items-center h-100">
+  <div class="d-flex flex-column align-items-center badge badge-info custom">
+    <div class="row mt-4 w-100 row-1">
+      <div class="col-12 col-md-6 col-lg-3 mb-2">
+        <div
+          class="d-flex flex-column flex-sm-row flex-md-column flex-xl-row justify-content-center align-items-center badge badge-light text-info rounded p-3"
+        >
+          <span><mat-icon>assignment_late</mat-icon></span>
+          <span>Total Questions:{{ result[0]?.totalQuestions }} </span>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3 mb-2">
+        <div
+          class="d-flex flex-column flex-sm-row flex-md-column flex-xl-row justify-content-center align-items-center badge badge-light text-info rounded p-3"
+        >
+          <span> <mat-icon>check_circle_outline</mat-icon> </span>
+          <span>Correct answers:{{ result[0]?.totalCorrectAnswers }} </span>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3 mb-2">
+        <div
+          class="d-flex flex-column flex-sm-row flex-md-column flex-xl-row justify-content-center align-items-center badge badge-light text-info rounded p-3"
+        >
+          <span><mat-icon>highlight_off</mat-icon></span>
+          <span>Incorrect answers:{{ incorrectanswers }} </span>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3">
+        <div
+          class="d-flex flex-column flex-sm-row flex-md-column flex-xl-row justify-content-center align-items-center badge badge-light text-info rounded p-3"
+        >
+          <span> <mat-icon>assignment</mat-icon> </span>
+          <span
+            >Marks: {{ result[0]?.score }}/ {{ result[0]?.totalMarks }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="row w-100 d-flex justify-content-center row-2 flex-column min-width"
+    >
+      <div class="mb-4">
+        <p class="text-light percentage-content">
+          Score:{{ percentage | number: "1.2-2" }}%
+        </p>
+      </div>
+      <div>
+        <h4 class="text-light" [routerLink]="['/quiz/my-quizzes']">
+          See All of your Results
+        </h4>
+      </div>
+    </div>
+  </div>
+</div>

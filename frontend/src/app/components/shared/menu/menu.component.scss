@@ -1,0 +1,19 @@
+.icon,
+#icon {
+    margin-right: 5px;
+}
+
+a {
+    padding-left: 7px !important;
+    color: grey !important
+}
+
+.active:focus,.other:focus{
+    text-decoration: underline !important;
+    font-weight: bolder !important;
+    background: rgb(207, 205, 205) !important;
+    outline: none;
+}
+.activ{
+    background-color: aqua;
+}
