@@ -16,6 +16,7 @@ import { UserModelDto } from './dto/user.dto';
 @UseFilters(FormExceptionFilter)
 @Controller('auth')
 export class AuthController {
+  
   constructor(private readonly authService: AuthService) {}
   @Post('login')
   async login(@Body() body: AuthDto, @Res() res: any) {
