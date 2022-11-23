@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "kashmir-search": {
+    "Quiz": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/kashmir-search",
+            "outputPath": "dist/Quiz",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -71,18 +71,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "kashmir-search:build"
+            "browserTarget": "Quiz:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "kashmir-search:build:production"
+              "browserTarget": "Quiz:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "kashmir-search:build"
+            "browserTarget": "Quiz:build"
           }
         },
         "test": {
@@ -113,7 +113,7 @@
         }
       }
     },
-    "kashmir-search-e2e": {
+    "Quiz-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -122,18 +122,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "kashmir-search:serve"
+            "devServerTarget": "Quiz:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "kashmir-search:serve:production"
+              "devServerTarget": "Quiz:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "kashmir-search",
+  "defaultProject": "Quiz",
   "cli": {
     "analytics": false,
     "defaultCollection": "@angular-eslint/schematics"

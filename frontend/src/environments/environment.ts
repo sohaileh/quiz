@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   serverURL:'http://localhost:3000/',
   // serverURL:'http://192.168.43.118:3000/',
-  apiUrl:"http://test.kashmirsearch.com/api/"
+  apiUrl:"http://test.quiz.com/api/"
 };
 
 /*
