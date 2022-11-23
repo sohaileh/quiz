@@ -9,7 +9,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 })
 export class AppComponent {
 
-  title = 'kashmir-search';
+  title = 'Quiz';
 
   constructor(private spinner: NgxSpinnerService) {}
 

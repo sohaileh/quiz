@@ -10,22 +10,5 @@ export class FooterService {
 
   constructor(private http:HttpClient) { }
 
-  // /api/Settings/FetchForBaseUrl
 
-  FetchForBaseUrl(baseUrl: any) {
-    let params = new HttpParams().set('baseUrl', baseUrl);
-    return this.http.get(`${this.apiUrl}Settings/FetchForBaseUrl`, { params: params })
-  }
-  fetchFooterAddress(siteID: any) {
-    return this.http.get(`${this.apiUrl}Home/FetchFotterAddress?siteID=${siteID}`)
-  }
-  fetchFooter(siteID: any) {
-    return this.http.get(`${this.apiUrl}Home/FetchFotter?siteID=${siteID}`)
-  }
-  FetchExternalLinks(siteID: any) {
-    return this.http.get(`${this.apiUrl}Home/FetchExternalLinks?siteID=${siteID}`)
-  }
-  FetchForCopyright(siteID: any){
-    return this.http.get(`${this.apiUrl}Home/FetchForCopyright?siteID=${siteID}`)
-  }
 }

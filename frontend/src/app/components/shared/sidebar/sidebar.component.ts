@@ -3,7 +3,6 @@ import { SidebarMenuService } from './sidebar-menu.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { SidenavMenu } from './sidebar-menu.model';
 import { Router } from '@angular/router';
-import { HomePageService } from '../../shop/services/home-page.service';
 import { CommonService } from '../services/common.service';
 
 
@@ -30,7 +29,7 @@ export class SidebarComponent implements OnInit {
   @Input() depth: number;
 
   constructor(private sidenavMenuService: SidebarMenuService, public router: Router,
-    private homePageService: HomePageService,private commonservice: CommonService) {
+  private commonservice: CommonService) {
     // console.log("item:",this.item)
     if (this.depth === undefined) {
       this.depth = 0;
@@ -110,43 +109,4 @@ export class SidebarComponent implements OnInit {
      
      this.commonservice.setHome(homeObj)
    }
-
-
-
-
-
-
-
-  FetchSections() {
-    this.homePageService.FetchSections(this.site).subscribe({
-      next: (response: any) => {
-        if (response.statusCode == 200) {
-          this.sectionDetails = []
-          this.sectionDetails = response.data
-          // console.log(this.sectionDetails)
-        } else {
-          // alert(response.message)
-          // Swal.fire({
-          //   icon: 'error',
-          //   title: 'Oops...',
-          //   text: response.message,
-          //   timer: 1500
-          // })
-        }
-      },
-      complete: () => {
-        // console.log("complete block")
-      },
-      error: (err: any) => {
-        console.log(err)
-        // Swal.fire({
-        //   icon: 'error',
-        //   title: 'Oops...',
-        //   text: "Something Went Wrong",
-        //   timer: 1500
-        // })
-      }
-    })
-  }
-
 }
