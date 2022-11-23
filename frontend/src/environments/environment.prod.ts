@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
   
-  apiUrl: "http://test.kashmirsearch.com/api/"
+  apiUrl: "http://test.quiz.com/api/"
 };

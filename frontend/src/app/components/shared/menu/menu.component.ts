@@ -1,8 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/services/auth.service';
-import { ProductLeftSidebarComponent } from '../../shop/products/product-left-sidebar/product-left-sidebar.component';
-import { HomePageService } from '../../shop/services/home-page.service';
 import { CommonService } from '../services/common.service';
 
 
@@ -17,14 +15,13 @@ export class MenuComponent implements OnInit {
   userRole:any;
   myQuiz=false
 
-  @ViewChild(ProductLeftSidebarComponent, { read: true, static: true }) private MenuItem: ProductLeftSidebarComponent
-  constructor(private homePageService: HomePageService, private commonservice: CommonService,
+  
+  constructor( private commonservice: CommonService,
     private authService:AuthService,
     private router: Router) {
   }
 
   ngOnInit() {
-    this.FetchSections()
     this.authService.userDetails.subscribe((response:any)=>{
         this.userRole= localStorage.getItem('userRole')
         console.log('userRole',this.userRole)
@@ -47,27 +44,6 @@ export class MenuComponent implements OnInit {
         }
       }
     });
-  }
-  FetchSections() {
-    this.homePageService.FetchSections(this.siteID).subscribe({
-      next: (response: any) => {
-        if (response.statusCode == 200) {
-          this.sectionDetails = response.data
-        } else {
-          // alert(response.message)
-          // Swal.fire({
-          //   icon: 'error',
-          //   title: 'Oops...',
-          //   text: response.message,
-          //   timer: 1500
-          // })
-        }
-      },
-      complete: () => {
-      },
-      error: (err: any) => {
-      }
-    })
   }
   getHome() {
     var details = true

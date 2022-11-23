@@ -6,7 +6,6 @@ import {CartService} from "../shared/services/cart.service";
 import { Router, NavigationEnd } from '@angular/router';
 import { SidebarMenuService } from '../shared/sidebar/sidebar-menu.service';
 import { SidenavMenu } from '../shared/sidebar/sidebar-menu.model';
-import { HomePageService } from '../shop/services/home-page.service';
 import { AuthService } from '../auth/services/auth.service';
 import { element } from 'protractor';
 
@@ -118,11 +117,11 @@ sidenav:SidenavMenu[]=[{
     // },
    
   ];
-  baseURL: any = "kashmirsearch.com"
+  baseURL: any = "Quiz.com"
   headerDetails: any = []
   site: Number = 57
   constructor(private authService:AuthService, public router: Router, private cartService: CartService,
-     public sidenavMenuService:SidebarMenuService,private homePageService:HomePageService) {
+     public sidenavMenuService:SidebarMenuService,) {
     this.cartService.getItems().subscribe(shoppingCartItems => this.shoppingCartItems = shoppingCartItems);
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -135,7 +134,7 @@ sidenav:SidenavMenu[]=[{
   }
 
   ngOnInit() {
-    this. FetchForBaseUrl();
+    
     this.currency = this.currencies[0];
     this.flag = this.flags[0];
 
@@ -176,35 +175,4 @@ sidenav:SidenavMenu[]=[{
   public changeLang(flag){
     this.flag = flag;
   }
-  FetchForBaseUrl() {
-    this.homePageService.FetchForBaseUrl(this.baseURL).subscribe({
-      next: (response: any) => {
-        if (response.statusCode == 200) {
-          this.headerDetails = response.data
-          this.site = this.headerDetails[0]?.site
-          localStorage.setItem('siteId', response.data[0].site)
-          localStorage.setItem('siteCatalog', response.data[0].siteCatalog)
-        } else {
-          // Swal.fire({
-          //   icon: 'error',
-          //   title: 'Oops...',
-          //   text: response.message,
-          //   timer: 1500
-          // })
-        }
-      },
-      complete: () => {
-      
-      },
-      error: (err: any) => {
-        // Swal.fire({
-        //   icon: 'error',
-        //   title: 'Oops...',
-        //   text: "Something Went Wrong",
-        //   timer: 1500
-        // })
-      }
-    })
-  }
-
 }
