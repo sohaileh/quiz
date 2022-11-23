@@ -7,8 +7,8 @@ import { UserModelDto } from 'src/auth/dto/user.dto';
 import { Equals, equals } from 'class-validator';
 @Injectable()
 export class OrganizeService {
-  public order=0;
-  public teamIndex=0;
+  public order = 0;
+  public teamIndex = 0;
   constructor(
     @InjectModel('Organizes')
     private readonly organizeModel: Model<OrganizeModelDto>,
@@ -18,6 +18,15 @@ export class OrganizeService {
 
   async registerTeams(teams) {
     try {
+      let organizerId;
+      if (teams.teamsDetail[0].organizationName) {
+        organizerId = await this.userModel.findOne(
+          { organization: teams.teamsDetail[0].organizationName },
+          { _id: 1 },
+        );
+        teams.organizerId = organizerId._id;
+      }
+
       teams.teamsDetail.forEach((team) => {
         team.password = Math.floor(100000 + Math.random() * 900000);
       });
@@ -173,112 +182,88 @@ export class OrganizeService {
 
   async getTotalTeamsInQuiz({ quizId, organizedQuizId, teamId }) {
     this.order++;
-    const teams:any={}
-    teams.teamId=teamId
-     teams.order=this.order
-     
+    const teams: any = {};
+    teams.teamId = teamId;
+    teams.order = this.order;
+
     try {
-      const { teamsParticipated,teamsDetail } = await this.organizeModel.findOneAndUpdate(
-        {
-          _id: organizedQuizId,
-          quizId: quizId,
-        },
+      const { teamsParticipated, teamsDetail } =
+        await this.organizeModel.findOneAndUpdate(
+          {
+            _id: organizedQuizId,
+            quizId: quizId,
+          },
 
+          {
+            $push: {
+              teamsParticipated: teams,
+              // {
+              //   "teamId":teamId,
+              //  "order":this.order
 
+              // }
+            },
+          },
 
-         {$push:{
-          teamsParticipated:teams
-          // {
-          //   "teamId":teamId,
-          //  "order":this.order
-            
-          // }
-          }
-        }
-        
-      
-    
-    
+          //   {
+          //     teamsParticipated: { $nin :[teamId] },
 
-        
-      //   {
-      //     teamsParticipated: { $nin :[teamId] },
-        
-      //  $push: { teamsParticipated:teamId } ,
-            
-        
-      //   },
-      
-      );
-    
-      
-      return teamsDetail.length
+          //  $push: { teamsParticipated:teamId } ,
+
+          //   },
+        );
+
+      return teamsDetail.length;
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
   }
 
+  async teamToPlayQuiz(teamData: any) {
+    let selectedTeam: any = {};
+    const { organizedQuizId, quizId } = teamData;
 
-  
+    try {
+      const team = await this.organizeModel.findOne({ teamData });
 
-  async  teamToPlayQuiz(teamData:any)
-  {
-    let selectedTeam:any={}
-    const {organizedQuizId,quizId}=teamData
+      const teamDetail = team.teamsParticipated;
+      return teamDetail;
 
-    try{
-      const team=await this.organizeModel.findOne({teamData})
+      // array.find(function(currentValue, index, arr),thisValue)
 
-const teamDetail=team.teamsParticipated
-return teamDetail
+      // function selectTeam(team)
+      // {
+      //   if(team.play == false)
+      //   {
+      //      return team
+      //   }
+      //   else{
+      //     return null
+      //   }
+      // }
+      // selectedTeam=teamDetail.find((team)=>team.play == false)
 
-// array.find(function(currentValue, index, arr),thisValue)
+      // selectedTeam.play=true
+      // console.log(selectedTeam)
 
-// function selectTeam(team)
-// {
-//   if(team.play == false)
-//   {
-//      return team
-//   }
-//   else{
-//     return null
-//   }
-// }
-// selectedTeam=teamDetail.find((team)=>team.play == false)
+      // console.log(selectedTeam)
 
+      //   if(element.play === false)
 
-// selectedTeam.play=true
-// console.log(selectedTeam)
+      //     element.play=true;
+      // selectedTeam.play=element.play
+      // selectedTeam.teamId=element.teamId
 
+      // return
 
-// console.log(selectedTeam)
-  
-//   if(element.play === false)
-  
+      // const teamId=selectedTeam.teamId
+      // console.log("exit loop",teamId)
 
-//     element.play=true;
-// selectedTeam.play=element.play
-// selectedTeam.teamId=element.teamId 
+      //  const {teamsParticipated}=await this.organizeModel.findOneAndUpdate({_id:organizedQuizId,quizId:quizId,teamsParticipated:{$elemMatch:{teamId:`${teamId}`},},},{$set:{"teamsParticipated.$.play":true}},);
 
-    // return
-  
-
- 
-// const teamId=selectedTeam.teamId
-// console.log("exit loop",teamId)
-
-//  const {teamsParticipated}=await this.organizeModel.findOneAndUpdate({_id:organizedQuizId,quizId:quizId,teamsParticipated:{$elemMatch:{teamId:`${teamId}`},},},{$set:{"teamsParticipated.$.play":true}},);
- 
-//   return teamDetail
-
+      //   return teamDetail
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
-
-
-    
-    catch(err)
-    {
-        throw new HttpException(err,HttpStatus.BAD_REQUEST)
-    }
-  
   }
 }

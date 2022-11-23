@@ -4,6 +4,7 @@ import {
   IsEmail,
   MinLength,
   IsAlpha,
+  IsEmpty,
 } from 'class-validator';
 
 export class UserModelDto {
@@ -35,4 +36,7 @@ export class UserModelDto {
  @IsString()
  @IsNotEmpty()
   public role: string;
+
+  @IsEmpty()
+  public quizzesPlayed:[]
 }

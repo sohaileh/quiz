@@ -29,6 +29,7 @@ export class MainDashboardComponent implements OnInit {
   pageSlice: any = [];
   ItemsPerPage: any = 3;
   handleDescriptionView: boolean = false;
+  alreadyPlayed:any[]=[]
 
   constructor(
     private authService: AuthService,
@@ -71,6 +72,7 @@ export class MainDashboardComponent implements OnInit {
     );
 
     this.getQuizzes();
+    this.QuizzesPlayedByUser()
   }
 
   getQuizzes() {
@@ -90,13 +92,15 @@ export class MainDashboardComponent implements OnInit {
     this.homeService.checkIfPlayed(quiz).subscribe(
       (res: any) => {
         const played = res;
+
         if (!played) {
+          // this.alreadyPlayed=false
           this.dialog.open(QuizInfoComponent, {
             data: quiz,
             autoFocus: false,
           });
         } else {
-          Swal.fire("You cannot play quiz Twice");
+          // this.alreadyPlayed=true
         }
       },
 
@@ -106,7 +110,7 @@ export class MainDashboardComponent implements OnInit {
   }
 
   onPageChange(event: PageEvent) {
-    console.log(event);
+    console.log('page---->',event);
     const startIndex = event.pageIndex * event.pageSize;
     let endIndex = startIndex + event.pageSize;
     if (endIndex > this.quizDetails.length) {
@@ -139,6 +143,18 @@ export class MainDashboardComponent implements OnInit {
   organizeQuiz(quizId) {
     console.log("quizid ", quizId);
     this.router.navigate([`/quiz/organize-quiz/${quizId}`]);
+  }
+
+  QuizzesPlayedByUser(){
+    const user = {userId:localStorage.getItem('userId')}
+    this.homeService.QuizzesPlayedByUser(user).subscribe({
+      next:(response:any)=>{
+        this.alreadyPlayed= response.map(quiz=> quiz.quizId)
+        console.log('quizzesplayed',this.alreadyPlayed)
+      },
+      error: (error)=>{},
+      complete:()=>{}
+    })
   }
 
   ngOnDestroy() {

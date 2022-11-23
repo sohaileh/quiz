@@ -77,10 +77,10 @@ export class AuthService {
     }
   }
 
-  async getUerQuizDetails(user) {
+  async getUserQuizDetails(user) {
     const { userId } = user;
 
-    const userQuizDetails = this.userModelDto.aggregate([]);
+    const userQuizDetails = await this.userModelDto.aggregate([]);
 
     return userQuizDetails;
   }

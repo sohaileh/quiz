@@ -155,10 +155,17 @@ export class QuizService {
     }
   }
 
-  async getOrganizationUsers(organizerId) {
+  async getOrganizationUsers(organizationDetails) {
     try {
+      if (organizationDetails.organizationName) {
+        const organizationUsersEmails = await this.userModel.find(
+          { organization: organizationDetails.organizationName, role: 'user' },
+          { emailAddress: 1, _id: 0 },
+        );
+        return organizationUsersEmails;
+      }
       const organizer = await this.userModel.findOne({
-        _id: organizerId,
+        _id: organizationDetails.organizerId,
         role: { $in: ['organizer', 'admin'] },
       });
 
@@ -184,11 +191,24 @@ export class QuizService {
   async enterQuiz(organizedQuizDetails) {
     try {
       const { teamId, quizId, organizedQuizId } = organizedQuizDetails;
-      const {teamsParticipated} = await this.organizeModel.findOne(
-        { _id: organizedQuizId },
-       
+      const { teamsParticipated } = await this.organizeModel.findOne({
+        _id: organizedQuizId,
+      });
+      return teamsParticipated.length;
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async QuizzesPlayedByUser(user: any) {
+    try {
+      const { userId } = user;
+      const { quizzesPlayed } = await this.userModel.findOne(
+        { _id: userId },
+        { 'quizzesPlayed.quizId': 1, _id: 0 },
       );
-      return  teamsParticipated.length;
+
+      return quizzesPlayed;
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }

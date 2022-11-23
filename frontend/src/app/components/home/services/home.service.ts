@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { HttpClient } from "@angular/common/http";
+import { map } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -19,5 +20,10 @@ export class HomeService {
     this.user.userId = localStorage.getItem("userId");
     this.user.quizId = quiz._id;
     return this.http.post(`${this.serverUrl}quiz/check-if-played`, this.user);
+  }
+
+  QuizzesPlayedByUser(user){
+  return  this.http.post(`${this.serverUrl}quiz/quizzes-Played`,user)
+  
   }
 }

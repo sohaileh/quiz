@@ -17,7 +17,6 @@ import { AdminService } from "../services/admin.service";
   styleUrls: ["./add-quiz.component.scss"],
 })
 export class AddQuizComponent implements OnInit {
-  // url:string=''
   UploadFile: any;
   questions: any = [];
   quizInfo: boolean = false;
@@ -26,7 +25,7 @@ export class AddQuizComponent implements OnInit {
   questionNo: number = 1;
   quizData: any = {};
   questionBank: any = [];
-  // image:any
+
   enableRegisterButon: boolean = false;
   quizDetails: any = {};
   quizId: any;

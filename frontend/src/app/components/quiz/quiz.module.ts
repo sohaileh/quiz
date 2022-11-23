@@ -63,6 +63,7 @@ import { DirectivesModule } from "src/app/Directives/directives.module";
     MatInputModule,
     MatSelectModule,
     DirectivesModule,
+  
   ],
   providers: [{ provide: MAT_DIALOG_DATA, useValue: {} }],
 })

@@ -108,9 +108,9 @@ export class QuizController {
   @Post('get-organization-users')
   async getOrganizationUsers(@Body() body: any, @Res() res: any) {
     try {
-      const { organizerId } = body;
+      
       const organizationUsers = await this.quizService.getOrganizationUsers(
-        organizerId,
+        body
       );
       res.status(200).json(organizationUsers);
     } catch (err) {
@@ -128,4 +128,17 @@ export class QuizController {
 
     }
   }
+
+  @Post('quizzes-Played')
+ 
+    async QuizzesPlayedByUser(@Body() body:any,@Res() res:any){
+      try{
+      const quizzesPlayed = await this.quizService.QuizzesPlayedByUser(body)
+      res.status(HttpStatus.OK).json(quizzesPlayed)
+    }catch(err){
+      throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+
+    }
+  }
+  
 }

@@ -89,13 +89,14 @@
                   quiz.reward
                 }}</span>
               </p>
+              <p class="badge badge-danger mt-2 pt-2 pb-2" *ngIf="alreadyPlayed.includes(quiz._id)">You have Already Played This quiz</p>
             </div>
           </mat-card-content>
           <mat-card-actions>
             <button
               class="btn btn-outline-info"
               (click)="playQuiz(quiz)"
-              *ngIf="userRole !== 'admin' && userRole !== 'organizer'"
+              *ngIf="userRole !== 'admin' && userRole !== 'organizer' && !alreadyPlayed.includes(quiz._id)"
             >
               Play Quiz
             </button>
