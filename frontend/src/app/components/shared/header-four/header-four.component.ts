@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Product } from 'src/app/modals/product.model';
 import { CartItem } from 'src/app/modals/cart-item';
 import { CartService } from '../services/cart.service';
-import { ProductLeftSidebarComponent } from '../../shop/products/product-left-sidebar/product-left-sidebar.component';
 
 @Component({
   selector: 'app-header-four',

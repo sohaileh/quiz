@@ -10,8 +10,9 @@ import { MatDividerModule } from "@angular/material/divider";
 import { MatIconModule } from "@angular/material/icon";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatDialogModule } from "@angular/material/dialog";
+import { HomePageComponent } from './home-page/home-page.component';
 @NgModule({
-  declarations: [MainDashboardComponent, MainCarouselComponent],
+  declarations: [MainDashboardComponent, MainCarouselComponent, HomePageComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,

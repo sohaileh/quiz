@@ -3,12 +3,10 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DemoComponent } from './components/demo/demo.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { HttpClientModule, HttpRequest ,HTTP_INTERCEPTORS} from '@angular/common/http';
 import { MainComponent } from './components/main/main.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ShopModule } from './components/shop/shop.module';
 import { SharedModule } from './components/shared/shared.module';
 import { BlockUIModule } from 'ng-block-ui';
 import { BlockUIHttpModule} from 'ng-block-ui/http';
@@ -20,7 +18,7 @@ import { HomeModule } from './components/home/home.module';
 import { ErrorPageComponent } from './components/pages/error-page/error-page.component';
 // import { CanActivateGuard } from './guards/can-activate.guard';
 // import { CanDeactivateGuard } from './guards/can-deactivate.guard';
-import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { AuthInterceptor } from './components/auth/interceptors/auth.interceptor';
 // import { FormErrorMsgDirective } from 'src/app/Directives/formErrorMsg/form-error-msg.directive';
 import {ToastrModule} from 'ngx-toastr'
 
@@ -28,9 +26,8 @@ import {ToastrModule} from 'ngx-toastr'
 @NgModule({
   declarations: [
     AppComponent,
-    DemoComponent,
     MainComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
     // FormErrorMsgDirective
     
   ],
@@ -39,7 +36,6 @@ import {ToastrModule} from 'ngx-toastr'
     AdminModule,
     NgxSpinnerModule,
     SharedModule,
-    ShopModule,
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,

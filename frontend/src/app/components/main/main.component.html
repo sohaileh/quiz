@@ -8,33 +8,8 @@
             <app-sidebar *ngFor="let item of sidenav" [item]="item"></app-sidebar>
         </div>
     </mat-sidenav>
-    <mat-toolbar  *ngIf="router.url != '/pages/error'" class="main-topbar" [ngClass]="{topbar_four: url == '/home/four'}">
-        <mat-toolbar-row  fxLayout="row" fxLayoutAlign="space-between center" class="top-bar container" >
-                <span fxHide="false" fxHide.gt-sm   >
-                    <button mat-icon-button (click)="start.toggle()">
-                        <mat-icon>menu</mat-icon>
-                    </button>
-                 </span>
-              <div tabindex="1" fxLayout="row" class="welcome-message">
-                <p class="fs-3 registration-label" routerLink="/auth/register">Register</p>
-                <p class="welcome"> Welcome {{firstName ? firstName:"Guest"}}</p>
-              </div>
-        </mat-toolbar-row>
-
-      </mat-toolbar>
-
-  <!-- <app-header *ngIf="url == '/home/one' || url == '/home/three' && url != '/home/dashboard' && url != '/home/four' || router.url.includes('pages') || router.url.includes('products') || router.url.includes('blog') || router.url.includes('product')"></app-header>
-  <app-header-two *ngIf="url == '/home/dashboard' || url == '/home/featuredItems' || router.url.includes('details') "></app-header-two>
-  <app-header-three *ngIf="url == '/home/four' || url == '/home/four'"></app-header-three>
-  <app-header-four *ngIf="url == '/home/five' || url == '/home/five'"></app-header-four> -->
-  <!-- <app-header *ngIf="url == '/home/one' || url == '/home/three' && url != '/home/dashboard' && url != '/home/four' || router.url.includes('pages') || router.url.includes('products') || router.url.includes('blog') || router.url.includes('product')"></app-header> -->
-  <app-header-two  *ngIf="router.url != '/pages/error'" ></app-header-two>
-  <!-- <app-header-three *ngIf="url == '/home/four' || url == '/home/four'"></app-header-three>
-  <app-header-four *ngIf="url == '/home/five' || url == '/home/five'"></app-header-four> -->
+   <app-header-two  *ngIf="router.url != '/pages/error'" ></app-header-two>
   <router-outlet></router-outlet>
-
-  <!-- <app-footer *ngIf="url != '/home/five'"></app-footer> -->
-  <app-footer *ngIf="router.url != '/pages/error'"></app-footer>
+  <app-footer *ngIf="router.url != '/pages/error' && url != '/auth/login' && url != '/home/home-page' "></app-footer>
   <app-footer-two *ngIf="url == '/home/five'"></app-footer-two>
-
 </mat-sidenav-container>
