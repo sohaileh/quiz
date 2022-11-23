@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { validateAllFormFields } from "src/app/utils/validateform";
 // import { HomePageService } from '../../shop/services/home-page.service';
@@ -16,11 +16,13 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   hide: Boolean = true;
   authModel: any;
+  @ViewChild('container', { static: false }) public container;
   constructor(
     public router: Router,
     private loaderService: LoaderService,
-    private readonly authService: AuthService
-  ) {}
+    private readonly authService: AuthService,
+    private renderer: Renderer2
+  ) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -31,9 +33,12 @@ export class LoginComponent implements OnInit {
       password: new FormControl(null, []),
     });
   }
-  login() {
+  signinup(btn: any, container: any) {
+    const action = btn.innerText == "SIGN UP" ? 'addClass' : 'removeClass';
+    action == "removeClass" ? this.renderer.removeClass(container, 'sign-up-mode') : this.renderer.addClass(container, 'sign-up-mode');
+  }
+  onSubmitLogin() {
     validateAllFormFields(this.loginForm);
-
     this.loaderService.showLoader();
     if (!this.loginForm.valid) {
       return;
@@ -46,7 +51,6 @@ export class LoginComponent implements OnInit {
             localStorage.setItem("userId", response.user._id);
             console.log("userId", response);
             this.loginForm.reset();
-
             this.router.navigate(["/home/dashboard"]);
           } else {
             this.loginForm.reset();

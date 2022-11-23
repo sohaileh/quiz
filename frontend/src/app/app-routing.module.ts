@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import { MainComponent } from './components/main/main.component';
-import { DemoComponent } from './components/demo/demo.component';
 import { CanActivateGuard } from './guards/can-activate.guard';
 
 const appRoutes: Routes = [
@@ -9,13 +8,9 @@ const appRoutes: Routes = [
  
   {
     path: '',
-    redirectTo: 'home/dashboard',
+    redirectTo: 'home/home-page',
     pathMatch: 'full'
   },
-  // {
-  //   path: 'home',
-  //   component: DemoComponent
-  // },
   {
     path: '',
     component: MainComponent,

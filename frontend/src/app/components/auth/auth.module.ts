@@ -11,10 +11,10 @@ import { LoginComponent } from "./my-account/login/login.component";
 import { RegisterComponent } from "./my-account/register/register.component";
 import { FlexLayoutModule } from "@angular/flex-layout";
 // import { FormErrorMsgDirective } from 'src/app/Directives/formErrorMsg/form-error-msg.directive';
-import { ForgotPasswordComponent } from "../pages/forgot-password/forgot-password.component";
 import { MatRadioModule } from "@angular/material/radio";
 import { DirectivesModule } from "src/app/Directives/directives.module";
 import { MatSelectModule } from "@angular/material/select";
+import { ForgotPasswordComponent } from "./my-account/forgot-password/forgot-password.component";
 
 @NgModule({
   declarations: [
@@ -38,4 +38,4 @@ import { MatSelectModule } from "@angular/material/select";
     MatSelectModule,
   ],
 })
-export class AuthModule {}
+export class AuthModule { }
