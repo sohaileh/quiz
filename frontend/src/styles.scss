@@ -99,9 +99,15 @@
 }
 
 .font-family {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
-
+.body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    background-color: #fff;
+}
 .button-success:hover {
     background-color: #19b974;
 }

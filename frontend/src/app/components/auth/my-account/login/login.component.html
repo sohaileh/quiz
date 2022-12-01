@@ -129,49 +129,91 @@
     <div class="signin-signup">
       <form [formGroup]="loginForm" (ngSubmit)="onSubmitLogin()" class="sign-in-form">
         <h2 class="title">Sign in</h2>
-        <div class="input-field">
+
+        <!-- <div class="input-field">
           <i class="fa fa-envelope"></i>
-          <input type="text" placeholder="Email" appFormErrorMsg formControlName="emailAddress" name="emailAddress"
-            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" autocomplete="off" spellcheck="false" required />
+          <input type="text" placeholder="Email"  formControlName="emailAddress" name="emailAddress"
+             autocomplete="off" spellcheck="false" />
+
+            <div *ngIf="signIn.emailAddress.invalid && (signIn.emailAddress.dirty || signIn.emailAddress.touched)">
+              <div *ngIf="signIn.emailAddress.errors.required">
+                <p class="error-msg" >Email is required</p>
+              </div>
+              <div *ngIf="signIn.emailAddress.errors.email">
+                 <p class="error-msg">Invalid email.</p> 
+              </div>
+              </div>
         </div>
         <div class="input-field">
           <i class="fa fa-lock"></i>
-          <input type="password" id="idpassword" appFormErrorMsg formControlName="password" placeholder="Password"
-            name="p1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" autocomplete="off" spellcheck="false" required />
-        </div>
-        <input type="submit" [disabled]="loginForm.invalid" value="Login" class="btn solid" />
+          <input type="password" id="idpassword"  formControlName="password" placeholder="Password"
+            name="password"  autocomplete="off" spellcheck="false" />
+            <div *ngIf="signIn.password.invalid && (signIn.password.dirty || signIn.password.touched)">
+              <div *ngIf="signIn.password.errors.required">
+                <p class="error-msg" >Password is required</p>
+              </div>
+              </div>
+        </div> -->
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Enter first name" formControlName="emailAddress">
+            <mat-icon matPrefix>email</mat-icon>
+            <mat-error *ngIf="checkError('emailAddress', 'required')">Email is required</mat-error>
+            <mat-error *ngIf="checkError('emailAddress', 'pattern')">Invalid Email</mat-error>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" formControlName="password" required>
+            <mat-icon matPrefix (click)="hide = !hide">{{hide ? 'lock' : 'lock_open'}}</mat-icon>
+            <mat-error *ngIf="checkError('password', 'required')">Password is required</mat-error>
+          </mat-form-field>
+        </p>
+        <input type="submit" value="Login" class="btn solid" />
         <p class="social-text" style="font-weight: bold;"><a [routerLink]="['/reset']">Forgot password?</a></p>
-        <p class="social-text" style="color: red;font-weight: bold;font-size: 20px;" *ngIf="avail">{{msg}}</p>
+
 
       </form>
-      <form #f="ngForm" (ngSubmit)="onSubmitRegister(f)" class="sign-up-form">
-        <h2 class="title">Sign up</h2>
-
-        <div class="input-field">
-          <i class="fa fa-envelope"></i>
-          <input type="email" placeholder="Email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-            autocomplete="off" email spellcheck="false" ngModel required #email="ngModel" />
-
-        </div>
-        <div class="input-field">
-          <i class="fa fa-phone"></i>
-          <input type="text" placeholder="Mobile no" name="phone" pattern="^(\+91[\-\s]?)?[0]?(91)?[6789]\d{9}$"
-            autocomplete="off" spellcheck="false" maxlength="10" ngModel required #phone="ngModel" />
-        </div>
-        <div class="input-field">
-          <i class="fa fa-lock"></i>
-          <input type="password" placeholder="Enter Password" name="p1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-            autocomplete="off" spellcheck="false" ngModel required #p1="ngModel" />
-        </div>
-        <div class="input-field">
-          <i class="fa fa-lock"></i>
-          <input type="password" placeholder="Re-enter Password" name="p2" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-            autocomplete="off" spellcheck="false" ngModel required #p2="ngModel" />
-        </div>
-
-        <input type="submit" [disabled]="f.invalid" class="btn" value="Sign up" />
-        <p class="social-text" style="color: red;font-weight: bold;font-size: 20px;" *ngIf="avail">{{msg}}</p>
-
+      <form #f="ngForm" class="sign-up-form" [formGroup]="registerForm" >
+        
+        <h2 class="title">Sign up</h2>  
+      <p>
+          <mat-form-field appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input matInput placeholder="Enter first name" formControlName="firstName">
+            <mat-icon matPrefix>person</mat-icon>
+            <mat-error *ngIf="checkError('firstName', 'required')">First Name is required</mat-error>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input matInput placeholder="Enter last name" formControlName="lastName">
+            <mat-icon matPrefix>person</mat-icon>
+            <mat-error *ngIf="checkError('lastName', 'required')">Last Name is required</mat-error>
+          </mat-form-field>
+        </p>
+          <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Enter first name" formControlName="emailAddress">
+            <mat-icon matPrefix>email</mat-icon>
+            <mat-error *ngIf="checkError('emailAddress', 'required')">Email is required</mat-error>
+            <mat-error *ngIf="checkError('emailAddress', 'pattern')">Invalid Email</mat-error>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" formControlName="password" required>
+            <mat-icon matPrefix (click)="hide = !hide">{{hide ? 'lock' : 'lock_open'}}</mat-icon>
+            <mat-error *ngIf="checkError('password', 'required')">Password is required</mat-error>
+            <mat-error *ngIf="checkError('password', 'pattern')">Password must be 8 characters, 1 uppercase , 1 special character</mat-error>
+          </mat-form-field>
+        </p>      
+        <input type="submit" class="btn" value="Sign up"  (click)="register()"/>
       </form>
     </div>
   </div>
@@ -183,6 +225,8 @@
         <p>
           In life, the classroom is everywhere. The exam comes at the very end.
         </p>
+
+        
         <button class="btn transparent"  #signupbtn (click)="signinup(signupbtn,container)">
           Sign up
         </button>

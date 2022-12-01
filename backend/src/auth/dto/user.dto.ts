@@ -6,7 +6,6 @@ import {
   IsAlpha,
   IsEmpty,
 } from 'class-validator';
-
 export class UserModelDto {
   //validates user registration
   @IsString()
@@ -29,8 +28,8 @@ export class UserModelDto {
   @MinLength(6)
   public password: string;
 
-  @IsString()
-  @MinLength(3)
+  // @IsString()
+  // @MinLength(3)
   public organization: string;
 
  @IsString()
