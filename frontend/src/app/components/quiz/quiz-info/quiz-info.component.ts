@@ -17,7 +17,7 @@ export class QuizInfoComponent implements OnInit {
   eventName: any;
   subscriber: any;
   ready: boolean = false;
-
+  checked: boolean = false;
   constructor(
     private quizService: QuizService,
     private route: ActivatedRoute,
