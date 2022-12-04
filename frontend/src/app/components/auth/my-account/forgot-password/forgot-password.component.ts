@@ -26,4 +26,7 @@ export class ForgotPasswordComponent implements OnInit {
   showPassword() {
     this.hide = !this.hide
   }
+  reset(){
+    
+  }
 }

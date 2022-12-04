@@ -62,7 +62,7 @@ i {
 .navbar {
   background-color: #268e9b;
   color: #fff;
-  min-height: 75px;
+  min-height:60px;
 }
 .navbar ul li {
   display: inline-flex;
@@ -70,7 +70,7 @@ i {
 
 ul li a {
   position: relative;
-  padding: 14px 0 5px;
+  padding: 5px 0 5px;
   margin: 0 25px;
   color: rgb(255, 255, 255);
   text-decoration: none;
@@ -98,5 +98,5 @@ ul li a {
 }
 
 .border-bottom{
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid white !important;
 }
