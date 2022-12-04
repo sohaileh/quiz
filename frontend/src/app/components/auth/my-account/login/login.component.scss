@@ -226,7 +226,9 @@ form.sign-in-form {
 .social-text {
   padding: 0.7rem 0;
   font-size: 1rem;
-  color: red;
+  a{
+    text-decoration: none !important;
+  }
 }
 
 .social-media {
@@ -256,11 +258,10 @@ form.sign-in-form {
 
 .btn {
   width: 150px;
-  background-color: #0a192f;
+  background-color: #268e9b;
   border: none;
   outline: none;
   height: 49px;
-  border-radius: 49px;
   color: #fff;
   text-transform: uppercase;
   font-weight: 600;
@@ -270,10 +271,8 @@ form.sign-in-form {
 }
 
 .btn:hover {
-  background-color: #020b18;
+  background-color: #268e9b;
   color: #fff;
-  -webkit-animation: heartbeat 1.5s ease-in-out infinite both;
-  animation: heartbeat 1.5s ease-in-out infinite both;
 }
 
 @-webkit-keyframes heartbeat {
