@@ -12,7 +12,6 @@ import { Router } from "@angular/router";
 import { LoaderService } from "src/app/components/shared/services/loader.service";
 import { AuthService } from "../../services/auth.service";
 import Swal from "sweetalert2";
-import { threadId } from "worker_threads";
 
 @Component({
   selector: "app-login",
