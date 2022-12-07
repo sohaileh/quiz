@@ -8,6 +8,8 @@ import { GenerateCertificateComponent } from "./generate-certificate/generate-ce
 import { QuizResultComponent } from "./quiz-result/quiz-result.component";
 import { OrganizeQuizComponent } from "./organize-quiz/organize-quiz.component";
 import { AttemptTeamQuizComponent } from "./attempt-team-quiz/attempt-team-quiz.component";
+import { TeamsComponent } from "./my-quizzes/teams/teams.component";
+import { QuizTitleComponent } from "./quiz-title/quiz-title.component";
 
 const routes: Routes = [
   {
@@ -23,7 +25,11 @@ const routes: Routes = [
   },
   { path: "result/:userId/:quizId", component: QuizResultComponent },
   { path: "organize-quiz/:quizId", component: OrganizeQuizComponent },
-  {path:'team-quiz/:quizId/:organizedQuizId/:teamId',component:AttemptTeamQuizComponent}
+  {path:'team-quiz/:quizId/:organizedQuizId/:teamId',component:AttemptTeamQuizComponent},
+  { path: "teams", component: TeamsComponent },
+  { path: "quiz-title", component: QuizTitleComponent },
+
+
 ];
 
 @NgModule({

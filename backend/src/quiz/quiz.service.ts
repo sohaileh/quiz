@@ -20,13 +20,15 @@ import { OrganizeModelDto } from 'src/organize/dto/organize.dto';
 export class QuizService {
   totalTeamsEnteredQuiz: any = 0;
   certificateGenerated: any = {};
+  qIndex:number=0;
+  // questionNumber:number=0;
   constructor(
     @InjectModel('Quizs') private readonly quizModel: Model<QuizModelDto>,
     @InjectModel('Users') private readonly userModel: Model<UserModelDto>,
     @InjectModel('Results') private readonly resultModel: Model<ResultModelDto>,
     @InjectModel('Organizes')
     private readonly organizeModel: Model<OrganizeModelDto>,
-  ) {}
+  ) { }
 
   async submitInfo(quiz: any) {
     try {
@@ -57,11 +59,16 @@ export class QuizService {
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
-  }
+ }
 
-  async getQuizzes() {
+
+
+ 
+
+  async getOrganizationQuizzes(organizationData:any) {
     try {
-      const quizzes = await this.quizModel.find({}, { questionBank: 0 });
+      const {userId}=organizationData;
+      const quizzes = await this.quizModel.find({organizationId:userId}, { questionBank: 0 });
       return quizzes;
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
@@ -184,13 +191,87 @@ export class QuizService {
   async enterQuiz(organizedQuizDetails) {
     try {
       const { teamId, quizId, organizedQuizId } = organizedQuizDetails;
-      const {teamsParticipated} = await this.organizeModel.findOne(
+      const { teamsParticipated } = await this.organizeModel.findOne(
         { _id: organizedQuizId },
-       
+
       );
-      return  teamsParticipated.length;
+      return teamsParticipated.length;
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
   }
+
+
+
+  async getQuestionForTeams(quizData: any) {
+    
+    try {
+  let  { questionNo, quizId, userId } = quizData;
+      let quizPlayed = { quizId: quizId };
+        
+       const  question = await this.quizModel.findOne(
+          { _id: quizId},{questionBank:{$elemMatch:{attempted:false},},totalTime:1,eventName:1,organizationName:1,_id:0},
+        );
+        if (questionNo == 0)
+        {
+
+        await this.userModel.updateOne(
+          { _id: new Types.ObjectId(userId) },
+          { $push: { quizzesPlayed: quizPlayed } },
+        );
+        }
+
+        question.questionBank[0].correctAnswer = null;
+        const{_id}=question.questionBank[0]._id;
+        const questionId=_id
+       const updatedquestion= await this.quizModel.findOneAndUpdate({_id:quizId,questionBank:{$elemMatch:{_id:new Types.ObjectId(questionId)},},},{$set:{"questionBank.$.attempted":true},},);
+        console.log(updatedquestion,"2222")
+
+        return question;
+
+
+      }
+        
+      
+     
+     catch (err) {
+
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+        }
+
+
+        
+
+
+
+  }
+
+
+
+
+
+  async createQuizTitle(quiz: any) {
+    try {
+      const createdQuizTitle = await new this.quizModel(quiz);
+      const title = createdQuizTitle.save();
+      return title;
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

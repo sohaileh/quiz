@@ -29,6 +29,7 @@ import { TeamsComponent } from "./my-quizzes/teams/teams.component";
 import { AttemptTeamQuizComponent } from "./attempt-team-quiz/attempt-team-quiz.component";
 import { TeamQuizInfoComponent } from "./team-quiz-info/team-quiz-info.component";
 import { DirectivesModule } from "src/app/Directives/directives.module";
+import { QuizTitleComponent } from './quiz-title/quiz-title.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { DirectivesModule } from "src/app/Directives/directives.module";
     TeamsComponent,
     AttemptTeamQuizComponent,
     TeamQuizInfoComponent,
+    QuizTitleComponent,
   ],
   imports: [
     CommonModule,

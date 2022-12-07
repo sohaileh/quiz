@@ -10,8 +10,8 @@ export class HomeService {
   serverUrl = environment.serverURL;
   constructor(private http: HttpClient) {}
 
-  getQuizzes() {
-    return this.http.get(`${this.serverUrl}quiz/getQuizzes`);
+  getOrganizationQuizzes(organizationId:any) {
+    return this.http.post(`${this.serverUrl}quiz/getQuizzes`,organizationId);
   }
 
   checkIfPlayed(quiz: any) {

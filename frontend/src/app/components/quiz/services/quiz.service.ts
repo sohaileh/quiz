@@ -1,7 +1,11 @@
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { HttpClient } from "@angular/common/http";
-import { BehaviorSubject, Observable, of, tap } from "rxjs";
+// import { BehaviorSubject, Observable, of, pipe } from "rxjs";
+import {tap } from "rxjs/operators";
+import { BehaviorSubject, pipe,Observable, of} from "rxjs";
+
+
 @Injectable({
   providedIn: "root",
 })
@@ -16,6 +20,8 @@ export class QuizService {
   certificateDetails: any = {};
   organization: any = {};
   teamsEntered = new BehaviorSubject(null)
+  public newQuiz$= new BehaviorSubject<any>({})
+
 
 
 
@@ -26,7 +32,7 @@ export class QuizService {
     this.quizTime = quizTime;
   }
 
-  getQuestion(questionNo: any, quizId: any) {
+  getQuestion(questionNo:any,quizId: any) {
     this.quizInfo.questionNo = questionNo;
     this.quizInfo.quizId = quizId;
     this.quizInfo.userId = localStorage.getItem("userId");
@@ -136,6 +142,27 @@ export class QuizService {
   teamToPlayQuiz(teamtoplayquiz)
   {
     return this.http.post(`${this.serverUrl}organize/team-To-Play-Quiz`,teamtoplayquiz)
+  }
+
+
+  getQuestionForTeams (questionNo:any,quizId: any) {
+    this.quizInfo.questionNo = questionNo;
+    this.quizInfo.quizId = quizId;
+    this.quizInfo.userId = localStorage.getItem("userId");
+    //  console.log('quizInfo',this.quizInfo)
+    return this.http.post(`${this.serverUrl}quiz/get-question-for-teams`, this.quizInfo);
+  }
+
+
+  createQuizTitle(quizTitle:any)
+  {
+    return this.http.post(`${this.serverUrl}quiz/quiz-title`,quizTitle).pipe(
+      tap((res) => 
+      this.newQuiz$.next(res)
+      
+
+      ),
+    )
   }
  
 }

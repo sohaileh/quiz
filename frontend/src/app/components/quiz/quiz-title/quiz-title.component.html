@@ -1,0 +1,25 @@
+<div>
+    <h4>New Quiz</h4>
+    </div>
+
+ <div >
+        <mat-card>
+            <mat-card-content >
+                <input matInput placeholder="enter quiz title for your quiz" class="form-control"  [(ngModel)]="quizTitle" appFormErrorMsg required >
+            </mat-card-content>
+         </mat-card>
+     </div>
+
+     <div class="m-2 p-2" fxLayoutAlign="end">
+        <div class="m-2">
+        <button class="btn border-0  mr-2" (click)="onNoClick()">Cancel</button>
+
+        <button class="btn   border-0" (click)="createQuizTitle()">Create quiz</button>
+
+    </div>
+        
+     </div>
+
+  
+
+  

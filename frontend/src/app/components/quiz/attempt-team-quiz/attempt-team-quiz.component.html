@@ -1,6 +1,7 @@
 <div class="my-account container vh-70 border-light -secondary my-4" *ngIf="(allTeamsParicipated && play)">
-  <div class="row d-flex">
-    <div class="col-md-6 offset-md-2 col-12 order-1 order-md-0">
+  <div class="row d-flex">Round={{playedRound
+  }} 
+    <div class="col-md-6 offset-md-2 col-12 order-1 order-md-0">TotalQuestionsPerRound={{totalQuestionsPerRound}}
       <mat-card class="example-card">
         <!-- <mat-spinner *ngIf="mediaLoading"></mat-spinner> -->
         <!-- <div class="w-100 " *ngIf="!mediaLoading" > -->
@@ -32,7 +33,7 @@
 
         <div class="mt-3">
           <b class="text-info"
-            >Question {{ questionNo }}/{{ totalQuestions }}</b
+            >Question {{ questionNo }}/{{ totalQuestionsPerRound }}</b
           >
         </div>
         <mat-card-content>
@@ -63,20 +64,28 @@
           <button
             class="btn btn-outline-info m-2"
             (click)="saveResponse()"
-            *ngIf="questionNo != totalQuestions"
-          >
-            {{
-              questionNo == totalQuestions ? "Save Response" : "Save and Next"
-            }}
+            *ngIf="questionNo !== totalQuestionsPerRound"
+          >save and next
+            <!-- {{
+              questionNo == totalQuestionsPerRound ? "Save Response" : "Save and Next"
+            }} -->
           </button>
 
           <button
             class="btn btn-outline-info m-2"
-            *ngIf="questionNo == totalQuestions"
+            *ngIf="questionNo == totalQuestionsPerRound"
             (click)="submitResponse()"
             >
             Save and Submit
           </button> 
+          <!-- <button
+          class="btn btn-outline-info m-2"
+        
+          (click)="passQuestion()"
+          >
+          pass Question
+        </button>  -->
+
 
 
         </mat-card-actions>
@@ -108,8 +117,8 @@
                   </mat-card-title>
               </mat-card-header>
                       <mat-card-content>
-                          <p class="h6 ">This event is organized by <strong> aaa</strong> and reservers rights to eliminate any team for any illegal means.Before attempting quiz you should read following instruction carefully!!!</p>
-                          <ul class="h5 text-secondary">
+                          <p class="h6 ">T <strong>waiting for other Teams to join</strong> </p>
+                          <!-- <ul class="h5 text-secondary">
                               <li class="">Time for this quiz is <strong> 20 minutes</strong>  after which you woun't be able to submit your responses any futher.</li>
                               <li>There may be <strong>different types of questions</strong> in this quiz.</li>
                               <li>There would be no time limit on individual questions <strong>except for rapid fire questions</strong> where you will have only <strong>10 seconds</strong> to submit your response.</li>
@@ -117,7 +126,7 @@
                               <li>While playing quiz <strong>do not  go back to previous page</strong>.Doing such you woun't able to join the quiz again. </li>
                               <li>While playing quiz <strong>do not  refresh the page</strong> .Doing such you have to play quiz all over again. </li>
                               <li>After pressing <strong>Ok</strong> button you would be directed to quize page </li>
-                          </ul>
+                          </ul> -->
                       </mat-card-content>
                       <!-- <button class="btn btn-primary mb-4" disabled>Wait till All teams Join</button> -->
                       <!-- <button class="btn btn-primary mb-4" [hidden]="(!allTeamsParicipated )"  (click)="startQuiz()">Start Quiz</button> -->
@@ -127,3 +136,13 @@
       </div>
   </div>
 </div>
+
+
+
+
+
+
+
+
+
+

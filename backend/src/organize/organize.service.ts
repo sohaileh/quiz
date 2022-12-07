@@ -223,7 +223,6 @@ export class OrganizeService {
 
   async  teamToPlayQuiz(teamData:any)
   {
-    let selectedTeam:any={}
     const {organizedQuizId,quizId}=teamData
 
     try{
@@ -232,44 +231,8 @@ export class OrganizeService {
 const teamDetail=team.teamsParticipated
 return teamDetail
 
-// array.find(function(currentValue, index, arr),thisValue)
-
-// function selectTeam(team)
-// {
-//   if(team.play == false)
-//   {
-//      return team
-//   }
-//   else{
-//     return null
-//   }
-// }
-// selectedTeam=teamDetail.find((team)=>team.play == false)
-
-
-// selectedTeam.play=true
-// console.log(selectedTeam)
-
-
-// console.log(selectedTeam)
-  
-//   if(element.play === false)
-  
-
-//     element.play=true;
-// selectedTeam.play=element.play
-// selectedTeam.teamId=element.teamId 
-
-    // return
-  
 
  
-// const teamId=selectedTeam.teamId
-// console.log("exit loop",teamId)
-
-//  const {teamsParticipated}=await this.organizeModel.findOneAndUpdate({_id:organizedQuizId,quizId:quizId,teamsParticipated:{$elemMatch:{teamId:`${teamId}`},},},{$set:{"teamsParticipated.$.play":true}},);
- 
-//   return teamDetail
 
     }
 
