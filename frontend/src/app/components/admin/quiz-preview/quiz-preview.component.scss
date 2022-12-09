@@ -1,0 +1,39 @@
+.header{
+    background-color: #5bc0de;
+    width: 100%;
+    position: absolute;
+    height: 70px;
+    left: 0;
+    top: 60px;
+    color: #222;
+    z-index: -9999;
+}
+.content{
+    position: relative;
+    top: 100px;
+}
+.container{
+    padding: 0 0 !important;
+}
+
+.content-footer{
+    height: 70px;
+    width: 100%;
+    // margin-left: -18px;
+   
+   background-color:#f4f4f4;
+   
+}
+
+   
+.btn {
+  
+    background-color: #268e9b;
+    border: none;
+    outline: none;
+    color: #fff;
+  }
+
+.container{
+    padding: 0;
+}

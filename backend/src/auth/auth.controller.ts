@@ -12,13 +12,13 @@ import { FormExceptionFilter } from 'src/exceptions/FormExceptionFilter';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto/auth.dto';
 import { UserModelDto } from './dto/user.dto';
-
+import { OrganizationDto } from './dto/organization.dto';
 @UseFilters(FormExceptionFilter)
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
   @Post('login')
-  async login(@Body() body: AuthDto, @Res() res: any) {
+  async login(@Body() body:AuthDto, @Res() res: any) {
     try {
       const user = await this.authService.login(body);
       res.status(HttpStatus.OK).json(user);
@@ -58,8 +58,8 @@ export class AuthController {
   }
 
   @Post('get-user-quiz-details')
-  async getUerQuizDetails(@Body() body: any, @Res() res: any) {
-    const userQuizDetails = await this.authService.getUerQuizDetails(body);
+  async getUserQuizDetails(@Body() body: any, @Res() res: any) {
+    const userQuizDetails = await this.authService.getUserQuizDetails(body);
     res.status(HttpStatus.OK).json(userQuizDetails);
   }
 
@@ -68,4 +68,21 @@ export class AuthController {
     const organizations = await this.authService.getOrganizations();
     res.status(HttpStatus.OK).json(organizations);
   }
+
+
+
+
+
+  // @Post('register-organization')
+  // async registerOrganization(@Res() res, @Body() body: OrganizationDto) {
+  //   try {
+  //     await this.authService.registerOrganization(body);
+  //     res
+  //       .status(HttpStatus.CREATED)
+  //       .json({ message: 'user created successfully' });
+  //   } catch (err) {
+  //     res.status(HttpStatus.BAD_REQUEST).json(err.message);
+  //   }
+  // }
+
 }

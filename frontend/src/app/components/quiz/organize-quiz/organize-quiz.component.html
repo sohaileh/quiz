@@ -9,6 +9,19 @@
 
       <mat-card-content>
         <form [formGroup]="registerTeamForm">
+          <mat-form-field appearance="legacy" class="w-100 mb-4 mt-4" *ngIf="organizations.length">
+            <mat-select
+            (selectionChange)="getOrganizationUsers()"
+            placeholder="Organizations"
+            formControlName="organizationName"
+          >
+            <mat-option
+              *ngFor="let organization of organizations; let i; index"
+              [value]="organization._id"
+              >{{ organization._id }}</mat-option
+            >
+          </mat-select>
+          </mat-form-field>
           <mat-form-field appearance="legacy" class="w-100 mb-4 mt-4">
             <input
               matInput
