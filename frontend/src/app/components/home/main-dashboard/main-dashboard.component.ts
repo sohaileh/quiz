@@ -135,13 +135,15 @@ export class MainDashboardComponent implements OnInit {
     this.homeService.checkIfPlayed(quiz).subscribe(
       (res: any) => {
         const played = res;
+
         if (!played) {
+          // this.alreadyPlayed=false
           this.dialog.open(QuizInfoComponent, {
             data: quiz,
             autoFocus: false,
           });
         } else {
-          Swal.fire("You cannot play quiz Twice");
+          // this.alreadyPlayed=true
         }
       },
 
