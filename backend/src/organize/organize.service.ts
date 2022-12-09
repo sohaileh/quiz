@@ -7,8 +7,8 @@ import { UserModelDto } from 'src/auth/dto/user.dto';
 import { Equals, equals } from 'class-validator';
 @Injectable()
 export class OrganizeService {
-  public order = 0;
-  public teamIndex = 0;
+  public order=0;
+  public teamIndex=0;
   constructor(
     @InjectModel('Organizes')
     private readonly organizeModel: Model<OrganizeModelDto>,
@@ -18,15 +18,6 @@ export class OrganizeService {
 
   async registerTeams(teams) {
     try {
-      let organizerId;
-      if (teams.teamsDetail[0].organizationName) {
-        organizerId = await this.userModel.findOne(
-          { organization: teams.teamsDetail[0].organizationName },
-          { _id: 1 },
-        );
-        teams.organizerId = organizerId._id;
-      }
-
       teams.teamsDetail.forEach((team) => {
         team.password = Math.floor(100000 + Math.random() * 900000);
       });
@@ -181,89 +172,76 @@ export class OrganizeService {
   }
 
   async getTotalTeamsInQuiz({ quizId, organizedQuizId, teamId }) {
-   
-    const teams: any = {};
-    teams.teamId = teamId;
-  
-
+    this.order++;
+    const teams:any={}
+    teams.teamId=teamId
+     teams.order=this.order
+     
     try {
-      const { teamsParticipated, teamsDetail } =
-        await this.organizeModel.findOneAndUpdate(
-          {
-            _id: organizedQuizId,
-            quizId: quizId,
-          },
+      const { teamsParticipated,teamsDetail } = await this.organizeModel.findOneAndUpdate(
+        {
+          _id: organizedQuizId,
+          quizId: quizId,
+        },
 
-          {
-            $push: {
-              teamsParticipated: teams,
-              // {
-              //   "teamId":teamId,
-              //  "order":this.order
 
-              // }
-            },
-          },
 
-          //   {
-          //     teamsParticipated: { $nin :[teamId] },
+         {$push:{
+          teamsParticipated:teams
+          // {
+          //   "teamId":teamId,
+          //  "order":this.order
+            
+          // }
+          }
+        }
+        
+      
+    
+    
 
-          //  $push: { teamsParticipated:teamId } ,
-
-          //   },
-        );
-
-      return teamsDetail.length;
+        
+      //   {
+      //     teamsParticipated: { $nin :[teamId] },
+        
+      //  $push: { teamsParticipated:teamId } ,
+            
+        
+      //   },
+      
+      );
+    
+      
+      return teamsDetail.length
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
   }
 
-  async teamToPlayQuiz(teamData: any) {
-    let selectedTeam: any = {};
-    const { organizedQuizId, quizId } = teamData;
 
-    try {
-      const team = await this.organizeModel.findOne({ teamData });
+  
 
-      const teamDetail = team.teamsParticipated;
-      return teamDetail;
+  async  teamToPlayQuiz(teamData:any)
+  {
+    const {organizedQuizId,quizId}=teamData
 
-      // array.find(function(currentValue, index, arr),thisValue)
+    try{
+      const team=await this.organizeModel.findOne({teamData})
 
-      // function selectTeam(team)
-      // {
-      //   if(team.play == false)
-      //   {
-      //      return team
-      //   }
-      //   else{
-      //     return null
-      //   }
-      // }
-      // selectedTeam=teamDetail.find((team)=>team.play == false)
+const teamDetail=team.teamsParticipated
+return teamDetail
 
-      // selectedTeam.play=true
-      // console.log(selectedTeam)
 
-      // console.log(selectedTeam)
+ 
 
-      //   if(element.play === false)
-
-      //     element.play=true;
-      // selectedTeam.play=element.play
-      // selectedTeam.teamId=element.teamId
-
-      // return
-
-      // const teamId=selectedTeam.teamId
-      // console.log("exit loop",teamId)
-
-      //  const {teamsParticipated}=await this.organizeModel.findOneAndUpdate({_id:organizedQuizId,quizId:quizId,teamsParticipated:{$elemMatch:{teamId:`${teamId}`},},},{$set:{"teamsParticipated.$.play":true}},);
-
-      //   return teamDetail
-    } catch (err) {
-      throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
+
+
+    
+    catch(err)
+    {
+        throw new HttpException(err,HttpStatus.BAD_REQUEST)
+    }
+  
   }
 }

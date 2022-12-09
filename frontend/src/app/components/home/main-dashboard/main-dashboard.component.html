@@ -1,123 +1,83 @@
-<app-main-carousel></app-main-carousel>
+<mat-card class="w-100 bg-light layout ">
+  <mat-card-content>
+  
+    <div class=" d-flex m-1  p-1 justify-content-between" fxLayoutAlign="space-between center"   fxLayoutGap="5px" fxLayout.xs="row" fxLayout.sm="row" fxLayout="row">
+      <div fxLayoutAlign="center center">Quizs
+        
+                </div>
+        
+                <div class="mr-1" fxLayoutAlign="center center"> 
+                  <span><button class="btn  create-button border-0" (click)="openQuizTitle()">Create quiz</button></span>
 
-<div class="my-account sec-padding">
-  <div class="container mb-4" fxLayoutAlign="start center">
-    <mat-card class="w-100 bg-light layout" fxHide.lt-md="true">
-      <mat-card-actions align="end">
-        <div>
-          <button
-            class="btn"
-            (click)="changeViewType('list', 100, 'col-sm-6', 'row', true)"
-            fxHide.lt-md="true"
-          >
-            <mat-icon>view_list</mat-icon>
-          </button>
-          <button
-            class="btn"
-            (click)="changeViewType('list', 32, 'col-sm-12', 'column', false)"
-            fxHide.lt-md="true"
-          >
-            <mat-icon>view_module</mat-icon>
-          </button>
-          <button
-            class="btn"
-            (click)="changeViewType('grid', 24, 'col-sm-12', 'column', false)"
-            fxHide.lt-md="true"
-          >
-            <mat-icon>view_comfy</mat-icon>
-          </button>
-        </div>
-      </mat-card-actions>
-    </mat-card>
-  </div>
-  <div class="container main-container-width" fxLayoutAlign="center center">
-    <div
-      fxLayout="row wrap"
-      fxLayoutGap="5px"
-      fxLayoutAlign="start center"
-      fxLayoutAlign.lt-md="start center"
-      class="row-width"
-    >
-      <mat-card
-        [fxLayout]="layOutSm"
-        fxFlex.sm="42"
-        [fxFlex.gt-sm]="viewCol"
-        *ngFor="let quiz of pageSlice"
-        class="mb-4"
-        [class.descriptive-matcard]="handleDescriptionView"
-      >
-        <div [class.descriptive-image-container]="handleDescriptionView">
-          <img
-            mat-card-image
-            src="../../../../assets/images/quiz-img.jpg"
-            [class.descriptive-img]="handleDescriptionView"
-            alt="Quiz"
-          />
-        </div>
-        <div [class.descriptive-matcard-content]="handleDescriptionView">
-          <mat-card-content>
-            <div class="mb-2 pt-4">
-              <h4>{{ quiz.eventName }}</h4>
-              <p *ngIf="!handleDescriptionView" class="text-success mb-0">
-                Start Date:<span class="text-secondary">
-                  {{ quiz.startDate | date }}</span
-                >
-              </p>
-              <p *ngIf="!handleDescriptionView" class="text-info mb-0">
-                End Date:
-                <span class="text-secondary">{{ quiz.endDate | date }}</span>
-              </p>
-              <p class="w-100 text-wrap" *ngIf="handleDescriptionView">
-                {{ quiz.description }}
-              </p>
-            </div>
+                  </div>
 
-            <div *ngIf="!handleDescriptionView" class="pt-2">
-              <p class="mb-0 text-secondary">
-                Questions:
-                <span class="text-dark font-weight-bold"
-                  >{{ quiz.totalQuestions }},</span
-                >
-                Duration:
-                <span class="text-dark font-weight-bold"
-                  >{{ quiz.totalTime }} Minutes</span
-                >
-              </p>
-              <p class="mb-0 text-secondary font-weight-bold">
-                Reward:
-                <span class="text-info font-weight-bold">{{
-                  quiz.reward
-                }}</span>
-              </p>
-              <p class="badge badge-danger mt-2 pt-2 pb-2" *ngIf="alreadyPlayed.includes(quiz._id)">You have Already Played This quiz</p>
-            </div>
-          </mat-card-content>
-          <mat-card-actions>
-            <button
-              class="btn btn-outline-info"
-              (click)="playQuiz(quiz)"
-              *ngIf="userRole !== 'admin' && userRole !== 'organizer' && !alreadyPlayed.includes(quiz._id)"
-            >
-              Play Quiz
-            </button>
-            <button
-              class="btn btn-outline-info"
-              *ngIf="userRole == 'admin' || userRole == 'organizer'"
-              (click)="organizeQuiz(quiz._id)"
-            >
-              Organize Quiz
-            </button>
-          </mat-card-actions>
-        </div>
-      </mat-card>
+        </div>  
+
+                  <mat-table #table [dataSource]="dataSource" >
+                    <div class="d-flex"   fxFlex-xs="10%" >
+
+                    <div>
+                   <ng-container matColumnDef="quizTitle">
+                           <mat-header-cell *matHeaderCellDef>Quiz</mat-header-cell>
+                           <!-- {{ element?.results?.output[0]?.eventName }} -->
+
+                            <mat-cell *matCellDef="let element"> {{element?.quizTitle}} </mat-cell>
+                  </ng-container>  
+                </div> 
+                
+                
+       <div>
+                   <ng-container matColumnDef="status">
+                          <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+                          <mat-cell *matCellDef="let element">{{element?.status}}</mat-cell>
+                     </ng-container>
+       </div>
+                
+       
+               <div>      
+                     <ng-container matColumnDef="preview">
+                      <mat-header-cell *matHeaderCellDef class="pl-2 ">Preview</mat-header-cell>
+                      <mat-cell *matCellDef="let element">
+                        <button class="btn preview m-1">
+                          <i class="fa fa-eye" fxLayoutAlign.xs="center" ></i>
+                          <p fxHide.xs="true">Preview</p>
+                        
+                      </button>
+        
+                      </mat-cell>
+                    </ng-container>
+                  </div>
+
+
+
+    
+
+    
+   <div>          
+     <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef class="p-1">Action</mat-header-cell>
+        <mat-cell *matCellDef="let row" fxLayoutGap="15px">
+
+              <span><i  class="fa fa-trash" (click)="deleteQuiz(row)"></i></span>
+               <span><i class="fa fa-edit" (click)="editQuiz(row)" ></i> </span>
+               <span><i class="fa fa-file-text-o" (click)="renameQuizTitle(row)"></i></span>
+
+    
+          </mat-cell>
+      </ng-container>
     </div>
-  </div>
-  <mat-paginator
-    class="row w-100 me-auto"
-    [length]="this.quizDetails.length"
-    [pageSize]="this.ItemsPerPage"
-    (page)="onPageChange($event)"
-  ></mat-paginator>
-</div>
 
-<div></div>
+
+    
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </div>
+      </mat-table>
+    </mat-card-content>
+
+</mat-card>
+
+
+
+
+

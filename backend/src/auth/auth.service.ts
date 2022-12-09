@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UserModelDto } from './dto/user.dto';
 import { JwtService } from '@nestjs/jwt';
+import { OrganizationDto } from './dto/organization.dto';
 import { Types } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 
@@ -10,6 +11,7 @@ import * as bcrypt from 'bcrypt';
 export class AuthService {
   constructor(
     @InjectModel('Users') private readonly userModelDto: Model<UserModelDto>,
+    @InjectModel('Organization') private readonly organizationModelDto:Model<OrganizationDto>,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -106,4 +108,27 @@ export class AuthService {
     ]);
     return organizations;
   }
+
+
+  async registerOrganization(organizationModel:OrganizationDto) {
+    try {
+      const { emailAddress } = organizationModel;
+      const userExists = await this.organizationModelDto.exists({
+        emailAddress: emailAddress,
+      });
+      if (userExists)
+        throw new HttpException('User Exists', HttpStatus.BAD_REQUEST);
+
+      const newUser = new this.organizationModelDto(organizationModel);
+      newUser.save();
+      return newUser;
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+
+
+
+
 }

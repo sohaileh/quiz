@@ -74,6 +74,19 @@ export class QuizService {
     }
   }
 
+  async getOrganizationQuizzes(organizationData: any) {
+    try {
+      const { userId } = organizationData;
+      const quizzes = await this.quizModel.find(
+        { organizationId: userId },
+        { questionBank: 0 },
+      );
+      return quizzes;
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
+  }
+
   async getQuizTime(quizData: any) {
     try {
       const { quizId } = quizData;
@@ -164,6 +177,76 @@ export class QuizService {
     }
   }
 
+  async getQuestionForTeams(quizData: any) {
+    try {
+      let { questionNo, quizId, userId } = quizData;
+      let quizPlayed = { quizId: quizId };
+
+      const question = await this.quizModel.findOne(
+        { _id: quizId },
+        {
+          questionBank: { $elemMatch: { attempted: false } },
+          totalTime: 1,
+          eventName: 1,
+          organizationName: 1,
+          _id: 0,
+        },
+      );
+      if (questionNo == 0) {
+        await this.userModel.updateOne(
+          { _id: new Types.ObjectId(userId) },
+          { $push: { quizzesPlayed: quizPlayed } },
+        );
+      }
+
+      question.questionBank[0].correctAnswer = null;
+      const { _id } = question.questionBank[0]._id;
+      const questionId = _id;
+      const updatedquestion = await this.quizModel.findOneAndUpdate(
+        {
+          _id: quizId,
+          questionBank: { $elemMatch: { _id: new Types.ObjectId(questionId) } },
+        },
+        { $set: { 'questionBank.$.attempted': true } },
+      );
+
+      return question;
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
+  }
+  async createQuizTitle(quiz: any) {
+    try {
+      const createdQuizTitle = await new this.quizModel(quiz);
+      const title = createdQuizTitle.save();
+      return title;
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async deleteQuiz(quiz: any) {
+    try {
+      const updatedquiz = await this.quizModel.deleteOne({ _id: quiz._id });
+      return updatedquiz;
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async renameQuizTitle(quiz: any) {
+    try {
+      const { quizTitle } = quiz;
+      const renameQuiz = await this.quizModel.findOneAndUpdate(
+        { _id: quiz.quizId },
+        { $set: { quizTitle: quizTitle } },
+      );
+      return renameQuiz;
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
+  }
+
   async editQuestion(body, params, file) {
     try {
       const { type } = body;
@@ -235,7 +318,6 @@ export class QuizService {
 
           return quizQuestions;
         } else {
-          
           //if mcq to face-recognition/video/audio but file not uploaded
           const question = await this.quizModel.find(
             { _id: new Types.ObjectId(quizId) },
@@ -246,10 +328,10 @@ export class QuizService {
             },
           );
           if (!question[0].questionBank[0].fileName)
-           throw new HttpException(
-            'Please upload file',
-            HttpStatus.BAD_REQUEST,
-          );
+            throw new HttpException(
+              'Please upload file',
+              HttpStatus.BAD_REQUEST,
+            );
 
           // file type audio/video/face-recognition,dont want to update file but other info about question
           await this.quizModel.updateOne(

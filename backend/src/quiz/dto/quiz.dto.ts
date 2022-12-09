@@ -1,6 +1,11 @@
 
 import {IsNotEmpty,IsArray, IsString ,IsNumber} from 'class-validator'
+import { ObjectId } from 'mongoose';
 export class QuizModelDto{
+
+public quizTitle:String;
+public organizationId:ObjectId;
+ public status:String;
     
 @IsNotEmpty()
 @IsString()
@@ -26,7 +31,7 @@ public totalQuestions:Number;
 @IsString()
 public description:String;
   
-public status:String;
+
 
 }
 

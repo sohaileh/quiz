@@ -11,8 +11,8 @@ export class HomeService {
   serverUrl = environment.serverURL;
   constructor(private http: HttpClient) {}
 
-  getQuizzes() {
-    return this.http.get(`${this.serverUrl}quiz/getQuizzes`);
+  getOrganizationQuizzes(organizationId:any) {
+    return this.http.post(`${this.serverUrl}quiz/getQuizzes`,organizationId);
   }
 
   checkIfPlayed(quiz: any) {
@@ -22,8 +22,10 @@ export class HomeService {
     return this.http.post(`${this.serverUrl}quiz/check-if-played`, this.user);
   }
 
-  QuizzesPlayedByUser(user){
-  return  this.http.post(`${this.serverUrl}quiz/quizzes-Played`,user)
-  
+
+  deleteQuiz(quiz:any)
+  {
+    return this.http.post(`${this.serverUrl}quiz/delete-quiz`,quiz)
   }
+
 }
