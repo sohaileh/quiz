@@ -8,6 +8,7 @@ import { GenerateCertificateComponent } from "./generate-certificate/generate-ce
 import { QuizResultComponent } from "./quiz-result/quiz-result.component";
 import { OrganizeQuizComponent } from "./organize-quiz/organize-quiz.component";
 import { AttemptTeamQuizComponent } from "./attempt-team-quiz/attempt-team-quiz.component";
+import { AddQuizComponent } from "../admin/add-quiz/add-quiz.component";
 
 const routes: Routes = [
   {

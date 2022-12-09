@@ -25,7 +25,8 @@ public totalQuestions:Number;
 @IsNotEmpty()
 @IsString()
 public description:String;
-     
+  
+public status:String;
 
 }
 

@@ -1,3 +1,88 @@
-.margin {
-  margin-left: 1.2em;
+
+.custom-row{
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 2em;
+}
+
+
+.quiz-heading{
+  background-color: #f5f5f5;
+}
+
+.modal.show{
+  display: block;
+}
+
+.modal-dialog {
+  max-width: 900px;
+  margin: 1.75rem auto;
+}
+
+  ::ng-deep body > div.modal-backdrop.show{
+    z-index: 0;
+  }
+
+ 
+
+.example-margin {
+  margin: 0 10px;
+}
+
+.icon{
+  position: relative;
+  top: -4px;
+  cursor: pointer;
+}
+
+.cursor{
+  cursor: pointer;
+}
+
+
+mat-form-field{
+  width: 230px;
+  font-size: 12px;
+  margin-bottom: 0;  
+
+}
+.modal-body{
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+
+}
+::-webkit-scrollbar{
+  width: 0;
+  background: transparent;
+}
+
+
+.btn {
+
+  background-color: #268e9b;
+  border: none;
+  outline: none;
+  color: #fff;
+  // text-transform: uppercase;
+  // font-weight: 600;
+  margin: 10px 0;
+  // cursor: pointer;
+  // transition: 0.5s;
+}
+
+.options{
+  margin-right: 30px;
+}
+.options-width{
+  width: 100%;
+}
+
+
+
+
+@media  screen and(max-width:340px) {
+
+  .options-width{
+    width: 80%;
+  }
+  
 }

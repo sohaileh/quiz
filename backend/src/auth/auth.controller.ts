@@ -19,7 +19,7 @@ import { UserModelDto } from './dto/user.dto';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
   @Post('login')
-  async login(@Body() body: AuthDto, @Res() res: any) {
+  async login(@Body() body:AuthDto, @Res() res: any) {
     try {
       const user = await this.authService.login(body);
       res.status(HttpStatus.OK).json(user);

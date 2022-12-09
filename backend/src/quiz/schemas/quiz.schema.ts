@@ -7,6 +7,7 @@ export const QuizSchema = new mongoose.Schema({
     organizationName: String,
     totalTime:Number,
     reward:String,
+    status:{type:String,defaut:'In Design'},
     description:String,
     startDate:{type:Date,default: Date.now},
     endDate:{type:Date,default: Date.now},
@@ -14,6 +15,8 @@ export const QuizSchema = new mongoose.Schema({
         {
             type:{type:String,default:null},
             marks:{type:Number,default:0},
+            fileName:{type:String,default:null},
+            timeLimit:{type:Number,default:1},
             question: String,
             fileUrl:{type:String,default:null},
             correctAnswer: String,

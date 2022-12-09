@@ -18,7 +18,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a [routerLink]="['/']" class="nav-link">Home</a>
+        <a [routerLink]="['/'] " class="nav-link">Home</a>
       </li>
       <li class="nav-item">
         <a
@@ -32,7 +32,7 @@
       </li>
       <li class="nav-item">
         <a
-          *ngIf="router.url === '/home/dashboard'"
+          *ngIf="router.url === '/home/dashboard' || router.url==='/admin/quiz/add-quiz'"
           [routerLink]="['/users']"
           class="nav-link"
           >Users</a
@@ -40,7 +40,7 @@
       </li>
       <li class="nav-item">
         <a
-          *ngIf="router.url === '/home/dashboard'"
+          *ngIf="router.url === '/home/dashboard' || router.url==='/admin/quiz/add-quiz'"
           [routerLink]="['/users']"
           class="nav-link"
           >Settings</a
@@ -51,7 +51,7 @@
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
         <a
-          *ngIf="router.url === '/home/dashboard'"
+          *ngIf="router.url === '/home/dashboard'|| router.url==='/admin/quiz/add-quiz' "
           (click)="logout()"
           class="nav-link"
           ><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a

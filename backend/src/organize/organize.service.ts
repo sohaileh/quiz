@@ -181,10 +181,10 @@ export class OrganizeService {
   }
 
   async getTotalTeamsInQuiz({ quizId, organizedQuizId, teamId }) {
-    this.order++;
+   
     const teams: any = {};
     teams.teamId = teamId;
-    teams.order = this.order;
+  
 
     try {
       const { teamsParticipated, teamsDetail } =
