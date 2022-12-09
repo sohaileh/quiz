@@ -30,6 +30,7 @@ import { AttemptTeamQuizComponent } from "./attempt-team-quiz/attempt-team-quiz.
 import { TeamQuizInfoComponent } from "./team-quiz-info/team-quiz-info.component";
 import { DirectivesModule } from "src/app/Directives/directives.module";
 import { QuizTitleComponent } from './quiz-title/quiz-title.component';
+import { RenameQuizTitleComponent } from './rename-quiz-title/rename-quiz-title.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { QuizTitleComponent } from './quiz-title/quiz-title.component';
     AttemptTeamQuizComponent,
     TeamQuizInfoComponent,
     QuizTitleComponent,
+    RenameQuizTitleComponent,
   ],
   imports: [
     CommonModule,

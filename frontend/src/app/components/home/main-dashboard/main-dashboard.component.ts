@@ -12,9 +12,11 @@ import Swal from "sweetalert2";
 import { MatTableDataSource } from "@angular/material/table";
 import { QuizTitleComponent } from "../../quiz/quiz-title/quiz-title.component";
 import { QuizService } from "../../quiz/services/quiz.service";
+import { RenameQuizTitleComponent } from "../../quiz/rename-quiz-title/rename-quiz-title.component";
 
 export interface quizInterface {
   quizTitle: string;
+  status:string;
 
 }
 
@@ -66,7 +68,6 @@ export class MainDashboardComponent implements OnInit {
 
     this.mediaSub = this.mediaObserver.media$.subscribe(
       (result: MediaChange) => {
-        console.log("size", result.mqAlias);
         if (this.descriptionView && result.mqAlias == "xs") {
           this.layOutSm = "column";
           this.handleDescriptionView = false;
@@ -96,9 +97,7 @@ export class MainDashboardComponent implements OnInit {
 
 
     this.quizservice.newQuiz$.subscribe((res:any)=>{
-      console.log(res,"55555555")
-  this.quizDetails.push(res);
-  this.dataSource = new MatTableDataSource<quizInterface>(this.quizDetails);
+  this.getOrganizationQuizzes()
 
 
 
@@ -120,7 +119,6 @@ export class MainDashboardComponent implements OnInit {
 
     this.homeService.getOrganizationQuizzes(this.organizationId).subscribe(
       (res: any) => {
-        console.log(res,"quizzzzzzzz")
         this.quizDetails = res;
         this.dataSource = new MatTableDataSource<quizInterface>(this.quizDetails);
 
@@ -153,7 +151,6 @@ export class MainDashboardComponent implements OnInit {
   }
 
   onPageChange(event: PageEvent) {
-    console.log(event);
     const startIndex = event.pageIndex * event.pageSize;
     let endIndex = startIndex + event.pageSize;
     if (endIndex > this.quizDetails.length) {
@@ -184,7 +181,6 @@ export class MainDashboardComponent implements OnInit {
   }
 
   organizeQuiz(quizId) {
-    console.log("quizid ", quizId);
     this.router.navigate([`/quiz/organize-quiz/${quizId}`]);
   }
 
@@ -196,12 +192,51 @@ export class MainDashboardComponent implements OnInit {
 
   openQuizTitle(): void {
     let dialogRef = this.dialog.open(QuizTitleComponent, {
-      width: '700px',
-      height:'230px'
+      width:'40%',
+     position:{
+      top:'60px',
+     }
+    
     });
   }
 
+ deleteQuiz(quiz:any)
+ {
+ const confirmDelete=confirm('Are you sure you want to delete this quiz ')
+ if(confirmDelete)
+ {
+  this.homeService.deleteQuiz(quiz).subscribe((res=>{
+    if(res)
+    {
+      this.getOrganizationQuizzes()
+    }
+
+   }))
+
+ }
+ } 
+
+
+ renameQuizTitle(quiz:any)
+ {
+  let dialogRef = this.dialog.open(RenameQuizTitleComponent, {
+    width:'40%',
+   position:{
+    top:'60px',
+   },
+   data:quiz,
   
+  });
+
+  
+
+ }
+
+ editQuiz(quiz:any)
+ {
+     const quizId=quiz._id
+     this.router.navigate([`/admin/quiz/add-quiz/${quizId}`])
+ }
 
 
 }

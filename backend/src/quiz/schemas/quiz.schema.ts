@@ -4,6 +4,7 @@ import * as mongoose from 'mongoose'
 
 export const QuizSchema = new mongoose.Schema({
     quizTitle:String,
+    status:{type:String,default:'In design'},
     organizationId:{type:mongoose.Schema.Types.ObjectId},
     eventName: String,
     organizationName: String,

@@ -5,6 +5,7 @@ export class QuizModelDto{
 
 public quizTitle:String;
 public organizationId:ObjectId;
+ public status:String;
     
 @IsNotEmpty()
 @IsString()

@@ -225,7 +225,6 @@ export class QuizService {
         const{_id}=question.questionBank[0]._id;
         const questionId=_id
        const updatedquestion= await this.quizModel.findOneAndUpdate({_id:quizId,questionBank:{$elemMatch:{_id:new Types.ObjectId(questionId)},},},{$set:{"questionBank.$.attempted":true},},);
-        console.log(updatedquestion,"2222")
 
         return question;
 
@@ -259,6 +258,29 @@ export class QuizService {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
   }
+
+
+
+  async deleteQuiz(quiz: any) {
+    try {
+      const updatedquiz = await  this.quizModel.deleteOne({_id:quiz._id},)
+      return updatedquiz;
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+
+  async renameQuizTitle(quiz: any) {
+    try {
+      const{quizTitle}=quiz;
+      const renameQuiz = await  this.quizModel.findOneAndUpdate({_id:quiz.quizId},{$set:{quizTitle:quizTitle}})
+      return renameQuiz;
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
+  }
+
 
 
 

@@ -41,4 +41,7 @@ this.quizservice.createQuizTitle(this.quiz).subscribe((res:any)=>{
 })
   }
 
+
+  
+
 }

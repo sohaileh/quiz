@@ -133,7 +133,6 @@ export class QuizController {
 
 
 
-  // @UseGuards(JwtAuthGuard)
   @Post('get-question-for-teams')
   async getQuestionForTeams(@Body() body: any, @Res() res: any) {
     try {
@@ -163,6 +162,39 @@ export class QuizController {
 
 
 
+   @Post('delete-quiz')
+   async deleteQuiz(@Body() body: any, @Res() res: any) 
+   {
+ 
+           try {
+             const quizs = await this.quizService.deleteQuiz(body);
+ 
+             res.status(HttpStatus.OK).json(quizs);
+           }
+           
+      catch (err) {
+             res.status(HttpStatus.BAD_REQUEST).json(err.message);
+               }
+    }
+
+
+
+    @Post('rename-quiz-title')
+    async renameQuizTitle(@Body() body: any, @Res() res: any) 
+    {
+  
+            try {
+              const quizs = await this.quizService.renameQuizTitle(body);
+  
+              res.status(HttpStatus.OK).json(quizs);
+            }
+            
+       catch (err) {
+              res.status(HttpStatus.BAD_REQUEST).json(err.message);
+                }
+     }
+ 
+ 
 
 
 }

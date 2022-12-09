@@ -29,18 +29,18 @@
        <div>
                    <ng-container matColumnDef="status">
                           <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
-                          <mat-cell *matCellDef="let element">Open</mat-cell>
+                          <mat-cell *matCellDef="let element">{{element?.status}}</mat-cell>
                      </ng-container>
        </div>
                 
        
                <div>      
                      <ng-container matColumnDef="preview">
-                      <mat-header-cell *matHeaderCellDef class="pl-2">Preview</mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef class="pl-2 ">Preview</mat-header-cell>
                       <mat-cell *matCellDef="let element">
-                        <button class="btn preview ">
-                          <i class="fa fa-eye"></i>
-                          Preview
+                        <button class="btn preview m-1">
+                          <i class="fa fa-eye" fxLayoutAlign.xs="center" ></i>
+                          <p fxHide.xs="true">Preview</p>
                         
                       </button>
         
@@ -56,23 +56,12 @@
    <div>          
      <ng-container matColumnDef="action">
         <mat-header-cell *matHeaderCellDef class="p-1">Action</mat-header-cell>
-        <mat-cell *matCellDef="let element">
-          <span class="btn dropdown mb-2 ml-2  ">select option</span>
-          <span class="mb-2" fxFlex.xs="10%">             
-       <mat-select>
-              <mat-option>
-                Delete
-              </mat-option>
-              <mat-option>
-                Edit
-              </mat-option>
-              <mat-option>
-                Rename
-              </mat-option>
+        <mat-cell *matCellDef="let row" fxLayoutGap="15px">
 
-            </mat-select>
+              <span><i  class="fa fa-trash" (click)="deleteQuiz(row)"></i></span>
+               <span><i class="fa fa-edit" (click)="editQuiz(row)" ></i> </span>
+               <span><i class="fa fa-file-text-o" (click)="renameQuizTitle(row)"></i></span>
 
-          </span>
     
           </mat-cell>
       </ng-container>
@@ -87,8 +76,6 @@
     </mat-card-content>
 
 </mat-card>
-
-
 
 
 

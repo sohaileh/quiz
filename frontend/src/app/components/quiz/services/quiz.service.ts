@@ -164,5 +164,13 @@ export class QuizService {
       ),
     )
   }
+
+  renameQuizTitle(newquizTitle:any)
+  {
+    return this.http.post(`${this.serverUrl}quiz/rename-quiz-title`,newquizTitle).pipe(
+      tap((res)=>this.newQuiz$.next(res))
+    )
+
+  }
  
 }
