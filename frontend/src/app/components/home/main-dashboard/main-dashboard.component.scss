@@ -39,3 +39,55 @@ mat-card img {
   justify-content: center;
   word-wrap: break-word;
 }
+
+
+@media screen and(max-width:768px)  {
+  mat-table{
+    font-size:10px;
+    text-align: center;
+  mat-cell{
+    font-size:8px;
+    text-align: center;
+
+
+  }
+  .dropdown{
+    font-size:10px;
+    text-align: center;
+
+  }
+  .preview{
+    font-size:8px;
+    text-align: center;
+    width:50%;
+
+  }
+  }
+
+
+
+  
+  
+}
+
+.create-button {
+  width: 90px;
+  background-color: #268e9b;
+  border: none;
+  outline: none;
+  height: 30px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 300;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: 0.5s;
+  font-size:8px;
+
+}
+
+.create-button:hover {
+  background-color: #268e9b;
+  color: #fff;
+}
+

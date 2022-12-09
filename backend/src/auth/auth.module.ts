@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from './schemas/user.schema';
+import { OrganizationSchema } from './schemas/organization.schema';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConfig } from 'src/config/jwt.config';
 import {JwtStrategy} from './strategy/jwt.strategy'
@@ -12,6 +13,7 @@ import {JwtStrategy} from './strategy/jwt.strategy'
   imports: [
     MongooseModule.forFeature([
       { name: 'Users', schema: UserSchema },
+      {name:'Organization', schema:OrganizationSchema},
     ]),
     JwtModule.registerAsync(jwtConfig)
   ],
