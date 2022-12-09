@@ -44,10 +44,10 @@ export class QuizController {
     }
   }
 
-  @Get('getQuizzes')
-  async getQuizzes(@Res() res: any) {
+  @Post('getQuizzes')
+  async getOrganizationQuizzes( @Body() body:any, @Res() res: any) {
     try {
-      const quizzes = await this.quizService.getQuizzes();
+      const quizzes = await this.quizService.getOrganizationQuizzes(body);
       res.status(HttpStatus.OK).json(quizzes);
     } catch (err) {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
@@ -128,4 +128,73 @@ export class QuizController {
 
     }
   }
+
+
+
+
+
+  @Post('get-question-for-teams')
+  async getQuestionForTeams(@Body() body: any, @Res() res: any) {
+    try {
+      const question = await this.quizService.getQuestionForTeams(body);
+
+      res.status(HttpStatus.OK).json({ question: question });
+    } catch (err) {
+      res.status(HttpStatus.BAD_REQUEST).json(err.message);
+    }
+  }
+
+
+  @Post('quiz-title')
+  async createQuizTitle(@Body() body: any, @Res() res: any) 
+  {
+
+          try {
+            const quizTitle = await this.quizService.createQuizTitle(body);
+
+            res.status(HttpStatus.OK).json( quizTitle);
+          }
+          
+     catch (err) {
+            res.status(HttpStatus.BAD_REQUEST).json(err.message);
+              }
+   }
+
+
+
+   @Post('delete-quiz')
+   async deleteQuiz(@Body() body: any, @Res() res: any) 
+   {
+ 
+           try {
+             const quizs = await this.quizService.deleteQuiz(body);
+ 
+             res.status(HttpStatus.OK).json(quizs);
+           }
+           
+      catch (err) {
+             res.status(HttpStatus.BAD_REQUEST).json(err.message);
+               }
+    }
+
+
+
+    @Post('rename-quiz-title')
+    async renameQuizTitle(@Body() body: any, @Res() res: any) 
+    {
+  
+            try {
+              const quizs = await this.quizService.renameQuizTitle(body);
+  
+              res.status(HttpStatus.OK).json(quizs);
+            }
+            
+       catch (err) {
+              res.status(HttpStatus.BAD_REQUEST).json(err.message);
+                }
+     }
+ 
+ 
+
+
 }

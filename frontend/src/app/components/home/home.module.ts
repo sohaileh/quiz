@@ -11,6 +11,10 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatDialogModule } from "@angular/material/dialog";
 import { HomePageComponent } from './home-page/home-page.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatSelectModule} from '@angular/material/select';
+
 @NgModule({
   declarations: [MainDashboardComponent, MainCarouselComponent, HomePageComponent],
   imports: [
@@ -23,6 +27,9 @@ import { HomePageComponent } from './home-page/home-page.component';
     MatIconModule,
     MatPaginatorModule,
     MatDialogModule,
+    MatTableModule,
+    MatMenuModule,
+    MatSelectModule
   ],
 })
 export class HomeModule {}

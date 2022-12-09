@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AddQuizComponent } from './add-quiz/add-quiz.component';
 
 const routes: Routes = [
-  {path:'quiz/add-quiz',component:AddQuizComponent}
+  {path:'quiz/add-quiz/',component:AddQuizComponent}
 ];
 
 @NgModule({
