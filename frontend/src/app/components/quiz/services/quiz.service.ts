@@ -93,11 +93,11 @@ export class QuizService {
     );
   }
 
-  getOrganizationUsers(organizerId) {
-    this.organization.organizerId = organizerId;
+  getOrganizationUsers(organizationDetails:any) {
+    // this.organization.organizerId = organizerId;
     return this.http.post(
       `${this.serverUrl}quiz/get-organization-users`,
-      this.organization
+      organizationDetails
     );
   }
 

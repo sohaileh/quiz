@@ -154,7 +154,7 @@ export class RegisterComponent implements OnInit {
     }
     this.authService.userDetails.subscribe((response: any) => {
       this.userRole = localStorage.getItem("userRole");
-      if (this.userRole !== "admin" || this.userRole !== "admin") {
+      if (this.userRole !== "admin") {
         this.getOrganizations();
       }
     });

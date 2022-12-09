@@ -5,6 +5,8 @@ import { UserModelDto } from './dto/user.dto';
 import { JwtService } from '@nestjs/jwt';
 import { OrganizationDto } from './dto/organization.dto';
 import { Types } from 'mongoose';
+import * as bcrypt from 'bcrypt';
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -17,19 +19,27 @@ export class AuthService {
     try {
       let payload;
       const { emailAddress, password } = authModel;
-      const query = { emailAddress: emailAddress, password: password };
+      const query = { emailAddress: emailAddress };
 
-      const user = await this.userModelDto.findOne(query, { password: 0 });
+      const user = await this.userModelDto.findOne(query);
 
       if (user) {
         const userName = user.firstName + ' ' + user.lastName;
-        payload = { userName: user, sub: user._id };
+        payload = { userName: userName, sub: user._id, role: user.role };
       } else {
         throw new HttpException(
-          'User does not exists',
+          'Incorrect Credentials',
           HttpStatus.UNAUTHORIZED,
         );
       }
+      const passwordMatched = await bcrypt.compare(password, user.password);
+      if (!passwordMatched)
+        throw new HttpException(
+          'Incorrect Credentials',
+          HttpStatus.UNAUTHORIZED,
+        );
+
+      user.password = '';
       return {
         accessToken: this.jwtService.sign(payload),
         expiresIn: '100000',
@@ -48,6 +58,11 @@ export class AuthService {
       });
       if (userExists)
         throw new HttpException('User Exists', HttpStatus.BAD_REQUEST);
+
+      const salt = await bcrypt.genSalt();
+      const password = userModel.password;
+      const hashedPassword = await bcrypt.hash(password, salt);
+      userModel.password = hashedPassword;
 
       const newUser = new this.userModelDto(userModel);
       newUser.save();
@@ -79,10 +94,10 @@ export class AuthService {
     }
   }
 
-  async getUerQuizDetails(user) {
+  async getUserQuizDetails(user) {
     const { userId } = user;
 
-    const userQuizDetails = this.userModelDto.aggregate([]);
+    const userQuizDetails = await this.userModelDto.aggregate([]);
 
     return userQuizDetails;
   }

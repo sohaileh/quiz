@@ -78,6 +78,8 @@ export class AuthService {
   }
 
   getOrganizations() {
-    return this.http.get(`${this.serverUrl}auth/get-organizations`);
+    return this.http.get(`${this.serverUrl}auth/get-organizations`).pipe(
+      shareReplay()
+    )
   }
 }
