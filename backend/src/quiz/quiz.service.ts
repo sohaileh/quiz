@@ -9,7 +9,12 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { QuizModelDto } from './dto/quiz.dto';
 import { quizModel } from './models/quiz.model';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadBytes,
+} from 'firebase/storage';
 import { storage } from 'src/firebase/firebaseApp';
 import { UserModelDto } from 'src/auth/dto/user.dto';
 import { Type } from 'class-transformer';
@@ -20,15 +25,14 @@ import { OrganizeModelDto } from 'src/organize/dto/organize.dto';
 export class QuizService {
   totalTeamsEnteredQuiz: any = 0;
   certificateGenerated: any = {};
-  qIndex:number=0;
-  // questionNumber:number=0;
+  totalQuestion = [];
   constructor(
     @InjectModel('Quizs') private readonly quizModel: Model<QuizModelDto>,
     @InjectModel('Users') private readonly userModel: Model<UserModelDto>,
     @InjectModel('Results') private readonly resultModel: Model<ResultModelDto>,
     @InjectModel('Organizes')
     private readonly organizeModel: Model<OrganizeModelDto>,
-  ) { }
+  ) {}
 
   async submitInfo(quiz: any) {
     try {
@@ -59,16 +63,24 @@ export class QuizService {
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
- }
+  }
 
-
-
- 
-
-  async getOrganizationQuizzes(organizationData:any) {
+  async getQuizzes() {
     try {
-      const {userId}=organizationData;
-      const quizzes = await this.quizModel.find({organizationId:userId}, { questionBank: 0 });
+      const quizzes = await this.quizModel.find({}, { questionBank: 0 });
+      return quizzes;
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async getOrganizationQuizzes(organizationData: any) {
+    try {
+      const { userId } = organizationData;
+      const quizzes = await this.quizModel.find(
+        { organizationId: userId },
+        { questionBank: 0 },
+      );
       return quizzes;
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
@@ -88,32 +100,301 @@ export class QuizService {
     }
   }
 
-  async uploadFile(questionBank: any, file: any, quizId: any) {
+  async uploadFiletoFirebase(mediaStorage, file) {
+    const bytes = new Uint8Array(file.buffer);
+    await uploadBytes(mediaStorage, bytes)
+      .then(() => console.log('file uploaded successfully'))
+      .catch(() => {
+        console.error('File not uploaded');
+      });
+
+    return;
+  }
+
+  async deleteFileFromFirebase(mediaStorage) {
+    deleteObject(mediaStorage)
+      .then(() => {
+        console.log('file deleted successfully');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    return;
+  }
+
+  async addQuestionToQuiz(questionBank: any, file: any, quizId: any) {
     try {
+      if (
+        !(
+          quizId &&
+          questionBank.type &&
+          questionBank.marks &&
+          questionBank.timeLimit &&
+          questionBank.question &&
+          questionBank.options
+        )
+      )
+        throw new HttpException(
+          'Please Fill all fields',
+          HttpStatus.BAD_REQUEST,
+        );
+
       const { type } = questionBank;
       if (type == 'face-recognition' || type == 'video' || type == 'audio') {
         const mediaStorage = ref(
           storage,
           `${new Types.ObjectId(quizId)}/${file.originalname}`,
         );
-        const bytes = new Uint8Array(file.buffer);
-        await uploadBytes(mediaStorage, bytes);
+        await this.uploadFiletoFirebase(mediaStorage, file);
 
         const fileUrl = await getDownloadURL(ref(mediaStorage));
-
         questionBank.fileUrl = fileUrl;
+        questionBank.fileName = file.originalname;
         await this.quizModel.updateOne(
           { _id: new Types.ObjectId(quizId) },
           { $push: { questionBank: questionBank } },
         );
-        return;
+        const questions = await this.quizModel.findOne(
+          { _id: new Types.ObjectId(quizId) },
+          { questionBank: 1, _id: 0 },
+        );
+        return questions;
       }
       await this.quizModel.updateOne(
         { _id: new Types.ObjectId(quizId) },
         { $push: { questionBank: questionBank } },
+        { questionBank: 1 },
+      );
+      const questions = await this.quizModel.findOne(
+        { _id: new Types.ObjectId(quizId) },
+        { questionBank: 1, _id: 0, status: 1 },
       );
 
-      return;
+      return questions;
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async getQuestionForTeams(quizData: any) {
+    try {
+      let { questionNo, quizId, userId } = quizData;
+      let quizPlayed = { quizId: quizId };
+
+      const question = await this.quizModel.findOne(
+        { _id: quizId },
+        {
+          questionBank: { $elemMatch: { attempted: false } },
+          totalTime: 1,
+          eventName: 1,
+          organizationName: 1,
+          _id: 0,
+        },
+      );
+      if (questionNo == 0) {
+        await this.userModel.updateOne(
+          { _id: new Types.ObjectId(userId) },
+          { $push: { quizzesPlayed: quizPlayed } },
+        );
+      }
+
+      question.questionBank[0].correctAnswer = null;
+      const { _id } = question.questionBank[0]._id;
+      const questionId = _id;
+      const updatedquestion = await this.quizModel.findOneAndUpdate(
+        {
+          _id: quizId,
+          questionBank: { $elemMatch: { _id: new Types.ObjectId(questionId) } },
+        },
+        { $set: { 'questionBank.$.attempted': true } },
+      );
+
+      return question;
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
+  }
+  async createQuizTitle(quiz: any) {
+    try {
+      const createdQuizTitle = await new this.quizModel(quiz);
+      const title = createdQuizTitle.save();
+      return title;
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async deleteQuiz(quiz: any) {
+    try {
+      const updatedquiz = await this.quizModel.deleteOne({ _id: quiz._id });
+      return updatedquiz;
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async renameQuizTitle(quiz: any) {
+    try {
+      const { quizTitle } = quiz;
+      const renameQuiz = await this.quizModel.findOneAndUpdate(
+        { _id: quiz.quizId },
+        { $set: { quizTitle: quizTitle } },
+      );
+      return renameQuiz;
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async editQuestion(body, params, file) {
+    try {
+      const { type } = body;
+      const { quizId, questionId } = params;
+
+      if (
+        !(
+          quizId &&
+          questionId &&
+          body.type &&
+          body.marks &&
+          body.timeLimit &&
+          body.question &&
+          body.options
+        )
+      )
+        throw new HttpException(
+          'Please Fill all fields',
+          HttpStatus.BAD_REQUEST,
+        );
+
+      if (type == 'face-recognition' || type == 'video' || type == 'audio') {
+        // if media type and want file updation as well
+        if (file) {
+          const question = await this.quizModel.find(
+            { _id: new Types.ObjectId(quizId) },
+            {
+              questionBank: {
+                $elemMatch: { _id: new Types.ObjectId(questionId) },
+              },
+            },
+          );
+          const fileName = question[0].questionBank[0].fileName;
+          // editing face-recognition/audio/video --> any similar types
+          if (fileName) {
+            const mediaStorage = ref(
+              storage,
+              `${new Types.ObjectId(quizId)}/${fileName}`,
+            );
+
+            await this.deleteFileFromFirebase(mediaStorage);
+          }
+
+          const uploadFileRef = ref(
+            storage,
+            `${new Types.ObjectId(quizId)}/${file.originalname}`,
+          );
+          await this.uploadFiletoFirebase(uploadFileRef, file);
+
+          const fileUrl = await getDownloadURL(ref(uploadFileRef));
+
+          body.fileUrl = fileUrl;
+          body.fileName = file.originalname;
+
+          const updatedQuestion = await this.quizModel.updateOne(
+            {
+              _id: new Types.ObjectId(quizId),
+              'questionBank._id': new Types.ObjectId(questionId),
+            },
+            {
+              $set: { 'questionBank.$': body },
+            },
+          );
+
+          const quizQuestions = await this.quizModel.findOne(
+            { _id: quizId },
+            { questionBank: 1, status: 1, _id: 0 },
+          );
+
+          return quizQuestions;
+        } else {
+          //if mcq to face-recognition/video/audio but file not uploaded
+          const question = await this.quizModel.find(
+            { _id: new Types.ObjectId(quizId) },
+            {
+              questionBank: {
+                $elemMatch: { _id: new Types.ObjectId(questionId) },
+              },
+            },
+          );
+          if (!question[0].questionBank[0].fileName)
+            throw new HttpException(
+              'Please upload file',
+              HttpStatus.BAD_REQUEST,
+            );
+
+          // file type audio/video/face-recognition,dont want to update file but other info about question
+          await this.quizModel.updateOne(
+            {
+              _id: new Types.ObjectId(quizId),
+              'questionBank._id': new Types.ObjectId(questionId),
+            },
+            {
+              $set: {
+                'questionBank.$.question': body.question,
+                'questionBank.$.type': body.type,
+                'questionBank.$.timeLimit': body.timeLimit,
+                'questionBank.$.options': body.options,
+                'questionBank.$.marks': body.marks,
+                'questionBank.$.correctAnswer': body.correctAnswer,
+              },
+            },
+          );
+        }
+
+        const quizQuestions = await this.quizModel.findOne(
+          { _id: quizId },
+          { questionBank: 1, status: 1, _id: 0 },
+        );
+
+        return quizQuestions;
+      }
+
+      // file type to mcq delete file on firebase first
+
+      const question = await this.quizModel.find(
+        { _id: new Types.ObjectId(quizId) },
+        {
+          questionBank: {
+            $elemMatch: { _id: new Types.ObjectId(questionId) },
+          },
+        },
+      );
+
+      if (question[0].questionBank[0].fileName) {
+        const fileName = question[0].questionBank[0].fileName;
+
+        const mediaStorage = ref(
+          storage,
+          `${new Types.ObjectId(quizId)}/${fileName}`,
+        );
+
+        await this.deleteFileFromFirebase(mediaStorage);
+      }
+      // update mcq
+      await this.quizModel.updateOne(
+        {
+          _id: new Types.ObjectId(quizId),
+          'questionBank._id': new Types.ObjectId(questionId),
+        },
+        { $set: { 'questionBank.$': body } },
+      );
+      const quizQuestions = await this.quizModel.findOne(
+        { _id: quizId },
+        { questionBank: 1, status: 1, _id: 0 },
+      );
+
+      return quizQuestions;
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
@@ -162,10 +443,17 @@ export class QuizService {
     }
   }
 
-  async getOrganizationUsers(organizerId) {
+  async getOrganizationUsers(organizationDetails) {
     try {
+      if (organizationDetails.organizationName) {
+        const organizationUsersEmails = await this.userModel.find(
+          { organization: organizationDetails.organizationName, role: 'user' },
+          { emailAddress: 1, _id: 0 },
+        );
+        return organizationUsersEmails;
+      }
       const organizer = await this.userModel.findOne({
-        _id: organizerId,
+        _id: organizationDetails.organizerId,
         role: { $in: ['organizer', 'admin'] },
       });
 
@@ -191,109 +479,82 @@ export class QuizService {
   async enterQuiz(organizedQuizDetails) {
     try {
       const { teamId, quizId, organizedQuizId } = organizedQuizDetails;
-      const { teamsParticipated } = await this.organizeModel.findOne(
-        { _id: organizedQuizId },
-
-      );
+      const { teamsParticipated } = await this.organizeModel.findOne({
+        _id: organizedQuizId,
+      });
       return teamsParticipated.length;
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
   }
 
-
-
-  async getQuestionForTeams(quizData: any) {
-    
+  async QuizzesPlayedByUser(user: any) {
     try {
-  let  { questionNo, quizId, userId } = quizData;
-      let quizPlayed = { quizId: quizId };
-        
-       const  question = await this.quizModel.findOne(
-          { _id: quizId},{questionBank:{$elemMatch:{attempted:false},},totalTime:1,eventName:1,organizationName:1,_id:0},
+      const { userId } = user;
+      const { quizzesPlayed } = await this.userModel.findOne(
+        { _id: userId },
+        { 'quizzesPlayed.quizId': 1, _id: 0 },
+      );
+
+      return quizzesPlayed;
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async deleteQuestion(question, quizId) {
+    try {
+      if (!(question && quizId))
+        throw new HttpException(
+          'Please Fill all fields',
+          HttpStatus.BAD_REQUEST,
         );
-        if (questionNo == 0)
-        {
-
-        await this.userModel.updateOne(
-          { _id: new Types.ObjectId(userId) },
-          { $push: { quizzesPlayed: quizPlayed } },
+      const { type, _id: questionId } = question;
+      if (type == 'face-recognition' || type == 'video' || type == 'audio') {
+        const question = await this.quizModel.find(
+          { _id: new Types.ObjectId(quizId) },
+          {
+            questionBank: {
+              $elemMatch: { _id: new Types.ObjectId(questionId) },
+            },
+          },
         );
-        }
+        const fileName = question[0].questionBank[0].fileName;
 
-        question.questionBank[0].correctAnswer = null;
-        const{_id}=question.questionBank[0]._id;
-        const questionId=_id
-       const updatedquestion= await this.quizModel.findOneAndUpdate({_id:quizId,questionBank:{$elemMatch:{_id:new Types.ObjectId(questionId)},},},{$set:{"questionBank.$.attempted":true},},);
+        const mediaStorage = ref(
+          storage,
+          `${new Types.ObjectId(quizId)}/${fileName}`,
+        );
 
-        return question;
-
-
+        await this.deleteFileFromFirebase(mediaStorage);
       }
-        
-      
-     
-     catch (err) {
 
-      throw new HttpException(err, HttpStatus.BAD_REQUEST);
-        }
+      const deletedQuestion = await this.quizModel.updateOne(
+        { _id: new Types.ObjectId(quizId) },
+        { $pull: { questionBank: { _id: new Types.ObjectId(question._id) } } },
+      );
+      const updatedQuiz = await this.quizModel.findOne(
+        {
+          _id: new Types.ObjectId(quizId),
+        },
+        { questionBank: 1, status: 1, _id: 0 },
+      );
 
-
-        
-
-
-
-  }
-
-
-
-
-
-  async createQuizTitle(quiz: any) {
-    try {
-      const createdQuizTitle = await new this.quizModel(quiz);
-      const title = createdQuizTitle.save();
-      return title;
+      return updatedQuiz;
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
   }
 
-
-
-  async deleteQuiz(quiz: any) {
+  async getQuizQuestions(quizId: any) {
     try {
-      const updatedquiz = await  this.quizModel.deleteOne({_id:quiz._id},)
-      return updatedquiz;
+      const quizQuestions = await this.quizModel.findOne(
+        { _id: new Types.ObjectId(quizId) },
+        { questionBank: 1, _id: 0, status: 1 },
+      );
+      return quizQuestions;
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
   }
-
-
-  async renameQuizTitle(quiz: any) {
-    try {
-      const{quizTitle}=quiz;
-      const renameQuiz = await  this.quizModel.findOneAndUpdate({_id:quiz.quizId},{$set:{quizTitle:quizTitle}})
-      return renameQuiz;
-    } catch (err) {
-      throw new HttpException(err, HttpStatus.BAD_REQUEST);
-    }
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

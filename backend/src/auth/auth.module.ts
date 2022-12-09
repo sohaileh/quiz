@@ -7,6 +7,8 @@ import { OrganizationSchema } from './schemas/organization.schema';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConfig } from 'src/config/jwt.config';
 import {JwtStrategy} from './strategy/jwt.strategy'
+import { APP_GUARD } from '@nestjs/core';
+import { RolesGuard } from './authorization/guard/roles.guard';
 
 
 @Module({

@@ -67,6 +67,7 @@ import { RenameQuizTitleComponent } from './rename-quiz-title/rename-quiz-title.
     MatInputModule,
     MatSelectModule,
     DirectivesModule,
+  
   ],
   providers: [{ provide: MAT_DIALOG_DATA, useValue: {} }],
 })

@@ -6,13 +6,19 @@ import {
   Get,
   HttpException,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
+import { Roles } from 'src/auth/authorization/decorator/roles.decorator';
+import { RolesGuard } from 'src/auth/authorization/guard/roles.guard';
+import { JwtAuthGuard } from 'src/auth/gaurds/auth.gaurd';
 import { OrganizeService } from './organize.service';
 
 @Controller('organize')
 export class OrganizeController {
   constructor(private readonly organizeService: OrganizeService) {}
 
+  @UseGuards(JwtAuthGuard,RolesGuard)
+  @Roles('organizer')
   @Post('add-teams-for-quiz')
   async registerTeams(@Body() body: any, @Res() res: any) {
     try {
@@ -24,6 +30,7 @@ export class OrganizeController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post('get-user-team-quiz-details')
   async getUserTeamQuizDetails(@Body() body: any, @Res() res: any) {
     try {
@@ -34,6 +41,7 @@ export class OrganizeController {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
   }
+  @UseGuards(JwtAuthGuard)
   @Post('generate-password')
   async generatePassword(@Body() body: any, @Res() res: any) {
     try {
@@ -45,6 +53,7 @@ export class OrganizeController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
    @Post('confirm-team-password')
   async confirmTeamPassword(@Body() body: any, @Res() res: any) {
     try {
@@ -55,6 +64,7 @@ export class OrganizeController {
     }  
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post('get-total-teams-in-quiz')
   async getTotalTeamsInQuiz(@Body() body:any,@Res() res:any){
     try{
@@ -66,7 +76,7 @@ export class OrganizeController {
     }
   }
 
-
+  @UseGuards(JwtAuthGuard)
   @Post('team-To-Play-Quiz')
   async teamToPlayQuiz (@Body() body:any,@Res() res:any){
     try{

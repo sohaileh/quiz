@@ -18,7 +18,7 @@ import { OrganizationDto } from './dto/organization.dto';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
   @Post('login')
-  async login(@Body() body: AuthDto, @Res() res: any) {
+  async login(@Body() body:AuthDto, @Res() res: any) {
     try {
       const user = await this.authService.login(body);
       res.status(HttpStatus.OK).json(user);
@@ -58,8 +58,8 @@ export class AuthController {
   }
 
   @Post('get-user-quiz-details')
-  async getUerQuizDetails(@Body() body: any, @Res() res: any) {
-    const userQuizDetails = await this.authService.getUerQuizDetails(body);
+  async getUserQuizDetails(@Body() body: any, @Res() res: any) {
+    const userQuizDetails = await this.authService.getUserQuizDetails(body);
     res.status(HttpStatus.OK).json(userQuizDetails);
   }
 
@@ -73,16 +73,16 @@ export class AuthController {
 
 
 
-  @Post('register-organization')
-  async registerOrganization(@Res() res, @Body() body: OrganizationDto) {
-    try {
-      await this.authService.registerOrganization(body);
-      res
-        .status(HttpStatus.CREATED)
-        .json({ message: 'user created successfully' });
-    } catch (err) {
-      res.status(HttpStatus.BAD_REQUEST).json(err.message);
-    }
-  }
+  // @Post('register-organization')
+  // async registerOrganization(@Res() res, @Body() body: OrganizationDto) {
+  //   try {
+  //     await this.authService.registerOrganization(body);
+  //     res
+  //       .status(HttpStatus.CREATED)
+  //       .json({ message: 'user created successfully' });
+  //   } catch (err) {
+  //     res.status(HttpStatus.BAD_REQUEST).json(err.message);
+  //   }
+  // }
 
 }

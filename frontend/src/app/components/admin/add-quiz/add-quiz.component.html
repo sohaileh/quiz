@@ -1,268 +1,68 @@
-<div class="my-account sec-padding">
-  <div class="row justify-content-center h-100 align-items-center h-100">
-    <div class="col-11 col-sm-10 col-md-6 col-lg-18 position-relative">
-      <form [formGroup]="registerQuiz">
-        <mat-card
-          class="form-container d-flex flex-column w-100 shadow p-3 mb-5 bg-white rounded"
+
+<!-- new design -->
+<div class="container-fluid">
+  <div class="custom-row h-100 w-100 d-flex justify-content-center">
+    <mat-card class="col-12 col-md-8 p-0 pb-4">
+      <div class="p-3 rounded quiz-heading d-flex justify-content-between">
+        <span
+          ><span class="body font-weight-bold">Quiz: </span>
+          <span class="body text-secondary">Test</span>
+        </span>
+        <span
+          ><span class="body font-weight-bold">Status: </span>
+          <span class="body text-secondary">{{quizStatus}}</span>
+        </span>
+      </div>
+
+      <div class="d-flex flex-column pl-4 pt-4" *ngFor="let question of quizQuestions">
+        <mat-card-content class="ml-3 mt-2 mr-2">
+          <div
+            class="question d-flex flex-column flex-sm-row justify-content-sm-between"
+          >
+           
+            <div  class="font-weight-bold h5" [innerHTML]="question.question | sanitizedHtml"></div>
+            <span class="text-secondary mb-3">
+              <i
+                class="fa fa-edit mr-2 text-info cursor body bg-light rounded p-2"
+                (click)="editdialog(question)"
+              >
+                Edit</i
+              >
+              <i
+                class="fa fa-trash text-danger cursor body bg-light rounded p-2"
+                (click)="deleteQuestion(question)"
+              >
+                Delete</i
+              >
+            </span>
+          </div>
+          <div class="options w-100">
+              <mat-radio-group class="col-12 d-flex flex-column flex-lg-row flex-lg-wrap"
+              >
+                <mat-radio-button [color]="color"
+                  class="col-12 col-lg-5 border border-info rounded mr-4 mb-4 pt-3 pb-2 "
+                  *ngFor="let option of question.options"
+                  [value]="option.option"
+                  >{{ option.option }}</mat-radio-button
+                >
+              </mat-radio-group>
+          </div>
+        </mat-card-content>
+        <hr />
+      </div>
+
+      <mat-card-actions class="mt-4 ml-2">
+        <button
+          class="btn"
+          (click)="addQuestionDialog()"
+         
         >
-          <mat-card-header>
-            <mat-card-title>
-              {{ quizInfo ? "Set Your Question" : "Add Quiz Info" }}
-            </mat-card-title>
-          </mat-card-header>
-          <mat-card-content class="d-flex flex-column">
-            <mat-form-field *ngIf="!quizInfo" appearance="outline">
-              <mat-label>Organization Name</mat-label>
-              <input
-                matInput
-                formControlName="organizationName"
-                type="text"
-                name="Organization"
-                minlength="3"
-                appFormErrorMsg
-                required
-              />
-            </mat-form-field>
+          Add question
+        </button>
+      </mat-card-actions>
+    </mat-card>
 
-            <mat-form-field *ngIf="!quizInfo" appearance="outline">
-              <mat-label>Event Name</mat-label>
-              <input
-                matInput
-                placeholder="event-name"
-                formControlName="eventName"
-                name="Event Name"
-                minlength="3"
-                appFormErrorMsg
-                required
-              />
-            </mat-form-field>
-
-            <mat-form-field *ngIf="!quizInfo" appearance="outline">
-              <mat-label>Total Questions</mat-label>
-              <input
-                matInput
-                type="number"
-                #questions
-                formControlName="totalQuestions"
-                name="Total Questions"
-                appFormErrorMsg
-                required
-                min="2"
-              />
-            </mat-form-field>
-
-            <mat-form-field *ngIf="!quizInfo" appearance="outline">
-              <mat-label>Total Time</mat-label>
-              <input
-                matInput
-                type="number"
-                formControlName="totalTime"
-                name="Time"
-                appFormErrorMsg
-                required
-                min="1"
-              />
-            </mat-form-field>
-
-            <mat-form-field
-              class="w-100"
-              *ngIf="!quizInfo"
-              appearance="outline"
-            >
-              <mat-label>Reward</mat-label>
-              <input
-                matInput
-                formControlName="reward"
-                name="Reward"
-                appFormErrorMsg
-                required
-                minlength="3"
-              />
-            </mat-form-field>
-
-            <mat-form-field *ngIf="!quizInfo" appearance="outline">
-              <mat-label>Describe your Quiz</mat-label>
-              <textarea
-                matInput
-                formControlName="description"
-                name="description"
-                appFormErrorMsg
-                required
-                minlength="20"
-                maxlength="100"
-              ></textarea>
-            </mat-form-field>
-
-            <mat-form-field *ngIf="!quizInfo" appearance="outline">
-              <mat-label>Ending Date</mat-label>
-              <input
-                matInput
-                type="date"
-                formControlName="endDate"
-                name="Date"
-                appFormErrorMsg
-                required
-              />
-            </mat-form-field>
-
-            <div formGroupName="questionBank">
-              <mat-form-field
-                class="w-100"
-                *ngIf="quizInfo && questionNo <= totalQuestionInQuiz"
-                appearance="outline"
-              >
-                <mat-label>Question</mat-label>
-                <textarea
-                  matInput
-                  formControlName="question"
-                  appFormErrorMsg
-                  required
-                  name="Question"
-                  minlength="6"
-                ></textarea>
-              </mat-form-field>
-
-              <mat-form-field
-                class="w-100"
-                *ngIf="quizInfo && questionNo <= totalQuestionInQuiz"
-              >
-                <mat-label>Choose Question Type</mat-label>
-                <mat-select
-                  formControlName="type"
-                  (selectionChange)="setQuestionType($event.value)"
-                  appFormErrorMsg
-                  required
-                  name="Type of Question"
-                >
-                  <mat-option
-                    *ngFor="let questiontype of typeOfQuestions"
-                    [value]="questiontype"
-                  >
-                    {{ questiontype.type }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-
-              <ng-container
-                formArrayName="options"
-                *ngIf="quizInfo && questionNo <= totalQuestionInQuiz"
-              >
-                <ng-container
-                  *ngFor="
-                    let questionOptions of options.controls;
-                    let i = index
-                  "
-                >
-                  <div [formGroup]="questionOptions">
-                    <mat-form-field class="w-50" appearance="outline">
-                      <input
-                        matInput
-                        type="text"
-                        formControlName="option"
-                        name="option"
-                        appFormErrorMsg
-                        required
-                        minlength="1"
-                      />
-                    </mat-form-field>
-                    <i class="fa fa-trash margin" (click)="removeOption(i)"></i>
-                  </div>
-                </ng-container>
-              </ng-container>
-
-              <button
-                type="button"
-                class="btn btn-outline-info w-100"
-                *ngIf="quizInfo && questionNo <= totalQuestionInQuiz"
-                (click)="addOptions()"
-              >
-                + Add option
-              </button>
-
-              <mat-form-field
-                class="w-100 mt-4"
-                *ngIf="quizInfo && questionNo <= totalQuestionInQuiz"
-                appearance="outline"
-              >
-                <mat-label>Correct Answer</mat-label>
-                <input
-                  matInput
-                  formControlName="correctAnswer"
-                  name="Correct Answer"
-                  appFormErrorMsg
-                  required
-                  minlength="1"
-                />
-              </mat-form-field>
-
-              <mat-form-field
-                *ngIf="quizInfo"
-                class="w-100 mt-2"
-                appearance="outline"
-              >
-                <mat-label>Marks of the Question</mat-label>
-                <input
-                  matInput
-                  type="number"
-                  formControlName="marks"
-                  name="marks"
-                  required
-                  appFormErrorMsg
-                  min="1"
-                />
-              </mat-form-field>
-
-              <div
-                *ngIf="
-                  (quizInfo &&
-                    questionType == 'face-recognition' &&
-                    questionNo <= totalQuestionInQuiz) ||
-                  questionType == 'audio' || questionType == 'video'
-                "
-              >
-                <mat-label>Upload File</mat-label>
-                <input
-                  type="file"
-                  class="form-control"
-                  name="myfile"
-                  formControlName="file"
-                  (change)="uploadFile($event)"
-                  name="file"
-                  appFormErrorMsg
-                  required=""
-                />
-              </div>
-            </div>
-
-            <button
-              class="btn btn-outline-info mt-2"
-              type="submit"
-              *ngIf="quizInfo && questionNo < totalQuestionInQuiz"
-              (click)="addQuestion()"
-              [disabled]="registerQuiz.status === 'INVALID'"
-            >
-              Add Question
-            </button>
-            <button
-              class="btn btn-outline-info mt-2"
-              type="submit"
-              *ngIf="!quizInfo"
-              (click)="submitInfo()"
-              [disabled]="registerQuiz.status === 'INVALID'"
-            >
-              Submit Info
-            </button>
-            <button
-              class="btn btn-outline-success mt-2"
-              *ngIf="enableRegisterButon"
-              (click)="submitQuiz()"
-              [disabled]="registerQuiz.status === 'INVALID'"
-            >
-              Save & Register Quiz
-            </button>
-          </mat-card-content>
-        </mat-card>
-      </form>
-    </div>
+   
   </div>
 </div>
+
