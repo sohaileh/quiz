@@ -1,16 +1,13 @@
 .home-header-2 {
   // background: #465d72;
-  //    background:  #0688a1e3;
-  background-image: linear-gradient(
-    -45deg,
-    rgb(42, 171, 210) 0%,
-    rgb(42, 171, 210) 100%
-  );
+  background: #0688a1e3;
+
   color: #d9d6d6;
 }
 
 img {
-  height: 30px;
+  height: 50px;
+  margin-bottom: 1em;
 }
 .menu-container2 {
   background: #ebe9e9 !important;
@@ -26,6 +23,8 @@ img {
 }
 
 i {
+  margin-right: 1em;
+  margin-bottom: 1em;
   cursor: pointer;
 }
 
@@ -60,9 +59,9 @@ i {
 
 /*------------- ---------------------------------------------------- navbar -----------------------------------*/
 .navbar {
-  background-color: #268e9b;
+  background-color: #0a192f;
   color: #fff;
-  min-height:60px;
+  min-height: 75px;
 }
 .navbar ul li {
   display: inline-flex;
@@ -70,7 +69,7 @@ i {
 
 ul li a {
   position: relative;
-  padding: 5px 0 5px;
+  padding: 14px 0 5px;
   margin: 0 25px;
   color: rgb(255, 255, 255);
   text-decoration: none;
@@ -81,22 +80,89 @@ ul li a {
 .navbar ul li a:after {
   content: "";
   position: absolute;
+
   bottom: 0;
+
   transform: translateX(-100%) scaleX(0);
   -webkit-transform: translateX(-100%) scaleX(0);
+
   -webkit-transform-origin: 50% 50%;
   transform-origin: 50% 50%;
+
   width: 100%;
   height: 2px;
+
   background-color: #fff;
+
   -webkit-transition: transform 250ms;
   transition: transform 250ms;
 }
+
 .navbar ul li a:hover:after {
   -webkit-transform: translateX(-100%) scaleX(1);
+
   transform: translateX(-100%) scaleX(1);
 }
 
-.border-bottom{
-  border-bottom: 1px solid white !important;
+// /header two css/
+
+.menuItems {
+  background-color: rgba(91, 192, 222, 1);
 }
+
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.nav-tabs > li > a:focus,
+.nav-tabs > li > a:hover {
+  color: #555;
+  cursor: pointer;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-bottom-color: transparent;
+}
+
+.nav-tabs > li > a {
+  margin-right: 2px;
+  line-height: 1.42857143;
+  border: 1px solid transparent;
+  border-radius: 4px 4px 0 0;
+}
+.nav > li > a {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+}
+.nav-tabs a {
+  color: #414141;
+}
+a {
+  color: #337ab7;
+  text-decoration: none;
+}
+a {
+  background-color: transparent;
+}
+
+.previewButton {
+  float: right;
+  margin-top: 12px;
+  margin-right: 25px;
+  color: #2d6ca2;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+  .nav-tabs > li > a {
+    display: inline;
+    margin: 0;
+    padding: 10px;
+  }
+}
+
+// /-----------------------------
+
