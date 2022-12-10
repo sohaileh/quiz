@@ -1,0 +1,263 @@
+.quiz-span {
+  margin-right: 20px;
+}
+.status-menu {
+  height: 35px;
+  background-color: rgba(255, 255, 255, 1);
+  border-bottom: 1px solid #ddd;
+  color: rgba(115, 115, 115, 1);
+  font-size: 12px;
+  padding-top: 10px;
+  text-align: right;
+}
+
+.configureRedirectUrl {
+  width: 32vw;
+}
+
+.configContentTheme {
+  padding-bottom: 2vw;
+  margin-bottom: 20px;
+  padding-top: 20px;
+  background-color: #f1f1f1;
+}
+
+.configureContentContainer {
+  margin: 50px auto 50px;
+  background-color: rgba(255, 255, 255, 1);
+  border-left: solid #ddd 1px;
+  border-right: solid #ddd 1px;
+  padding-top: 20px;
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  padding-bottom: 80px;
+}
+
+.navbar-nav > li:hover,
+.navbar-nav > li > a:hover {
+  background-color: #f1f1f1;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  cursor: pointer;
+  text-decoration: none !important;
+}
+
+.configureMenu .navbar-nav > li > a {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: #337ab7;
+}
+
+label {
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+.horizontalCheckbox {
+  position: static !important;
+}
+
+.checkbox label,
+.radio label {
+  min-height: 20px;
+  padding-left: 20px;
+  margin-bottom: 0;
+  font-weight: 400;
+  cursor: pointer;
+}
+.checkbox input[type="checkbox"],
+.checkbox-inline input[type="checkbox"],
+.radio input[type="radio"],
+.radio-inline input[type="radio"] {
+  position: absolute;
+  margin-top: 4px 9;
+  margin-left: -20px;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  margin: 4px 0 0;
+  margin-top: 1px 9;
+  line-height: normal;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.MaxRandomQuestions {
+  width: 70px;
+  display: inline;
+  text-align: center;
+  margin-right: 10px;
+}
+
+.navbar-nav {
+  margin: 7.5px -31px 0 5px;
+}
+
+.active {
+  background-color: #f1f1f1;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.fa-bars {
+  color: black;
+  font-size: 28px;
+}
+
+.maxAttempts {
+  width: 85px;
+  display: inline;
+  text-align: center;
+}
+
+.from-label-div {
+  display: inline-block;
+  position: relative;
+  top: -10px;
+}
+
+.from-span {
+  position: relative;
+  margin-left: 15px;
+  margin-right: 6px;
+  top: 4px;
+}
+
+.date {
+  width: 128px;
+  float: right;
+}
+
+.date-input {
+  padding-left: 6px;
+  padding-right: 6px;
+  font-size: 12px;
+}
+
+.to-span {
+  position: relative;
+  margin-left: 32px;
+  margin-right: 8px;
+  top: 4px;
+}
+.hrs {
+  width: 125px;
+  float: right;
+  margin-left: 5px;
+}
+
+.only-retake-check {
+  margin-top: 10px !important;
+}
+
+.retake {
+  display: inline;
+  margin-left: 15px;
+}
+
+.help-block {
+  font-size: 12px;
+}
+
+.TimeLimit {
+  width: 70px;
+  display: inline;
+  text-align: center;
+}
+
+.hr1 {
+  font-size: 12px;
+}
+
+.randomizeQuestionsType {
+  width: 120px;
+  display: inline;
+  margin-right: 10px;
+}
+
+.include-span {
+  margin-left: 15px;
+  color: #b29999;
+  margin-right: 10px;
+}
+.configureRedirect {
+  float: left;
+}
+
+.configureRedirectType {
+  float: left;
+  margin-right: 10px;
+  width: 100px;
+}
+
+@media screen and (min-width: 768px) {
+  .col-sm-10 {
+    width: 83.33333333%;
+  }
+
+  .hrs {
+    width: 125px;
+    float: right;
+    margin-left: 5px;
+  }
+  .hrs-2 {
+    width: 125px;
+    float: right;
+    margin-left: 5px;
+    font-size: 12px;
+  }
+  .control-label {
+    text-align: right;
+  }
+  .form-group {
+    margin-bottom: 15px;
+    padding-bottom: 2vw;
+  }
+  .navbar-nav > li {
+    float: left;
+  }
+  .navbar-header {
+    display: none;
+  }
+
+  .col-sm-2 {
+    width: 16.66666667%;
+  }
+  .col-sm-1,
+  .col-sm-10,
+  .col-sm-11,
+  .col-sm-12,
+  .col-sm-2,
+  .col-sm-3,
+  .col-sm-4,
+  .col-sm-5,
+  .col-sm-6,
+  .col-sm-7,
+  .col-sm-8,
+  .col-sm-9 {
+    float: left;
+  }
+
+  .navbar-toggle {
+    display: none;
+  }
+  .navbar-collapse.collapse {
+    display: block !important;
+    height: auto !important;
+    padding-bottom: 0;
+    overflow: visible !important;
+  }
+  .navbar-collapse {
+    width: auto;
+    border-top: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+  .navbar-nav > li {
+    float: left;
+    padding: 10px;
+  }
+}
