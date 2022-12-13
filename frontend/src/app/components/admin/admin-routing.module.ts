@@ -4,7 +4,7 @@ import { AddQuizComponent } from './add-quiz/add-quiz.component';
 import { QuizPreviewComponent } from './quiz-preview/quiz-preview.component';
 
 const routes: Routes = [
-  {path:'quiz/add-quiz',component:AddQuizComponent},
+  {path:'quiz/add-quiz/:id',component:AddQuizComponent},
   {path:'quiz/quiz-preview',component:QuizPreviewComponent}
 ];
 

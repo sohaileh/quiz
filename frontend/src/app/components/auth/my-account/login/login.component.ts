@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
   @ViewChild("container", { static: false }) public container;
   userModel: any;
   hide:boolean=true;
+  @ViewChild('f') regForm;
   constructor(
     public router: Router,
     private loaderService: LoaderService,
@@ -90,8 +91,8 @@ export class LoginComponent implements OnInit {
   //   this.hide = !this.hide
   // }
   register() {
-    validateAllFormFields(this.registerForm);
-    this.loaderService.showLoader();
+    // validateAllFormFields(this.registerForm);
+    // this.loaderService.showLoader();
    if (!this.registerForm.valid) {
       return;
     } else {
@@ -101,10 +102,13 @@ export class LoginComponent implements OnInit {
         next: (response: any) => {
           if (response.statusCode == 201) {
             Swal.fire("User Registered Successfully");
+            
             this.registerForm.reset();
+            this.regForm.resetForm();
             this.userModel = {};
           } else {
             Swal.fire("registered");
+            this.regForm.resetForm();
             this.registerForm.reset();
             this.userModel = {};
           }
@@ -113,7 +117,9 @@ export class LoginComponent implements OnInit {
         error: (err: any) => {
           Swal.fire(err.message);
         },
-        complete: () => {},
+        complete: () => {
+          this.registerForm.clearValidators();
+        },
       });
     }
   }
