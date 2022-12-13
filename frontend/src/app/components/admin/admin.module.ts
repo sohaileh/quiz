@@ -56,6 +56,8 @@ import { QuizPreviewComponent } from './quiz-preview/quiz-preview.component';
     MatCheckboxModule,
     MatRadioModule,
     CustomPipesModule
+    
+    
 
   ],
  
