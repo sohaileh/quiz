@@ -239,7 +239,10 @@ export class MainDashboardComponent implements OnInit {
      const quizId=quiz._id
      this.router.navigate([`/admin/quiz/add-quiz/${quizId}`])
  }
-
+publishQuiz(quiz:any){
+  const quizId=quiz._id;
+  this.router.navigate([`/admin/quiz/add-quiz/${quizId}`])
+}
 
 }
   
