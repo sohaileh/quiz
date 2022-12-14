@@ -29,4 +29,15 @@ export class ResponseController {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
   }
+  @UseGuards(JwtAuthGuard)
+  @Post('submit-student-response')
+  async submitStudentResponse (@Body() body:any,@Res() res){
+   try{
+    const savedResponse = await this.responseService.submitStudentResponse(body)
+    res.status(HttpStatus.OK).json(savedResponse)
+   }catch(err){
+    throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+
+   }
+  }
 }

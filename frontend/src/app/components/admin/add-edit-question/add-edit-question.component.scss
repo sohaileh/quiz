@@ -8,12 +8,19 @@
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   
   }
-  ::-webkit-scrollbar{
+::-webkit-scrollbar{
     width: 0;
     background: transparent;
   }
-  
 
+.mat-dialog-content{
+  max-height: 90%;
+  }
+mat-card-actions{
+  padding: 0 0;
+  margin-bottom: 0;
+
+}
   .btn {
   
     background-color: #268e9b;
@@ -21,15 +28,14 @@
     outline: none;
     color: #fff;
   }
-  
+
   .options{
     margin-right: 30px;
   }
   .options-width{
     width: 100%;
   }
-  
-  
+ 
   @media  screen and(max-width:340px) {
   
     .options-width{

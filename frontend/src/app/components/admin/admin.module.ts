@@ -14,13 +14,9 @@ import { MatInputModule } from '@angular/material/input';
 import {TextFieldModule} from '@angular/cdk/text-field';
 import {MatSelectModule} from '@angular/material/select';
 import { DirectivesModule } from 'src/app/Directives/directives.module';
-<<<<<<< Updated upstream
 import { MatButtonModule } from '@angular/material/button';
-=======
 import { ConfigureComponent } from './configure/configure.component';
-import { config } from 'rxjs';
 
->>>>>>> Stashed changes
 // import { FormErrorMsgDirective } from 'src/app/Directives/formErrorMsg/form-error-msg.directive';
 import { CKEditorModule } from 'ng2-ckeditor'
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -36,12 +32,9 @@ import { QuizPreviewComponent } from './quiz-preview/quiz-preview.component';
 @NgModule({
   declarations: [
     AddQuizComponent,
-<<<<<<< Updated upstream
     AddEditQuestionComponent,
     QuizPreviewComponent,
-=======
     ConfigureComponent,
->>>>>>> Stashed changes
     // FormErrorMsgDirective
    
    
@@ -61,18 +54,11 @@ import { QuizPreviewComponent } from './quiz-preview/quiz-preview.component';
     TextFieldModule,
     MatSelectModule,
     DirectivesModule,
-<<<<<<< Updated upstream
     MatButtonModule,
     CKEditorModule,
     MatCheckboxModule,
     MatRadioModule,
     CustomPipesModule
-=======
-
->>>>>>> Stashed changes
-    
-    
-
   ],
  
 })
