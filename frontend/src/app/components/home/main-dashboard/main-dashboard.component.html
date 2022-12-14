@@ -1,83 +1,76 @@
-<mat-card class="w-100 bg-light layout ">
+<mat-card class="w-100 bg-light layout">
   <mat-card-content>
-  
-    <div class=" d-flex m-1  p-1 justify-content-between" fxLayoutAlign="space-between center"   fxLayoutGap="5px" fxLayout.xs="row" fxLayout.sm="row" fxLayout="row">
-      <div fxLayoutAlign="center center">Quizs
-        
-                </div>
-        
-                <div class="mr-1" fxLayoutAlign="center center"> 
-                  <span><button class="btn  create-button border-0" (click)="openQuizTitle()">Create quiz</button></span>
+    <div
+      class="d-flex m-1 p-1 justify-content-between"
+      fxLayoutAlign="space-between center"
+      fxLayoutGap="5px"
+      fxLayout.xs="row"
+      fxLayout.sm="row"
+      fxLayout="row"
+    >
+      <div fxLayoutAlign="center center">Quizs</div>
 
-                  </div>
-
-        </div>  
-
-                  <mat-table #table [dataSource]="dataSource" >
-                    <div class="d-flex"   fxFlex-xs="10%" >
-
-                    <div>
-                   <ng-container matColumnDef="quizTitle">
-                           <mat-header-cell *matHeaderCellDef>Quiz</mat-header-cell>
-                           <!-- {{ element?.results?.output[0]?.eventName }} -->
-
-                            <mat-cell *matCellDef="let element"> {{element?.quizTitle}} </mat-cell>
-                  </ng-container>  
-                </div> 
-                
-                
-       <div>
-                   <ng-container matColumnDef="status">
-                          <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
-                          <mat-cell *matCellDef="let element">{{element?.status}}</mat-cell>
-                     </ng-container>
-       </div>
-                
-       
-               <div>      
-                     <ng-container matColumnDef="preview">
-                      <mat-header-cell *matHeaderCellDef class="pl-2 ">Preview</mat-header-cell>
-                      <mat-cell *matCellDef="let element">
-                        <button class="btn preview m-1">
-                          <i class="fa fa-eye" fxLayoutAlign.xs="center" ></i>
-                          <p fxHide.xs="true">Preview</p>
-                        
-                      </button>
-        
-                      </mat-cell>
-                    </ng-container>
-                  </div>
-
-
-
-    
-
-    
-   <div>          
-     <ng-container matColumnDef="action">
-        <mat-header-cell *matHeaderCellDef class="p-1">Action</mat-header-cell>
-        <mat-cell *matCellDef="let row" fxLayoutGap="15px">
-
-              <span><i  class="fa fa-trash" (click)="deleteQuiz(row)"></i></span>
-               <span><i class="fa fa-edit" (click)="editQuiz(row)" ></i> </span>
-               <span><i class="fa fa-file-text-o" (click)="renameQuizTitle(row)"></i></span>
-
-    
-          </mat-cell>
-      </ng-container>
+      <div class="mr-1" fxLayoutAlign="center center">
+        <span
+          ><button class="btn create-button border-0" (click)="openQuizTitle()">
+            Create quiz
+          </button></span
+        >
+      </div>
     </div>
 
+    <mat-table #table [dataSource]="dataSource" >
+      <div class="d-flex" fxFlex-xs="10%">
+        <div>
+          <ng-container matColumnDef="quizTitle">
+            <mat-header-cell *matHeaderCellDef>Quiz</mat-header-cell>
+          
 
-    
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            <mat-cell *matCellDef="let element">
+              {{ element?.quizTitle }}
+            </mat-cell>
+          </ng-container>
         </div>
-      </mat-table>
-    </mat-card-content>
 
+        <div>
+          <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{ element?.status }}</mat-cell>
+          </ng-container>
+        </div>
+
+        <div>
+          <ng-container matColumnDef="preview">
+            <mat-header-cell *matHeaderCellDef class="pl-2"
+              >Preview</mat-header-cell
+            >
+            <mat-cell *matCellDef="let element">
+              <button class="btn preview m-1">
+                <i class="fa fa-eye" fxLayoutAlign.xs="center"></i>
+                <p fxHide.xs="true">Preview</p>
+              </button>
+            </mat-cell>
+          </ng-container>
+        </div>
+
+        <div>
+          <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef class="p-1"
+              >Action</mat-header-cell
+            >
+            <mat-cell *matCellDef="let row" fxLayoutGap="15px">
+              <span><i class="fa fa-trash" (click)="deleteQuiz(row)"></i></span>
+              <span><i class="fa fa-edit" (click)="editQuiz(row)"></i> </span>
+              <span
+                ><i class="fa fa-file-text-o" (click)="renameQuizTitle(row)"></i
+              ></span>
+            </mat-cell>
+          </ng-container>
+        </div>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns" ></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns" (click)="publishQuiz(row)" ></mat-row>
+      </div>
+    </mat-table>
+  </mat-card-content>
 </mat-card>
-
-
-
-
-
