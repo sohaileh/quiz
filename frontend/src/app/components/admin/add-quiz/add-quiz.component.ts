@@ -1,6 +1,4 @@
-import { Component, HostListener, OnInit, ViewChild } from "@angular/core";
-
-
+import { Component, HostListener, OnInit } from "@angular/core";
 import { AdminService } from "../services/admin.service";
 import { ThemePalette } from "@angular/material/core";
 import { MatDialog } from "@angular/material/dialog";
@@ -15,6 +13,7 @@ import { ActivatedRoute } from "@angular/router";
 export class AddQuizComponent implements OnInit {
   color: ThemePalette = "primary";
   quizStatus=''
+  quizTitle=''
   quizData: any = {};
   quizDetails: any = {};
   quizId: any;
@@ -24,24 +23,30 @@ export class AddQuizComponent implements OnInit {
     private adminService: AdminService,
     private dialog:MatDialog,
     private route:ActivatedRoute
-  ) {}
+  ) {
+    this.adminService.menu$.next(true)
 
-  ngOnInit(): void {
-    // this.quizId= this.route.snapshot.paramMap.get('id')
+  }
+
+  ngOnInit(): void { 
+    this.quizId= this.route.snapshot.paramMap.get('id')
     this.adminService.quizQuestions$.subscribe({
       next:(response:any)=>{
-        this.quizQuestions = response.questionBank;
-        this.quizStatus= response.status
+        this.quizQuestions = response?.questionBank;
+        this.quizStatus= response?.status
+        this.quizTitle = response?.quizTitle
       }
     })
     this.getQuizQuestions();
+
   }
 
   getQuizQuestions() {
-    this.adminService.getQuizQuestions().subscribe({
+    this.adminService.getQuizQuestions(this.quizId).subscribe({
       next: (response: any) => {
         this.quizQuestions = response.questionBank;
         this.quizStatus= response.status
+        this.quizTitle = response.quizTitle
       },
       error: (error) => {},
       complete: () => {},
@@ -49,10 +54,12 @@ export class AddQuizComponent implements OnInit {
   }
 
   editdialog(question) {
+    question.quizId=this.quizId
     this.dialog.open(AddEditQuestionComponent,{
       data:question,
       width:'900px',
-      height:'87%'
+      height:'87%',
+      disableClose: true
     })
   }
 
@@ -60,10 +67,11 @@ export class AddQuizComponent implements OnInit {
     const confirmation = confirm("Are you sure you want to delete this question?")
     if(!confirmation)
     return
-    this.adminService.deleteQuestion(question).subscribe({
+    this.adminService.deleteQuestion(question,this.quizId).subscribe({
       next: (response: any) => {
         this.quizQuestions = response.questionBank;
         this.quizStatus = response.status
+        this.quizTitle= response.quizTitle
       },
       error: (error) => {},
       complete: () => {},
@@ -73,9 +81,14 @@ export class AddQuizComponent implements OnInit {
 
   addQuestionDialog(){
     this.dialog.open(AddEditQuestionComponent,{
+      data:this.quizId,
       width:'900px',
-      height:'87%'
-      
+      height:'87%' ,
+      disableClose: true
     })
+  }
+
+  ngOnDestroy(){
+    this.adminService.menu$.next(false)
   }
 }

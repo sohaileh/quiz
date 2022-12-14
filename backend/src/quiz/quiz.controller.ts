@@ -9,14 +9,13 @@ import {
   UseGuards,
   UseInterceptors,
   UploadedFile,
-  StreamableFile,
-  UploadedFiles,
   Param,
   Req,
   Delete,
   Patch,
   CacheTTL,
   Put,
+  Query,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/gaurds/auth.gaurd';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
@@ -54,10 +53,14 @@ export class QuizController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('get-quiz-questions/:id')
-  async getQuizQuestions(@Param() quizId: any, @Res() res: any) {
+  async getQuizQuestions(@Param() params: any,@Query() query, @Res() res: any,@Req() req) {
     try {
-      const quizQuestions = await this.quizService.getQuizQuestions(quizId);
+      const {id:quizId}= params;
+      const {questionNumber} = query
+      const {role}= req.user
+      const quizQuestions = await this.quizService.getQuizQuestions(quizId,role,questionNumber);
       res.status(HttpStatus.OK).json(quizQuestions);
     } catch (err) {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
@@ -208,7 +211,6 @@ export class QuizController {
   @Post('quiz-title')
   async createQuizTitle(@Body() body: any, @Res() res: any) 
   {
-
           try {
             const quizTitle = await this.quizService.createQuizTitle(body);
 
@@ -252,5 +254,15 @@ export class QuizController {
        catch (err) {
               res.status(HttpStatus.BAD_REQUEST).json(err.message);
                 }
+     }
+@Post('is-quiz-assigned')
+async isQuizAssigned(@Body() body:any,@Res() res){
+        try{
+              const isQuizAssigned = await this.quizService.isQuizAssigned(body)
+              res.status(HttpStatus.OK).json(isQuizAssigned)
+        }catch(err){
+          res.status(HttpStatus.BAD_REQUEST).json(err.message);
+
+        }
      }
 }

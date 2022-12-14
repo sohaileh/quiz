@@ -15,6 +15,8 @@ import {TextFieldModule} from '@angular/cdk/text-field';
 import {MatSelectModule} from '@angular/material/select';
 import { DirectivesModule } from 'src/app/Directives/directives.module';
 import { MatButtonModule } from '@angular/material/button';
+import { ConfigureComponent } from './configure/configure.component';
+
 // import { FormErrorMsgDirective } from 'src/app/Directives/formErrorMsg/form-error-msg.directive';
 import { CKEditorModule } from 'ng2-ckeditor'
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -32,6 +34,7 @@ import { QuizPreviewComponent } from './quiz-preview/quiz-preview.component';
     AddQuizComponent,
     AddEditQuestionComponent,
     QuizPreviewComponent,
+    ConfigureComponent,
     // FormErrorMsgDirective
    
    
@@ -56,9 +59,6 @@ import { QuizPreviewComponent } from './quiz-preview/quiz-preview.component';
     MatCheckboxModule,
     MatRadioModule,
     CustomPipesModule
-    
-    
-
   ],
  
 })

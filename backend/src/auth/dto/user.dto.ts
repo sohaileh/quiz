@@ -38,4 +38,6 @@ export class UserModelDto {
 
   @IsEmpty()
   public quizzesPlayed:[]
+  @IsEmpty()
+  public assignedQuizzes:[]
 }
