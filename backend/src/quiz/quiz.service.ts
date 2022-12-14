@@ -606,10 +606,11 @@ export class QuizService {
 
   async getQuizQuestions(quizId: any, role, questionNumber) {
     try {
-      const questionsLength = await this.quizModel.find({_id:quizId},{questionBank:1})
-      if(questionsLength[0].questionBank.length === 0)
-      throw new HttpException('Question not added yet', HttpStatus.BAD_REQUEST);
-     
+      if(questionNumber == 0){
+        const questionsLength = await this.quizModel.find({_id:quizId},{questionBank:1})
+        if(questionsLength[0].questionBank.length === 0)
+        throw new HttpException('Questions not added yet', HttpStatus.BAD_REQUEST);
+      }    
       if (role === 'student') {
         const quizQuestions = await this.quizModel.findOne(
           { _id: new Types.ObjectId(quizId) },
