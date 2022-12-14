@@ -1,23 +1,23 @@
-import { Component, HostListener, Inject, OnInit, ViewChild } from "@angular/core";
 import {
-  FormGroup,
-  FormArray,
-  FormBuilder,
-} from "@angular/forms";
+  Component,
+  Inject,
+  OnInit,
+} from "@angular/core";
+import { FormGroup, FormArray, FormBuilder, Validators } from "@angular/forms";
 import { AdminService } from "../services/admin.service";
 import { ThemePalette } from "@angular/material/core";
-import { MatDialog,MAT_DIALOG_DATA } from "@angular/material/dialog";
-
+import { MatDialog, MAT_DIALOG_DATA } from "@angular/material/dialog";
 @Component({
-  selector: 'app-add-edit-question',
-  templateUrl: './add-edit-question.component.html',
-  styleUrls: ['./add-edit-question.component.scss']
+  selector: "app-add-edit-question",
+  templateUrl: "./add-edit-question.component.html",
+  styleUrls: ["./add-edit-question.component.scss"],
 })
 export class AddEditQuestionComponent implements OnInit {
-
   color: ThemePalette = "primary";
   UploadFile: any;
-  quizStatus=''
+  editingQuestion = false;
+  savingQuestion = false;
+  quizStatus = "";
   questions: any = [];
   questionType: string = "";
   questionBank: FormGroup;
@@ -25,13 +25,15 @@ export class AddEditQuestionComponent implements OnInit {
   ckeConfig: any = {};
   quizQuestions = [];
   answer: any;
+  errorMessage = "";
+  correctAnswerIndex:any
 
   questionId: any = {};
   constructor(
     private fb: FormBuilder,
     private adminService: AdminService,
-    private dialog:MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data:any
+    private dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.ckeConfig = {
       allowedContent: false,
@@ -40,12 +42,9 @@ export class AddEditQuestionComponent implements OnInit {
       removeButtons:
         "Save,NewPage,Preview,Print,Templates,Replace,SelectAll,Form,Checkbox,Radio,TextField,Textarea,Find,Select,Button,ImageButton,HiddenField,JustifyBlock,CopyFormatting,CreateDiv,BidiLtr,BidiRtl,Language,Flash,Smiley,PageBreak,Iframe,ShowBlocks,Cut,Copy,Paste,Image,Format,Source,Maximize,Styles,Anchor,SpecialChar,PasteFromWord,PasteText,Scayt,Undo,Redo,Strike,RemoveFormat,Indent,Outdent,Blockquote,Underline,exportpdf",
     };
-
-    
   }
 
   ngOnInit(): void {
-      console.log('data',this.data)
     this.questionBank = this.fb.group({
       question: [""],
       type: ["Choose Question Type"],
@@ -55,7 +54,9 @@ export class AddEditQuestionComponent implements OnInit {
       timeLimit: [],
       options: this.fb.array([]),
     });
-    if(this.data){
+    
+    if (this.data.question) {
+
       this.questionId = this.data._id;
       this.questionType = this.data.type;
       this.questionBank.patchValue({
@@ -65,16 +66,18 @@ export class AddEditQuestionComponent implements OnInit {
         marks: this.data.marks,
         correctAnswer: this.data.correctAnswer,
         timeLimit: this.data.timeLimit,
+        
       });
-  
+      this.correctAnswerIndex = this.data.options.findIndex(
+        (option) => option.option === this.data.correctAnswer
+      );
+      this.answer=this?.data?.options[this.correctAnswerIndex]?.option
       this.questionBank.setControl(
         "options",
         this.setExistigOptions(this.data.options)
       );
     }
-    
   }
-
 
   typeOfQuestions = [
     {
@@ -117,6 +120,8 @@ export class AddEditQuestionComponent implements OnInit {
   }
 
   addQuestion() {
+    this.errorMessage = "";
+    this.savingQuestion = true;
     const formData = new FormData();
     formData.append("question", this.questionBank.get("question").value);
     formData.append("file", this.UploadFile);
@@ -131,22 +136,27 @@ export class AddEditQuestionComponent implements OnInit {
     formData.append("correctAnswer", this.answer);
     this.options.clear();
 
-    this.adminService.saveQuestion(formData).subscribe((response: any) => {
-      this.adminService.quizQuestions$.next(response)
-      this.quizQuestions = response.questionBank;
-      this.quizStatus= response.status
-      this.questionBank.reset();
-    this.questionBank.patchValue({
-      type:'Choose Question Type'
-    })
-    },(error)=>{
-      console.log(error.error.message)
-    });
-    
-    
+    this.adminService.saveQuestion(formData, this.data).subscribe(
+      (response: any) => {
+        this.adminService.quizQuestions$.next(response);
+        this.savingQuestion = false;
+        this.quizQuestions = response.questionBank;
+        this.quizStatus = response.status;
+        this.questionBank.reset();
+        this.questionBank.patchValue({
+          type: "Choose Question Type",
+        });
+      },
+      (error) => {
+        this.savingQuestion = false;
+        this.answer = "";
+        this.errorMessage = error.error.message;
+      }
+    );
   }
 
   getCorrectAnswer(i, event: any) {
+    console.log('checked',event)
     if (event.checked) {
       this.answer = this.questionBank.get("options").value[i].option;
     }
@@ -164,6 +174,7 @@ export class AddEditQuestionComponent implements OnInit {
     return questionOptions;
   }
   editQuestion() {
+    this.editingQuestion = true;
     const formData = new FormData();
     formData.append("question", this.questionBank.get("question").value);
     formData.append("file", this.UploadFile);
@@ -177,27 +188,39 @@ export class AddEditQuestionComponent implements OnInit {
     formData.append("marks", this.questionBank.get("marks").value);
     formData.append("correctAnswer", this.answer);
 
-    this.adminService.editQuestion(formData, this.questionId).subscribe({
-      next: (response: any) => {
-        this.adminService.quizQuestions$.next(response)
-        this.closeDialogModel();
-      },
-      error: (error) => {},
-      complete: () => {},
-    });
+    this.adminService
+      .editQuestion(formData, this.questionId, this.data.quizId)
+      .subscribe({
+        next: (response: any) => {
+          this.errorMessage = "";
+          this.adminService.quizQuestions$.next(response);
+          this.editingQuestion = false;
+          this.closeDialogModel();
+        },
+        error: (error) => {
+          this.editingQuestion = false;
+          this.errorMessage = error.error.message;
+        },
+        complete: () => {},
+      });
   }
 
   closeDialogModel() {
-    this.dialog.closeAll()
+    this.dialog.closeAll();
     this.options.clear();
     this.questionBank.reset();
     this.questionType = "";
     this.questionBank.patchValue({
-      type:'Choose Question Type'
-    })
+      type: "Choose Question Type",
+    });
   }
- 
-
-  
-
+  saveQuiz() {
+    this.dialog.closeAll();
+    this.options.clear();
+    this.questionBank.reset();
+    this.questionType = "";
+    this.questionBank.patchValue({
+      type: "Choose Question Type",
+    });
+  }
 }

@@ -11,6 +11,11 @@ export const UserSchema = new mongoose.Schema({
     ],
     password: String,
     score:String,
-    role:{type:String,default:'user'}
+    assignedQuizzes:[
+        {
+            quizId:{type:mongoose.Schema.Types.ObjectId}
+        }
+    ],
+    role:{type:String,default:'student'}
 })
 

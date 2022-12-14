@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+import { QuizPreviewComponent } from './components/admin/quiz-preview/quiz-preview.component';
 import { MainComponent } from './components/main/main.component';
 import { CanActivateGuard } from './guards/can-activate.guard';
 
@@ -47,6 +48,10 @@ const appRoutes: Routes = [
         path:'auth',
         loadChildren:()=>import('./components/auth/auth.module').then(m=>m.AuthModule)
       },
+      {
+        path:'student/quiz-attempt/:id',
+        component:QuizPreviewComponent
+      }
     
     ]}]
 

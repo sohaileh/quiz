@@ -4,8 +4,9 @@ import { CartItem } from 'src/app/modals/cart-item';
 import { CartService } from '../services/cart.service';
 import { FormControl } from '@angular/forms';
 import { CommonService } from '../services/common.service';
-import { NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AuthService } from '../../auth/services/auth.service';
+import { AdminService } from '../../admin/services/admin.service';
 
 @Component({
   selector: 'app-header-two',
@@ -24,38 +25,36 @@ export class HeaderTwoComponent implements OnInit {
   firstCharacter:any;
   secondCharacter:any;
   enableProfile= null
+  quizId:any
+  showMenu:boolean
   
 
-  constructor(public router:Router,private cartService: CartService, private commonservice:CommonService,private authService:AuthService) {
+  constructor(public router:Router,private cartService: CartService, private commonservice:CommonService,private authService:AuthService,private route:ActivatedRoute,private adminService:AdminService) {
     this.cartService.getItems().subscribe(shoppingCartItems => this.shoppingCartItems = shoppingCartItems);
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.url = event.url;
-        
+        this.url = event.url;   
       }
     } )
+    this.adminService.menu$.subscribe({
+      next:(response)=>{
+        this.showMenu=response
+        this.quizId= localStorage.getItem('quizId')
+      }
+     })
+    
+     
    }
 
   ngOnInit() {
     this.searchInput=new FormControl()
-
     this.userId=localStorage.getItem('userId');
-
     this.authService.userDetails.subscribe((response:any)=>{
-               
-              // this.firstName=response?.user?.firstName;
-    
-              //  this.lastName=response?.user?.lastName;
-    
-              //  this.enableProfile=response?.enableProfile
               this.firstName= localStorage.getItem('firstName')
               this.enableProfile= localStorage.getItem('enableProfile')
-    
-              
-    
-    
-    
     })
+  
+  
   }
 
 
@@ -81,5 +80,14 @@ changePassword(){
     el!.scrollIntoView();
   }
 
+  create(){
+    this.router.navigate([`/admin/quiz/add-quiz/${this.quizId}`])
+  }
+  configure(){
+    this.router.navigate([`/admin/quiz/configure/${this.quizId}`])
+  }
+  preview(){
+    this.router.navigate([`admin/quiz/quiz-preview/${this.quizId}`])
+  }
 
 }

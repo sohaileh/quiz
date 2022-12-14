@@ -10,8 +10,7 @@ export class ResponseModelDto{
 
     @IsNotEmpty()
     @IsArray()
-    @IsNotEmptyObject()
-    public responses:string;
+    public response:[];
 
 
 }

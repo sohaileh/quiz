@@ -1,50 +1,30 @@
-<!-- <div class="home-header-2">
-    <div class="container"fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px" fxlayoutalign="space-between center">
-      <div class="logo">
-          <a routerLink="/home/dashboard"><img src="assets/images/logo2.png"></a>  
-      </div>
-      <div fxflexoffset.gt-sm="10"  fxFlex class="search-form"  >
-    </div>
-      <div class="call-bucket-wrap " fxLayout="row" fxLayout.sm="row" fxLayoutAlign="center center" >
-        <div class="info-message-icon"  fxLayout="row" fxLayoutAlign="center center">
-          <div  fxLayout="row" fxLayoutAlign="center center">
-            <i class="fa fa-home" title="Home" [routerLink]="['/home/dashboard']" ><span fxHide.lt-sm="true" class="txt hidden-xs" >Home</span></i>
-            <i class='fa  fa-solid fa-trophy' title="Winner Announcement"><span fxHide.lt-sm="true" class="txt  hidden-xs">Winner Announcement</span></i>
-            <i class="fa fa-user" *ngIf="enableProfile ===null"   routerLink="/auth/login" title="Winner my-account" ><span fxHide.lt-sm="true" class="txt  hidden-xs" >Sign In</span></i>
-            <i class="fa fa-user"  *ngIf=" enableProfile==='true'"   title="Winner my-account" [matMenuTriggerFor]="menu" ><span fxHide.lt-sm="true" class="txt  hidden-xs" >My Account
 
-              <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="changePassword()">change password</button>
-                <button mat-menu-item (click)="logout()">logout</button>
-              </mat-menu>
-            </span></i>
-         
-             
-             
-         
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
-
-<!-- Currently Working -->
-<nav class="navbar  navbar-expand-lg">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon "><i class="fa fa-bars" style="color:#fff; font-size:28px;"></i></span>
+<nav class="navbar navbar-expand-lg"  routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="['border-bottom', '']">
+  <a class="navbar-brand" [routerLink]="['/']"
+    ><img src="../../../../assets/images/logo2.png" alt="quiz-img"
+  /></a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"
+      ><i class="fa fa-bars" style="color: #fff; font-size: 28px"></i
+    ></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav">
-<<<<<<< Updated upstream
       <li class="nav-item">
         <a [routerLink]="['/'] " class="nav-link">Home</a>
       </li>
       <li class="nav-item">
         <a
           *ngIf="
-            router.url === '/auth/login' || router.url === '/home/home-page'
-          "
+            router.url === '/auth/login' ||  router.url ==='/home/home-page'"
           [routerLink]="['/auth/login']"
           class="nav-link"
           >Sign In</a
@@ -52,7 +32,7 @@
       </li>
       <li class="nav-item">
         <a
-          *ngIf="router.url === '/home/dashboard' || router.url==='/admin/quiz/add-quiz'"
+          *ngIf="router.url === '/home/dashboard' || showMenu"
           [routerLink]="['/users']"
           class="nav-link"
           >Users</a
@@ -60,7 +40,7 @@
       </li>
       <li class="nav-item">
         <a
-          *ngIf="router.url === '/home/dashboard' || router.url==='/admin/quiz/add-quiz'"
+          *ngIf="router.url === '/home/dashboard' || showMenu "
           [routerLink]="['/users']"
           class="nav-link"
           >Settings</a
@@ -71,17 +51,12 @@
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
         <a
-          *ngIf="router.url === '/home/dashboard'|| router.url==='/admin/quiz/add-quiz' "
+          *ngIf="router.url === '/home/dashboard'||  showMenu"
           (click)="logout()"
           class="nav-link"
           ><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a
         >
       </li>
-=======
-      <li class="nav-item"><a [routerLink]="['/']" class="nav-link">Home</a></li>
-      <li class="nav-item"><a [routerLink]="['/auth/login']" class="nav-link">Sign In</a></li>
-      <!-- <li class="nav-item"><a   [routerLink]="['/teacher']"  class="nav-link" >Teacher</a></li> -->
->>>>>>> Stashed changes
     </ul>
   </div>
 </nav>
@@ -93,9 +68,9 @@
        && router.url != '/pages/ForgotPassword'"></app-menu>
   </div> -->
 
-<div class="menuItems" *ngIf="router.url === '/home/dashboard' || router.url==='/admin/quiz/add-quiz' || router.url === '/admin/quiz/configure' ">
+  <div class="menuItems" *ngIf="showMenu">
   <div class="container">
-    <div class="previewButton" id="preview">
+    <div class="previewButton" ngClass.lt-sm="mr-0 mt-0" id="preview" (click)="preview()">
 
       Preview
 
@@ -104,10 +79,10 @@
 
     <ul class="nav nav-tabs">
       <li>
-        <a [routerLink]="['/admin/quiz/add-quiz'] ">Create</a>
+        <a  (click)="create()">Create</a>
       </li>
       <li class="">
-        <a [routerLink]="['/admin/quiz/configure']">Configure</a>
+        <a (click)="configure()">Configure</a>
       </li>
       <li class="">
 

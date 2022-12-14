@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { HttpClient, HttpParams } from "@angular/common/http";
-import { BehaviorSubject, shareReplay } from "rxjs";
+import { BehaviorSubject, Observable, shareReplay } from "rxjs";
 
 
 @Injectable({
@@ -11,42 +11,37 @@ export class AdminService {
   user: any = {};
   serverUrl = environment.serverURL;
   quizQuestions$= new BehaviorSubject(null)
+ menu$ = new BehaviorSubject<boolean>(false)
 
 
   constructor(private http: HttpClient) {}
 
-  saveQuestion(quizData: any,) {
-    // let params = new HttpParams();
-    const quizId= '634d1a062c20213f8f5a822b'
-    // params = params.append('quizId', quizId);
-    console.log("quizData", quizData);
+  saveQuestion(quizData: any,quizId) {
     return this.http.post(
       `${this.serverUrl}quiz/upload-file/${quizId}`,
       quizData
     );
-    // return this.http.post(`${this.serverUrl}quiz/upload-file`,quizData,{params: params})
   }
 
   submitInfo(quizDetails: any) {
     return this.http.post(`${this.serverUrl}quiz/submit-info`, quizDetails);
   }
 
-  getQuizQuestions(){
-    const quizId = '634d1a062c20213f8f5a822b'
-    return this.http.get(`${this.serverUrl}quiz/get-quiz-questions/${quizId}`).pipe(
-      shareReplay()
-    )
+  getQuizQuestions(quizId:any,questionNumber?:any){
+    return this.http.get(`${this.serverUrl}quiz/get-quiz-questions/${quizId}`,{params:{
+      questionNumber:questionNumber
+    }})
   }
 
-  editQuestion(formdata:any,questionId){
-    const quizId='634d1a062c20213f8f5a822b'
+  editQuestion(formdata:any,questionId,quizId){
     return this.http.patch(`${this.serverUrl}quiz/edit-question/${quizId}/${questionId}`,formdata)
   }
-  deleteQuestion(question){
-    const quizId = '634d1a062c20213f8f5a822b'
+  deleteQuestion(question,quizId){
     return this.http.patch(`${this.serverUrl}quiz/delete-question/${quizId}`,question)
   }
 
-
+  submitStudentResponse(finalResponse){
+    return this.http.post(`${this.serverUrl}response/submit-student-response`,finalResponse)
+  }
  
 }

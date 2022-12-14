@@ -108,4 +108,14 @@ export class ResponseService {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
   }
+
+  async submitStudentResponse(finalResponse){
+    try{
+         const response =   new this.responseModel(finalResponse)
+              await response.save()
+              return 'Response saved Successfully'
+    }catch(err){
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
+  }
 }

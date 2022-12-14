@@ -1,6 +1,6 @@
 
-  <div class="d-flex justify-content-between" *ngIf="!data">
-    <mat-card-header>New Question</mat-card-header>
+  <div class="d-flex justify-content-between" *ngIf="!data.question">
+    <mat-card-header >New Question</mat-card-header>
     <button
       type="button"
       class="close shadow-none"
@@ -9,11 +9,11 @@
     >
       &times;
     </button>
-   
+  
   </div>
- 
+  
 
-  <mat-dialog-content *ngIf="!data">
+  <mat-dialog-content class="mat-dialog-content" *ngIf="!data.question">
     <hr />
       <div [formGroup]="questionBank">
     <div class="form-group d-flex flex-column flex-lg-row align-items-baseline">
@@ -121,7 +121,6 @@
                           formControlName="option"
                           name="option"
                           appFormErrorMsg
-                          required
                           minlength="1"
                         />
                         <div class="d-flex align-items-center">
@@ -132,7 +131,7 @@
                             Correct
                           </mat-checkbox>
                           <i
-                            class="fa fa-times margin ml-2 fa-lg icon text-danger"
+                            class="fa fa-times margin ml-2 fa-lg icon text-danger cursor"
                             (click)="removeOption(i)"
                           ></i>
                         </div>
@@ -152,35 +151,34 @@
                   Add options
                 </button>
               </div>
-            </div>
-            
-    </mat-dialog-content>
-   
-    <mat-card-actions align="end" *ngIf="!data">
-      
-      <button
-        type="button"
-        class=" btn"
-       (click)="closeDialogModel()"
-      >
-        Cancel
-      </button>
+            </div>         
+  </mat-dialog-content>
+  <mat-card-actions align="end" *ngIf="!data.question" class="d-flex flex-column align-items-end align-items-md-center flex-md-row">
+    <mat-error class="mr-sm-3 mb-2 mb-md-0  alert alert-danger  p-2" *ngIf="errorMessage">{{errorMessage}}</mat-error>
+    <button
+      type="button"
+      class=" btn mb-2 mb-md-0"
+     (click)="closeDialogModel()"
+    >
+      Cancel
+    </button>
 
-      <button type="button" class="btn ml-1" (click)="addQuestion()">
-        Save
-      </button>
-    </mat-card-actions>
-
-
-
+    <button type="button" [disabled]="savingQuestion" class="btn ml-1 mb-2 mb-md-0" (click)="addQuestion()">
+     {{savingQuestion?'Saving...':'Save and Add Another'}}
+    </button>
+    <button type="button"  class="btn ml-1 mb-2 mb-md-0" (click)="saveQuiz()">
+     Save
+     </button>
+  </mat-card-actions>
+ 
  
 <!-- edit dialog -->
 
-<div class="d-flex justify-content-between" *ngIf="data">
+<div class="d-flex justify-content-between" *ngIf="data.question">
   <mat-card-header>Edit Question</mat-card-header>
   <button
     type="button"
-    class="close shadow-none"
+    class="close border-0"
    (click)="closeDialogModel()"
    
   >
@@ -189,7 +187,7 @@
 </div>
 
 
-<mat-dialog-content *ngIf="data">
+<mat-dialog-content class="mat-dialog-content" *ngIf="data.question">
   <hr />
     <div [formGroup]="questionBank">
   <div class="form-group d-flex flex-column flex-lg-row align-items-baseline">
@@ -297,18 +295,18 @@
                         formControlName="option"
                         name="option"
                         appFormErrorMsg
-                        required
                         minlength="1"
                       />
                       <div class="d-flex align-items-center">
                         <mat-checkbox
                           class="example-margin"
+                          [checked]="correctAnswerIndex==i"
                           (change)="getCorrectAnswer(i, $event)"
                         >
                           Correct
                         </mat-checkbox>
                         <i
-                          class="fa fa-times margin ml-2 fa-lg icon text-danger"
+                          class="fa fa-times margin ml-2 fa-lg icon text-danger cursor"
                           (click)="removeOption(i)"
                         ></i>
                       </div>
@@ -329,21 +327,21 @@
               </button>
             </div>
           </div>
-          
-  </mat-dialog-content>
- 
-  <mat-card-actions align="end" *ngIf="data">
-    
+        </mat-dialog-content>
+
+  <mat-card-actions align="end" class="border-top d-flex flex-column align-items-end flex-md-row " *ngIf="data.question">
+    <mat-error class="mr-sm-3 mb-2 mb-md-0  alert alert-danger  p-2" *ngIf="errorMessage">{{errorMessage}}</mat-error>
     <button
       type="button"
-      class="btn"
+      class="btn mb-2 mb-md-0 "
      (click)="closeDialogModel()"
     >
       Cancel
     </button>
 
-    <button type="button" class="btn ml-1" (click)="editQuestion()">
-      Edit
+    <button type="button" class="btn ml-1 mb-2 mb-md-0" [disabled]="editingQuestion" (click)="editQuestion()">
+      {{editingQuestion?'Editing...':'Edit'}}
     </button>
   </mat-card-actions>
+
 
