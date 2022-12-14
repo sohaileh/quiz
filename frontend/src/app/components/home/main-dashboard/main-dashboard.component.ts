@@ -5,10 +5,21 @@ import { MediaObserver, MediaChange } from "@angular/flex-layout";
 import { Observable, Subscription } from "rxjs";
 import { PageEvent } from "@angular/material/paginator";
 import { MatPaginator } from "@angular/material/paginator";
-import { MatDialog } from "@angular/material/dialog";
+import { MatDialog,MatDialogRef,MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { QuizInfoComponent } from "../../quiz/quiz-info/quiz-info.component";
 import { AuthService } from "../../auth/services/auth.service";
 import Swal from "sweetalert2";
+import { MatTableDataSource } from "@angular/material/table";
+import { QuizTitleComponent } from "../../quiz/quiz-title/quiz-title.component";
+import { QuizService } from "../../quiz/services/quiz.service";
+import { RenameQuizTitleComponent } from "../../quiz/rename-quiz-title/rename-quiz-title.component";
+
+export interface quizInterface {
+  quizTitle: string;
+  status:string;
+
+}
+
 
 @Component({
   selector: "app-main-dashboard",
@@ -16,10 +27,18 @@ import Swal from "sweetalert2";
   styleUrls: ["./main-dashboard.component.scss"],
 })
 export class MainDashboardComponent implements OnInit {
+
+
+
+
+  
+
+
   mediaSub: Subscription;
   public slides = [];
   userRole: any;
   quizDetails: any = [];
+
   public viewType: string = "list";
   public viewCol: number = 32;
   public view: any;
@@ -29,19 +48,27 @@ export class MainDashboardComponent implements OnInit {
   pageSlice: any = [];
   ItemsPerPage: any = 3;
   handleDescriptionView: boolean = false;
+  displayedColumns :string[]= ['quizTitle','status','preview','action'];
+  dataSource = new MatTableDataSource<quizInterface>(this.quizDetails);
+  organizationId:any={}
+  selectedRowIndex=-1
+
 
   constructor(
     private authService: AuthService,
     private homeService: HomeService,
     private router: Router,
     public mediaObserver: MediaObserver,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private quizservice:QuizService,
   ) {}
 
   ngOnInit(): void {
+
+ 
+
     this.mediaSub = this.mediaObserver.media$.subscribe(
       (result: MediaChange) => {
-        console.log("size", result.mqAlias);
         if (this.descriptionView && result.mqAlias == "xs") {
           this.layOutSm = "column";
           this.handleDescriptionView = false;
@@ -65,19 +92,38 @@ export class MainDashboardComponent implements OnInit {
         }
         this.authService.userDetails.subscribe((response: any) => {
           this.userRole = localStorage.getItem("userRole");
-          console.log("userRole", this.userRole);
         });
       }
     );
 
-    this.getQuizzes();
+
+    this.quizservice.newQuiz$.subscribe((res:any)=>{
+  this.getOrganizationQuizzes()
+
+
+
+
+
+})
+
+
+
+    
+
+    this.getOrganizationQuizzes();
+
+
   }
 
-  getQuizzes() {
-    this.homeService.getQuizzes().subscribe(
+  getOrganizationQuizzes() {
+    this.organizationId.userId=localStorage.getItem('userId')
+
+    this.homeService.getOrganizationQuizzes(this.organizationId).subscribe(
       (res: any) => {
         this.quizDetails = res;
-        console.log(this.quizDetails);
+        this.dataSource = new MatTableDataSource<quizInterface>(this.quizDetails);
+
+
 
         this.pageSlice = this.quizDetails.slice(0, 3);
       },
@@ -90,13 +136,15 @@ export class MainDashboardComponent implements OnInit {
     this.homeService.checkIfPlayed(quiz).subscribe(
       (res: any) => {
         const played = res;
+
         if (!played) {
+          // this.alreadyPlayed=false
           this.dialog.open(QuizInfoComponent, {
             data: quiz,
             autoFocus: false,
           });
         } else {
-          Swal.fire("You cannot play quiz Twice");
+          // this.alreadyPlayed=true
         }
       },
 
@@ -106,7 +154,6 @@ export class MainDashboardComponent implements OnInit {
   }
 
   onPageChange(event: PageEvent) {
-    console.log(event);
     const startIndex = event.pageIndex * event.pageSize;
     let endIndex = startIndex + event.pageSize;
     if (endIndex > this.quizDetails.length) {
@@ -137,11 +184,84 @@ export class MainDashboardComponent implements OnInit {
   }
 
   organizeQuiz(quizId) {
-    console.log("quizid ", quizId);
     this.router.navigate([`/quiz/organize-quiz/${quizId}`]);
   }
 
   ngOnDestroy() {
     this.mediaSub.unsubscribe();
   }
+
+
+
+  openQuizTitle(): void {
+    let dialogRef = this.dialog.open(QuizTitleComponent, {
+      width:'40%',
+     position:{
+      top:'60px',
+     }
+    
+    });
+  }
+
+ deleteQuiz(quiz:any)
+ {
+ const confirmDelete=confirm('Are you sure you want to delete this quiz ')
+ if(confirmDelete)
+ {
+  this.homeService.deleteQuiz(quiz).subscribe((res=>{
+    if(res)
+    {
+      this.getOrganizationQuizzes()
+    }
+
+   }))
+
+ }
+ } 
+
+
+ renameQuizTitle(quiz:any)
+ {
+  let dialogRef = this.dialog.open(RenameQuizTitleComponent, {
+    width:'40%',
+   position:{
+    top:'60px',
+   },
+   data:quiz,
+  
+  });
+
+  
+
+ }
+
+ editQuiz(quiz:any)
+ {
+ 
+     const quizId=quiz._id
+     localStorage.setItem('quizId',quizId)
+     this.router.navigate([`/admin/quiz/add-quiz/${quizId}`])
+ }
+createQuizQuestion(quiz:any){
+  const quizId=quiz._id;
+  localStorage.setItem('quizId',quizId)
+  this.router.navigate([`/admin/quiz/add-quiz/${quizId}`])
 }
+
+highlight(row){
+ this.selectedRowIndex = row.id;
+}
+
+preview(quiz){
+  const quizId =quiz._id
+  this.router.navigate([`/admin/quiz/quiz-preview/${quizId}`])
+}
+
+
+
+}
+  
+
+
+   
+

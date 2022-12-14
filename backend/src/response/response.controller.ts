@@ -5,7 +5,11 @@ import {
   Res,
   HttpStatus,
   HttpException,
+  UseGuards,
 } from '@nestjs/common';
+import { Roles } from 'src/auth/authorization/decorator/roles.decorator';
+import { RolesGuard } from 'src/auth/authorization/guard/roles.guard';
+import { JwtAuthGuard } from 'src/auth/gaurds/auth.gaurd';
 import { ResponseModelDto } from './dto/response.dto';
 import { ResponseService } from './response.service';
 
@@ -13,6 +17,8 @@ import { ResponseService } from './response.service';
 export class ResponseController {
   constructor(private readonly responseService: ResponseService) {}
 
+  @UseGuards(JwtAuthGuard,RolesGuard)
+  @Roles('user')
   @Post('submit')
   async submitResponse(@Res() res: any, @Body() body: any) {
     try {
@@ -22,5 +28,16 @@ export class ResponseController {
     } catch (err) {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
+  }
+  @UseGuards(JwtAuthGuard)
+  @Post('submit-student-response')
+  async submitStudentResponse (@Body() body:any,@Res() res){
+   try{
+    const savedResponse = await this.responseService.submitStudentResponse(body)
+    res.status(HttpStatus.OK).json(savedResponse)
+   }catch(err){
+    throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+
+   }
   }
 }

@@ -1,0 +1,74 @@
+.header{
+    background-color: #5bc0de;
+    width: 100%;
+    position: absolute;
+    height: 70px;
+    left: 0;
+    top: 60px;
+    color: #222;
+    z-index: 0;
+}
+
+.attempt-header{
+    background-color: #5bc0de;
+    width: 100%;
+    position: absolute;
+    height: 70px;
+    left: 0;
+    top: 0;
+    color: #222;
+    z-index: 9999;  
+}
+.content{
+    position: relative;
+    top: 100px;
+}
+.container{
+    padding: 0 0 !important;
+}
+
+.content-footer{
+    height: 70px;
+    width: 100%;
+    padding-bottom: 10px;
+}
+
+.btn {
+  
+    background-color: #268e9b;
+    border: none;
+    outline: none;
+    color: #fff;
+  }
+
+.container{
+    padding: 0;
+}
+
+.media-container{
+    width: 100%;
+    height: 200px;
+}
+
+.media{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.body{
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+  }
+
+// attempt-quiz      
+  .time {
+    width: 100%;
+  }
+  .attempt-container{
+    margin-top: 100px;
+    margin-right: 4px;
+    margin-left: 4px;
+  }
+  .submit-card-height{
+    height: 250px;
+  }

@@ -14,11 +14,16 @@ import { MatInputModule } from '@angular/material/input';
 import {TextFieldModule} from '@angular/cdk/text-field';
 import {MatSelectModule} from '@angular/material/select';
 import { DirectivesModule } from 'src/app/Directives/directives.module';
+import { MatButtonModule } from '@angular/material/button';
+import { ConfigureComponent } from './configure/configure.component';
 
 // import { FormErrorMsgDirective } from 'src/app/Directives/formErrorMsg/form-error-msg.directive';
-
-
-
+import { CKEditorModule } from 'ng2-ckeditor'
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatRadioModule, MAT_RADIO_DEFAULT_OPTIONS} from '@angular/material/radio';
+import { CustomPipesModule } from '../Pipes/Pipes.molule';
+import { AddEditQuestionComponent } from './add-edit-question/add-edit-question.component';
+import { QuizPreviewComponent } from './quiz-preview/quiz-preview.component';
 
 
 
@@ -27,6 +32,9 @@ import { DirectivesModule } from 'src/app/Directives/directives.module';
 @NgModule({
   declarations: [
     AddQuizComponent,
+    AddEditQuestionComponent,
+    QuizPreviewComponent,
+    ConfigureComponent,
     // FormErrorMsgDirective
    
    
@@ -45,10 +53,13 @@ import { DirectivesModule } from 'src/app/Directives/directives.module';
     MatDialogModule,
     TextFieldModule,
     MatSelectModule,
-    DirectivesModule
-    
-    
-
-  ]
+    DirectivesModule,
+    MatButtonModule,
+    CKEditorModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    CustomPipesModule
+  ],
+ 
 })
 export class AdminModule { }

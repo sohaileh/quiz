@@ -18,7 +18,6 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   register(userModel: any) {
-    console.log(userModel)
     if(!userModel.role)
     userModel.role='admin'
     return this.http.post(`${this.serverUrl}auth/sign-up`, userModel);
@@ -78,6 +77,9 @@ export class AuthService {
   }
 
   getOrganizations() {
-    return this.http.get(`${this.serverUrl}auth/get-organizations`);
+    return this.http.get(`${this.serverUrl}auth/get-organizations`).pipe(
+      shareReplay()
+    )
   }
+  
 }

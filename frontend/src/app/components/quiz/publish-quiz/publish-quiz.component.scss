@@ -1,0 +1,152 @@
+.publish_container {
+  background-color: rgba(255, 255, 255, 1);
+  border-left: solid #ddd 1px;
+  border-right: solid #ddd 1px;
+  padding-top: 20px;
+  min-height: 100%;
+  margin-top: 25px;
+  height: auto !important;
+  height: 100%;
+  padding-bottom: 80px;
+  .publish_button {
+    margin-left: 16.45%;
+  }
+  .publish-button {
+    background-color: #268e9b;
+    border: none;
+    outline: none;
+    color: #fff;
+    text-transform: uppercase;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: 0.5s;
+    height:36px;
+      font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+  }
+  mat-form-field {
+    width: 50%;
+    font-size: 13px;
+  }
+  .control-label {
+    font-weight: 700;
+  }
+  .icon_suffix {
+    cursor: pointer;
+  }
+  .help-block-quiz {
+    width: 60%;
+  }
+  .label_distribution {
+    position: relative;
+    top: 40px;
+  }
+  .float {
+    margin-left: 229px;
+  }
+}
+.container,
+.container-lg,
+.container-md,
+.container-sm {
+  max-width: 960px !important;
+}
+
+@media screen and (min-width: 768px) {
+  .col-sm-1,
+  .col-sm-10,
+  .col-sm-11,
+  .col-sm-12,
+  .col-sm-2,
+  .col-sm-3,
+  .col-sm-4,
+  .col-sm-5,
+  .col-sm-6,
+  .col-sm-7,
+  .col-sm-8,
+  .col-sm-9 {
+    float: left;
+  }
+  .distributionCheckbox {
+    margin-left: 26%;
+    width: 100%;
+  }
+  .form-group {
+    margin-bottom: 15px;
+  }
+  .col-sm-2 {
+    width: 16.66666667%;
+  }
+  mat-form-field {
+    width: 60%;
+    font-size: 13px;
+  }
+}
+
+@media screen and (max-width: 512px) {
+  mat-form-field {
+    width: 100% !important;
+    font-size: 13px !important;
+  }
+  .distributionCheckbox {
+    margin-left: 0%;
+    width: 100%;
+  }
+  .help-block-quiz {
+    width: 100% !important;
+  }
+  .publish_container {
+    border: none;
+  }
+  .label_distribution {
+    position: absolute !important;
+    top: 102px !important;
+  }
+  .float {
+    margin-left: 0px !important;
+  }
+  .publish_button {
+    
+    margin-left: 0px !important;
+  }
+}
+.help-block-quiz {
+  width: 60%;
+
+  font-size: 12px;
+
+  display: block;
+
+  margin-top: 5px;
+
+  margin-bottom: 10px;
+
+  color: #737373;
+}
+.help-block {
+  font-size: 12px;
+
+  display: block;
+
+  margin-top: 5px;
+
+  margin-bottom: 10px;
+
+  color: #737373;
+
+  margin-left: 16px;
+}
+.checkbox_label{
+
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+
+font-size: 14px;
+
+line-height: 1.42857143;
+
+color: #333;
+
+background-color: #fff;
+
+}

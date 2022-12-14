@@ -1,0 +1,59 @@
+.cursor{
+    cursor: pointer;
+  }
+  
+  
+
+.body{
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  
+  }
+::-webkit-scrollbar{
+    width: 0;
+    background: transparent;
+  }
+
+.mat-dialog-content{
+  max-height: 90%;
+  }
+mat-card-actions{
+  padding: 0 0;
+  margin-bottom: 0;
+
+}
+  .btn {
+  
+    background-color: #268e9b;
+    border: none;
+    outline: none;
+    color: #fff;
+  }
+
+  .options{
+    margin-right: 30px;
+  }
+  .options-width{
+    width: 100%;
+  }
+ 
+  @media  screen and(max-width:340px) {
+  
+    .options-width{
+      width: 80%;
+    }
+    
+  }
+
+  @media only  screen and (max-width:991px) and (min-width:958px) {
+    .time{
+      width: 25%;
+    }
+    .marks{
+      width:25%
+    }
+    .question-type{
+      width: 50%;
+    }
+  }
+  
+

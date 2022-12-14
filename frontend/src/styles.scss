@@ -14,6 +14,7 @@
 @import "../node_modules/ngx-red-zoom/styles/style-magnifier";
 @import "../node_modules/ngx-red-zoom/styles/mixins/common";
 @import "../node_modules/ngx-red-zoom/styles/mixins/style-window";
+@import 'ngx-toastr/toastr';
 @include red-zoom-min-scale-factor(1.5, "thumb");
 .red-zoom--style--window {
     @include red-zoom-style-window( $frame-border-width: 3px, $lens-border-width: 0px);

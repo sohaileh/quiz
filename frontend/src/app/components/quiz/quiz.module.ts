@@ -29,7 +29,13 @@ import { TeamsComponent } from "./my-quizzes/teams/teams.component";
 import { AttemptTeamQuizComponent } from "./attempt-team-quiz/attempt-team-quiz.component";
 import { TeamQuizInfoComponent } from "./team-quiz-info/team-quiz-info.component";
 import { DirectivesModule } from "src/app/Directives/directives.module";
-
+import { QuizTitleComponent } from './quiz-title/quiz-title.component';
+import { RenameQuizTitleComponent } from './rename-quiz-title/rename-quiz-title.component';
+import { RegisterQuizComponent } from './register-quiz/register-quiz.component';
+import { PublishQuizComponent } from './publish-quiz/publish-quiz.component';
+import { DialogComponent } from './dialog/dialog.component';
+import { CKEditorModule } from 'ng2-ckeditor';
+import {ClipboardModule} from '@angular/cdk/clipboard';
 @NgModule({
   declarations: [
     AttemptQuizComponent,
@@ -41,6 +47,11 @@ import { DirectivesModule } from "src/app/Directives/directives.module";
     TeamsComponent,
     AttemptTeamQuizComponent,
     TeamQuizInfoComponent,
+    QuizTitleComponent,
+    RenameQuizTitleComponent,
+    RegisterQuizComponent,
+    PublishQuizComponent,
+    DialogComponent,
   ],
   imports: [
     CommonModule,
@@ -63,6 +74,8 @@ import { DirectivesModule } from "src/app/Directives/directives.module";
     MatInputModule,
     MatSelectModule,
     DirectivesModule,
+    CKEditorModule,
+    ClipboardModule
   ],
   providers: [{ provide: MAT_DIALOG_DATA, useValue: {} }],
 })

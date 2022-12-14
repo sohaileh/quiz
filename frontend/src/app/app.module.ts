@@ -20,7 +20,7 @@ import { ErrorPageComponent } from './components/pages/error-page/error-page.com
 // import { CanDeactivateGuard } from './guards/can-deactivate.guard';
 import { AuthInterceptor } from './components/auth/interceptors/auth.interceptor';
 // import { FormErrorMsgDirective } from 'src/app/Directives/formErrorMsg/form-error-msg.directive';
-
+import {ToastrModule} from 'ngx-toastr'
 
 @NgModule({
   declarations: [
@@ -44,6 +44,7 @@ import { AuthInterceptor } from './components/auth/interceptors/auth.interceptor
     QuizModule,
     AuthModule,
     HomeModule,
+    ToastrModule.forRoot(),
     BlockUIModule.forRoot({delayStart:1,delayStop:3,message:"Loading..."}),
     BlockUIHttpModule.forRoot({requestFilters:[BlockUIFilterFuntion]})
   ],

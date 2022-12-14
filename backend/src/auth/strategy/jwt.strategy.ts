@@ -10,7 +10,7 @@ export class JwtStrategy extends PassportStrategy(Strategy){
             secretOrKey:appConfig().appSecret
         });
     }
-    async validate(payload: any) {
-        return {userId: payload.sub, username: payload.username}
+    async validate(payload: any,) {
+        return payload;
     }
 }
