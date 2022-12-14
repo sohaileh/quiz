@@ -606,6 +606,10 @@ export class QuizService {
 
   async getQuizQuestions(quizId: any, role, questionNumber) {
     try {
+      const questionsLength = await this.quizModel.find({_id:quizId},{questionBank:1})
+      if(questionsLength[0].questionBank.length === 0)
+      throw new HttpException('Question not added yet', HttpStatus.BAD_REQUEST);
+     
       if (role === 'student') {
         const quizQuestions = await this.quizModel.findOne(
           { _id: new Types.ObjectId(quizId) },
@@ -628,8 +632,8 @@ export class QuizService {
   }
   async isQuizAssigned(userData) {
     try {
-      const { userId, quizId } = userData;
-      const userExists = await this.userModel.exists({ _id: userId });
+      const {emailAddress, quizId } = userData;
+      const userExists = await this.userModel.exists({ emailAddress:emailAddress  });
       if (!userExists)
         throw new HttpException('User does not exists', HttpStatus.BAD_REQUEST);
       const quizExists = await this.quizModel.exists({ _id: quizId });
@@ -639,12 +643,11 @@ export class QuizService {
           HttpStatus.BAD_REQUEST,
         );
       const quizAssigned = await this.userModel.find({
-        _id: new Types.ObjectId(userId),
-        'assignedQuizzes.quizId': new Types.ObjectId(quizId),
-      });
-      if(!quizAssigned.length)
+        emailAddress:emailAddress},{assignedQuizzes:{$elemMatch:{quizId:new Types.ObjectId(quizId)}}});
+      if(!quizAssigned[0].assignedQuizzes.length)
         throw new HttpException('Quiz has not been assigned to you ',HttpStatus.BAD_REQUEST)
-      return true
+      return quizAssigned[0].assignedQuizzes
+
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }

@@ -35,7 +35,9 @@ export class HeaderTwoComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         this.url = event.url;   
       }
-    } )
+
+    }
+     )
     this.adminService.menu$.subscribe({
       next:(response)=>{
         this.showMenu=response
@@ -88,6 +90,9 @@ changePassword(){
   }
   preview(){
     this.router.navigate([`admin/quiz/quiz-preview/${this.quizId}`])
+  }
+  publish(){
+    this.router.navigate([`quiz/publish-quiz/${this.quizId}`])
   }
 
 }

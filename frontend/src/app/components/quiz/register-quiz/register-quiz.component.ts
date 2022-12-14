@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../auth/services/auth.service';
+import { QuizService } from '../services/quiz.service';
 @Component({
   selector: 'app-register-quiz',
   templateUrl: './register-quiz.component.html',
@@ -19,14 +20,13 @@ export class RegisterQuizComponent implements OnInit {
     private fb: FormBuilder,
     private route:ActivatedRoute,
     private router:Router,
-    private authService:AuthService,
+   private quizService:QuizService
     
   ) { }
 
   ngOnInit() {
-    
-      this.Quiz={quizId:this.route.snapshot.params.id};
-      this. attemptQuizes.push(this.Quiz);    
+      this.quizId=this.route.snapshot.params.id
+      this.attemptQuizes.push(this.Quiz);    
       this.registerForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -46,24 +46,27 @@ export class RegisterQuizComponent implements OnInit {
       this.registerModel=this.registerForm.value;
       this.registerModel.role="Student";
       this.registerModel.attemptQuizes=this.attemptQuizes;
-      this.authService.register(this.registerModel).subscribe({
+      this.registerModel.quizId= this.quizId
+      this.quizService.isQuizAssigned(this.registerModel).subscribe({
         next: (response: any) => {
-          console.log(response)
+            const quizId=response[0].quizId
           if (response.statusCode == 201) {
+            console.log('res',response)
             this.registerForm.reset();
             this.registerModel = {};
-            this.router.navigate([`/attempt-quiz/${response.quizId._id}`]);
+            this.router.navigate([`/student/quiz-attempt/${quizId}`]);
           } else {
             this.registerForm.reset();
             this.registerModel = {};
-            this.router.navigate([`/attempt-quiz/${response.quizId._id}`]);
+            this.router.navigate([`/student/quiz-attempt/${quizId}`]);
+
           }
         },
-        error: (err: any) => {
-          alert(err.message);
+        error: (error) => {
+          alert(error.error);
         },
         complete: () => {
-          alert("user registered successfully");
+         
           
         
         },

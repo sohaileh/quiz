@@ -27,7 +27,7 @@
           <form [formGroup]="publishForm">
             <div class="col-sm-10 mt-4">
               <div class="checkbox">
-                <label>
+                <label class="checkbox_label">
                   <input type="checkbox" id="" formControlName="quizLink" />
                   Use Quiz Link
                 </label>
@@ -59,7 +59,7 @@
                  
                   <div class="register_quiz">
                     <div class="checkbox">
-                      <label class="">
+                      <label class="checkbox_label">
                         <input type="checkbox" /> Register for quiz
                       </label>
                       <p class="help-block-quiz" >
@@ -78,7 +78,7 @@
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-8">
             <div class="checkbox distributionCheckbox">
-              <label>
+              <label class="checkbox_label">
                 <input type="checkbox" (change)="openDialog($event)"/>
                 Send Email Invites
               </label>
@@ -94,7 +94,7 @@
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-8">
             <div class="checkbox distributionCheckbox">
-              <label>
+              <label class="checkbox_label">
                 <input type="checkbox" />
                 Assign Users / Groups
               </label>
