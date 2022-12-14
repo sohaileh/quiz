@@ -51,6 +51,7 @@ export class MainDashboardComponent implements OnInit {
   displayedColumns :string[]= ['quizTitle','status','preview','action'];
   dataSource = new MatTableDataSource<quizInterface>(this.quizDetails);
   organizationId:any={}
+  selectedRowIndex=-1
 
 
   constructor(
@@ -236,14 +237,27 @@ export class MainDashboardComponent implements OnInit {
 
  editQuiz(quiz:any)
  {
+ 
      const quizId=quiz._id
      localStorage.setItem('quizId',quizId)
      this.router.navigate([`/admin/quiz/add-quiz/${quizId}`])
  }
-publishQuiz(quiz:any){
+createQuizQuestion(quiz:any){
   const quizId=quiz._id;
+  localStorage.setItem('quizId',quizId)
   this.router.navigate([`/admin/quiz/add-quiz/${quizId}`])
 }
+
+highlight(row){
+ this.selectedRowIndex = row.id;
+}
+
+preview(quiz){
+  const quizId =quiz._id
+  this.router.navigate([`/admin/quiz/quiz-preview/${quizId}`])
+}
+
+
 
 }
   

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { AdminService } from "../services/admin.service";
 
 @Component({
@@ -28,5 +28,8 @@ export class ConfigureComponent implements OnInit {
       },
       complete:()=>{}
     })
+  }
+  ngOnDestroy(){
+    this.adminService.menu$.next(false)
   }
 }

@@ -71,7 +71,8 @@ export class QuizPreviewComponent implements OnInit {
           if (this.quizQuestions.length == 0) this.submitStudentResponse();
         },
         error: (error) => {
-          console.log(error);
+          alert(error.error.message)
+          this.router.navigate(['/home/home-page'])
         },
         complete: () => {},
       });
@@ -97,8 +98,8 @@ export class QuizPreviewComponent implements OnInit {
         this.redirect();
       },
       error: (error) => {
-        console.log(error.error.message);
         this.submitting = false;
+        this.router.navigate(['/home/home-page'])
       },
       complete: () => {},
     });

@@ -26,7 +26,7 @@
             <mat-header-cell *matHeaderCellDef>Quiz</mat-header-cell>
           
 
-            <mat-cell *matCellDef="let element">
+            <mat-cell *matCellDef="let element" (click)="createQuizQuestion(element)">
               {{ element?.quizTitle }}
             </mat-cell>
           </ng-container>
@@ -44,8 +44,8 @@
             <mat-header-cell *matHeaderCellDef class="pl-2"
               >Preview</mat-header-cell
             >
-            <mat-cell *matCellDef="let element">
-              <button class="btn preview m-1">
+            <mat-cell *matCellDef="let element" >
+              <button class="btn preview m-1" (click)="preview(element)">
                 <i class="fa fa-eye" fxLayoutAlign.xs="center"></i>
                 <p fxHide.xs="true">Preview</p>
               </button>
@@ -69,7 +69,11 @@
         </div>
 
         <mat-header-row *matHeaderRowDef="displayedColumns" ></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns" (click)="publishQuiz(row)" ></mat-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns" [15:57] Yasir Manzoor
+        [ngClass]="{'highlight': selectedRowIndex == row.id}"
+         (click)="highlight(row)"
+        
+         ></mat-row>
       </div>
     </mat-table>
   </mat-card-content>

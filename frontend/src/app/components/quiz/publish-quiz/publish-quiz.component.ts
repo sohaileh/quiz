@@ -19,6 +19,7 @@ export class PublishQuizComponent implements OnInit {
   url: any;
   id: any;
   quizStatus: any;
+  quizId:any={}
   constructor(
     fb: FormBuilder,
     private router: Router,
@@ -32,6 +33,7 @@ export class PublishQuizComponent implements OnInit {
       quizLink: new FormControl(false),
       urlLink: new FormControl(""),
     });
+    this.adminService.menu$.next(true)
   }
 
   ngOnInit(): void {
@@ -46,10 +48,11 @@ export class PublishQuizComponent implements OnInit {
   }
 
   getQuizQuestions() {
-    this.adminService.getQuizQuestions().subscribe({
+    this.quizId = localStorage.getItem('quizId')
+    this.adminService.getQuizQuestions(this.quizId).subscribe({
       next: (response: any) => {
         // this.quizQuestions = response.questionBank;
-        this.quizStatus = response.status;
+        this.quizStatus = response?.status;
       },
       error: (error) => {},
       complete: () => {},
@@ -73,5 +76,8 @@ export class PublishQuizComponent implements OnInit {
  
   callBack(name: string) {
     this.url = name;
+  }
+  ngOnDestroy(){
+    this.adminService.menu$.next(false)
   }
 }

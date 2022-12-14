@@ -258,6 +258,7 @@ export class QuizController {
 @Post('is-quiz-assigned')
 async isQuizAssigned(@Body() body:any,@Res() res){
         try{
+          
               const isQuizAssigned = await this.quizService.isQuizAssigned(body)
               res.status(HttpStatus.OK).json(isQuizAssigned)
         }catch(err){

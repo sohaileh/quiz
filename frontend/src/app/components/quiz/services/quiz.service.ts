@@ -4,7 +4,7 @@ import { HttpClient } from "@angular/common/http";
 // import { BehaviorSubject, Observable, of, pipe } from "rxjs";
 import {tap } from "rxjs/operators";
 import { BehaviorSubject, pipe,Observable, of} from "rxjs";
-
+ 
 
 @Injectable({
   providedIn: "root",
@@ -171,6 +171,9 @@ export class QuizService {
       tap((res)=>this.newQuiz$.next(res))
     )
 
+  }
+  isQuizAssigned(quizModel:any){
+      return this.http.post(`${this.serverUrl}quiz/is-quiz-assigned`,quizModel)
   }
  
 }
