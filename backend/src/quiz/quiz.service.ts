@@ -127,12 +127,12 @@ export class QuizService {
     try {
       if (
         !(
-          quizId &&
           questionBank.type &&
-          questionBank.marks &&
-          questionBank.timeLimit &&
+          questionBank.marks !== 'null' &&
+          questionBank.timeLimit !== 'null' &&
           questionBank.question &&
-          questionBank.options
+          questionBank.correctAnswer !== 'undefined' &&
+          questionBank.correctAnswer !== ''
         )
       )
         throw new HttpException(
@@ -140,7 +140,34 @@ export class QuizService {
           HttpStatus.BAD_REQUEST,
         );
 
+      if (questionBank.options.length == 1)
+        throw new HttpException(
+          'Atleast Two Options are required',
+          HttpStatus.BAD_REQUEST,
+        );
+
+      let options = [];
+      questionBank.options.forEach((option) => {
+        options.push(option.option);
+      });
+      let uniqueOptions = new Set(options);
+      if (uniqueOptions.size < options.length)
+        throw new HttpException(
+          'Options cannot be same',
+          HttpStatus.BAD_REQUEST,
+        );
+      if (!quizId)
+        throw new HttpException(
+          'Something went wrong Please try later',
+          HttpStatus.BAD_REQUEST,
+        );
+
       const { type } = questionBank;
+      if (type == 'Choose Question Type')
+        throw new HttpException(
+          'Fill Valid question Type',
+          HttpStatus.BAD_REQUEST,
+        );
       if (type == 'face-recognition' || type == 'video' || type == 'audio') {
         const mediaStorage = ref(
           storage,
@@ -157,7 +184,7 @@ export class QuizService {
         );
         const questions = await this.quizModel.findOne(
           { _id: new Types.ObjectId(quizId) },
-          { questionBank: 1, _id: 0 },
+          { questionBank: 1, status: 1, quizTitle: 1 },
         );
         return questions;
       }
@@ -168,7 +195,7 @@ export class QuizService {
       );
       const questions = await this.quizModel.findOne(
         { _id: new Types.ObjectId(quizId) },
-        { questionBank: 1, _id: 0, status: 1 },
+        { questionBank: 1, status: 1, quizTitle: 1 },
       );
 
       return questions;
@@ -251,20 +278,42 @@ export class QuizService {
     try {
       const { type } = body;
       const { quizId, questionId } = params;
-
       if (
         !(
-          quizId &&
-          questionId &&
           body.type &&
-          body.marks &&
-          body.timeLimit &&
+          body.marks !== 'null' &&
+          body.timeLimit !== 'null' &&
           body.question &&
-          body.options
+          body.correctAnswer !== 'undefined' &&
+          body.correctAnswer !== ''
         )
       )
         throw new HttpException(
           'Please Fill all fields',
+          HttpStatus.BAD_REQUEST,
+        );
+
+      if (body.options.length == 1)
+        throw new HttpException(
+          'Atleast Two Options are required',
+          HttpStatus.BAD_REQUEST,
+        );
+
+      let options = [];
+      body.options.forEach((option) => {
+        options.push(option.option);
+      });
+      let uniqueOptions = new Set(options);
+
+      if (uniqueOptions.size < options.length)
+        throw new HttpException(
+          'Options cannot be same',
+          HttpStatus.BAD_REQUEST,
+        );
+
+      if (!quizId)
+        throw new HttpException(
+          'Something went wrong Please try later',
           HttpStatus.BAD_REQUEST,
         );
 
@@ -313,7 +362,7 @@ export class QuizService {
 
           const quizQuestions = await this.quizModel.findOne(
             { _id: quizId },
-            { questionBank: 1, status: 1, _id: 0 },
+            { questionBank: 1, status: 1, quizTitle: 1 },
           );
 
           return quizQuestions;
@@ -354,7 +403,7 @@ export class QuizService {
 
         const quizQuestions = await this.quizModel.findOne(
           { _id: quizId },
-          { questionBank: 1, status: 1, _id: 0 },
+          { questionBank: 1, status: 1, quizTitle: 1 },
         );
 
         return quizQuestions;
@@ -387,11 +436,20 @@ export class QuizService {
           _id: new Types.ObjectId(quizId),
           'questionBank._id': new Types.ObjectId(questionId),
         },
-        { $set: { 'questionBank.$': body } },
+        {
+          $set: {
+            'questionBank.$.question': body.question,
+            'questionBank.$.type': body.type,
+            'questionBank.$.timeLimit': body.timeLimit,
+            'questionBank.$.options': body.options,
+            'questionBank.$.marks': body.marks,
+            'questionBank.$.correctAnswer': body.correctAnswer,
+          },
+        },
       );
       const quizQuestions = await this.quizModel.findOne(
         { _id: quizId },
-        { questionBank: 1, status: 1, _id: 0 },
+        { questionBank: 1, status: 1, quizTitle: 1 },
       );
 
       return quizQuestions;
@@ -504,7 +562,7 @@ export class QuizService {
 
   async deleteQuestion(question, quizId) {
     try {
-      if (!(question && quizId))
+      if (!(question._id && quizId))
         throw new HttpException(
           'Please Fill all fields',
           HttpStatus.BAD_REQUEST,
@@ -537,7 +595,7 @@ export class QuizService {
         {
           _id: new Types.ObjectId(quizId),
         },
-        { questionBank: 1, status: 1, _id: 0 },
+        { questionBank: 1, status: 1, quizTitle: 1 },
       );
 
       return updatedQuiz;
@@ -546,13 +604,47 @@ export class QuizService {
     }
   }
 
-  async getQuizQuestions(quizId: any) {
+  async getQuizQuestions(quizId: any, role, questionNumber) {
     try {
+      if (role === 'student') {
+        const quizQuestions = await this.quizModel.findOne(
+          { _id: new Types.ObjectId(quizId) },
+          {
+            questionBank: { $slice: [parseInt(questionNumber), 1] },
+            status: 1,
+            quizTitle: 1,
+          },
+        );
+        return quizQuestions;
+      }
       const quizQuestions = await this.quizModel.findOne(
         { _id: new Types.ObjectId(quizId) },
-        { questionBank: 1, _id: 0, status: 1 },
+        { questionBank: 1, status: 1, quizTitle: 1 }, 
       );
       return quizQuestions;
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
+  }
+  async isQuizAssigned(userData) {
+    try {
+      const { userId, quizId } = userData;
+      const userExists = await this.userModel.exists({ _id: userId });
+      if (!userExists)
+        throw new HttpException('User does not exists', HttpStatus.BAD_REQUEST);
+      const quizExists = await this.quizModel.exists({ _id: quizId });
+      if (!quizExists)
+        throw new HttpException(
+          'Quiz has been removed',
+          HttpStatus.BAD_REQUEST,
+        );
+      const quizAssigned = await this.userModel.find({
+        _id: new Types.ObjectId(userId),
+        'assignedQuizzes.quizId': new Types.ObjectId(quizId),
+      });
+      if(!quizAssigned.length)
+        throw new HttpException('Quiz has not been assigned to you ',HttpStatus.BAD_REQUEST)
+      return true
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }

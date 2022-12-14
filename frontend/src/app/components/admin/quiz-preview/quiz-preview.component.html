@@ -1,42 +1,116 @@
-<div class="header">
-    <div class="container h4 mt-3">Quiz Title</div>  
+<div class="header" *ngIf="router.url.includes('admin')">
+  <div class="container h4 mt-3">{{ quizTitle }}</div>
 </div>
 
-<div>
+<div class="attempt-header" *ngIf="router.url.includes('student')">
+  <div class="container h4 mt-3">{{ quizTitle }}</div>
+</div>
 
-
-<div class="container content h-100 bg-white">
-    <div class="d-flex flex-column">
-        <div class="d-flex flex-column pl-4 pt-4" *ngFor="let question of quizQuestions">
-            <mat-card-content class="ml-3 mt-2 mr-2">
-              <div
-                class="question d-flex flex-sm-row align-items-center"
+<div class="h-100" *ngIf="totalQuestions && !responseSubmitted">
+  <div class="container content h-100">
+    <div
+      class="d-flex flex-column align-items-center h-100 justify-content-between"
+    >
+      <div
+        class="d-flex flex-column pl-2 pt-2 mb-4 bg-white rounded w-75"
+        *ngFor="let question of quizQuestions; let i = index"
+      >
+        <mat-card-content class="ml-3 mt-2 mr-2 pb-4">
+          <div class="d-flex justify-content-center">
+            <div class="media-container mb-4" *ngIf="question.fileName">
+              <img
+                [src]="question?.fileUrl"
+                alt="img"
+                class="media"
+                *ngIf="question.type === 'face-recognition'"
+              />
+              <video
+                class="media"
+                *ngIf="question.type == 'video'"
+                [src]="question.fileUrl"
+                controls
+              ></video>
+            </div>
+          </div>
+          <div class="question d-flex align-items-baseline">
+            <div class="body font-weight-bold mr-1" *ngIf="totalQuestions == 1">
+              Q{{ questionNumber }}.
+            </div>
+            <div class="body font-weight-bold mr-1" *ngIf="totalQuestions > 1">
+              Q{{ i + 1 }}.
+            </div>
+            <div
+              class=" h5"
+              [innerHTML]="question.question | sanitizedHtml"
+            ></div>
+          </div>
+          <div class="options w-100">
+            <mat-radio-group
+              class="col-12 d-flex flex-column flex-lg-row flex-lg-wrap"
+            >
+              <mat-radio-button
+                [color]="color"
+                class="col-12 col-lg-5 border border-info rounded mr-4 mb-4 pt-3 pb-2"
+                *ngFor="let option of question.options"
+                [value]="option.option"
+                (change)="optionChanged($event, question)"
+                >{{ option.option }}</mat-radio-button
               >
-                  
-                <div  class="font-weight-bold h5" [innerHTML]="question.question | sanitizedHtml"></div>
-               
-              </div>
-              <div class="options w-100">
-                  <mat-radio-group class="col-12 d-flex flex-column flex-lg-row flex-lg-wrap"
-                  >
-                    <mat-radio-button [color]="color"
-                      class="col-12 col-lg-5 border border-info rounded mr-4 mb-4 pt-3 pb-2 "
-                      *ngFor="let option of question.options"
-                      [value]="option.option"
-                      >{{ option.option }}</mat-radio-button
-                    >
-                  </mat-radio-group>
-              </div>
-            </mat-card-content>
-            <hr />
+            </mat-radio-group>
           </div>
-          <div class="content-footer d-flex justify-content-around align-items-center  ">
-            <div>Answered 0 of 3</div>
-             <button class="btn">Submit</button>
-          </div>
-        </div>
-
+          <mat-card-actions class="d-flex justify-content-end">
+            <button
+              (click)="getQuizQuestions()"
+              *ngIf="router.url.includes('student')"
+              class="btn m-2"
+              [disabled]="!optionSelected"
+            >
+              Save and Next
+            </button>
+          </mat-card-actions>
+        </mat-card-content>
+      </div>
+      <div
+        class="content-footer d-flex justify-content-around align-items-center"
+        *ngIf="router.url.includes('admin')"
+      >
+        <div>Answered {{ questionsAnswered }} of {{ totalQuestions }}</div>
+        <button
+          class="btn"
+          [disabled]="questionsAnswered !== totalQuestions"
+          (click)="submitStudentResponse()"
+        >
+          {{ submitting ? "Submitting..." : "Submit" }}
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
 
-
-
+<div *ngIf="responseSubmitted" class="content d-flex justify-content-center">
+  <mat-card
+    class="col-10 col-md-6 col-lg-4 mx-2 p-4 submit-card-height d-flex flex-column justify-content-center"
+  >
+    <mat-card-content>
+      <div class="d-flex align-items-baseline">
+        <span
+          ><i
+            class="fa fa-3x fa-check text-success mr-3 border border-success rounded-circle p-1"
+            aria-hidden="true"
+          ></i
+        ></span>
+        <span><h4>Thanks!</h4></span>
+      </div>
+      <div class="body ml-2 mt-2 text-secondary">
+        Your response was submitted
+      </div>
+      <p class="ml-2 mt-2 text-secondary">
+        Redirecting you to home page in
+        {{ this.showRedirectTime ? this.showRedirectTime : "5" }}s
+      </p>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button class="btn" (click)="redirectToHome()">Home</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
