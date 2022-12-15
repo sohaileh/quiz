@@ -27,6 +27,8 @@ export class AddEditQuestionComponent implements OnInit {
   answer: any;
   errorMessage = "";
   correctAnswerIndex:any
+  answerSelected=false
+  selectedAnswerIndex:number
 
   questionId: any = {};
   constructor(
@@ -71,6 +73,8 @@ export class AddEditQuestionComponent implements OnInit {
       this.correctAnswerIndex = this.data.options.findIndex(
         (option) => option.option === this.data.correctAnswer
       );
+      this.answerSelected=true
+      this.selectedAnswerIndex=this.correctAnswerIndex
       this.answer=this?.data?.options[this.correctAnswerIndex]?.option
       this.questionBank.setControl(
         "options",
@@ -156,9 +160,12 @@ export class AddEditQuestionComponent implements OnInit {
   }
 
   getCorrectAnswer(i, event: any) {
-    console.log('checked',event)
     if (event.checked) {
       this.answer = this.questionBank.get("options").value[i].option;
+      this.answerSelected=true
+      this.selectedAnswerIndex=i
+    }else{
+      this.answerSelected =false
     }
   }
 

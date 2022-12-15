@@ -61,7 +61,7 @@
           <mat-card-actions class="d-flex justify-content-end">
             <button
               (click)="getQuizQuestions()"
-              *ngIf="router.url.includes('student')"
+              *ngIf="router.url.includes('student') && totalQuestions == 1 "
               class="btn m-2"
               [disabled]="!optionSelected"
             >
@@ -72,7 +72,7 @@
       </div>
       <div
         class="content-footer d-flex justify-content-around align-items-center"
-        *ngIf="router.url.includes('admin')"
+        *ngIf="router.url.includes('admin') || totalQuestions > 1 "
       >
         <div>Answered {{ questionsAnswered }} of {{ totalQuestions }}</div>
         <button
@@ -110,7 +110,7 @@
       </p>
     </mat-card-content>
     <mat-card-actions align="end">
-      <button class="btn" (click)="redirectToHome()">Home</button>
+      <button class="btn" (click)="redirectToDashboard()">Dashboard</button>
     </mat-card-actions>
   </mat-card>
 </div>

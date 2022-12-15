@@ -254,6 +254,7 @@ highlight(row){
 
 preview(quiz){
   const quizId =quiz._id
+  localStorage.setItem('quizId',quizId)
   this.router.navigate([`/admin/quiz/quiz-preview/${quizId}`])
 }
 

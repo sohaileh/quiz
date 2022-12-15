@@ -3,7 +3,6 @@ import { AdminService } from "../services/admin.service";
 import { ThemePalette } from "@angular/material/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { interval, Observable, Subscription, take, tap } from "rxjs";
-import * as internal from "stream";
 
 @Component({
   selector: "app-quiz-preview",
@@ -57,7 +56,6 @@ export class QuizPreviewComponent implements OnInit {
   }
 
   getQuizQuestions() {
-    console.log('quizId',this.quizId)
     this.adminService
       .getQuizQuestions(this.quizId, this.questionNumber)
       .pipe(tap((data) => this.removeCorrectAnswer(data)))
@@ -72,7 +70,7 @@ export class QuizPreviewComponent implements OnInit {
         },
         error: (error) => {
           alert(error.error.message)
-          this.router.navigate(['/home/home-page'])
+          this.router.navigate([`/admin/quiz/add-quiz/${this.quizId}`])
         },
         complete: () => {},
       });
@@ -99,7 +97,7 @@ export class QuizPreviewComponent implements OnInit {
       },
       error: (error) => {
         this.submitting = false;
-        this.router.navigate(['/home/home-page'])
+        this.router.navigate(['/home/dashboard'])
       },
       complete: () => {},
     });
@@ -117,13 +115,13 @@ export class QuizPreviewComponent implements OnInit {
       },
       error: (error) => {},
       complete: () => {
-        this.router.navigate(["/home/home-page"]);
+        this.router.navigate(["/home/dashboard"]);
       },
     });
   }
 
-  redirectToHome(){
+  redirectToDashboard(){
     this.intervalSubscription.unsubscribe()
-    this.router.navigate(["/home/home-page"]);
+    this.router.navigate(["/home/dashboard"]);
   }
 }
