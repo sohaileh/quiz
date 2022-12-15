@@ -653,4 +653,21 @@ export class QuizService {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
   }
+  async configure(quiz: any) {
+
+    try {
+
+      const configElements = await new this.quizModel(quiz);
+
+      const configureItems = configElements.save();
+
+      return configureItems;
+
+    } catch (err) {
+
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+
+    }
+
+  }
 }

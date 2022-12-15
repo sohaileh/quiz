@@ -266,4 +266,23 @@ async isQuizAssigned(@Body() body:any,@Res() res){
 
         }
      }
+     @Post('configure-general')
+
+     async configure(@Body() body: any, @Res() res: any) {
+   
+       console.log(body)
+   
+       try {
+   
+         const configElements = await this.quizService.configure(body);
+   
+         res.status(HttpStatus.OK).json(configElements);
+   
+       } catch (err) {
+   
+         throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+   
+       }
+   
+     }
 }

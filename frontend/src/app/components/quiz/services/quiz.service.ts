@@ -175,5 +175,15 @@ export class QuizService {
   isQuizAssigned(quizModel:any){
       return this.http.post(`${this.serverUrl}quiz/is-quiz-assigned`,quizModel)
   }
- 
+  configure(quizModel: any) {
+
+    console.log(quizModel);
+
+    return this.http
+
+      .post(`${this.serverUrl}quiz/configure-general`, quizModel)
+
+      .pipe(tap((res) => this.newQuiz$.next(res)));
+
+  }
 }

@@ -29,15 +29,15 @@ export class HeaderTwoComponent implements OnInit {
   showMenu:boolean
   
 
-  constructor(public router:Router,private cartService: CartService, private commonservice:CommonService,private authService:AuthService,private route:ActivatedRoute,private adminService:AdminService) {
-    this.cartService.getItems().subscribe(shoppingCartItems => this.shoppingCartItems = shoppingCartItems);
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.url = event.url;   
-      }
+  constructor(public router:Router,private authService:AuthService,private route:ActivatedRoute,private adminService:AdminService) {
+    // this.cartService.getItems().subscribe(shoppingCartItems => this.shoppingCartItems = shoppingCartItems);
+    // this.router.events.subscribe((event) => {
+    //   if (event instanceof NavigationEnd) {
+    //     this.url = event.url;   
+    //   }
 
-    }
-     )
+    // }
+    //  )
     this.adminService.menu$.subscribe({
       next:(response)=>{
         this.showMenu=response
@@ -61,11 +61,11 @@ export class HeaderTwoComponent implements OnInit {
 
 
 logout()
-  {
+{
   this.router.navigate(['/auth/login'])
 this.authService.logout()
 
-  }  
+}  
 
 changePassword(){
   this.router.navigate(['/register'])
@@ -73,10 +73,10 @@ changePassword(){
 
 
 
-  search(){
-  this.commonservice.setSearch(this.searchInput.value)
-  console.log(this.searchInput.value)
-  }
+  // search(){
+  // this.commonservice.setSearch(this.searchInput.value)
+  // console.log(this.searchInput.value)
+  // }
   scroll(id: string) {
     let el = document.getElementById(id);
     el!.scrollIntoView();
