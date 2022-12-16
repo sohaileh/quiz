@@ -1,0 +1,184 @@
+<div class="my-account sec-padding">
+  <div class="container" fxLayoutAlign="center center">
+    <mat-card
+      fxLayout="row"
+      fxLayout.lt-sm="column"
+      fxLayoutAlign="center center"
+      class="p-0"
+    >
+      <div
+        class="my-account-wrap"
+        fxLayout="row"
+        fxLayout.lt-sm="column"
+        fxLayoutAlign="center center"
+      >
+        <div
+          class="login-wrapper"
+          fxFlex="100"
+          fxFlex.gt-md="70"
+          fxFlex.md="70"
+        >
+          <form
+            fxLayout="row wrap"
+            fxLayoutAlign="center center"
+            [formGroup]="assignQuizForm"
+          >
+            <div
+              fxFlex="100"
+              fxFlex.gt-sm="100"
+              fxLayout="row wrap"
+              class="px-5 mt-4"
+              ngClass.sm="mt-1"
+              ngClass.xs="mt-1"
+              fxLayoutGap="30px"
+            >
+              <!-- <mat-form-field appearance="legacy" class="w-100">
+                <input
+                  matInput
+                  placeholder="userName"
+                  type="text"
+                  minlength="3"
+                  name="userName"
+                  id="iduserName"
+                  appFormErrorMsg
+                  formControlName="userName"
+                  required
+                />
+              </mat-form-field> -->
+
+              <mat-form-field appearance="legacy" class="w-100">
+                <input
+                  matInput
+                  placeholder="userRole"
+                  type="text"
+                  minlength="3"
+                  name="role"
+                  id="role"
+                  appFormErrorMsg
+                  formControlName="role"
+                  required
+                />
+              </mat-form-field>
+
+              <mat-form-field appearance="legacy" class="w-100">
+                <input
+                  matInput
+                  placeholder="Email"
+                  type="email"
+                  matInput
+                  minlength="3"
+                  email="true"
+                  name="emailAddress"
+                  id="idemailAddress"
+                  appFormErrorMsg
+                  formControlName="emailAddress"
+                  required
+                  value="{{ emailAddress }}"
+                  [disabled]="emailReadOnly"
+                />
+              </mat-form-field>
+
+              <mat-form-field appearance="legacy" class="w-100">
+                <input
+                  matInput
+                  placeholder="FirstName"
+                  type="text"
+                  matInput
+                  minlength="3"
+                  name="firstName"
+                  id="idfirstName"
+                  appFormErrorMsg
+                  formControlName="firstName"
+                  value="{{ firstName }}"
+                  required
+                />
+              </mat-form-field>
+
+              <mat-form-field appearance="legacy" class="w-100">
+                <input
+                  matInput
+                  placeholder="LastName"
+                  type="text"
+                  matInput
+                  minlength="3"
+                  name="lastName"
+                  id="idlastName"
+                  appFormErrorMsg
+                  required
+                  formControlName="lastName"
+                  value="{{ lastName }}"
+                />
+              </mat-form-field>
+
+              <mat-form-field appearance="legacy" class="w-100">
+                <input
+                  matInput
+                  placeholder="Organization"
+                  matInput
+                  minlength="3"
+                  name="organization"
+                  id="idorganization"
+                  appFormErrorMsg
+                  formControlName="organization"
+                  required
+                  value="{{ organization }}"
+                />
+              </mat-form-field>
+
+              <mat-form-field appearance="legacy" class="w-100">
+                <input
+                  matInput
+                  placeholder="Password"
+                  [type]="hide ? 'password' : 'text'"
+                  matInput
+                  minlength="6"
+                  appFormErrorMsg
+                  name="Password"
+                  id="idpassword"
+                  formControlName="password"
+                  #updatePassword
+                  required
+                />
+                <i
+                  id="icon"
+                  class="fa fa-eye-slash"
+                  (click)="showPassword()"
+                  *ngIf="hide"
+                  aria-hidden="true"
+                ></i>
+                <i
+                  id="icon"
+                  class="fa fa-eye"
+                  (click)="showPassword()"
+                  *ngIf="!hide"
+                  aria-hidden="true"
+                ></i>
+              </mat-form-field>
+            </div>
+          </form>
+<div fxLayout="row"  fxLayoutAlign="start" fxLayoutGap="5px">        
+    <mat-form-field appearance="fill" class="w-100 border-0 ml-4" >
+            <mat-label>assign quiz</mat-label>
+             <mat-select [(ngModel)]="quizId" name="quiz">
+              <mat-option
+                *ngFor="let quiz of organizationQuizList"
+                [value]="quiz._id" >
+                {{ quiz.quizTitle }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button class="btn border-0" (click)="assignQuiz()">assignQuiz</button>
+
+      </div>
+
+   <div class="mt-5 ml-4 " fxLayoutAlign="end center" fxLayoutGap="20px" fxLayout="row">
+            <button class="btn border-0 ml-4" >cancel</button>
+            <button class="btn border-0" (click)="save()">save</button>
+
+          </div>
+        </div>
+
+      </div>
+    </mat-card>
+  </div>
+</div>

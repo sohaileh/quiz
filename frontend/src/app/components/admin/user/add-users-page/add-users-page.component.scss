@@ -1,0 +1,56 @@
+.create-button {
+  width: 90px;
+  background-color: #268e9b;
+  border: none;
+  outline: none;
+  height: 30px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 300;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: 0.5s;
+  font-size:8px;
+
+}
+
+.create-button:hover {
+  background-color: #268e9b;
+  color: #fff;
+}
+
+@media screen and(max-width:768px)  {
+  mat-table{
+    font-size:10px;
+    text-align: center;
+  mat-cell{
+    font-size:5px;
+    text-align: center;
+    mat-checkbox{
+      width:5px;
+    }
+
+  }
+  mat-header-cell{
+    font-size:4px;
+    text-align: start;
+  }
+  
+  mat-select{
+    
+    width:10px;
+
+  }
+  
+  }
+
+
+}
+
+.header{
+  background-color: lightgray;
+}
+.matSelect{
+  width: 20px;
+  
+}

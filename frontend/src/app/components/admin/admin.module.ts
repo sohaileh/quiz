@@ -24,6 +24,11 @@ import {MatRadioModule, MAT_RADIO_DEFAULT_OPTIONS} from '@angular/material/radio
 import { CustomPipesModule } from '../Pipes/Pipes.molule';
 import { AddEditQuestionComponent } from './add-edit-question/add-edit-question.component';
 import { QuizPreviewComponent } from './quiz-preview/quiz-preview.component';
+import { AddUsersPageComponent } from './user/add-users-page/add-users-page.component';
+import {MatTableModule} from '@angular/material/table';
+import { MatDividerModule } from "@angular/material/divider";
+import { AssignQuizComponent } from './user/assign-quiz/assign-quiz.component';
+
 
 
 
@@ -35,6 +40,8 @@ import { QuizPreviewComponent } from './quiz-preview/quiz-preview.component';
     AddEditQuestionComponent,
     QuizPreviewComponent,
     ConfigureComponent,
+    AddUsersPageComponent,
+    AssignQuizComponent,
     // FormErrorMsgDirective
    
    
@@ -58,7 +65,13 @@ import { QuizPreviewComponent } from './quiz-preview/quiz-preview.component';
     CKEditorModule,
     MatCheckboxModule,
     MatRadioModule,
-    CustomPipesModule
+    CustomPipesModule,
+    MatTableModule,
+    MatDividerModule,
+    
+    
+    
+
   ],
  
 })

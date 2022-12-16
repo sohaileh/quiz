@@ -4,6 +4,7 @@ export const UserSchema = new mongoose.Schema({
     lastName: String,
     organization:String,
     emailAddress: String,
+    organizationId:{type:mongoose.Schema.Types.ObjectId},
     quizzesPlayed:[
         {
             quizId:{type:mongoose.Schema.Types.ObjectId}
@@ -11,11 +12,14 @@ export const UserSchema = new mongoose.Schema({
     ],
     password: String,
     score:String,
-    assignedQuizzes:[
-        {
-            quizId:{type:mongoose.Schema.Types.ObjectId}
-        }
-    ],
-    role:{type:String,default:'student'}
+    created:{type:Date,default:Date.now},
+    role:{type:String,default:'student'},
+    assignedQuizzes:[{
+        quizId:{type:mongoose.Schema.Types.ObjectId}
+
+
+    }]
+
+
 })
 

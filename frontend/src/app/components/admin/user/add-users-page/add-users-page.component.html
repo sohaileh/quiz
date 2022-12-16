@@ -1,0 +1,85 @@
+<mat-card class="m-3 p-0">
+    <div class="header p-1" fxLayout="row" fxLayoutAlign="space-between none" fxLayout.xs="column">
+        <div fxLayoutAlign="start center">
+            <i class="fa fa-search ml-2" (click)="searchShow()" *ngIf="search"><span class="ml-2">search</span></i>
+
+            <i *ngIf="!search">
+                <input matInput placeholder="search user" [(ngModel)]="quizTitle">
+
+            </i>
+
+
+        </div>
+        <div fxLayoutGap="5px">
+            <button class="btn  create-button border-0" (click)="assignQuizToUser()">Add user</button>
+            <button class="btn  create-button border-0">Bulk upload user</button>
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+        <mat-table #table [dataSource]="dataSource">
+            <div class="d-flex " fxFlex-xs="10%">
+
+                <div>
+                    <ng-container matColumnDef="selectRole">
+                        <mat-header-cell *matHeaderCellDef>
+                            <mat-select class="matSelect">
+                                <mat-option>All</mat-option>
+                                <mat-option>Trainers</mat-option>
+                                <mat-option>Administrater</mat-option>
+                            </mat-select>
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                            <mat-checkbox [(ngModel)]="checked"></mat-checkbox>
+
+                        </mat-cell>
+                    </ng-container>
+                </div>
+
+
+
+
+                <div>
+                    <ng-container matColumnDef="firstName">
+                        <mat-header-cell *matHeaderCellDef>FirstName</mat-header-cell>
+                        <mat-cell *matCellDef="let element">{{element.firstName}} </mat-cell>
+                    </ng-container>
+                </div>
+
+                <div>
+                    <ng-container matColumnDef="lastName">
+                        <mat-header-cell *matHeaderCellDef>LastName</mat-header-cell>
+                        <mat-cell *matCellDef="let element">{{element.lastName}}</mat-cell>
+                    </ng-container>
+                </div>
+
+                <div>
+                    <ng-container matColumnDef="emailAddress">
+                        <mat-header-cell *matHeaderCellDef class="m-1">EmailAddress</mat-header-cell>
+                        <mat-cell *matCellDef="let element">{{element.emailAddress}} </mat-cell>
+                    </ng-container>
+                </div>
+
+                <div>
+                    <ng-container matColumnDef="role">
+                        <mat-header-cell *matHeaderCellDef>Role</mat-header-cell>
+                        <mat-cell *matCellDef="let element">{{element.role}} </mat-cell>
+                    </ng-container>
+                </div>
+
+                <div>
+                    <ng-container matColumnDef="created">
+                        <mat-header-cell *matHeaderCellDef>Created</mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.created}} </mat-cell>
+                    </ng-container>
+                </div>
+
+
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </div>
+        </mat-table>
+
+    </mat-card-content>
+</mat-card>
