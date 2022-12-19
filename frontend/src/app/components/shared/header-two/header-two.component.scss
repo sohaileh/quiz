@@ -361,13 +361,16 @@ ul li a {
 
 }
 
- 
+.nav-2 ul li a:hover:after {
 
-.border-bottom{
-
-  border-bottom: 1px solid white !important;
-
+text-decoration: none;
 }
+
+// .border-bottom{
+
+//   border-bottom: 1px solid white !important;
+
+// }
 
  
 
@@ -391,7 +394,10 @@ ul li a {
 
 }
 
- 
+.nav-tabs {
+  border-bottom:none !important;
+}
+
 
 .nav-tabs > li > a:focus,
 
@@ -403,9 +409,9 @@ ul li a {
 
   background-color: #fff;
 
-  border: 1px solid #ddd;
+  // border: 1px solid #ddd;
 
-  border-bottom-color: transparent;
+  // border-bottom-color: transparent;
 
 }
 
@@ -417,7 +423,7 @@ ul li a {
 
   line-height: 1.42857143;
 
-  border: 1px solid transparent;
+  // border: 1px solid transparent;
 
   border-radius: 4px 4px 0 0;
 
@@ -447,29 +453,24 @@ a {
 
 }
 
-a {
 
-  background-color: transparent;
-
-}
 
  
 
 .previewButton {
 
-  float: right;
+  padding-right: 196px;
 
-  margin-top: 12px;
-
-  margin-right: 25px;
-
-  color: #2d6ca2;
+  color:white;
 
   cursor: pointer;
 
 }
 
- 
+ mat-toolbar{
+  padding-left: 110px;
+  height: 45px;
+ }
 
 @media screen and (max-width: 600px) {
 
@@ -482,5 +483,32 @@ a {
     padding: 10px;
 
   }
+  mat-toolbar{
+    padding-left: 0px;
+    height: 45px;
+   }
+   .previewButton {
+    padding-right: 0px;
+    color: white;
+    cursor: pointer;
+}
+}
+.nav-items{
+  background: black;
+  color: white;
+ 
+}
+mat-toolbar a:hover{
+  border:1px solid;
+  border-radius: 1px;
+}
+.mat-toolbar{
+  color: white;
+}
 
+.mat-button{
+   color: white;
+}
+.spacer{
+  flex: 1 1 auto;
 }

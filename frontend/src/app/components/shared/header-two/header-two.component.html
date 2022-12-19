@@ -1,5 +1,9 @@
-
-<nav class="navbar navbar-expand-lg"  routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="['border-bottom', '']">
+<nav
+  class="navbar navbar-expand-lg"
+  routerLinkActive="active-link"
+  [routerLinkActiveOptions]="{ exact: true }"
+  [routerLinkActive]="['border-bottom', '']"
+>
   <a class="navbar-brand" [routerLink]="['/']"
     ><img src="../../../../assets/images/logo2.png" alt="quiz-img"
   /></a>
@@ -19,12 +23,13 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a [routerLink]="['/'] " class="nav-link">Home</a>
+        <a [routerLink]="['/home/dashboard']" class="nav-link">Home</a>
       </li>
       <li class="nav-item">
         <a
           *ngIf="
-            router.url === '/auth/login' ||  router.url ==='/home/home-page'"
+            router.url === '/auth/login' || router.url === '/home/home-page'
+          "
           [routerLink]="['/auth/login']"
           class="nav-link"
           >Sign In</a
@@ -40,7 +45,7 @@
       </li>
       <li class="nav-item">
         <a
-          *ngIf="router.url === '/home/dashboard' || showMenu "
+          *ngIf="router.url === '/home/dashboard' || showMenu"
           [routerLink]="['/users']"
           class="nav-link"
           >Settings</a
@@ -51,7 +56,7 @@
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
         <a
-          *ngIf="router.url === '/home/dashboard'||  showMenu"
+          *ngIf="router.url === '/home/dashboard' || showMenu"
           (click)="logout()"
           class="nav-link"
           ><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a
@@ -68,33 +73,48 @@
        && router.url != '/pages/ForgotPassword'"></app-menu>
   </div> -->
 
-  <div class="menuItems" *ngIf="showMenu">
-  <div class="container">
-    <div class="previewButton" ngClass.lt-sm="mr-0 mt-0" id="preview" (click)="preview()">
+<!-- <div class="menuItems" *ngIf="showMenu">
 
-      Preview
+<nav class="navbar bg-dark nav-2">
+  <ul class="nav nav-tabs nav-2-tabs">
+    <li>
+      <a (click)="create()">Create</a>
+    </li>
+    <li class="">
+      <a (click)="configure()">Configure</a>
+    </li>
+    <li class="">
+      <a (click)="publish()">Publish</a>
+    </li>
 
-    </div>
-
-
-    <ul class="nav nav-tabs">
-      <li>
-        <a  (click)="create()">Create</a>
-      </li>
-      <li class="">
-        <a (click)="configure()">Configure</a>
-      </li>
-      <li class="">
-
-        <a (click) ="publish()">Publish</a>
-      </li>
-
-      <li>
-        <a href="">Analyze</a>
-      </li>
-    </ul>
-  </div>
-  
+    <li>
+      <a href="">Analyze</a>
+    </li>
+  </ul>
+  <div
+  class="previewButton"
+  ngClass.lt-sm="mr-0 mt-0"
+  id="preview"
+  (click)="preview()"
+>
+  Preview
 </div>
-<app-header-four *ngIf="showMenu"></app-header-four>
 
+</nav>
+</div> -->
+<mat-toolbar *ngIf="showMenu" class="bg-dark">
+  <a mat-button [routerLinkActive]="" (click)="create()">Create</a>
+  <a  mat-button [routerLinkActive]="" (click)="configure()">Configure</a>
+  <a  mat-button [routerLinkActive]="" (click)="publish()">Publish</a>
+  <a   mat-button href="">Analyze</a>
+  <span
+  class=" spacer"></span>
+  <span mat-button class="previewButton"
+      ngClass.lt-sm="mr-0 mt-0"
+      id="preview"
+      (click)="preview()"
+    >
+      Preview
+</span>
+  </mat-toolbar>
+<app-header-four *ngIf="showMenu"></app-header-four>
