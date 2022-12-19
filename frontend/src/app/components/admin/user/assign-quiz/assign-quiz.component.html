@@ -1,52 +1,18 @@
-<div class="my-account sec-padding">
-  <div class="container" fxLayoutAlign="center center">
     <mat-card
-      fxLayout="row"
-      fxLayout.lt-sm="column"
-      fxLayoutAlign="center center"
-      class="p-0"
+      fxLayoutAlign="start none"
+      class="m-4" 
+      fxLayout="column"
     >
-      <div
-        class="my-account-wrap"
-        fxLayout="row"
-        fxLayout.lt-sm="column"
-        fxLayoutAlign="center center"
-      >
-        <div
-          class="login-wrapper"
-          fxFlex="100"
-          fxFlex.gt-md="70"
-          fxFlex.md="70"
-        >
-          <form
+       <div>
+        <form [formGroup]="assignQuizForm">
+          <div
             fxLayout="row wrap"
-            fxLayoutAlign="center center"
-            [formGroup]="assignQuizForm"
+            fxLayoutAlign="start start"
+             fxLayoutGap="15%"
           >
-            <div
-              fxFlex="100"
-              fxFlex.gt-sm="100"
-              fxLayout="row wrap"
-              class="px-5 mt-4"
-              ngClass.sm="mt-1"
-              ngClass.xs="mt-1"
-              fxLayoutGap="30px"
-            >
-              <!-- <mat-form-field appearance="legacy" class="w-100">
-                <input
-                  matInput
-                  placeholder="userName"
-                  type="text"
-                  minlength="3"
-                  name="userName"
-                  id="iduserName"
-                  appFormErrorMsg
-                  formControlName="userName"
-                  required
-                />
-              </mat-form-field> -->
-
-              <mat-form-field appearance="legacy" class="w-100">
+            <div>
+              <mat-lable>userRole</mat-lable><br>
+              <mat-form-field appearance="outline">
                 <input
                   matInput
                   placeholder="userRole"
@@ -59,8 +25,11 @@
                   required
                 />
               </mat-form-field>
+            </div>
+            <div>
+              <mat-lable>Email</mat-lable><br>
 
-              <mat-form-field appearance="legacy" class="w-100">
+              <mat-form-field appearance="outline" >
                 <input
                   matInput
                   placeholder="Email"
@@ -77,8 +46,11 @@
                   [disabled]="emailReadOnly"
                 />
               </mat-form-field>
+            </div>
+            <div>
+              <mat-lable>FirstName</mat-lable><br>
 
-              <mat-form-field appearance="legacy" class="w-100">
+              <mat-form-field appearance="outline">
                 <input
                   matInput
                   placeholder="FirstName"
@@ -93,8 +65,11 @@
                   required
                 />
               </mat-form-field>
+            </div>
+            <div>
+              <mat-lable>LastName</mat-lable><br>
 
-              <mat-form-field appearance="legacy" class="w-100">
+              <mat-form-field appearance="outline" >
                 <input
                   matInput
                   placeholder="LastName"
@@ -109,8 +84,11 @@
                   value="{{ lastName }}"
                 />
               </mat-form-field>
+            </div>
+            <div>
+              <mat-lable>Organization</mat-lable><br>
 
-              <mat-form-field appearance="legacy" class="w-100">
+              <mat-form-field appearance="outline">
                 <input
                   matInput
                   placeholder="Organization"
@@ -124,13 +102,20 @@
                   value="{{ organization }}"
                 />
               </mat-form-field>
+            </div>
+            <div>
+              <mat-lable>Password</mat-lable><br>
 
-              <mat-form-field appearance="legacy" class="w-100">
+              <mat-form-field
+                appearance="outline"
+                
+                fxLayout="row wrap"
+              >
                 <input
                   matInput
                   placeholder="Password"
-                  [type]="hide ? 'password' : 'text'"
                   matInput
+                  [type]="hide ? 'password' : 'text'"
                   minlength="6"
                   appFormErrorMsg
                   name="Password"
@@ -140,45 +125,55 @@
                   required
                 />
                 <i
+                  matSuffix
                   id="icon"
-                  class="fa fa-eye-slash"
-                  (click)="showPassword()"
-                  *ngIf="hide"
-                  aria-hidden="true"
-                ></i>
-                <i
-                  id="icon"
-                  class="fa fa-eye"
+                  class="fa fa-eye password"
                   (click)="showPassword()"
                   *ngIf="!hide"
                   aria-hidden="true"
                 ></i>
+
+                <i
+                  matSuffix
+                  id="icon"
+                  class="fa fa-eye-slash pasword"
+                  (click)="showPassword()"
+                  *ngIf="hide"
+                  aria-hidden="true"
+                ></i>
               </mat-form-field>
             </div>
-          </form>
-<div fxLayout="row"  fxLayoutAlign="start" fxLayoutGap="5px">        
-    <mat-form-field appearance="fill" class="w-100 border-0 ml-4" >
+          </div>
+        </form>
+      </div>
+        
+        <div>
+        
+          <mat-lable>assign quiz</mat-lable><br>
+
+          <mat-form-field appearance="fill" class=" border-0">
             <mat-label>assign quiz</mat-label>
-             <mat-select [(ngModel)]="quizId" name="quiz">
+            <mat-select [(ngModel)]="quizId" name="quiz" multiple>
               <mat-option
                 *ngFor="let quiz of organizationQuizList"
-                [value]="quiz._id" >
+                [value]="quiz._id"
+              >
                 {{ quiz.quizTitle }}
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <button class="btn border-0" (click)="assignQuiz()">assignQuiz</button>
-
-      </div>
-
-   <div class="mt-5 ml-4 " fxLayoutAlign="end center" fxLayoutGap="20px" fxLayout="row">
-            <button class="btn border-0 ml-4" >cancel</button>
-            <button class="btn border-0" (click)="save()">save</button>
-
-          </div>
         </div>
+      
 
-      </div>
-    </mat-card>
-  </div>
-</div>
+      <div
+      class="ml-2 mr-2  " fxLayoutAlign="end"
+     >
+      <button class="btn border-0 mr-1" (click)="cancel()">cancel</button>
+      <button class="btn border-0 mr-1" (click)="save()">save</button>
+     </div>
+
+     
+ </mat-card>
+
+
+

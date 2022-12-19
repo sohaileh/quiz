@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { AdminService } from "../../services/admin.service";
 import { Router } from "@angular/router";
+import { map } from "rxjs";
 @Component({
   selector: "app-assign-quiz",
   templateUrl: "./assign-quiz.component.html",
@@ -10,13 +11,17 @@ import { Router } from "@angular/router";
 export class AssignQuizComponent implements OnInit {
   assignQuizForm: FormGroup;
   userModel: any = {};
-  quizModel: any = {};
-  quiz: any = {};
   organizationId: any = {};
   organizationQuizList: any = [];
-  quizId: any;
-  quizIdObject:any={}
+  quizId: any=[];
   assignedQuizzes: any = [];
+   quizIdObject:any={}
+   hide: Boolean = true;
+
+
+  
+  
+  
 
   constructor(private fb: FormBuilder, private adminService: AdminService,private router:Router) {}
 
@@ -32,12 +37,17 @@ export class AssignQuizComponent implements OnInit {
     this.getOrganizationQuizzes();
   }
   assignQuiz() {
- this.quizIdObject.quizId=this.quizId
-    this.assignedQuizzes.push(this.quizIdObject);
-    this.quizIdObject={};
   }
 
   save() {
+  this.quizId.forEach(element => {
+    this.quizIdObject.quizId=element;
+    this.assignedQuizzes.push(this.quizIdObject)
+    this.quizIdObject={};
+
+    });
+
+
     this.userModel = this.assignQuizForm.value;
     this.userModel.assignedQuizzes = this.assignedQuizzes;
     this.userModel.organizationId = localStorage.getItem("userId");
@@ -52,11 +62,22 @@ export class AssignQuizComponent implements OnInit {
 
   getOrganizationQuizzes() {
     this.organizationId.userId = localStorage.getItem("userId");
-
-    this.adminService
+        this.adminService
       .getOrganizationQuizzes(this.organizationId)
       .subscribe((res: any) => {
         this.organizationQuizList = res;
       });
   }
+
+
+  showPassword() {
+    this.hide = !this.hide;
+  }
+
+  cancel()
+  {
+    this.router.navigate(['/add-users'])
+
+  }
+
 }
