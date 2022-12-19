@@ -163,12 +163,15 @@
     <button class="btn border-0 mr-1" (click)="save()">save</button>
   </div>
 </mat-card> -->
-<mat-card>
-  <mat-card-content>
+
  <div class="container">
+  <mat-card>
   <div class="row pt-5">
+    
     <div class="col-md-12">
+     
       <form [formGroup]="assignQuizForm">
+
         <div class="form-row">
           <div class="form-group col-md-6">
             <mat-form-field>
@@ -216,7 +219,7 @@
           </div>
           
         </div>
-        <div class="form-row mr-2">
+        <div class="form-row">
           <div class="form-group col-md-6 ">
             <mat-form-field>
             <mat-label>Role</mat-label>
@@ -242,7 +245,7 @@
           <div class="form-group col-md-6">
             <mat-form-field>
             <mat-label>Assign Quiz</mat-label>
-            <mat-select [(ngModel)]="quizId" name="quiz">
+            <mat-select [(ngModel)]="quizId" name="quiz" multiple>
               <mat-option
                 *ngFor="let quiz of organizationQuizList"
                 [value]="quiz._id"
@@ -261,8 +264,9 @@
           </div>
         </div>
       </form>
+   
     </div>
+  
   </div>
-</div> 
-</mat-card-content>
 </mat-card>
+</div> 

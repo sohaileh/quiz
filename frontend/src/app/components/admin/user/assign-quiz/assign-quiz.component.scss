@@ -12,20 +12,22 @@
   transition: 0.5s;
   font-size:12px;
   }
-  mat-card{
-    margin: 20px;
-  }
   mat-card-content{
     margin:50px;
   }
+
   mat-form-field {
     font-size: 15px;
-    width: 480px;
+    width: 33vw;
   }
- @media screen and (max-width:768px) {
+ @media screen and (max-width:628px) {
+  mat-card{
+    margin:10px;
+  }
   mat-form-field {
     font-size: 15px;
-    width: 310px;
+    width: 78vw;
   }
+  
  }
   
