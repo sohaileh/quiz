@@ -53,14 +53,23 @@ export class QuizController {
     }
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get('get-quiz-questions/:id')
-  async getQuizQuestions(@Param() params: any,@Query() query, @Res() res: any,@Req() req) {
+  async getQuizQuestions(
+    @Param() params: any,
+    @Query() query,
+    @Res() res: any,
+    @Req() req,
+  ) {
     try {
-      const {id:quizId}= params;
-      const {questionNumber} = query
-      const {role}= req.user
-      const quizQuestions = await this.quizService.getQuizQuestions(quizId,role,questionNumber);
+      const { id: quizId } = params;
+      const { questionNumber } = query;
+      // const { role } = req.user;
+      const quizQuestions = await this.quizService.getQuizQuestions(
+        quizId,
+
+        questionNumber,
+      );
       res.status(HttpStatus.OK).json(quizQuestions);
     } catch (err) {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
@@ -68,7 +77,7 @@ export class QuizController {
   }
 
   @Post('getQuizzes')
-  async getQuizzes(@Res() res: any,@Body() body:any) {
+  async getQuizzes(@Res() res: any, @Body() body:any) {
     try {
       const quizzes = await this.quizService.getOrganizationQuizzes(body);
       res.status(HttpStatus.OK).json(quizzes);
@@ -121,10 +130,13 @@ export class QuizController {
     @Res() res: any,
   ) {
     try {
-     
       body.options = JSON.parse(body.options);
 
-      const editQuestion = await this.quizService.editQuestion(body, params,file);
+      const editQuestion = await this.quizService.editQuestion(
+        body,
+        params,
+        file,
+      );
 
       res.status(HttpStatus.OK).json(editQuestion);
     } catch (err) {
@@ -143,7 +155,7 @@ export class QuizController {
         quizId,
       );
 
-      res.status(HttpStatus.OK).json(deletedQuestion)
+      res.status(HttpStatus.OK).json(deletedQuestion);
     } catch (err) {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
@@ -209,80 +221,54 @@ export class QuizController {
     }
   }
   @Post('quiz-title')
-  async createQuizTitle(@Body() body: any, @Res() res: any) 
-  {
-          try {
-            const quizTitle = await this.quizService.createQuizTitle(body);
+  async createQuizTitle(@Body() body: any, @Res() res: any) {
+    try {
+      const quizTitle = await this.quizService.createQuizTitle(body);
 
-            res.status(HttpStatus.OK).json( quizTitle);
-          }
-          
-     catch (err) {
-            res.status(HttpStatus.BAD_REQUEST).json(err.message);
-              }
-   }
-
-
-
-   @Post('delete-quiz')
-   async deleteQuiz(@Body() body: any, @Res() res: any) 
-   {
- 
-           try {
-             const quizs = await this.quizService.deleteQuiz(body);
- 
-             res.status(HttpStatus.OK).json(quizs);
-           }
-           
-      catch (err) {
-             res.status(HttpStatus.BAD_REQUEST).json(err.message);
-               }
+      res.status(HttpStatus.OK).json(quizTitle);
+    } catch (err) {
+      res.status(HttpStatus.BAD_REQUEST).json(err.message);
     }
+  }
 
+  @Post('delete-quiz')
+  async deleteQuiz(@Body() body: any, @Res() res: any) {
+    try {
+      const quizs = await this.quizService.deleteQuiz(body);
 
+      res.status(HttpStatus.OK).json(quizs);
+    } catch (err) {
+      res.status(HttpStatus.BAD_REQUEST).json(err.message);
+    }
+  }
 
-    @Post('rename-quiz-title')
-    async renameQuizTitle(@Body() body: any, @Res() res: any) 
-    {
-  
-            try {
-              const quizs = await this.quizService.renameQuizTitle(body);
-  
-              res.status(HttpStatus.OK).json(quizs);
-            }
-            
-       catch (err) {
-              res.status(HttpStatus.BAD_REQUEST).json(err.message);
-                }
-     }
-@Post('is-quiz-assigned')
-async isQuizAssigned(@Body() body:any,@Res() res){
-        try{
-          
-              const isQuizAssigned = await this.quizService.isQuizAssigned(body)
-              res.status(HttpStatus.OK).json(isQuizAssigned)
-        }catch(err){
-          res.status(HttpStatus.BAD_REQUEST).json(err.message);
+  @Post('rename-quiz-title')
+  async renameQuizTitle(@Body() body: any, @Res() res: any) {
+    try {
+      const quizs = await this.quizService.renameQuizTitle(body);
 
-        }
-     }
-     @Post('configure-general')
+      res.status(HttpStatus.OK).json(quizs);
+    } catch (err) {
+      res.status(HttpStatus.BAD_REQUEST).json(err.message);
+    }
+  }
+  @Post('is-quiz-assigned')
+  async isQuizAssigned(@Body() body: any, @Res() res) {
+    try {
+      const isQuizAssigned = await this.quizService.isQuizAssigned(body);
+      res.status(HttpStatus.OK).json(isQuizAssigned);
+    } catch (err) {
+      res.status(HttpStatus.BAD_REQUEST).json(err.message);
+    }
+  }
+  @Patch('configure-general')
+  async configure(@Body() body: any, @Res() res: any) {
+    try {
+      const configElements = await this.quizService.configure(body);
 
-     async configure(@Body() body: any, @Res() res: any) {
-   
-       console.log(body)
-   
-       try {
-   
-         const configElements = await this.quizService.configure(body);
-   
-         res.status(HttpStatus.OK).json(configElements);
-   
-       } catch (err) {
-   
-         throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
-   
-       }
-   
-     }
+      res.status(HttpStatus.OK).json(configElements);
+    } catch (err) {
+      throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+    }
+  }
 }

@@ -181,9 +181,9 @@ export class QuizService {
 
     return this.http
 
-      .post(`${this.serverUrl}quiz/configure-general`, quizModel)
+      .patch(`${this.serverUrl}quiz/configure-general`, quizModel)
 
-      .pipe(tap((res) => this.newQuiz$.next(res)));
+      // .pipe(tap((res) => this.newQuiz$.next(res)));
 
   }
 }

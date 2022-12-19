@@ -49,7 +49,7 @@ export class AssignQuizComponent implements OnInit {
     this.adminService.assignQuizs(this.userModel).subscribe((res:any)=>{
       if(res)
       {
-        this.router.navigate(['/add-users'])
+        this.router.navigate(['/admin/add-users'])
       }
     })
   }

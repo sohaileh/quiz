@@ -13,6 +13,7 @@ import { TeamsComponent } from "./my-quizzes/teams/teams.component";
 import { QuizTitleComponent } from "./quiz-title/quiz-title.component";
 import { PublishQuizComponent } from "./publish-quiz/publish-quiz.component";
 import { RegisterQuizComponent } from "./register-quiz/register-quiz.component";
+import { CanActivateGuard } from "src/app/guards/can-activate.guard";
 
 const routes: Routes = [
   {
@@ -32,7 +33,7 @@ const routes: Routes = [
   { path: "teams", component: TeamsComponent },
   { path: "quiz-title", component: QuizTitleComponent },
   {path:"publish-quiz/:id",component:PublishQuizComponent},
-  {path:"register-quiz/:id",component:RegisterQuizComponent}
+  {path:"register-quiz/:id",component:RegisterQuizComponent,canActivate:[CanActivateGuard]}
 
 ];
 

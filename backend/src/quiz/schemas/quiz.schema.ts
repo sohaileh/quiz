@@ -10,8 +10,6 @@ export const QuizSchema = new mongoose.Schema({
   totalTime: Number,
   reward: String,
   description: String,
-  startDate: { type: Date, default: Date.now },
-  endDate: { type: Date, default: Date.now },
   questionBank: [
     {
       attempted: { type: Boolean },
@@ -26,7 +24,7 @@ export const QuizSchema = new mongoose.Schema({
       options: [{ option: String }],
     },
   ],
-  totalQuestions: Number,
+  totalQuestions: {type:Number,default:0},
   createdAt: { type: Date, default: Date.now() },
   quizName: String,
 
@@ -38,15 +36,15 @@ export const QuizSchema = new mongoose.Schema({
 
   // autoNumberQuestion:Boolean,
 
-  questionPerPage: Number,
+  questionPerPage: {type:Number,default:1},
 
   maxAttempts: Number,
 
   redirectOnQuizCompletion: String,
 
-  time_check: Boolean,
+  time_check: {type:Boolean,default:false},
 
-  whole_check: Boolean,
+  whole_check: {type:Boolean,default:false},
 
   rand_check: Boolean,
 

@@ -180,7 +180,12 @@ export class QuizService {
         questionBank.fileName = file.originalname;
         await this.quizModel.updateOne(
           { _id: new Types.ObjectId(quizId) },
-          { $push: { questionBank: questionBank } },
+          
+          {
+            $push:{questionBank:questionBank},
+            $inc:{'totalQuestions':1}
+          }
+        
         );
         const questions = await this.quizModel.findOne(
           { _id: new Types.ObjectId(quizId) },
@@ -190,8 +195,12 @@ export class QuizService {
       }
       await this.quizModel.updateOne(
         { _id: new Types.ObjectId(quizId) },
-        { $push: { questionBank: questionBank } },
-        { questionBank: 1 },
+        {
+          $push:{questionBank:questionBank},
+          $inc:{'totalQuestions':1}
+        }
+       
+
       );
       const questions = await this.quizModel.findOne(
         { _id: new Types.ObjectId(quizId) },
@@ -318,7 +327,7 @@ export class QuizService {
         );
 
       if (type == 'face-recognition' || type == 'video' || type == 'audio') {
-        // if media type and want file updation as well
+        // if question is of media type and want file updation as well
         if (file) {
           const question = await this.quizModel.find(
             { _id: new Types.ObjectId(quizId) },
@@ -589,7 +598,10 @@ export class QuizService {
 
       const deletedQuestion = await this.quizModel.updateOne(
         { _id: new Types.ObjectId(quizId) },
-        { $pull: { questionBank: { _id: new Types.ObjectId(question._id) } } },
+        {
+           $pull: { questionBank: { _id: new Types.ObjectId(question._id) } },
+          $inc:{'totalQuestions':-1}
+      },
       );
       const updatedQuiz = await this.quizModel.findOne(
         {
@@ -604,37 +616,58 @@ export class QuizService {
     }
   }
 
-  async getQuizQuestions(quizId: any, role, questionNumber) {
+  async getQuizQuestions(quizId: any, questionNumber: any) {
     try {
-      if(questionNumber == 0){
-        const questionsLength = await this.quizModel.find({_id:quizId},{questionBank:1})
-        if(questionsLength[0].questionBank.length === 0)
-        throw new HttpException('Questions not added yet', HttpStatus.BAD_REQUEST);
-      }    
-      if (role === 'student') {
+      if (questionNumber == 'undefined') {
         const quizQuestions = await this.quizModel.findOne(
           { _id: new Types.ObjectId(quizId) },
-          {
-            questionBank: { $slice: [parseInt(questionNumber), 1] },
-            status: 1,
-            quizTitle: 1,
-          },
+          { questionBank: 1, status: 1, quizTitle: 1 },
         );
         return quizQuestions;
       }
-      const quizQuestions = await this.quizModel.findOne(
-        { _id: new Types.ObjectId(quizId) },
-        { questionBank: 1, status: 1, quizTitle: 1 }, 
-      );
-      return quizQuestions;
+      if (questionNumber == 0) {
+        const questionsLength = await this.quizModel.find(
+          { _id: quizId },
+          { questionBank: 1 },
+        );
+        if (questionsLength[0].questionBank.length === 0)
+          throw new HttpException(
+            'Questions not added yet',
+            HttpStatus.BAD_REQUEST,
+          );
+      }
+      const questions = await this.quizModel.aggregate([
+        { $match: { _id: new Types.ObjectId(quizId) } },
+        {
+          $project: {
+            questionPerPage: 1,
+            quizTitle: 1,
+            time_check:1,
+            totalQuestions:1,
+            whole_check:1,
+            quizTimeLimit:1,
+            status: 1,
+            questions: {
+              $slice: [
+                '$questionBank',
+                parseInt(questionNumber),
+                '$questionPerPage',
+              ],
+            },
+          },
+        },
+      ]);
+      return questions;
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
   }
   async isQuizAssigned(userData) {
     try {
-      const {emailAddress, quizId } = userData;
-      const userExists = await this.userModel.exists({ emailAddress:emailAddress  });
+      const { emailAddress, quizId } = userData;
+      const userExists = await this.userModel.exists({
+        emailAddress: emailAddress,
+      });
       if (!userExists)
         throw new HttpException('User does not exists', HttpStatus.BAD_REQUEST);
       const quizExists = await this.quizModel.exists({ _id: quizId });
@@ -643,31 +676,41 @@ export class QuizService {
           'Quiz has been removed',
           HttpStatus.BAD_REQUEST,
         );
-      const quizAssigned = await this.userModel.find({
-        emailAddress:emailAddress},{assignedQuizzes:{$elemMatch:{quizId:new Types.ObjectId(quizId)}}});
-      if(!quizAssigned[0].assignedQuizzes.length)
-        throw new HttpException('Quiz has not been assigned to you ',HttpStatus.BAD_REQUEST)
-      return quizAssigned[0].assignedQuizzes
-
+      const quizAssigned = await this.userModel.find(
+        {
+          emailAddress: emailAddress,
+        },
+        {
+          assignedQuizzes: {
+            $elemMatch: { quizId: new Types.ObjectId(quizId) },
+          },
+        },
+      );
+      if (!quizAssigned[0].assignedQuizzes.length)
+        throw new HttpException(
+          'Quiz has not been assigned to you ',
+          HttpStatus.BAD_REQUEST,
+        );
+      return quizAssigned[0].assignedQuizzes;
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
   }
   async configure(quiz: any) {
-
     try {
+      const { quizId } = quiz;
+    await this.quizModel.findOneAndUpdate(
+        { _id: quizId },
+        quiz,
+      );
 
-      const configElements = await new this.quizModel(quiz);
-
-      const configureItems = configElements.save();
-
-      return configureItems;
-
+      const questions = await this.quizModel.findOne(
+        { _id: new Types.ObjectId(quizId) },
+        { questionBank: 1, status: 1, quizTitle: 1 },
+      );
+      return questions;
     } catch (err) {
-
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
-
     }
-
   }
 }

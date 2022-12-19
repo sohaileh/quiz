@@ -59,4 +59,8 @@ export class AdminService {
     return this.http.post(`${this.serverUrl}auth/get-organization-users`, userModel);
   }
 
+  getConfigurationDetails(quizId){
+
+  }
+
 }

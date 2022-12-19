@@ -40,8 +40,18 @@ export class HeaderFourComponent implements OnInit {
     this.quizId= localStorage.getItem('quizId')
     this.adminService.getQuizQuestions(this.quizId).subscribe({
       next:(response:any)=>{
-        this.quizTitle=response.quizTitle
-        this.quizStatus= response.status
+        this.quizTitle=response?.quizTitle
+        this.quizStatus= response?.status
+      },
+      error:(error)=>{
+        console.log(error.error.message)
+      },
+      complete:()=>{}
+    })
+    this.adminService.quizQuestions$.subscribe({
+      next:(response:any)=>{
+        this.quizTitle=response?.quizTitle
+        this.quizStatus= response?.status
       },
       error:(error)=>{
         console.log(error.error.message)

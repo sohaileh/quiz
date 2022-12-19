@@ -147,6 +147,7 @@ export class AddEditQuestionComponent implements OnInit {
         this.quizQuestions = response.questionBank;
         this.quizStatus = response.status;
         this.questionBank.reset();
+        this.answerSelected=false
         this.questionBank.patchValue({
           type: "Choose Question Type",
         });
@@ -154,6 +155,7 @@ export class AddEditQuestionComponent implements OnInit {
       (error) => {
         this.savingQuestion = false;
         this.answer = "";
+        this.answerSelected=false
         this.errorMessage = error.error.message;
       }
     );
@@ -216,6 +218,7 @@ export class AddEditQuestionComponent implements OnInit {
     this.dialog.closeAll();
     this.options.clear();
     this.questionBank.reset();
+    this.answerSelected=false
     this.questionType = "";
     this.questionBank.patchValue({
       type: "Choose Question Type",
@@ -225,6 +228,7 @@ export class AddEditQuestionComponent implements OnInit {
     this.dialog.closeAll();
     this.options.clear();
     this.questionBank.reset();
+    this.answerSelected=false
     this.questionType = "";
     this.questionBank.patchValue({
       type: "Choose Question Type",

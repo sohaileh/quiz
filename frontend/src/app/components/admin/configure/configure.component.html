@@ -12,7 +12,7 @@
                     </div>
                     <div class="navbar-collapse collapse sidebar-navbar-collapse" id="navbarSupportedContent2">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a [routerLink]="['/admin/quiz/configure']">General</a>
+                            <li class="active"><a [routerLink]="['/admin/quiz/configure',quizId]">General</a>
                             </li>
                             <!-- <li><a href="">Grading</a> -->
                             <!-- </li> -->
@@ -32,7 +32,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Quiz name</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" formControlName="quizName" 
+                            <input type="text" class="form-control" formControlName="quizTitle" 
                                 value="{{quizTitle}}" maxlength="250">
                         </div>
                     </div>
@@ -42,10 +42,10 @@
                         <div class="col-sm-10">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" formControlName="time_check">
+                                    <input type="checkbox" formControlName="time_check" (change)="setTimePerQuestion($event)">
                                 </label>
                                 <input value="" class="form-control TimeLimit" type="text" maxlength="5"
-                                    placeholder="hh:mm" formControlName="timeLimitPerQuestion">
+                                    placeholder="hh:mm" formControlName="timeLimitPerQuestion" >
                             </div>
                             <p class="help-block">
                                 Respondents will only have the set time to complete the whole quiz. The time limit is
@@ -59,12 +59,12 @@
                         <div class="col-sm-10">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" formControlName="whole_check">
+                                    <input type="checkbox" formControlName="whole_check" (change)="setQuizTime($event)" >
                                 </label>
                                 <!-- <button class="btn btn-success">Set time
                                 limits</button> -->
                                 <input value="" class="form-control TimeLimit" type="text" maxlength="5"
-                                    placeholder="hh:mm" formControlName="quizTimeLimit">
+                                    placeholder="hh:mm" formControlName="quizTimeLimit" >
                             </div>
                             <p class="help-block">
                                 Set time limit for whole quiz

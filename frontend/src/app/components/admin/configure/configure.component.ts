@@ -26,22 +26,22 @@ export class ConfigureComponent implements OnInit {
 
   ngOnInit() {
     this.configureForm = this.formBuilder.group({
-      quizName: [""],
+      quizTitle: [""],
       quizId:this.quizId,
-      timeLimitPerQuestion: [""],
-      quizTimeLimit: [""],
-      randomizeQuestion: [""],
+      timeLimitPerQuestion: [0],
+      quizTimeLimit: [0],
+      randomizeQuestion: [false],
       // autoNumberQuestion: [""],
-      questionPerPage: [""],
-      maxAttempts: [""],
+      questionPerPage: [1],
+      maxAttempts: [''],
       redirectOnQuizCompletion: [""],
-      time_check: [""],
-      whole_check: [""],
-      rand_check: [""],
-      per_check: [""],
-      retake_check: [""],
-      redirect_check: [""],
-      schedule_check: [""],
+      time_check: [false],
+      whole_check: [false],
+      rand_check: [false],
+      per_check: [true],
+      retake_check: [false],
+      redirect_check: [false],
+      schedule_check: [false],
       from_date: [""],
       to_date: [""],
       from_time: [""],
@@ -50,8 +50,11 @@ export class ConfigureComponent implements OnInit {
     this.dateTime = new Date();
     this.adminService.getQuizQuestions(this.quizId).subscribe({
       next: (response: any) => {
-        this.quizTitle = response.quizTitle;
+        this.configureForm.patchValue({
+          quizTitle:response.quizTitle
+        })
         this.quizStatus = response.status;
+        
       },
       error: (error) => {
         console.log(error.error.message);
@@ -64,17 +67,49 @@ export class ConfigureComponent implements OnInit {
   }
 
   configureQuiz() {
-    this.configureModel = this.configureForm.value;
-    console.log(this.configureModel)
+    this.configureModel = this.configureForm.getRawValue()
     this.quizService.configure(this.configureModel).subscribe({
       next: (response: any) => {
-        console.log(response);
+        this.adminService.quizQuestions$.next(response)
       },
       error: (error) => {
         console.log(error.error.message);
       },
       complete: () => {},
     });
+  }
+  setTimePerQuestion(event:any){
+      if(event.target.checked){
+        this.configureForm.patchValue({
+          quizTimeLimit:'',
+          questionPerPage:1,
+          per_check:true
+        })
+        this.configureForm.get('whole_check').disable()
+        this.configureForm.get('quizTimeLimit').disable()
+        this.configureForm.get('questionPerPage').disable()
+        this.configureForm.get('per_check').disable()
+        
+
+      }else{
+        this.configureForm.get('whole_check').enable()
+        this.configureForm.get('quizTimeLimit').enable()
+        this.configureForm.get('questionPerPage').enable()
+        this.configureForm.get('per_check').enable()
+      }
+
+  }
+  setQuizTime(event:any){
+      if(event.target.checked){
+        this.configureForm.get('time_check').disable()
+        this.configureForm.patchValue({
+          time_check:false
+        })
+
+      }else{
+        this.configureForm.get('time_check').enable()
+
+      }
   }
   ngOnDestroy() {
     this.adminService.menu$.next(false);
