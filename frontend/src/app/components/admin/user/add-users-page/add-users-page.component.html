@@ -19,7 +19,7 @@
       </mat-form-field>
     </div>
     <div fxLayoutGap="5px">
-      <button class="btn create-button border-0" (click)="assignQuizToUser()">
+      <button class="btn create-button border-0" [routerLink]="['/admin/assign-quiz']">
         Add user
       </button>
       <button class="btn create-button border-0">Bulk upload user</button>

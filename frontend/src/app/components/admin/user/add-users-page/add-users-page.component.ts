@@ -48,9 +48,7 @@ export class AddUsersPageComponent implements OnInit {
     this.search = false;
   }
 
-  assignQuizToUser() {
-    this.router.navigate(["/assign-quiz"]);
-  }
+  
   getLoggedUser() {
     this.user.id = this.userId;
     this.adminService.getLoggedUser(this.user).subscribe((res: any) => {

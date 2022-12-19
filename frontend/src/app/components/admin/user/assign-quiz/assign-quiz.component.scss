@@ -10,19 +10,22 @@
   margin: 10px 0;
   cursor: pointer;
   transition: 0.5s;
-  font-size:8px;
-    // transition: 0.5s;
+  font-size:12px;
   }
-  .password{
-    padding-top:  10px;;
+  mat-card{
+    margin: 20px;
   }
-  .mat-card{
-    overflow: auto;
-    height: 70vh;
+  mat-card-content{
+    margin:50px;
   }
-
   mat-form-field {
-    font-size: 10px;
-    width: 200px;
-
+    font-size: 15px;
+    width: 480px;
   }
+ @media screen and (max-width:768px) {
+  mat-form-field {
+    font-size: 15px;
+    width: 310px;
+  }
+ }
+  

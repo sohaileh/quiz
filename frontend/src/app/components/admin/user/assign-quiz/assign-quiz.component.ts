@@ -15,14 +15,8 @@ export class AssignQuizComponent implements OnInit {
   organizationQuizList: any = [];
   quizId: any=[];
   assignedQuizzes: any = [];
-   quizIdObject:any={}
-   hide: Boolean = true;
-
-
-  
-  
-  
-
+  quizIdObject:any={}
+  hide: Boolean =true;
   constructor(private fb: FormBuilder, private adminService: AdminService,private router:Router) {}
 
   ngOnInit(): void {

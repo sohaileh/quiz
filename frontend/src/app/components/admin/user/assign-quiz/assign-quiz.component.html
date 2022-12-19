@@ -1,159 +1,248 @@
-    <mat-card
-      fxLayoutAlign="start none"
-      class="m-4" 
-      fxLayout="column"
-    >
-       <div>
-        <form [formGroup]="assignQuizForm">
-          <div
-            fxLayout="row wrap"
-            fxLayoutAlign="start start"
-             fxLayoutGap="15%"
-          >
-            <div>
-              <mat-lable>userRole</mat-lable><br>
-              <mat-form-field appearance="outline">
-                <input
-                  matInput
-                  placeholder="userRole"
-                  type="text"
-                  minlength="3"
-                  name="role"
-                  id="role"
-                  appFormErrorMsg
-                  formControlName="role"
-                  required
-                />
-              </mat-form-field>
-            </div>
-            <div>
-              <mat-lable>Email</mat-lable><br>
+<!-- <mat-card fxLayoutAlign="start none" class="m-4" fxLayout="column">
+  <div>
+    <form [formGroup]="assignQuizForm">
+      <div
+        fxLayout="row wrap"
+        fxLayoutAlign="center center"
+        fxFlex="70"
+        fxLayoutGap="10"
+      >
+        <div>
+         
+          <mat-form-field appearance="outline">
+            <mat-label>userRole</mat-label>
+            <input
+              matInput
+              placeholder="userRole"
+              type="text"
+              minlength="3"
+              name="role"
+              id="role"
+              appFormErrorMsg
+              formControlName="role"
+              required
+            />
+          </mat-form-field>
+        </div>
+        <div>
 
-              <mat-form-field appearance="outline" >
-                <input
-                  matInput
-                  placeholder="Email"
-                  type="email"
-                  matInput
-                  minlength="3"
-                  email="true"
-                  name="emailAddress"
-                  id="idemailAddress"
-                  appFormErrorMsg
-                  formControlName="emailAddress"
-                  required
-                  value="{{ emailAddress }}"
-                  [disabled]="emailReadOnly"
-                />
-              </mat-form-field>
-            </div>
-            <div>
-              <mat-lable>FirstName</mat-lable><br>
+          <mat-form-field appearance="outline">
+            
+          <mat-label>Email</mat-label>
+            <input
+              matInput
+              placeholder="Email"
+              type="email"
+              matInput
+              minlength="3"
+              email="true"
+              name="emailAddress"
+              id="idemailAddress"
+              appFormErrorMsg
+              formControlName="emailAddress"
+              required
+            />
+          </mat-form-field>
+        </div>
+        <div>
+         
+          <mat-form-field appearance="outline">
+            <mat-label>FirstName</mat-label>
 
-              <mat-form-field appearance="outline">
-                <input
-                  matInput
-                  placeholder="FirstName"
-                  type="text"
-                  matInput
-                  minlength="3"
-                  name="firstName"
-                  id="idfirstName"
-                  appFormErrorMsg
-                  formControlName="firstName"
-                  value="{{ firstName }}"
-                  required
-                />
-              </mat-form-field>
-            </div>
-            <div>
-              <mat-lable>LastName</mat-lable><br>
+            <input
+              matInput
+              placeholder="FirstName"
+              type="text"
+              matInput
+              minlength="3"
+              name="firstName"
+              id="idfirstName"
+              appFormErrorMsg
+              formControlName="firstName"
+              required
+            />
+          </mat-form-field>
+        </div>
+        <div>
+         
 
-              <mat-form-field appearance="outline" >
-                <input
-                  matInput
-                  placeholder="LastName"
-                  type="text"
-                  matInput
-                  minlength="3"
-                  name="lastName"
-                  id="idlastName"
-                  appFormErrorMsg
-                  required
-                  formControlName="lastName"
-                  value="{{ lastName }}"
-                />
-              </mat-form-field>
-            </div>
-            <div>
-              <mat-lable>Organization</mat-lable><br>
-
-              <mat-form-field appearance="outline">
-                <input
-                  matInput
-                  placeholder="Organization"
-                  matInput
-                  minlength="3"
-                  name="organization"
-                  id="idorganization"
-                  appFormErrorMsg
-                  formControlName="organization"
-                  required
-                  value="{{ organization }}"
-                />
-              </mat-form-field>
-            </div>
-            <div>
-              <mat-lable>Password</mat-lable><br>
-
-              <mat-form-field
-                appearance="outline"
-                
-                fxLayout="row wrap"
-              >
-                <input
-                  matInput
-                  placeholder="Password"
-                  matInput
-                  [type]="hide ? 'password' : 'text'"
-                  minlength="6"
-                  appFormErrorMsg
-                  name="Password"
-                  id="idpassword"
-                  formControlName="password"
-                  #updatePassword
-                  required
-                />
-                <i
-                  matSuffix
-                  id="icon"
-                  class="fa fa-eye password"
-                  (click)="showPassword()"
-                  *ngIf="!hide"
-                  aria-hidden="true"
-                ></i>
-
-                <i
-                  matSuffix
-                  id="icon"
-                  class="fa fa-eye-slash pasword"
-                  (click)="showPassword()"
-                  *ngIf="hide"
-                  aria-hidden="true"
-                ></i>
-              </mat-form-field>
-            </div>
-          </div>
-        </form>
-      </div>
-        
+          <mat-form-field appearance="outline">
+            <mat-label>LastName</mat-label>
+            <input
+              matInput
+              placeholder="LastName"
+              type="text"
+              matInput
+              minlength="3"
+              name="lastName"
+              id="idlastName"
+              appFormErrorMsg
+              required
+              formControlName="lastName"
+            />
+          </mat-form-field>
+        </div>
         <div>
         
-          <mat-lable>assign quiz</mat-lable><br>
 
-          <mat-form-field appearance="fill" class=" border-0">
-            <mat-label>assign quiz</mat-label>
-            <mat-select [(ngModel)]="quizId" name="quiz" multiple>
+          <mat-form-field appearance="outline">
+            <mat-label>Organization</mat-label>
+            <input
+              matInput
+              placeholder="Organization"
+              matInput
+              minlength="3"
+              name="organization"
+              id="idorganization"
+              appFormErrorMsg
+              formControlName="organization"
+              required
+            />
+          </mat-form-field>
+        </div>
+        <div>
+        
+
+          <mat-form-field appearance="outline" >
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              placeholder="Password"
+              matInput
+              [type]="hide ? 'password' : 'text'"
+              minlength="6"
+              appFormErrorMsg
+              name="Password"
+              id="idpassword"
+              formControlName="password"
+              #updatePassword
+              required
+            />
+            <i
+              matSuffix
+              id="icon"
+              class="fa fa-eye password"
+              (click)="showPassword()"
+              *ngIf="!hide"
+              aria-hidden="true"
+            ></i>
+
+            <i
+              matSuffix
+              id="icon"
+              class="fa fa-eye-slash pasword"
+              (click)="showPassword()"
+              *ngIf="hide"
+              aria-hidden="true"
+            ></i>
+          </mat-form-field>
+        </div>
+      </div>
+      <mat-form-field appearance="fill" class="border-0">
+        <mat-label>assign quiz</mat-label>
+        <mat-select [(ngModel)]="quizId" name="quiz" multiple>
+          <mat-option
+            *ngFor="let quiz of organizationQuizList"
+            [value]="quiz._id"
+          >
+            {{ quiz.quizTitle }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </div>
+
+  <div>
+   
+
+   
+  </div>
+
+  <div class="ml-2 mr-2" fxLayoutAlign="end">
+    <button class="btn border-0 mr-1" (click)="cancel()">cancel</button>
+    <button class="btn border-0 mr-1" (click)="save()">save</button>
+  </div>
+</mat-card> -->
+<mat-card>
+  <mat-card-content>
+ <div class="container">
+  <div class="row pt-5">
+    <div class="col-md-12">
+      <form [formGroup]="assignQuizForm">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <mat-form-field>
+            <mat-label>FirstName</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="firstName"
+            />
+    </mat-form-field>
+          </div>
+          <div class="form-group col-md-6">
+            <mat-form-field >
+              <mat-label>Last Name</mat-label>
+                    <input
+                    type="text"
+                    matInput
+                 
+                      formControlName="lastName"
+                    />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <mat-form-field >
+              <mat-label>Email</mat-label>
+              <input   matInput
+              formControlName="emailAddress"
+                type="email"
+              />
+            </mat-form-field>
+          </div>
+          <div class="form-group col-md-6 ">
+            <mat-form-field>
+            <mat-label>Organisation</mat-label>
+            <input
+            matInput
+              placeholder="Organization"
+              name="organization"
+              formControlName="organization"
+        
+            />
+          </mat-form-field>
+          </div>
+          
+        </div>
+        <div class="form-row mr-2">
+          <div class="form-group col-md-6 ">
+            <mat-form-field>
+            <mat-label>Role</mat-label>
+            <input
+             matInput
+              placeholder="Role"
+           
+              required="required"
+              type="text"
+            />
+          </mat-form-field>
+          </div>
+          <div class="form-group col-md-6">
+            <mat-form-field >
+              <mat-label>Password</mat-label>
+              <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" formControlName="password">
+              <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </mat-form-field>
+                 
+            </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <mat-form-field>
+            <mat-label>Assign Quiz</mat-label>
+            <mat-select [(ngModel)]="quizId" name="quiz">
               <mat-option
                 *ngFor="let quiz of organizationQuizList"
                 [value]="quiz._id"
@@ -161,19 +250,19 @@
                 {{ quiz.quizTitle }}
               </mat-option>
             </mat-select>
-          </mat-form-field>
+            </mat-form-field>
+          </div>
         </div>
-      
-
-      <div
-      class="ml-2 mr-2  " fxLayoutAlign="end"
-     >
-      <button class="btn border-0 mr-1" (click)="cancel()">cancel</button>
-      <button class="btn border-0 mr-1" (click)="save()">save</button>
-     </div>
-
-     
- </mat-card>
-
-
-
+        <div class="form-row float-right">
+          <span class="spacer"></span>
+          <div class="mr-5">
+            <button class="btn border-0 mr-1" (click)="cancel()">cancel</button>
+            <button class="btn border-0 mr-1" (click)="save()">save</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div> 
+</mat-card-content>
+</mat-card>
