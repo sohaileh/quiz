@@ -32,20 +32,21 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Quiz name</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" formControlName="quizTitle" 
-                                value="{{quizTitle}}" maxlength="250">
+                            <input type="text" class="form-control" formControlName="quizTitle" value="{{quizTitle}}"
+                                maxlength="250">
                         </div>
                     </div>
 
                     <div class="form-group mt-4" id="configureTimeLimit">
-                        <label class="col-sm-2 control-label">Time limit per question</label>
-                        <div class="col-sm-10">
+                        <label class="col-sm-2 control-label margin-1v">Time limit per question</label>
+                        <div class="col-sm-10 margin-1v">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" formControlName="time_check" (change)="setTimePerQuestion($event)">
+                                    <input type="checkbox" formControlName="time_check"
+                                        (change)="setTimePerQuestion($event)">
                                 </label>
                                 <input value="" class="form-control TimeLimit" type="text" maxlength="5"
-                                    placeholder="hh:mm" formControlName="timeLimitPerQuestion" >
+                                    placeholder="hh:mm" formControlName="timeLimitPerQuestion">
                             </div>
                             <p class="help-block">
                                 Respondents will only have the set time to complete the whole quiz. The time limit is
@@ -56,15 +57,15 @@
 
                     <div class="form-group" id="configurePageTimeLimits">
                         <label class="col-sm-2 control-label">Whole Quiz time limit</label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-10 whole-q">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" formControlName="whole_check" (change)="setQuizTime($event)" >
+                                    <input type="checkbox" formControlName="whole_check" (change)="setQuizTime($event)">
                                 </label>
                                 <!-- <button class="btn btn-success">Set time
                                 limits</button> -->
                                 <input value="" class="form-control TimeLimit" type="text" maxlength="5"
-                                    placeholder="hh:mm" formControlName="quizTimeLimit" >
+                                    placeholder="hh:mm" formControlName="quizTimeLimit">
                             </div>
                             <p class="help-block">
                                 Set time limit for whole quiz
@@ -77,7 +78,7 @@
                         <div class="col-sm-10">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" formControlName="rand_check">
+                                    <input type="checkbox" formControlName="rand_check" class="margin-2">
                                 </label>
                                 <select id="" class="form-control randomizeQuestionsType">
                                     <option selected="" value="ALL">Whole quiz</option>
@@ -104,7 +105,7 @@
                         <div class="col-sm-10">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" formControlName="randomizeQuestion">
+                                    <input type="checkbox" formControlName="randomizeQuestion" class="margin-8">
                                 </label>
                             </div>
                             <p class="help-block">
@@ -157,7 +158,8 @@
                         <div class="col-sm-10">
                             <div class="checkbox configureRedirect">
                                 <label>
-                                    <input type="checkbox" name="Completion" formControlName="redirect_check">
+                                    <input type="checkbox" name="Completion" formControlName="redirect_check"
+                                        class="margin-8">
                                 </label>
                             </div>
                             <select class="form-control configureRedirectType">
@@ -181,7 +183,7 @@
                         <div class="col-sm-10">
                             <div class="checkbox d-inline">
                                 <label>
-                                    <input type="checkbox" formControlName="schedule_check">
+                                    <input type="checkbox" formControlName="schedule_check" class="margin-8">
                                 </label>
                             </div>
                             <div class="from-label-div">
@@ -213,15 +215,15 @@
                             <p class="help-block">
                                 Set a schedule for when your quiz will automatically open and then close based on the
                                 timezone for your account.
-                                Your current time zone is <strong>{{dateTime | date:'fullTime'}}</strong> -
-                                you
-                                can change this on the <a href="">Settings Page</a>
+                                Your current time zone is <strong>{{dateTime | date:'fullTime'}}</strong>. <!-- - -->
+                                <!-- you
+                                can change this on the <a href="">Settings Page</a> -->
                             </p>
                         </div>
                     </div>
                 </div>
 
-                <button (click)=" configureQuiz()" class="btn btn-success" style="margin-left: 10vw;">
+                <button (click)=" configureQuiz()" class="btn btn-success save-btn">
                     Save and Submit</button>
             </form>
         </div>
