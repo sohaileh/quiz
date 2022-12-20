@@ -5,7 +5,7 @@ import { MediaObserver, MediaChange } from "@angular/flex-layout";
 import { Observable, Subscription } from "rxjs";
 import { PageEvent } from "@angular/material/paginator";
 import { MatPaginator } from "@angular/material/paginator";
-import { MatDialog,MatDialogRef,MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { QuizInfoComponent } from "../../quiz/quiz-info/quiz-info.component";
 import { AuthService } from "../../auth/services/auth.service";
 import Swal from "sweetalert2";
@@ -16,24 +16,15 @@ import { RenameQuizTitleComponent } from "../../quiz/rename-quiz-title/rename-qu
 
 export interface quizInterface {
   quizTitle: string;
-  status:string;
+  status: string;
 
 }
-
-
 @Component({
   selector: "app-main-dashboard",
   templateUrl: "./main-dashboard.component.html",
   styleUrls: ["./main-dashboard.component.scss"],
 })
 export class MainDashboardComponent implements OnInit {
-
-
-
-
-  
-
-
   mediaSub: Subscription;
   public slides = [];
   userRole: any;
@@ -48,7 +39,7 @@ export class MainDashboardComponent implements OnInit {
   pageSlice: any = [];
   ItemsPerPage: any = 3;
   handleDescriptionView: boolean = false;
-  displayedColumns :string[]= ['quizTitle','status','preview','action'];
+  displayedColumns: string[] = ['quizTitle', 'status', 'preview', 'action'];
   dataSource = new MatTableDataSource<quizInterface>(this.quizDetails);
   organizationId:any={}
   selectedRowIndex=-1
@@ -60,12 +51,12 @@ export class MainDashboardComponent implements OnInit {
     private router: Router,
     public mediaObserver: MediaObserver,
     public dialog: MatDialog,
-    private quizservice:QuizService,
-  ) {}
+    private quizservice: QuizService,
+  ) { }
 
   ngOnInit(): void {
 
- 
+
 
     this.mediaSub = this.mediaObserver.media$.subscribe(
       (result: MediaChange) => {
@@ -97,26 +88,17 @@ export class MainDashboardComponent implements OnInit {
     );
 
 
-    this.quizservice.newQuiz$.subscribe((res:any)=>{
-  this.getOrganizationQuizzes()
-
-
-
-
-
-})
-
-
-
-    
+    this.quizservice.newQuiz$.subscribe((res: any) => {
+      this.getOrganizationQuizzes()
+    })
 
     this.getOrganizationQuizzes();
-
-
   }
 
+
+
   getOrganizationQuizzes() {
-    this.organizationId.userId=localStorage.getItem('userId')
+    this.organizationId.userId = localStorage.getItem('userId')
 
     this.homeService.getOrganizationQuizzes(this.organizationId).subscribe(
       (res: any) => {
@@ -127,8 +109,8 @@ export class MainDashboardComponent implements OnInit {
 
         this.pageSlice = this.quizDetails.slice(0, 3);
       },
-      (err: any) => {},
-      () => {}
+      (err: any) => { },
+      () => { }
     );
   }
 
@@ -148,8 +130,8 @@ export class MainDashboardComponent implements OnInit {
         }
       },
 
-      (error) => {},
-      () => {}
+      (error) => { },
+      () => { }
     );
   }
 
@@ -195,45 +177,40 @@ export class MainDashboardComponent implements OnInit {
 
   openQuizTitle(): void {
     let dialogRef = this.dialog.open(QuizTitleComponent, {
-      width:'40%',
-     position:{
-      top:'60px',
-     }
-    
+      width: '250px',
+      position: {
+        top: '60px',
+      }
+
     });
   }
 
- deleteQuiz(quiz:any)
- {
- const confirmDelete=confirm('Are you sure you want to delete this quiz ')
- if(confirmDelete)
- {
-  this.homeService.deleteQuiz(quiz).subscribe((res=>{
-    if(res)
-    {
-      this.getOrganizationQuizzes()
+  deleteQuiz(quiz: any) {
+    const confirmDelete = confirm('Are you sure you want to delete this quiz ')
+    if (confirmDelete) {
+      this.homeService.deleteQuiz(quiz).subscribe((res => {
+        if (res) {
+          this.getOrganizationQuizzes()
+        }
+
+      }))
+
     }
-
-   }))
-
- }
- } 
+  }
 
 
- renameQuizTitle(quiz:any)
- {
-  let dialogRef = this.dialog.open(RenameQuizTitleComponent, {
-    width:'40%',
-   position:{
-    top:'60px',
-   },
-   data:quiz,
-  
-  });
+  renameQuizTitle(quiz: any) {
+    let dialogRef = this.dialog.open(RenameQuizTitleComponent, {
+      width: '250px',
+      position: {
+        top: '60px',
+      },
+      data: quiz,
 
-  
+    });
+  }
 
- }
+
 
  editQuiz(quiz:any)
  {
@@ -254,14 +231,15 @@ highlight(row){
 
 preview(quiz){
   const quizId =quiz._id
+  localStorage.setItem('quizId',quizId)
   this.router.navigate([`/admin/quiz/quiz-preview/${quizId}`])
 }
 
 
 
 }
-  
 
 
-   
+
+
 

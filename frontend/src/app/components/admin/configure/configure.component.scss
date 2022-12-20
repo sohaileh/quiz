@@ -20,17 +20,18 @@
   margin-bottom: 20px;
   padding-top: 20px;
   background-color: #f1f1f1;
+  position: relative;
+  top: 15px;
 }
 
 .configureContentContainer {
-  margin: 50px auto 50px;
   background-color: rgba(255, 255, 255, 1);
   border-left: solid #ddd 1px;
   border-right: solid #ddd 1px;
   padding-top: 20px;
-  min-height: 100%;
-  height: auto !important;
-  height: 100%;
+  // min-height: 100%;
+  // height: auto !important;
+  // height: 100%;
   padding-bottom: 80px;
 }
 
@@ -51,6 +52,7 @@
 
 label {
   display: inline-block;
+  padding: 2px;
   max-width: 100%;
   margin-bottom: 5px;
   font-weight: 700;
@@ -93,7 +95,7 @@ input[type="radio"] {
 }
 
 .navbar-nav {
-  margin: 7.5px -31px 0 5px;
+  margin: 27.5px -31px 0 5px;
 }
 
 .active {
@@ -123,12 +125,13 @@ input[type="radio"] {
   position: relative;
   margin-left: 15px;
   margin-right: 6px;
-  top: 4px;
+  top: 11px;
 }
 
 .date {
   width: 128px;
   float: right;
+  top: 8px;
 }
 
 .date-input {
@@ -141,16 +144,23 @@ input[type="radio"] {
   position: relative;
   margin-left: 32px;
   margin-right: 8px;
-  top: 4px;
+  top: 11px;
+}
+.margin-2 {
+  margin-top: 2px;
+}
+.margin-8 {
+  margin-top: 8px !important;
 }
 .hrs {
   width: 125px;
   float: right;
   margin-left: 5px;
+  top: 8px;
 }
 
 .only-retake-check {
-  margin-top: 10px !important;
+  margin-top: 8px !important;
 }
 
 .retake {
@@ -160,6 +170,10 @@ input[type="radio"] {
 
 .help-block {
   font-size: 12px;
+  display: block;
+  margin-top: 5px;
+  // margin-bottom: 10px;
+  color: #737373;
 }
 
 .TimeLimit {
@@ -194,8 +208,20 @@ input[type="radio"] {
 }
 
 @media screen and (min-width: 768px) {
+  .save-btn {
+    margin-left: 10vw;
+  }
+
+  .margin-1v {
+    margin-top: 1vw;
+  }
+  .whole-q {
+    margin-bottom: 4vw;
+  }
+
   .col-sm-10 {
     width: 83.33333333%;
+    margin-bottom: 1vw;
   }
 
   .hrs {
@@ -214,7 +240,7 @@ input[type="radio"] {
   }
   .form-group {
     margin-bottom: 15px;
-    padding-bottom: 2vw;
+    // padding-bottom: 2vw;
   }
   .navbar-nav > li {
     float: left;

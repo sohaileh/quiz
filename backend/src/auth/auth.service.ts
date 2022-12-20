@@ -6,6 +6,7 @@ import { JwtService } from '@nestjs/jwt';
 import { OrganizationDto } from './dto/organization.dto';
 import { Types } from 'mongoose';
 import * as bcrypt from 'bcrypt';
+import e from 'express';
 
 @Injectable()
 export class AuthService {
@@ -50,7 +51,7 @@ export class AuthService {
     }
   }
 
-  async signUp(userModel: UserModelDto) {
+  async signUp(userModel: any) {
     try {
       const { emailAddress } = userModel;
       const userExists = await this.userModelDto.exists({
@@ -75,7 +76,7 @@ export class AuthService {
   async getLoggedUser(user: any) {
     const loggedUserDetails = await this.userModelDto.findOne(
       { _id: user.id },
-      { password: 0, _id: 0 },
+      { password: 0, assignedQuizzes:0,quizzesPlayed:0,},
     );
     return loggedUserDetails;
   }
@@ -128,7 +129,46 @@ export class AuthService {
   }
 
 
+  async assignQuizs(userModel: any) {
+    try {
+
+      const { emailAddress } = userModel;
+      const userExists = await this.userModelDto.exists({
+        emailAddress: emailAddress,
+      });
+
+      if (!userExists)
+      {
+       const salt = await bcrypt.genSalt();
+      const password = userModel.password;
+      const hashedPassword = await bcrypt.hash(password, salt);
+      userModel.password = hashedPassword;
+
+      const newUser = new this.userModelDto(userModel);
+      newUser.save();
+      return newUser;
+     }
+     else{
+      const quizAssigned=await this.userModelDto.updateOne({emailAddress:emailAddress},{$push:{assignedQuizzes:userModel.assignedQuizzes}})
+      return userExists;
+     }
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
+  }
 
 
+
+ async getOrganizationUsers(users:any)
+ {
+  try{
+  const loggedUserDetails=this.userModelDto.find({organizationId:users.organizationId},{ password: 0, assignedQuizzes:0,},)
+  return loggedUserDetails;
+  }
+  catch(err){
+    throw new HttpException(err, HttpStatus.BAD_REQUEST);
+
+  }
+ }
 
 }

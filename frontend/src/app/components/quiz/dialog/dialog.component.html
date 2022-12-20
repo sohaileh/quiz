@@ -1,89 +1,94 @@
-<h2 mat-dialog-title>Send Quiz URL</h2>
 <mat-dialog-content>
+  <button mat-icon-button class="close-button" [mat-dialog-close]="true">
+    <mat-icon class="close-icon" color="warn">close</mat-icon>
+  </button>
+
+  <h1 mat-dialog-title>Send Quiz URL</h1>
+  <mat-divider></mat-divider>
   <div fxLayout="column">
-    <div fxLayout="row wrap"fxFlex.xs="20" >
-      <div fxFlexOrder="1" fxFlexOrder.gt.xs="2" fxLayout="row" fxHide.xs fxHide.sm fxLayout.xs="" fxFlex.xs="100" fxFlex.gt-xs="10" fxLayoutAlign="center">
+    <div fxLayout="row wrap" fxFlex.xs="20">
+      <div
+        fxFlexOrder="1"
+        fxFlexOrder.gt.xs="2"
+        fxLayout="row"
+        fxHide.xs
+        fxHide.sm
+        fxLayout.xs=""
+        fxFlex.xs="100"
+        fxFlex.gt-xs="10"
+        fxLayoutAlign="center"
+      >
         <button class="btn btn-default"><i class="fa fa-send"></i>send</button>
       </div>
-      <div fxFlexOrder="2" fxFlexOrder.gt.xs="1" fxFlex.xs="20"  fxLayout="row" fxLayout.xs="20"  fxFlex.gt-xs="40" fxFlex.gt-sm="90" >                             
+      <div
+        fxFlexOrder="2"
+        fxFlexOrder.gt.xs="1"
+        fxFlex.xs="20"
+        fxLayout="row"
+        fxLayout.xs="20"
+        fxFlex.gt-xs="40"
+        fxFlex.gt-sm="90"
+      >
         <form>
-          <div class="d-flex" >
-            <div class="d-inline-block"> 
+          <div class="d-flex">
+            <div class="d-inline-block">
               <div>
-              <select name="" id=""  class="form-control">
-              <option  class="form-group" selected>From</option>
-            </select> 
+                <select name="" id="" class="form-control">
+                  <option class="form-group" selected>From</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="d-inline-block">
+              <mat-form-field class="form-outline">
+                <input matInput />
+              </mat-form-field>
+            </div>
           </div>
+          <div class="d-flex">
+            <div class="d-inline-block form-control">To</div>
+
+            <div class="d-inline-block">
+              <mat-form-field class="form-outline">
+                <input matInput />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="d-flex">
+            <div class="d-inline-block form-control">Cc</div>
+
+            <div class="d-inline-block">
+              <mat-form-field class="form-outline">
+                <input matInput />
+              </mat-form-field>
+            </div>
           </div>
           
-            <div class="d-inline-block"> 
-                <mat-form-field class="form-outline" >
-                  <input matInput  >
-                 
-                </mat-form-field>
-              </div>
-             
-           </div>
-           <div class="d-flex">
-            <div class="d-inline-block form-control"> 
-             To
+          <div class="d-flex">
+            <div class="col-lg-1 d-inline-block">
+              <span>Subject</span>
+            </div>
+
+            <div class="d-inline-block">
+              <mat-form-field class="form-outline">
+                <input matInput class="" />
+              </mat-form-field>
+            </div>
           </div>
-          
-            <div class="d-inline-block"> 
-       
-               <mat-form-field class="form-outline">
-                  <input matInput  >
-                 
-                </mat-form-field>
-             
-              </div>
-           </div>
-           <div class="d-flex">
-            <div class="d-inline-block form-control"> 
-              Cc
-          </div>
-          
-            <div class="d-inline-block"> 
-             
-                <mat-form-field class="form-outline">
-                  <input matInput >
-                </mat-form-field>
-              </div>
-             
-           </div>
-           <div class="d-flex d-inline-block " >
-            <div class="col-md-1"> 
-              <span >Subject</span>
-            
-          </div>
-          
-            <div class="d-inline-block "> 
-                <mat-form-field class="form-outline" >
-                  <input matInput  class="">
-                 
-                </mat-form-field>
-              </div>
-             
-           </div>
         </form>
-       </div>
-      </div>  
-      <div fxFlex="25%" class="block-3 ml-3 mb-4" fxHide.gt-xs fxShow.sm>
-        <div fxFlex fxFlexFill class="grid-item">
-          <button class="btn btn-default"><i class="fa fa-send"></i>send</button>
-        </div>
-      </div>               
-      <div class=" d-flex" fxLayout.gt-sm="row">
+      </div>
+    </div>
+    <div fxFlex="25%" class="block-3 ml-3 mb-4" fxHide.gt-xs fxShow.sm>
+      <div fxFlex fxFlexFill class="grid-item">
+        <button class="btn btn-default"><i class="fa fa-send"></i>send</button>
+      </div>
+    </div>
+    <div class="d-flex" fxLayout.gt-sm="row">
       <div class="col-lg-12">
-        <ckeditor 
-          formControlName="question"
-          [config]="ckeConfig"
-        ></ckeditor>
+        <ckeditor formControlName="question" [config]="ckeConfig"></ckeditor>
       </div>
-      </div>
-      
+    </div>
   </div>
-  
+
   <!-- <ckeditor formControlName="" [config]="ckeConfig"></ckeditor> -->
- 
 </mat-dialog-content>

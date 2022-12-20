@@ -8,18 +8,21 @@ import { MatDialog } from "@angular/material/dialog";
 import { AdminService } from "../../admin/services/admin.service";
 import { Clipboard } from '@angular/cdk/clipboard';
 import { MatSnackBar } from "@angular/material/snack-bar";
+import {TooltipPosition} from '@angular/material/tooltip';
 @Component({
   selector: "app-publish-quiz",
   templateUrl: "./publish-quiz.component.html",
   styleUrls: ["./publish-quiz.component.scss"],
 })
 export class PublishQuizComponent implements OnInit {
+  positionOptions: TooltipPosition[] = ['above'];
   publishForm: FormGroup;
   value: any;
   url: any;
   id: any;
   quizStatus: any;
   quizId:any={}
+  show: boolean=false;
   constructor(
     fb: FormBuilder,
     private router: Router,
@@ -40,8 +43,7 @@ export class PublishQuizComponent implements OnInit {
     this.id = this.route.snapshot.params.id;
     this.adminService.quizQuestions$.subscribe({
       next: (response: any) => {
-        // this.quizQuestions = response.questionBank;
-        this.quizStatus = response.status;
+        this.quizStatus = response?.status;
       },
     });
     this.getQuizQuestions();
@@ -59,7 +61,7 @@ export class PublishQuizComponent implements OnInit {
     });
   }
   copyText(){
-    alert("copied to clipboard");
+   this.show=true;
   }
   publishQuiz() {
     this.url = `localhost:4200/register-quiz/${this.id}`;

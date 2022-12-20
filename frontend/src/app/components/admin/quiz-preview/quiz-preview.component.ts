@@ -3,7 +3,6 @@ import { AdminService } from "../services/admin.service";
 import { ThemePalette } from "@angular/material/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { interval, Observable, Subscription, take, tap } from "rxjs";
-import * as internal from "stream";
 
 @Component({
   selector: "app-quiz-preview",
@@ -29,6 +28,15 @@ export class QuizPreviewComponent implements OnInit {
   redirectingIn = 5;
   intervalSubscription: Subscription;
   showRedirectTime: number;
+  questionsPerPage:number
+  totalQuizQuestions:number
+  minutes: number = 0;
+  seconds: number = 0;
+  remainSeconds: number = 0;
+  quizTime: number;
+  intervalId: any;
+  timePerQuestionExists:boolean
+  quizTimeEnded=false
   constructor(
     private adminService: AdminService,
     private route: ActivatedRoute,
@@ -57,33 +65,50 @@ export class QuizPreviewComponent implements OnInit {
   }
 
   getQuizQuestions() {
-    console.log('quizId',this.quizId)
     this.adminService
       .getQuizQuestions(this.quizId, this.questionNumber)
       .pipe(tap((data) => this.removeCorrectAnswer(data)))
       .subscribe({
         next: (response: any) => {
           this.optionSelected = false;
-          this.quizQuestions = response.questionBank;
-          this.quizTitle = response.quizTitle;
-          this.totalQuestions = this.quizQuestions.length;
-          this.questionNumber++;
+          this.quizQuestions = response[0].questions;
+          this.quizTitle = response[0].quizTitle;
+          this.totalQuizQuestions = response[0].totalQuestions
+          this.totalQuestions += response[0].questionPerPage
+          this.questionsPerPage= response[0].questionPerPage
+          if(this.questionNumber==0)
+          if(response[0].whole_check){
+            this.quizTime = response[0].quizTimeLimit
+            this.timer()
+          }
+          if(response[0].time_check){
+         clearInterval(this.intervalId);
+         this.timePerQuestionExists=this.quizQuestions[0].timeLimit
+            this.quizTime = this.quizQuestions[0].timeLimit
+            this.timer()
+          }
+          this.questionNumber += response[0].questionPerPage
+          
           if (this.quizQuestions.length == 0) this.submitStudentResponse();
         },
         error: (error) => {
+          console.log('message',error)
           alert(error.error.message)
-          this.router.navigate(['/home/home-page'])
+          this.router.navigate([`/admin/quiz/add-quiz/${this.quizId}`])
         },
         complete: () => {},
       });
   }
   submitStudentResponse() {
     const userId = localStorage.getItem("userId");
-    const confirmation = confirm(
-      "Are you sure you want to submit your Response."
-    );
-
-    if (!confirmation) return;
+    if(!this.quizTimeEnded){
+      const confirmation = confirm(
+        "Are you sure you want to submit your Response."
+      );
+  
+      if (!confirmation) return;
+    }
+    
     this.submitting = true;
     this.finalResponse = {
       quizId: this.quizId,
@@ -92,6 +117,7 @@ export class QuizPreviewComponent implements OnInit {
     };
     this.adminService.submitStudentResponse(this.finalResponse).subscribe({
       next: (response: any) => {
+        clearInterval(this.intervalId);
         this.submitting = false;
         this.responseSubmitted = true;
         this.redirectTime = interval(1000);
@@ -99,13 +125,13 @@ export class QuizPreviewComponent implements OnInit {
       },
       error: (error) => {
         this.submitting = false;
-        this.router.navigate(['/home/home-page'])
+        this.router.navigate(['/home/dashboard'])
       },
       complete: () => {},
     });
   }
   removeCorrectAnswer(data) {
-    data.questionBank.forEach((element) => {
+    data[0].questions.forEach((element) => {
       delete element.correctAnswer;
     });
     return data;
@@ -117,13 +143,36 @@ export class QuizPreviewComponent implements OnInit {
       },
       error: (error) => {},
       complete: () => {
-        this.router.navigate(["/home/home-page"]);
+        this.router.navigate(["/home/dashboard"]);
       },
     });
   }
 
-  redirectToHome(){
+  redirectToDashboard(){
     this.intervalSubscription.unsubscribe()
-    this.router.navigate(["/home/home-page"]);
+    this.router.navigate(["/home/dashboard"]);
+  }
+  timer() {
+    this.minutes = this.quizTime;
+    this.seconds = this.minutes * 60;
+    this.remainSeconds = 0;
+    this.intervalId = setInterval(() => {
+      this.seconds = this.seconds - 1;
+      this.minutes = Math.floor(this.seconds / 60);
+      this.remainSeconds = this.seconds % 60;
+      if (this.seconds == 0) {
+        if(this.timePerQuestionExists && ( this.totalQuestions < this.totalQuizQuestions) ){
+              this.getQuizQuestions()
+        }else{
+          this.quizTimeEnded=true
+          this.submitStudentResponse();
+          clearInterval(this.intervalId);
+        }
+       
+      }
+    }, 1000);
+  }
+  ngOnDestroy() {
+    clearInterval(this.intervalId);
   }
 }

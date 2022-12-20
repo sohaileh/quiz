@@ -3,10 +3,8 @@
   border-left: solid #ddd 1px;
   border-right: solid #ddd 1px;
   padding-top: 20px;
-  min-height: 100%;
-  margin-top: 25px;
-  height: auto !important;
-  height: 100%;
+  height: 70%;
+  overflow: hidden;
   padding-bottom: 80px;
   .publish_button {
     margin-left: 16.45%;
@@ -27,7 +25,7 @@
   }
   mat-form-field {
     width: 50%;
-    font-size: 13px;
+    font-size: 10px;
   }
   .control-label {
     font-weight: 700;
@@ -43,15 +41,14 @@
     top: 40px;
   }
   .float {
-    margin-left: 229px;
+    margin-left: 256px;
+  }
+  .text-dark{
+    font-size: 12px;
   }
 }
-.container,
-.container-lg,
-.container-md,
-.container-sm {
-  max-width: 960px !important;
-}
+
+
 
 @media screen and (min-width: 768px) {
   .col-sm-1,

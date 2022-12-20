@@ -14,14 +14,14 @@ export class AdminService {
  menu$ = new BehaviorSubject<boolean>(false)
 
 
-  constructor(private http: HttpClient) {}
+ constructor(private http: HttpClient) {}
 
-  saveQuestion(quizData: any,quizId) {
-    return this.http.post(
-      `${this.serverUrl}quiz/upload-file/${quizId}`,
-      quizData
-    );
-  }
+ saveQuestion(quizData: any,quizId) {
+  return this.http.post(
+    `${this.serverUrl}quiz/upload-file/${quizId}`,
+    quizData
+  );
+}
 
   submitInfo(quizDetails: any) {
     return this.http.post(`${this.serverUrl}quiz/submit-info`, quizDetails);
@@ -43,5 +43,24 @@ export class AdminService {
   submitStudentResponse(finalResponse){
     return this.http.post(`${this.serverUrl}response/submit-student-response`,finalResponse)
   }
- 
+
+  getLoggedUser(user: any) {
+    return this.http.post(`${this.serverUrl}auth/getLoggedUser`, user);
+  }
+
+  getOrganizationQuizzes(organizationId: any) {
+    return this.http.post(`${this.serverUrl}quiz/getQuizzes`, organizationId);
+  }
+
+  assignQuizs(userModel: any) {
+    return this.http.post(`${this.serverUrl}auth/assign-quizs`, userModel);
+  }
+  getOrganizationUsers(userModel: any) {
+    return this.http.post(`${this.serverUrl}auth/get-organization-users`, userModel);
+  }
+
+  getConfigurationDetails(quizId){
+      return this.http.get(`${this.serverUrl}quiz/get-configuration-details/${quizId}`)
+  }
+
 }

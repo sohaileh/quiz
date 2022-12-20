@@ -8,7 +8,7 @@ import {
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { validateAllFormFields } from "src/app/utils/validateform";
 // import { HomePageService } from '../../shop/services/home-page.service';
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { LoaderService } from "src/app/components/shared/services/loader.service";
 import { AuthService } from "../../services/auth.service";
 import Swal from "sweetalert2";
@@ -31,7 +31,8 @@ export class LoginComponent implements OnInit {
     public router: Router,
     private loaderService: LoaderService,
     private readonly authService: AuthService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private route:ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -67,13 +68,13 @@ export class LoginComponent implements OnInit {
             localStorage.setItem("userId", response.user._id);
             // console.log("userId", response);
             this.loginForm.reset();
-            this.router.navigate(["/home/dashboard"]);
+            const redirectUrl = this.route.snapshot.queryParamMap.get('redirectURL')
+            redirectUrl?this.router.navigate([`/${redirectUrl}`]):this.router.navigate(["/home/dashboard"]);
           } else {
             this.loginForm.reset();
             localStorage.setItem("userId", response.user._id);
-            console.log("rec");
-            this.router.navigate(["/home/dashboard"]);
-            console.log(response);
+            const redirectUrl = this.route.snapshot.queryParamMap.get('redirectURL')
+            redirectUrl?this.router.navigate([`/${redirectUrl}`]):this.router.navigate(["/home/dashboard"]);
           }
           this.loaderService.hideLoader();
         },

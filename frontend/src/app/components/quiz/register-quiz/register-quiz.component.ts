@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AdminService } from '../../admin/services/admin.service';
 import { AuthService } from '../../auth/services/auth.service';
 import { QuizService } from '../services/quiz.service';
 @Component({
@@ -16,11 +17,14 @@ export class RegisterQuizComponent implements OnInit {
   attemptQuizes:any=[];
   quizId: any;
   Quiz:any={};
+  quizTitle: any;
+  quizStatus: any;
   constructor(
     private fb: FormBuilder,
     private route:ActivatedRoute,
     private router:Router,
-   private quizService:QuizService
+   private quizService:QuizService,
+   private adminService:AdminService
     
   ) { }
 
@@ -34,6 +38,17 @@ export class RegisterQuizComponent implements OnInit {
       password:['',Validators.required]
     }
     );
+    // this.quizId= localStorage.getItem('quizId')
+    this.adminService.getQuizQuestions(this.quizId).subscribe({
+      next:(response:any)=>{
+        this.quizTitle=response.quizTitle
+        this.quizStatus= response.status
+      },
+      error:(error)=>{
+        console.log(error.error.message)
+      },
+      complete:()=>{}
+    })
   }
 
   get registerFormControl() {
@@ -41,6 +56,7 @@ export class RegisterQuizComponent implements OnInit {
   }
 
   onSubmit() {
+
     this.submitted = true;
     if (this.registerForm.valid) {
       this.registerModel=this.registerForm.value;

@@ -13,6 +13,7 @@ import { AuthService } from './auth.service';
 import { AuthDto } from './dto/auth.dto';
 import { UserModelDto } from './dto/user.dto';
 import { OrganizationDto } from './dto/organization.dto';
+import { userModel } from './models/user.model';
 @UseFilters(FormExceptionFilter)
 @Controller('auth')
 export class AuthController {
@@ -28,7 +29,7 @@ export class AuthController {
   }
 
   @Post('sign-up')
-  async signup(@Res() res, @Body() body: UserModelDto) {
+  async signup(@Res() res, @Body() body: userModel) {
     try {
       await this.authService.signUp(body);
       res
@@ -42,7 +43,7 @@ export class AuthController {
   @Post('getLoggedUser')
   async getLoggedUser(@Res() res, @Body() body: any) {
     const loggedUserDetails = await this.authService.getLoggedUser(body);
-    res.status(HttpStatus.OK).json({ loggedUserDetails: loggedUserDetails });
+    res.status(HttpStatus.OK).json( loggedUserDetails);
   }
 
   @Put('update')
@@ -69,8 +70,28 @@ export class AuthController {
     res.status(HttpStatus.OK).json(organizations);
   }
 
+  @Post('assign-quizs')
+  async assignQuizs(@Res() res, @Body() body:any) {
+    try {
+      await this.authService.assignQuizs(body);
+      res
+        .status(HttpStatus.CREATED)
+        .json({ message: 'user created successfully' });
+    } catch (err) {
+      res.status(HttpStatus.BAD_REQUEST).json(err.message);
+    }
+  }
 
-
+  @Post('get-organization-users')
+  async getOrganizationUsers(@Body() body: any, @Res() res: any) {
+    try {
+      const loggedUserDetails = await this.authService.getOrganizationUsers(body,
+      );
+      res.status(HttpStatus.OK).json(loggedUserDetails);
+    } catch (err) {
+      res.status(HttpStatus.BAD_REQUEST).json(err.message);
+    }
+  }
 
 
   // @Post('register-organization')

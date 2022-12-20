@@ -125,6 +125,7 @@
                         />
                         <div class="d-flex align-items-center">
                           <mat-checkbox
+                          [disabled]="answerSelected && selectedAnswerIndex !== i "
                             class="example-margin"
                             (change)="getCorrectAnswer(i, $event)"
                           >
@@ -300,6 +301,7 @@
                       <div class="d-flex align-items-center">
                         <mat-checkbox
                           class="example-margin"
+                          [disabled]="answerSelected && selectedAnswerIndex !== i "
                           [checked]="correctAnswerIndex==i"
                           (change)="getCorrectAnswer(i, $event)"
                         >

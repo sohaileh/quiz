@@ -8,6 +8,22 @@
 .form-outline{
     width: 58vw;
 }
+.close-button{
+  float: right;
+  border: none;
+  background: white;
+}
+  
+  .close-icon {
+    transition: 1s ease-in-out;
+  }
+  
+  .close-icon:hover {
+    transform: rotate(180deg);
+  }
+mat-divider{
+  margin: 15px 0px;
+}
 @media screen and (max-width:768px) {
     form{
         margin-left: 0px;

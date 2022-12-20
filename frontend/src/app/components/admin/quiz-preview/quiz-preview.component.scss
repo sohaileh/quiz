@@ -22,9 +22,11 @@
 .content{
     position: relative;
     top: 100px;
+    height: calc(100vh - 64px - 70px);  
 }
 .container{
     padding: 0 0 !important;
+ 
 }
 
 .content-footer{
@@ -63,6 +65,8 @@
 // attempt-quiz      
   .time {
     width: 100%;
+  color: #268e9b;
+  font-size: 30px;
   }
   .attempt-container{
     margin-top: 100px;

@@ -6,6 +6,7 @@ import {
   IsAlpha,
   IsEmpty,
 } from 'class-validator';
+import { isValidObjectId, ObjectId } from 'mongoose';
 export class UserModelDto {
   //validates user registration
   @IsString()
@@ -28,16 +29,20 @@ export class UserModelDto {
   @MinLength(6)
   public password: string;
 
-  // @IsString()
-  // @MinLength(3)
+  @IsString()
+  @IsNotEmpty()
   public organization: string;
 
- @IsString()
- @IsNotEmpty()
+  public created: Date;
+
+  public organizationId: ObjectId;
+
+  @IsString()
+  @IsNotEmpty()
   public role: string;
 
   @IsEmpty()
-  public quizzesPlayed:[]
-  @IsEmpty()
-  public assignedQuizzes:[]
+  public quizzesPlayed: [];
+
+  public assignedQuizzes: [];
 }

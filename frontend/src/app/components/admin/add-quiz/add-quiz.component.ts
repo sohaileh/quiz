@@ -44,6 +44,7 @@ export class AddQuizComponent implements OnInit {
   getQuizQuestions() {
     this.adminService.getQuizQuestions(this.quizId).subscribe({
       next: (response: any) => {
+        console.log(response,'addquetion')
         this.quizQuestions = response.questionBank;
         this.quizStatus= response.status
         this.quizTitle = response.quizTitle

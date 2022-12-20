@@ -87,7 +87,6 @@ export class AttemptQuizComponent implements OnInit {
 
   timer() {
     this.minutes = this.quizTime;
-
     this.seconds = this.minutes * 60;
     this.remainSeconds = 0;
     this.intervalId = setInterval(() => {

@@ -36,6 +36,7 @@ import { PublishQuizComponent } from './publish-quiz/publish-quiz.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { CKEditorModule } from 'ng2-ckeditor';
 import {ClipboardModule} from '@angular/cdk/clipboard';
+import {MatTooltipModule} from '@angular/material/tooltip';
 @NgModule({
   declarations: [
     AttemptQuizComponent,
@@ -75,7 +76,8 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
     MatSelectModule,
     DirectivesModule,
     CKEditorModule,
-    ClipboardModule
+    ClipboardModule,
+    MatTooltipModule
   ],
   providers: [{ provide: MAT_DIALOG_DATA, useValue: {} }],
 })

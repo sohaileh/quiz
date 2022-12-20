@@ -1,11 +1,4 @@
-<div class="status-menu">
-    <div class="container">
-        <span id=""><strong>Quiz: </strong> <span class="quiz-span">{{quizTitle}} </span></span>
-        <span id=""><strong>Status: </strong> <span data-status="inDesign"> {{quizStatus}} </span></span>
-    </div>
-</div>
-
-<div class="container configureContentContainer mt-3">
+<div class="container configureContentContainer">
     <div class="row">
         <div class="configureMenu col-sm-2">
             <div class="sidebar-nav">
@@ -19,7 +12,7 @@
                     </div>
                     <div class="navbar-collapse collapse sidebar-navbar-collapse" id="navbarSupportedContent2">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a [routerLink]="['/admin/quiz/configure']">General</a>
+                            <li class="active"><a [routerLink]="['/admin/quiz/configure',quizId]">General</a>
                             </li>
                             <!-- <li><a href="">Grading</a> -->
                             <!-- </li> -->
@@ -28,196 +21,211 @@
                             <li><a href="">Certificate </a></li>
                             <!-- <li><a href="">Notifications </a></li> -->
 
-
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-sm-9 configContentTheme" id="general">
-            <div class="form-horizontal" role="form">
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Quiz name</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" placeholder="" value="Quiz 1" maxlength="250">
-                    </div>
-                </div>
-
-
-                <div class="form-group mt-4" id="configureTimeLimit">
-                    <label class="col-sm-2 control-label">Time limit</label>
-                    <div class="col-sm-10">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">
-                            </label>
-                            <input value="" class="form-control TimeLimit" type="text" maxlength="5"
-                                placeholder="hh:mm">
+            <form [formGroup]="configureForm">
+                <div class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Quiz name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" formControlName="quizTitle" value="{{quizTitle}}"
+                                maxlength="250">
                         </div>
-                        <p class="help-block">
-                            Respondents will only have the set time to complete the whole quiz. The time limit is
-                            entered in the format hours:minutes (hh:mm)
-                        </p>
                     </div>
-                </div>
 
-                <div class="form-group" id="configurePageTimeLimits">
-                    <label class="col-sm-2 control-label">Page time limits</label>
-                    <div class="col-sm-10">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" id="usePageTimeLimit">
-                            </label>
-                            <button class="btn btn-success">Set time
-                                limits</button>
+                    <div class="form-group mt-4" id="configureTimeLimit">
+                        <label class="col-sm-2 control-label margin-1v">Time limit per question</label>
+                        <div class="col-sm-10 margin-1v">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" formControlName="time_check"
+                                        (change)="setTimePerQuestion($event)">
+                                </label>
+                                <input value="" class="form-control TimeLimit" type="text" maxlength="5"
+                                    placeholder="hh:mm" formControlName="timeLimitPerQuestion">
+                            </div>
+                            <p class="help-block">
+                                Respondents will only have the set time to complete the whole quiz. The time limit is
+                                entered in the format hours:minutes (hh:mm)
+                            </p>
                         </div>
-                        <p class="help-block">
-                            Set individual time limits for each page within your quiz
-                        </p>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label for="randomQuestions" class="col-sm-2 control-label">Randomize questions</label>
-                    <div class="col-sm-10">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" id="">
-                            </label>
-                            <select id="" class="form-control randomizeQuestionsType">
-                                <option selected="" value="ALL">Whole quiz</option>
-                                <!-- <option value="FROM_PAGE">From page</option>
+                    <div class="form-group" id="configurePageTimeLimits">
+                        <label class="col-sm-2 control-label">Whole Quiz time limit</label>
+                        <div class="col-sm-10 whole-q">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" formControlName="whole_check" (change)="setQuizTime($event)">
+                                </label>
+                                <!-- <button class="btn btn-success">Set time
+                                limits</button> -->
+                                <input value="" class="form-control TimeLimit" type="text" maxlength="5"
+                                    placeholder="hh:mm" formControlName="quizTimeLimit">
+                            </div>
+                            <p class="help-block">
+                                Set time limit for whole quiz
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="randomQuestions" class="col-sm-2 control-label">Randomize questions</label>
+                        <div class="col-sm-10">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" formControlName="rand_check" class="margin-2">
+                                </label>
+                                <select id="" class="form-control randomizeQuestionsType">
+                                    <option selected="" value="ALL">Whole quiz</option>
+                                    <!-- <option value="FROM_PAGE">From page</option>
                                 <option value="CUSTOM_PAGES">Set pages</option> -->
+                                </select>
+
+                                <span id="configureRandomizeAll">
+                                    <span class="include-span">Include</span>
+                                    <input id="maxRandomQuestions" value="" class="form-control MaxRandomQuestions"
+                                        type="text" maxlength="5" placeholder="all" formControlName="randomizeQuestion">
+                                    <span>questions</span>
+                                </span>
+                            </div>
+                            <p id="randomizeAllMessage" class="help-block">
+                                Questions will be displayed in a random order to each respondent. You can also set the
+                                total
+                                number of questions to be asked or leave blank to show all questions.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Auto number questions</label>
+                        <div class="col-sm-10">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" formControlName="randomizeQuestion" class="margin-8">
+                                </label>
+                            </div>
+                            <p class="help-block">
+                                A sequential number will be automatically added to the start of each question
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group" id="configureQuestionsPerPage">
+                        <label class="col-sm-2 control-label">Questions per page</label>
+                        <div class="col-sm-10">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" formControlName="per_check">
+                                </label>
+
+                                <input id="totalQuestionsOnEachPage" value="" class="form-control MaxRandomQuestions"
+                                    type="text" maxlength="5" formControlName="questionPerPage">
+                                <span>questions</span>
+                            </div>
+                            <p class="help-block">
+                                If selected this will override the page setup on the Create screen so that when the quiz
+                                is
+                                taken each page will contain the set number of questions.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="configureMaximumAttempts">
+                        <label class="col-sm-2 control-label">Maximum quiz attempts</label>
+                        <div class="col-sm-10">
+                            <input value="1" class="form-control maxAttempts" type="text" maxlength="5"
+                                placeholder="Unlimited" formControlName="maxAttempts">
+
+                            <div class="checkbox retake">
+                                <label>
+                                    <input type="checkbox" class="only-retake-check" formControlName="retake_check">
+                                </label>
+                                <span>can only retake if fail quiz</span>
+                            </div>
+                            <p class="help-block">
+                                If set to greater than 1 then respondents will be able take the quiz up to the value
+                                set.
+                                Leave blank to allow respondents to take the quiz unlimited times.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="configureRedirectOnCompletion">
+                        <label class="col-sm-2 control-label">Redirect on quiz completion </label>
+                        <div class="col-sm-10">
+                            <div class="checkbox configureRedirect">
+                                <label>
+                                    <input type="checkbox" name="Completion" formControlName="redirect_check"
+                                        class="margin-8">
+                                </label>
+                            </div>
+                            <select class="form-control configureRedirectType">
+                                <option selected="" value="URL">URL</option>
+                                <!-- <option value="CONFIG">Quiz</option> -->
                             </select>
-
-                            <span id="configureRandomizeAll">
-                                <span class="include-span">Include</span>
-                                <input id="maxRandomQuestions" value="" class="form-control MaxRandomQuestions"
-                                    type="text" maxlength="5" placeholder="all"> <span>questions</span>
-                            </span>
+                            <input class="form-control configureRedirectUrl" type="url" maxlength="500" value=""
+                                placeholder="URL" formControlName="redirectOnQuizCompletion">
+                            <p class="help-block">
+                                After completing the quiz respondents can be redirected to a specific URL or another
+                                quiz,
+                                any registration details will be automatically passed to the new quiz. You can also
+                                configure redirection based on the grade achieved within the <a href="">Grading</a>
+                                tab.
+                            </p>
                         </div>
-                        <p id="randomizeAllMessage" class="help-block">
-                            Questions will be displayed in a random order to each respondent. You can also set the total
-                            number of questions to be asked or leave blank to show all questions.
-                        </p>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Auto number questions</label>
-                    <div class="col-sm-10">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox">
-                            </label>
-                        </div>
-                        <p class="help-block">
-                            A sequential number will be automatically added to the start of each question
-                        </p>
-                    </div>
-                </div>
-                <div class="form-group" id="configureQuestionsPerPage">
-                    <label class="col-sm-2 control-label">Questions per page</label>
-                    <div class="col-sm-10">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" id="useSetTotalQuestionsOnEachPage">
-                            </label>
 
-                            <input id="totalQuestionsOnEachPage" value="" class="form-control MaxRandomQuestions"
-                                type="text" maxlength="5">
-                            <span>questions</span>
-                        </div>
-                        <p class="help-block">
-                            If selected this will override the page setup on the Create screen so that when the quiz is
-                            taken each page will contain the set number of questions.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="form-group" id="configureMaximumAttempts">
-                    <label class="col-sm-2 control-label">Maximum quiz attempts</label>
-                    <div class="col-sm-10">
-                        <input value="1" class="form-control maxAttempts" type="text" maxlength="5"
-                            placeholder="Unlimited">
-
-                        <div class="checkbox retake">
-                            <label>
-                                <input type="checkbox" class="only-retake-check" id="showRetakeOnPass">
-                            </label>
-                            <span>can only retake if fail quiz</span>
-                        </div>
-                        <p class="help-block">
-                            If set to greater than 1 then respondents will be able take the quiz up to the value set.
-                            Leave blank to allow respondents to take the quiz unlimited times.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="form-group" id="configureRedirectOnCompletion">
-                    <label class="col-sm-2 control-label">Redirect on quiz completion </label>
-                    <div class="col-sm-10">
-                        <div class="checkbox configureRedirect">
-                            <label>
-                                <input type="checkbox" name="Completion" id="">
-                            </label>
-                        </div>
-                        <select class="form-control configureRedirectType">
-                            <option selected="" value="URL">URL</option>
-                            <!-- <option value="CONFIG">Quiz</option> -->
-                        </select>
-                        <input class="form-control configureRedirectUrl" type="url" maxlength="500" value=""
-                            placeholder="URL">
-                        <p class="help-block">
-                            After completing the quiz respondents can be redirected to a specific URL or another quiz,
-                            any registration details will be automatically passed to the new quiz. You can also
-                            configure redirection based on the grade achieved within the <a href="">Grading</a>
-                            tab.
-                        </p>
-                    </div>
-                </div>
-
-
-                <div class="form-group" id="configureSchedule">
-                    <label class="col-sm-2 control-label">Schedule </label>
-                    <div class="col-sm-10">
-                        <div class="checkbox d-inline">
-                            <label>
-                                <input type="checkbox" id="useSchedule">
-                            </label>
-                        </div>
-                        <div class="from-label-div">
-                            <span class="from-span">From:</span>
-                            <div class="input-group hrs">
-                                <input type="time" class="form-control hr1" placeholder="hrs:mins" value="">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                    <div class="form-group" id="configureSchedule">
+                        <label class="col-sm-2 control-label">Schedule </label>
+                        <div class="col-sm-10">
+                            <div class="checkbox d-inline">
+                                <label>
+                                    <input type="checkbox" formControlName="schedule_check" class="margin-8">
+                                </label>
                             </div>
-                            <div class="input-group date">
-                                <input type="text" class="form-control date-input" value="" type="date">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            <div class="from-label-div">
+                                <span class="from-span">From:</span>
+                                <div class="input-group hrs">
+                                    <input type="time" class="form-control hr1" placeholder="hrs:mins" value=""
+                                        formControlName="from_time">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                                </div>
+                                <div class="input-group date">
+                                    <input type="text" class="form-control date-input" value="" type="date"
+                                        formControlName="from_date">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                </div>
                             </div>
+                            <div class="from-label-div ">
+                                <span class="to-span">To:</span>
+                                <div class="input-group hrs">
+                                    <input type="time" class="form-control hrs-2" placeholder="hrs:mins" value=""
+                                        formControlName="to_time">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                                </div>
+                                <div class="input-group date">
+                                    <input id="scheduledDateClosed" type="text" class="form-control date-input "
+                                        value="" type="date" formControlName="to_date">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                </div>
+                            </div>
+                            <p class="help-block">
+                                Set a schedule for when your quiz will automatically open and then close based on the
+                                timezone for your account.
+                                Your current time zone is <strong>{{dateTime | date:'fullTime'}}</strong>. <!-- - -->
+                                <!-- you
+                                can change this on the <a href="">Settings Page</a> -->
+                            </p>
                         </div>
-                        <div class="from-label-div ">
-                            <span class="to-span">To:</span>
-                            <div class="input-group hrs">
-                                <input type="time" class="form-control hrs-2" placeholder="hrs:mins" value="">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-                            </div>
-                            <div class="input-group date">
-                                <input id="scheduledDateClosed" type="text" class="form-control date-input " value=""
-                                    type="date">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                            </div>
-                        </div>
-                        <p class="help-block">
-                            Set a schedule for when your quiz will automatically open and then close based on the
-                            timezone for your account.
-                            Your current time zone is <strong>{{dateTime | date:'fullTime'}}</strong> -
-                            you
-                            can change this on the <a href="">Settings Page</a>
-                        </p>
                     </div>
                 </div>
-            </div>
+
+                <button (click)=" configureQuiz()" class="btn btn-success save-btn">
+                    Save and Submit</button>
+            </form>
         </div>
     </div>
 </div>

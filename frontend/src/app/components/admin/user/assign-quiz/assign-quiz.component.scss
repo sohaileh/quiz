@@ -1,0 +1,33 @@
+.btn {
+  width: 90px;
+  background-color: #268e9b;
+  border: none;
+  outline: none;
+  height: 30px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 300;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: 0.5s;
+  font-size:12px;
+  }
+  mat-card-content{
+    margin:50px;
+  }
+
+  mat-form-field {
+    font-size: 15px;
+    width: 33vw;
+  }
+ @media screen and (max-width:628px) {
+  mat-card{
+    margin:10px;
+  }
+  mat-form-field {
+    font-size: 15px;
+    width: 78vw;
+  }
+  
+ }
+  
