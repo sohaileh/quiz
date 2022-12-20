@@ -33,7 +33,7 @@ export class ConfigureComponent implements OnInit {
       randomizeQuestion: [false],
       // autoNumberQuestion: [""],
       questionPerPage: [1],
-      maxAttempts: [''],
+      maxAttempts: [0],
       redirectOnQuizCompletion: [""],
       time_check: [false],
       whole_check: [false],
@@ -47,6 +47,7 @@ export class ConfigureComponent implements OnInit {
       from_time: [""],
       to_time: [""],
     });
+    this.getConfigurationDetails()
     this.dateTime = new Date();
     this.adminService.getQuizQuestions(this.quizId).subscribe({
       next: (response: any) => {
@@ -110,6 +111,25 @@ export class ConfigureComponent implements OnInit {
         this.configureForm.get('time_check').enable()
 
       }
+  }
+  getConfigurationDetails(){
+    this.adminService.getConfigurationDetails(this.quizId).subscribe({
+       next:(response:any)=>{
+        const configurationDetails= response
+        console.log('configuration',configurationDetails)
+        this.configureForm.patchValue({
+          quizTitle:configurationDetails.quizTitle,
+          per_check:configurationDetails.per_check,
+          questionPerPage:configurationDetails.questionPerPage,
+          whole_check:configurationDetails.whole_check,
+          time_check:configurationDetails.time_check,
+          status:configurationDetails.status,
+          quizTimeLimit:configurationDetails.quizTimeLimit,
+          maxAttempts:configurationDetails.maxAttempts,
+          retake_check:configurationDetails.redirect_check
+        })
+       }
+    })
   }
   ngOnDestroy() {
     this.adminService.menu$.next(false);

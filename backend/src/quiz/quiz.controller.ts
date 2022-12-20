@@ -271,4 +271,14 @@ export class QuizController {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
   }
+  @Get('get-configuration-details/:id')
+  async getConfigurationDetails(@Body() body,@Res() res,@Param() quizId){
+      try{
+        const configurationDetails = await this.quizService.getConfigurationDetails(quizId)
+      res.status(HttpStatus.OK).json(configurationDetails)
+      }catch(err){
+      throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+
+      }
+  }
 }

@@ -28,9 +28,9 @@ export const QuizSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now() },
   quizName: String,
 
-  timeLimitPerQuestion: Number,
+  timeLimitPerQuestion: {type:Number,default:0},
 
-  quizTimeLimit: Number,
+  quizTimeLimit: {type:Number,default:1},
 
   randomizeQuestion: String,
 
@@ -38,7 +38,7 @@ export const QuizSchema = new mongoose.Schema({
 
   questionPerPage: {type:Number,default:1},
 
-  maxAttempts: Number,
+  maxAttempts: {type:Number,default:0},
 
   redirectOnQuizCompletion: String,
 
@@ -46,11 +46,11 @@ export const QuizSchema = new mongoose.Schema({
 
   whole_check: {type:Boolean,default:false},
 
-  rand_check: Boolean,
+  rand_check: {type:Boolean,default:false},
 
-  per_check: Boolean,
+  per_check: {type:Boolean,default:true},
 
-  retake_check: Boolean,
+  retake_check: {type:Boolean,default:false},
 
   redirect_check: Boolean,
 
@@ -60,7 +60,7 @@ export const QuizSchema = new mongoose.Schema({
 
   to_date: Date,
 
-  from_time: String,
+  from_time: String, 
 
   to_time: String,
 });

@@ -60,7 +60,7 @@ export class AdminService {
   }
 
   getConfigurationDetails(quizId){
-
+      return this.http.get(`${this.serverUrl}quiz/get-configuration-details/${quizId}`)
   }
 
 }

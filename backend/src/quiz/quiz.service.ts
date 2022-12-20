@@ -713,4 +713,14 @@ export class QuizService {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
   }
+  async getConfigurationDetails(quizId){
+    try{
+      const {id} = quizId
+      const quizDetails =   await this.quizModel.findOne({_id:id},{questionBank:0,_id:0})
+      return quizDetails
+    }catch(err){
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+
+    }
+  }
 }
