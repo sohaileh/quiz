@@ -2,11 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Product } from 'src/app/modals/product.model';
 import { CartItem } from 'src/app/modals/cart-item';
 import { CartService } from '../services/cart.service';
+import { Router } from '@angular/router';
+import { AdminService } from '../../admin/services/admin.service';
 
 @Component({
   selector: 'app-header-three',
   templateUrl: './header-three.component.html',
-  styleUrls: ['./header-three.component.sass']
+  styleUrls: ['./header-three.component.scss']
 })
 export class HeaderThreeComponent implements OnInit {
 
@@ -27,17 +29,31 @@ export class HeaderThreeComponent implements OnInit {
 
   indexProduct: number;
   shoppingCartItems: CartItem[] = [];
+  user: any={};
+  dataSource: any;
+  totalUsers: any;
 
   // @ViewChild(ProductLeftSidebarComponent,{static:false}) MenuItem:ProductLeftSidebarComponent
-  constructor(private cartService: CartService) {
+  constructor(private cartService: CartService, public router:Router,private adminService: AdminService) {
     this.cartService.getItems().subscribe(shoppingCartItems => this.shoppingCartItems = shoppingCartItems);
   }
 
   ngOnInit() {
     this.currency = this.currencies[0];
     this.flag = this.flags[0];
+    this.getOrganizationUsers()
   }
-
+  getOrganizationUsers() {
+    this.user.organizationId = localStorage.getItem("userId");
+    this.adminService.getOrganizationUsers(this.user).subscribe((res: any) => {
+      this.totalUsers=res.length;
+      // this.dataSource =res;
+      // console.log(this.dataSource.filteredData.length)
+    });
+  }
+  loggedUser(loggedUser: any) {
+    throw new Error('Method not implemented.');
+  }
   public changeCurrency(currency){
     this.currency = currency;
   }

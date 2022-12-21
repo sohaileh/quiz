@@ -23,7 +23,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a [routerLink]="['/home/dashboard']" class="nav-link">Home</a>
+        <a [routerLink]="['/home/dashboard']" class="nav-link active-link" routerLinkActive="active"    *ngIf="router.url === '/home/dashboard'||router.url==='/admin/add-users' || showMenu">Home</a>
       </li>
       <li class="nav-item">
         <a
@@ -32,13 +32,13 @@
           "
           [routerLink]="['/auth/login']"
           class="nav-link"
-          >Sign In</a
+          routerLinkActive="active" >Sign In</a
         >
       </li>
       <li class="nav-item">
         <a
-          *ngIf="router.url === '/home/dashboard'||'/admin/add-users' || showMenu"
-          [routerLink]="['/admin/add-users']"
+          *ngIf="router.url === '/home/dashboard'||router.url==='/admin/add-users' || showMenu"
+          [routerLink]="['/admin/add-users']" routerLinkActive="active"
           class="nav-link"
           >Users</a
         >
@@ -48,7 +48,7 @@
           *ngIf="router.url === '/home/dashboard' || showMenu"
           [routerLink]="['/users']"
           class="nav-link"
-          >Settings</a
+          routerLinkActive="active" >Settings</a
         >
       </li>
       <li class="nav-item"></li>
@@ -103,7 +103,7 @@
 </nav>
 </div> -->
 <mat-toolbar *ngIf="showMenu" class="bg-dark">
-  <a mat-button [routerLinkActive]="" (click)="create()">Create</a>
+  <a mat-button routerLinkActive="active" (click)="create()">Create</a>
   <a  mat-button [routerLinkActive]="" (click)="configure()">Configure</a>
   <a  mat-button [routerLinkActive]="" (click)="publish()">Publish</a>
   <a   mat-button href="">Analyze</a>

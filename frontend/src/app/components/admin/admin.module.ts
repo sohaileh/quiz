@@ -29,7 +29,7 @@ import {MatTableModule} from '@angular/material/table';
 import { MatDividerModule } from "@angular/material/divider";
 import { AssignQuizComponent } from './user/assign-quiz/assign-quiz.component';
 import { AssignQuizDialogComponent } from './assign-quiz-dialog/assign-quiz-dialog.component';
-
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -44,7 +44,7 @@ import { AssignQuizDialogComponent } from './assign-quiz-dialog/assign-quiz-dial
     AssignQuizComponent,
     AssignQuizDialogComponent,
     // FormErrorMsgDirective
-   
+    
    
   ],
   imports: [
@@ -69,7 +69,7 @@ import { AssignQuizDialogComponent } from './assign-quiz-dialog/assign-quiz-dial
     CustomPipesModule,
     MatTableModule,
     MatDividerModule,
-    
+    SharedModule
     
     
 
