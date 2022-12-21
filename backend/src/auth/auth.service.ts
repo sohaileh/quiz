@@ -12,7 +12,8 @@ import e from 'express';
 export class AuthService {
   constructor(
     @InjectModel('Users') private readonly userModelDto: Model<UserModelDto>,
-    @InjectModel('Organization') private readonly organizationModelDto:Model<OrganizationDto>,
+    @InjectModel('Organization')
+    private readonly organizationModelDto: Model<OrganizationDto>,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -76,7 +77,7 @@ export class AuthService {
   async getLoggedUser(user: any) {
     const loggedUserDetails = await this.userModelDto.findOne(
       { _id: user.id },
-      { password: 0, assignedQuizzes:0,quizzesPlayed:0,},
+      { password: 0, assignedQuizzes: 0, quizzesPlayed: 0 },
     );
     return loggedUserDetails;
   }
@@ -110,8 +111,7 @@ export class AuthService {
     return organizations;
   }
 
-
-  async registerOrganization(organizationModel:OrganizationDto) {
+  async registerOrganization(organizationModel: OrganizationDto) {
     try {
       const { emailAddress } = organizationModel;
       const userExists = await this.organizationModelDto.exists({
@@ -128,47 +128,52 @@ export class AuthService {
     }
   }
 
-
   async assignQuizs(userModel: any) {
     try {
-
       const { emailAddress } = userModel;
       const userExists = await this.userModelDto.exists({
         emailAddress: emailAddress,
       });
 
-      if (!userExists)
-      {
-       const salt = await bcrypt.genSalt();
-      const password = userModel.password;
-      const hashedPassword = await bcrypt.hash(password, salt);
-      userModel.password = hashedPassword;
+      if (!userExists) {
+        const salt = await bcrypt.genSalt();
+        const password = userModel.password;
+        const hashedPassword = await bcrypt.hash(password, salt);
+        userModel.password = hashedPassword;
 
-      const newUser = new this.userModelDto(userModel);
-      newUser.save();
-      return newUser;
-     }
-     else{
-      const quizAssigned=await this.userModelDto.updateOne({emailAddress:emailAddress},{$push:{assignedQuizzes:userModel.assignedQuizzes}})
-      return userExists;
-     }
+        const newUser = new this.userModelDto(userModel);
+        newUser.save();
+        return newUser;
+      } else {
+        const quizAssigned = await this.userModelDto.updateOne(
+          { emailAddress: emailAddress },
+          { $push: { assignedQuizzes: userModel.assignedQuizzes } },
+        );
+        return userExists;
+      }
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
   }
 
-
-
- async getOrganizationUsers(users:any)
- {
-  try{
-  const loggedUserDetails=this.userModelDto.find({organizationId:users.organizationId},{ password: 0, assignedQuizzes:0,},)
-  return loggedUserDetails;
+  async getOrganizationUsers(users: any) {
+    try {
+      const loggedUserDetails = this.userModelDto.find(
+        { organizationId: users.organizationId },
+        { password: 0 },
+      );
+      return loggedUserDetails;
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
   }
-  catch(err){
-    throw new HttpException(err, HttpStatus.BAD_REQUEST);
 
+  async deleteUser(user: any) {
+    try {
+      const userDeleted = await this.userModelDto.deleteOne({ _id: user._id });
+      return userDeleted;
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
   }
- }
-
 }

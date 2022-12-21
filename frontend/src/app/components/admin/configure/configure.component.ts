@@ -31,6 +31,7 @@ export class ConfigureComponent implements OnInit {
       timeLimitPerQuestion: [0],
       quizTimeLimit: [0],
       randomizeQuestion: [false],
+      questionSequence:[false],
       // autoNumberQuestion: [""],
       questionPerPage: [1],
       maxAttempts: [0],
@@ -84,7 +85,8 @@ export class ConfigureComponent implements OnInit {
         this.configureForm.patchValue({
           quizTimeLimit:'',
           questionPerPage:1,
-          per_check:true
+          per_check:true,
+          whole_check:false,
         })
         this.configureForm.get('whole_check').disable()
         this.configureForm.get('quizTimeLimit').disable()

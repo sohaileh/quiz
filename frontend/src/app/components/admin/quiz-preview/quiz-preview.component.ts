@@ -37,6 +37,8 @@ export class QuizPreviewComponent implements OnInit {
   intervalId: any;
   timePerQuestionExists:boolean
   quizTimeEnded=false
+  questionSequenceStartAT:number
+  sequencedQuestion=false
   constructor(
     private adminService: AdminService,
     private route: ActivatedRoute,
@@ -74,6 +76,7 @@ export class QuizPreviewComponent implements OnInit {
           this.quizQuestions = response[0].questions;
           this.quizTitle = response[0].quizTitle;
           this.totalQuizQuestions = response[0].totalQuestions
+          this.questionSequenceStartAT=this.totalQuestions
           this.totalQuestions += response[0].questionPerPage
           this.questionsPerPage= response[0].questionPerPage
           if(this.questionNumber==0)
@@ -81,9 +84,11 @@ export class QuizPreviewComponent implements OnInit {
             this.quizTime = response[0].quizTimeLimit
             this.timer()
           }
+          if(response[0].questionSequence)
+          this.sequencedQuestion=true
           if(response[0].time_check){
-         clearInterval(this.intervalId);
-         this.timePerQuestionExists=this.quizQuestions[0].timeLimit
+            clearInterval(this.intervalId);
+         this.timePerQuestionExists=true
             this.quizTime = this.quizQuestions[0].timeLimit
             this.timer()
           }
@@ -161,6 +166,7 @@ export class QuizPreviewComponent implements OnInit {
       this.minutes = Math.floor(this.seconds / 60);
       this.remainSeconds = this.seconds % 60;
       if (this.seconds == 0) {
+        console.log(this.totalQuestions,this.totalQuizQuestions,this.timePerQuestionExists)
         if(this.timePerQuestionExists && ( this.totalQuestions < this.totalQuizQuestions) ){
               this.getQuizQuestions()
         }else{

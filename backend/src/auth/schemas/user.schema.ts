@@ -15,7 +15,8 @@ export const UserSchema = new mongoose.Schema({
     created:{type:Date,default:Date.now},
     role:{type:String,default:'student'},
     assignedQuizzes:[{
-        quizId:{type:mongoose.Schema.Types.ObjectId}
+        quizId:{type:mongoose.Schema.Types.ObjectId},
+        quizTitle:String,
 
 
     }]

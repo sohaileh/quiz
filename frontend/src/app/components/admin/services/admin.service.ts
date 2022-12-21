@@ -62,5 +62,10 @@ export class AdminService {
   getConfigurationDetails(quizId){
       return this.http.get(`${this.serverUrl}quiz/get-configuration-details/${quizId}`)
   }
+  deleteUser(user:any)
+  {
+    return this.http.post(`${this.serverUrl}auth/delete-user`,user)
+
+  }
 
 }

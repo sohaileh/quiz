@@ -281,4 +281,13 @@ export class QuizController {
 
       }
   }
+  @Post('sendEmailInvitation')
+  async sendEmailInvitation(@Body() body: any, @Res() res) {
+    try {
+      const emailInvitation = await this.quizService.sendEmailInvitation(body);
+      res.status(HttpStatus.OK).json({emailInvitation,msg:"send successfully"});
+    } catch (err) {
+      res.status(HttpStatus.BAD_REQUEST).json(err.message);
+    }
+  }
 }

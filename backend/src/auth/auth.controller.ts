@@ -19,7 +19,7 @@ import { userModel } from './models/user.model';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
   @Post('login')
-  async login(@Body() body:AuthDto, @Res() res: any) {
+  async login(@Body() body: AuthDto, @Res() res: any) {
     try {
       const user = await this.authService.login(body);
       res.status(HttpStatus.OK).json(user);
@@ -43,7 +43,7 @@ export class AuthController {
   @Post('getLoggedUser')
   async getLoggedUser(@Res() res, @Body() body: any) {
     const loggedUserDetails = await this.authService.getLoggedUser(body);
-    res.status(HttpStatus.OK).json( loggedUserDetails);
+    res.status(HttpStatus.OK).json(loggedUserDetails);
   }
 
   @Put('update')
@@ -71,7 +71,7 @@ export class AuthController {
   }
 
   @Post('assign-quizs')
-  async assignQuizs(@Res() res, @Body() body:any) {
+  async assignQuizs(@Res() res, @Body() body: any) {
     try {
       await this.authService.assignQuizs(body);
       res
@@ -85,14 +85,14 @@ export class AuthController {
   @Post('get-organization-users')
   async getOrganizationUsers(@Body() body: any, @Res() res: any) {
     try {
-      const loggedUserDetails = await this.authService.getOrganizationUsers(body,
+      const loggedUserDetails = await this.authService.getOrganizationUsers(
+        body,
       );
       res.status(HttpStatus.OK).json(loggedUserDetails);
     } catch (err) {
       res.status(HttpStatus.BAD_REQUEST).json(err.message);
     }
   }
-
 
   // @Post('register-organization')
   // async registerOrganization(@Res() res, @Body() body: OrganizationDto) {
@@ -106,4 +106,13 @@ export class AuthController {
   //   }
   // }
 
+  @Post('delete-user')
+  async deleteUser(@Body() body: any, @Res() res: any) {
+    try {
+      const userDeleted = await this.authService.deleteUser(body);
+      res.status(HttpStatus.OK).json(userDeleted);
+    } catch (err) {
+      res.status(HttpStatus.BAD_REQUEST).json(err.message);
+    }
+  }
 }

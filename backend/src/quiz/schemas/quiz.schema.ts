@@ -63,4 +63,5 @@ export const QuizSchema = new mongoose.Schema({
   from_time: String, 
 
   to_time: String,
+  questionSequence:{type:Boolean,default:false}
 });

@@ -104,7 +104,6 @@
 // }
 // // updated css
 
-
 // // /header two css/
 
 // .menuItems {
@@ -166,81 +165,54 @@
 // }
 
 .home-header-2 {
-
   // background: #465d72;
 
   //    background:  #0688a1e3;
 
   background-image: linear-gradient(
-
     -45deg,
 
     rgb(42, 171, 210) 0%,
 
     rgb(42, 171, 210) 100%
-
   );
 
   color: #d9d6d6;
-
 }
 
- 
-
 img {
-
   height: 30px;
-
 }
 
 .menu-container2 {
-
   background: #ebe9e9 !important;
-
 }
 
- 
-
 .icon {
-
   margin-left: 5px;
 
   margin-right: 5px;
-
 }
 
 .txt {
-
   cursor: pointer;
 
   margin-left: 6px;
-
 }
-
- 
 
 i {
-
   cursor: pointer;
-
 }
 
- 
-
 .profile {
-
   border-radius: 50px;
 
   width: 70px;
 
   height: 70px;
-
 }
 
- 
-
 .firstname {
-
   width: 100%;
 
   font-size: 23px;
@@ -250,84 +222,51 @@ i {
   justify-content: center;
 
   justify-items: center;
-
 }
 
- 
-
 @media (max-width: 800px) {
-
   .icon {
-
     padding-bottom: 10px;
-
   }
-
 }
 
 .showCursor {
-
   cursor: pointer;
-
 }
 
 @media (max-width: 960px) and (min-width: 600px) {
-
   .call-bucket-wrap {
-
     margin-bottom: 10px;
-
   }
-
 }
 
 // updated css
 
- 
-
 /*------------- ---------------------------------------------------- navbar -----------------------------------*/
 
 .navbar {
-
   background-color: #268e9b;
 
   color: #fff;
 
-  min-height:60px;
+  min-height: 60px;
   z-index: 999;
-
 }
 
 .navbar ul li {
-
   display: inline-flex;
-
 }
-
- 
 
 ul li a {
-
   position: relative;
-
   padding: 5px 0 5px;
-
   margin: 0 25px;
-
   color: rgb(255, 255, 255);
-
   text-decoration: none;
-
-  text-transform: uppercase;
-
   cursor: pointer;
-
 }
 
- 
-
 .navbar ul li a:after {
-
   content: "";
 
   position: absolute;
@@ -351,20 +290,16 @@ ul li a {
   -webkit-transition: transform 250ms;
 
   transition: transform 250ms;
-
 }
 
 .navbar ul li a:hover:after {
-
   -webkit-transform: translateX(-100%) scaleX(1);
 
   transform: translateX(-100%) scaleX(1);
-
 }
 
 .nav-2 ul li a:hover:after {
-
-text-decoration: none;
+  text-decoration: none;
 }
 
 // .border-bottom{
@@ -373,18 +308,11 @@ text-decoration: none;
 
 // }
 
- 
-
 .menuItems {
-
   background-color: rgba(91, 192, 222, 1);
-
 }
 
- 
-
 .container {
-
   padding-right: 15px;
 
   padding-left: 15px;
@@ -392,18 +320,14 @@ text-decoration: none;
   margin-right: auto;
 
   margin-left: auto;
-
 }
 
 .nav-tabs {
-  border-bottom:none !important;
+  border-bottom: none !important;
 }
 
-
 .nav-tabs > li > a:focus,
-
 .nav-tabs > li > a:hover {
-
   color: #555;
 
   cursor: pointer;
@@ -413,13 +337,9 @@ text-decoration: none;
   // border: 1px solid #ddd;
 
   // border-bottom-color: transparent;
-
 }
 
- 
-
 .nav-tabs > li > a {
-
   margin-right: 2px;
 
   line-height: 1.42857143;
@@ -427,89 +347,77 @@ text-decoration: none;
   // border: 1px solid transparent;
 
   border-radius: 4px 4px 0 0;
-
 }
 
 .nav > li > a {
-
   position: relative;
 
   display: block;
 
   padding: 10px 15px;
-
 }
 
 .nav-tabs a {
-
   color: #414141;
-
 }
 
 a {
-
   color: #337ab7;
 
   text-decoration: none;
-
 }
-
-
-
- 
 
 .previewButton {
-
   padding-right: 196px;
-
-  color:white;
+  margin-top: 5px;
+  color: white;
 
   cursor: pointer;
-
 }
-
- mat-toolbar{
+.active{
+  background: red;
+}
+mat-toolbar {
   padding-left: 110px;
   height: 45px;
- }
+}
 
 @media screen and (max-width: 600px) {
-
   .nav-tabs > li > a {
-
     display: inline;
 
     margin: 0;
 
     padding: 10px;
-
   }
-  mat-toolbar{
+  mat-toolbar {
     padding-left: 0px;
     height: 45px;
-   }
-   .previewButton {
+  }
+  .previewButton {
     padding-right: 0px;
+    margin-left: 8px;
     color: white;
     cursor: pointer;
+    top: 1px;
+    position: relative;
+  }
 }
-}
-.nav-items{
+.nav-items {
   background: black;
   color: white;
- 
 }
-mat-toolbar a:hover{
-  border:1px solid;
+mat-toolbar a:hover {
+  border: 1px solid;
   border-radius: 1px;
 }
-.mat-toolbar{
+.mat-toolbar {
   color: white;
 }
 
-.mat-button{
-   color: white;
+.mat-button {
+  color: white;
 }
-.spacer{
+.spacer {
   flex: 1 1 auto;
 }

@@ -19,10 +19,13 @@
       </mat-form-field>
     </div>
     <div fxLayoutGap="5px">
-      <button class="btn create-button border-0" [routerLink]="['/admin/assign-quiz']">
+      <button
+        class="btn create-button border-0"
+        [routerLink]="['/admin/assign-quiz']"
+      >
         Add user
       </button>
-      <button class="btn create-button border-0">Bulk upload user</button>
+      <button class="btn bulk">Bulk upload user</button>
     </div>
   </div>
   <mat-divider></mat-divider>
@@ -40,10 +43,8 @@
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
               <mat-checkbox
+                [hidden]="row.role === 'admin'"
                 (click)="$event.stopPropagation()"
-                (change)="$event ? selection.toggle(row) : null"
-                [checked]="selection.isSelected(row)"
-                [aria-label]="checkboxLabel(row)"
               >
               </mat-checkbox>
             </mat-cell>
@@ -53,7 +54,7 @@
         <div>
           <ng-container matColumnDef="firstName">
             <mat-header-cell *matHeaderCellDef>FirstName</mat-header-cell>
-            <mat-cell *matCellDef="let element"
+            <mat-cell *matCellDef="let element" (click)="getUserInfo(element)"
               >{{ element.firstName }}
             </mat-cell>
           </ng-container>
@@ -91,6 +92,18 @@
             <mat-header-cell *matHeaderCellDef>Created</mat-header-cell>
             <mat-cell *matCellDef="let element">
               {{ element.created | date }}
+            </mat-cell>
+          </ng-container>
+        </div>
+        <div>
+          <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <i
+                class="fa fa-trash mb-2"
+                *ngIf="element.role !== 'admin'"
+                (click)="deleteUser(element)"
+              ></i>
             </mat-cell>
           </ng-container>
         </div>
