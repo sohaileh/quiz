@@ -4,6 +4,8 @@ import { AdminService } from "../../services/admin.service";
 import { Router } from "@angular/router";
 import { map } from "rxjs";
 import { ActivatedRoute } from "@angular/router";
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: "app-assign-quiz",

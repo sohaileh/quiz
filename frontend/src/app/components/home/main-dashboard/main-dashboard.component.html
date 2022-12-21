@@ -1,14 +1,14 @@
-<mat-card class="w-100 bg-light layout">
+<mat-card class="w-100  h-100 bg-light layout p-4 ">
   <mat-card-content>
 
-    <div class=" d-flex m-1  p-1 justify-content-between" fxLayoutAlign="space-between center" fxLayoutGap="5px"
+    <div class=" d-flex m-1  p-2 justify-content-between header rounded-top" fxLayoutAlign="space-between center" fxLayoutGap="5px"
       fxLayout.xs="row" fxLayout.sm="row" fxLayout="row">
       <div fxLayoutAlign="center center">Quizs
       </div>
 
       <div class="mr-1" fxLayoutAlign="center center">
-        <span><button class="btn  create-button border-0" (click)="openQuizTitle()">Create quiz</button><i
-            class="fa fa-plus text-info m-1"></i></span>
+        <span><button class="btn  create-button border-0" (click)="openQuizTitle()"> <i class="fa fa-plus  m-1"></i>Create quiz</button></span>
+          
 
       </div>
 
@@ -39,8 +39,8 @@
             <mat-header-cell *matHeaderCellDef class="pl-2 ">Preview</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <button class="btn preview m-1" (click)="preview(row)">
-                <i class="fa fa-eye" fxLayoutAlign.xs="center"></i>
-                <p fxHide.xs="true">Preview</p>
+                <i class="fa fa-eye"  fxHide.gt-xs="true" fxLayoutAlign.xs="center"></i>
+                <p fxHide.lt-sm="true">Preview</p>
 
               </button>
 

@@ -38,6 +38,13 @@
 }
 
 @media screen and(max-width:768px)  {
+  .bulk{
+    font-size: 9px;
+    height: 20px;
+    font-weight: 400;
+
+    
+  }
   mat-table{
     font-size:10px;
     text-align: center;
@@ -45,7 +52,8 @@
     font-size:5px;
     text-align: center;
     mat-checkbox{
-      width:5px;
+      width:3px;
+      
     }
 
   }
@@ -66,9 +74,22 @@
 }
 
 .header{
-  background-color: lightgray;
+  background-color:#f5f5f5;
 }
 .matSelect{
   width: 20px;
   
+}
+
+.mat-row:hover {
+  cursor: pointer;
+  background-color: whitesmoke;
+}
+mat-header-cell{
+  color:black;
+  font-size:14px;
+}
+
+.maindiv{
+background-color:#E6E6E6
 }

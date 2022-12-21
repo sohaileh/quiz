@@ -1,6 +1,6 @@
-<mat-card class="m-3 p-0">
+<mat-card class=" m-2 p-0 ">
   <div
-    class="header p-1"
+    class="header p-1 rounded-top"
     fxLayout="row"
     fxLayoutAlign="space-between none"
     fxLayout.xs="column"
@@ -20,18 +20,18 @@
     </div>
     <div fxLayoutGap="5px">
       <button
-        class="btn create-button border-0"
+        class="btn create-button border-0 m-3"
         [routerLink]="['/admin/assign-quiz']"
       >
         Add user
       </button>
-      <button class="btn bulk">Bulk upload user</button>
+      <button class="btn bulk ">Bulk upload user</button>
     </div>
   </div>
   <mat-divider></mat-divider>
   <mat-card-content>
     <mat-table #table [dataSource]="dataSource">
-      <div class="d-flex" fxFlex-xs="10%">
+      <div class="d-flex" fxFlex-xs="100%">
         <div>
           <ng-container matColumnDef="selectRole">
             <mat-header-cell *matHeaderCellDef>
