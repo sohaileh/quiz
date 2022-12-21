@@ -37,11 +37,9 @@
             </div>
           </div>
           <div class="question d-flex align-items-baseline">
-            <!-- <div class="body font-weight-bold mr-1" *ngIf="totalQuestions == 1">
-              Q{{ questionNumber }}.
-            </div> -->
-            <div class="body font-weight-bold mr-1">
-              <!-- Q{{ i + 1 }}. -->
+            <div class="body font-weight-bold mr-1" *ngIf="sequencedQuestion">
+          
+          Q{{ i + 1 + questionSequenceStartAT }}
             </div>
             <div
               class=" h5"

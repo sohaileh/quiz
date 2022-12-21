@@ -263,7 +263,8 @@ export class QuizService {
 
   async deleteQuiz(quiz: any) {
     try {
-      const updatedquiz = await this.quizModel.deleteOne({ _id: quiz._id });
+      const {_id} = quiz
+      const updatedquiz = await this.quizModel.deleteOne({ _id: _id});
       return updatedquiz;
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
@@ -646,6 +647,7 @@ export class QuizService {
             totalQuestions:1,
             whole_check:1,
             quizTimeLimit:1,
+            questionSequence:1,
             status: 1,
             questions: {
               $slice: [
