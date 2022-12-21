@@ -25,6 +25,7 @@ export class AddUsersPageComponent implements OnInit {
   quizTitle: string;
   userId: string;
   user: any = {};
+  existingUser: any = {};
   selectedQuiz: any = {};
   loggedUser: any = {};
   displayedColumns: string[] = [
@@ -34,6 +35,7 @@ export class AddUsersPageComponent implements OnInit {
     "emailAddress",
     "role",
     "created",
+    "action",
   ];
   dataSource = new MatTableDataSource<usersInterface>(this.userDetails);
   selection = new SelectionModel<usersInterface>(true, []);
@@ -48,7 +50,9 @@ export class AddUsersPageComponent implements OnInit {
     this.search = false;
   }
 
-  
+  assignQuizToUser() {
+    this.router.navigate(["/admin/assign-quiz"]);
+  }
   getLoggedUser() {
     this.user.id = this.userId;
     this.adminService.getLoggedUser(this.user).subscribe((res: any) => {
@@ -82,5 +86,21 @@ export class AddUsersPageComponent implements OnInit {
     return `${this.selection.isSelected(row) ? "deselect" : "select"} row ${
       row.firstName + 1
     }`;
+  }
+
+  getUserInfo(user: any) {
+    this.existingUser = user;
+    this.router.navigate([
+      "/admin/assign-quiz",
+      { existingUser: JSON.stringify(this.existingUser) },
+    ]);
+  }
+
+  deleteUser(user: any) {
+    this.adminService.deleteUser(user).subscribe((res: any) => {
+      if (res) {
+        this.getLoggedUser();
+      }
+    });
   }
 }
