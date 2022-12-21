@@ -1,20 +1,3 @@
-.btn {
-  width: 90px;
-  background-color: #268e9b;
-  border: none;
-  outline: none;
-  height: 30px;
-  color: #fff;
-  text-transform: uppercase;
-  font-weight: 400;
-  margin: 10px 0;
-  cursor: pointer;
-  transition: 0.5s;
-  font-size:12px;
-  }
-  mat-card-content{
-    margin:50px;
-  }
 
   mat-form-field {
     font-size: 15px;
@@ -31,3 +14,16 @@
   
  }
   
+ .mat-card{
+    width: 80%;
+    background-color: white;
+    max-height: 98vh;
+    box-sizing: border-box;
+    overflow: auto;
+
+ }
+ ::-webkit-scrollbar{
+  width: 0;
+  background: transparent;
+ }
+

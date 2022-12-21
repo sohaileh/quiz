@@ -2,10 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { AdminService } from "../../services/admin.service";
 import { Router } from "@angular/router";
-import { map } from "rxjs";
 import { ActivatedRoute } from "@angular/router";
-import { FormsModule } from '@angular/forms';
-
+import { MatDialog } from "@angular/material/dialog";
+import { AssignQuizDialogComponent } from "../../assign-quiz-dialog/assign-quiz-dialog.component";
 
 @Component({
   selector: "app-assign-quiz",
@@ -30,7 +29,8 @@ export class AssignQuizComponent implements OnInit {
     private fb: FormBuilder,
     private adminService: AdminService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialog:MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -81,7 +81,12 @@ export class AssignQuizComponent implements OnInit {
     this.hide = !this.hide;
   }
 
-  cancel() {
-    this.router.navigate(["/add-users"]);
+  assignQuizDialog(){
+      this.dialog.open(AssignQuizDialogComponent,{
+        width:'900px',
+        maxHeight:'87%',
+      disableClose: true
+      })
   }
+
 }
