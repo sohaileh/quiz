@@ -186,4 +186,8 @@ export class QuizService {
       // .pipe(tap((res) => this.newQuiz$.next(res)));
 
   }
+  sendEmailInvitation(payload:any){
+    console.log(payload)
+    return this.http.post(`${this.serverUrl}quiz/sendEmailInvitation`,payload)
+  }
 }

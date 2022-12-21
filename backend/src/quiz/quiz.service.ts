@@ -20,7 +20,7 @@ import { UserModelDto } from 'src/auth/dto/user.dto';
 import { Type } from 'class-transformer';
 import { ResultModelDto } from 'src/results/dto/result.dto';
 import { OrganizeModelDto } from 'src/organize/dto/organize.dto';
-
+import { MailerService } from '@nestjs-modules/mailer';
 @Injectable()
 export class QuizService {
   totalTeamsEnteredQuiz: any = 0;
@@ -32,8 +32,24 @@ export class QuizService {
     @InjectModel('Results') private readonly resultModel: Model<ResultModelDto>,
     @InjectModel('Organizes')
     private readonly organizeModel: Model<OrganizeModelDto>,
+    private readonly mailerService: MailerService
   ) {}
-
+  public sendEmailInvitation(emailPayload:any){
+    this.mailerService
+      .sendMail({
+        from: emailPayload.from, // sender address
+        to: emailPayload.to, // list of receivers
+        cc:emailPayload.cc,
+        subject: emailPayload.subject, // Subject line
+        html: emailPayload.editor, // HTML body content
+      })
+      .then((a) => {
+        console.log(a)
+      })
+      .catch((b) => {
+        console.log(b)
+      });
+  }
   async submitInfo(quiz: any) {
     try {
       const createdQuiz = await new this.quizModel(quiz);

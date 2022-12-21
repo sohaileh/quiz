@@ -9,7 +9,6 @@ import {ConfigModule} from '@nestjs/config'
 import { ResultModule } from './results/results.module';
 import { OrganizeModule } from './organize/organize.module';
 
-
 @Module({
   imports: [QuizModule, AuthModule, ResponseModule,ResultModule,
   MongooseModule.forRoot('mongodb://localhost:27017/QuizDB'),
