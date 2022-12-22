@@ -1,0 +1,290 @@
+<div class="container configureContentContainer">
+    <div class="row">
+        <div class="configureMenu col-sm-2">
+            <div class="sidebar-nav">
+                <div class="navbar" role="navigation">
+                    <div class="navbar-header">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent2"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"><i class="fa fa-bars"></i></span>
+                        </button>
+                    </div>
+                    <div class="navbar-collapse collapse sidebar-navbar-collapse" id="navbarSupportedContent2">
+                        <ul class="nav navbar-nav">
+                            <li routerLinkActive="active"><a [routerLink]="['/admin/quiz/configure',quizId]">General</a>
+                            </li>
+                            <!-- <li><a href="">Grading</a> -->
+                            <!-- </li> -->
+                            <li routerLinkActive="active"><a [routerLink]="['/admin/quiz/result']">Results</a>
+                            </li>
+                            <li><a href="">Certificate </a></li>
+                            <!-- <li><a href="">Notifications </a></li> -->
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-sm-9 configContentTheme">
+            <div class="form-horizontal" role="form">
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Show answers during quiz</label>
+                    <div class="col-sm-10 margin-1v">
+                        <div class="checkbox">
+                            <label>
+
+                                <input type="checkbox">
+                            </label>
+                        </div>
+                        <p class="help-block">
+                            As each page is completed the answers and any feedback will be displayed to the respondent.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Show results page</label>
+                    <div class="col-sm-10 margin-1v">
+                        <div class="checkbox">
+                            <label>
+
+                                <input type="checkbox">
+                            </label>
+                        </div>
+                        <p class="help-block">
+                            The results page will be displayed to the respondent when they submit the quiz. Configure
+                            the
+                            results page below.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="showResultsPagePass" class="col-sm-2 control-label">Results page options</label>
+                    <div class="col-sm-10 margin-1v">
+
+                        <div class="checkbox">
+                            <label>
+
+                                <input id="showResultsPageName" type="checkbox">
+                                Name
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+
+                                <input id="showResultsPageEmail" type="checkbox">
+                                Email
+                            </label>
+                        </div>
+
+                        <div class="checkbox">
+                            <label>
+
+                                <input id="showResultsPagePass" type="checkbox">
+                                Result
+                            </label>
+                        </div>
+
+                        <div class="checkbox">
+                            <label>
+
+                                <input id="showResultsPageGrade" type="checkbox">
+                                Grade
+                            </label>
+                        </div>
+
+                        <div class="checkbox">
+                            <label>
+
+                                <input type="checkbox">
+                                Points score
+                            </label>
+                        </div>
+
+                        <div class="checkbox">
+                            <label>
+
+                                <input type="checkbox">
+                                Percentage score
+                            </label>
+                        </div>
+
+                        <div class="checkbox">
+                            <label>
+
+                                <input type="checkbox">
+                                Category scores
+                            </label>
+                        </div>
+
+                        <div class="checkbox">
+                            <label>
+
+                                <input type="checkbox">
+                                Duration
+                            </label>
+                        </div>
+
+                        <div class="checkbox">
+                            <label>
+
+                                <input type="checkbox">
+                                Review answers report
+                            </label>
+                            <i class="fa fa-info-circle fa-info-icon" data-toggle="tooltip"
+                                title="A report that lists all the quiz questions and the test takers responses.You can add extra information to the report by ticking the boxes below."></i>
+
+
+                        </div>
+
+                        <div class="col-sm-offset-1">
+                            <div class="checkbox">
+                                <label>
+
+                                    <input type="checkbox">
+                                    Show question marking
+                                </label>
+                                <i class="fa fa-info-circle fa-info-icon"></i>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-offset-1">
+                            <div class="checkbox">
+                                <label>
+
+                                    <input type="checkbox">
+                                    Show question points
+                                    <i class="fa fa-info-circle fa-info-icon" data-toggle="tooltip"
+                                        title="Show the number of available points and the points awarded based on the test-takers response."></i>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-offset-1">
+                            <div class="checkbox">
+                                <label>
+
+                                    <input type="checkbox">
+                                    Show page times
+                                </label>
+                                <i class="fa fa-info-circle fa-info-icon" data-toggle="tooltip"
+                                    title="Time from when the test taker opens the page to moving to the next page or submitting the quiz."
+                                    data-original-title=""></i>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-offset-1">
+                            <div class="checkbox">
+                                <label>
+
+                                    <input type="checkbox">
+                                    Show category scores
+                                </label>
+                                <i class="fa fa-info-circle fa-info-icon" data-toggle="tooltip"
+                                    title="The number of points available and awarded for each category. Categories is a paid feature."></i>
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-offset-1">
+                            <div class="checkbox">
+                                <label>
+
+                                    <input type="checkbox">
+                                    Show question feedback
+                                </label>
+                                <i class="fa fa-info-circle fa-info-icon" data-toggle="tooltip"
+                                    title="Display feedback for each question."></i>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-offset-1">
+                            <div class="checkbox">
+                                <label>
+
+                                    <input id="showResultsPageCorrectAnswers" type="checkbox">
+                                    Highlight correct answers
+                                </label>
+                                <i class="fa fa-info-circle fa-info-icon" data-toggle="tooltip"
+                                    title="Show the correct responses."></i>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-offset-1">
+                            <div class="checkbox">
+                                <label>
+
+                                    <input type="checkbox">
+                                    Can download PDF
+                                </label>
+                                <i class="fa fa-info-circle fa-info-icon" data-toggle="tooltip"
+                                    title="Allow respondents to download a PDF of the results report"></i>
+                            </div>
+                        </div>
+
+                        <p class="help-block" style="margin-top:12px;">
+                            The answer report shown to administrators can be configured in the <a
+                                [routerLink]="['']">General
+                                section of the
+                                Setting screen &gt;&gt;</a>
+                        </p>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Show redirected quiz results</label>
+                    <div class="col-sm-10  margin-1v">
+                        <div class="checkbox">
+                            <label>
+
+                                <input type="checkbox">
+                            </label>
+                        </div>
+                        <p class="help-block">
+                            Results from any quizzes that have redirected to this quiz will be included.
+                        </p>
+                    </div>
+                </div>
+
+
+
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Pass/fail<br> message</label>
+
+                    <div class="col-sm-1">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="showResultsMessageSetUp">
+                        <div class="col-sm-8 configureResultsPassFail">
+                            <div
+                                style="border-left:1px solid #dddddd;border-right:1px solid #dddddd;border-bottom:1px solid #dddddd;padding:20px;border-radius:0 0 4px 4px;background-color:#fafafa;">
+
+                                <ckeditor formControlName="" [config]="ckeConfig"></ckeditor>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+</div>

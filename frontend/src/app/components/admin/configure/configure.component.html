@@ -12,11 +12,11 @@
                     </div>
                     <div class="navbar-collapse collapse sidebar-navbar-collapse" id="navbarSupportedContent2">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a [routerLink]="['/admin/quiz/configure',quizId]">General</a>
+                            <li routerLinkActive="active"><a [routerLink]="['/admin/quiz/configure',quizId]">General</a>
                             </li>
                             <!-- <li><a href="">Grading</a> -->
                             <!-- </li> -->
-                            <li><a>Results</a>
+                            <li routerLinkActive="active"><a [routerLink]="['/admin/quiz/result']">Results</a>
                             </li>
                             <li><a href="">Certificate </a></li>
                             <!-- <li><a href="">Notifications </a></li> -->

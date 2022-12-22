@@ -30,6 +30,7 @@ import { MatDividerModule } from "@angular/material/divider";
 import { AssignQuizComponent } from './user/assign-quiz/assign-quiz.component';
 import { AssignQuizDialogComponent } from './assign-quiz-dialog/assign-quiz-dialog.component';
 import { SharedModule } from '../shared/shared.module';
+import { ResultComponent } from './result/result.component';
 
 
 
@@ -43,6 +44,7 @@ import { SharedModule } from '../shared/shared.module';
     AddUsersPageComponent,
     AssignQuizComponent,
     AssignQuizDialogComponent,
+    ResultComponent,
     // FormErrorMsgDirective
     
    

@@ -5,6 +5,7 @@ import { QuizPreviewComponent } from './quiz-preview/quiz-preview.component';
 import { AddUsersPageComponent } from './user/add-users-page/add-users-page.component';
 import { AssignQuizComponent } from './user/assign-quiz/assign-quiz.component';
 import { ConfigureComponent } from './configure/configure.component';
+import { ResultComponent } from './result/result.component';
 
 
 
@@ -16,6 +17,9 @@ const routes: Routes = [
   {path:'edit-user/:id',component:AssignQuizComponent},
   {path:'add-users' ,component:AssignQuizComponent},
   {path:'quiz/configure/:id',component:ConfigureComponent}
+  {path:'add-users',component:AddUsersPageComponent},
+  {path:'assign-quiz',component:AssignQuizComponent},
+  {path: 'quiz/result',component: ResultComponent}
 
 
 
