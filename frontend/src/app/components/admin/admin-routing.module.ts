@@ -16,8 +16,8 @@ const routes: Routes = [
   {path:'user-dashboard',component:AddUsersPageComponent},
   {path:'edit-user/:id',component:AssignQuizComponent},
   {path:'add-users' ,component:AssignQuizComponent},
-  {path:'quiz/configure/:id',component:ConfigureComponent}
-  {path:'add-users',component:AddUsersPageComponent},
+  {path:'quiz/configure/:id',component:ConfigureComponent},
+  // {path:'add-users',component:AddUsersPageComponent},
   {path:'assign-quiz',component:AssignQuizComponent},
   {path: 'quiz/result',component: ResultComponent}
 

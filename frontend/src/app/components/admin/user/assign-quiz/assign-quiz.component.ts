@@ -51,6 +51,7 @@ export class AssignQuizComponent implements OnInit {
     this.assignedQuizList = JSON.parse(this.userAssignedQuiz);
     this.quizAllocatedToUser = this.assignedQuizList.assignedQuizzes.map((data)=> data.quizTitle)
     this.assignQuizForm.patchValue(this.assignedQuizList);
+    
     }
     
   }
@@ -65,9 +66,9 @@ export class AssignQuizComponent implements OnInit {
     //   });
     // }
     
-    console.log('aaaa',this.assignedQuizList.assignedQuizzes)
+
       this.quizIdObject.forEach((quiz,i)=>{
-        if(this.assignedQuizList && !this.assignedQuizList.assignedQuizzes.some((element)=>element.quizTitle === quiz.quizTitle))
+        if(this.assignedQuizList.assignedQuizzes && !this.assignedQuizList.assignedQuizzes.some((element)=>element.quizTitle === quiz.quizTitle))
         {
         this.assignedQuizzes.push({quizId:quiz._id,quizTitle:quiz.quizTitle})
         }else{
@@ -75,7 +76,6 @@ export class AssignQuizComponent implements OnInit {
         }
       })
       this.quizIdObject={}
-      return
     this.userModel = this.assignQuizForm.value;
     this.userModel.assignedQuizzes = this.assignedQuizzes;
     this.userModel.organizationId = localStorage.getItem("userId");
