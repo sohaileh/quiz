@@ -48,8 +48,13 @@
   mat-table{
     font-size:10px;
     text-align: center;
+    mat-header-cell{
+      font-size:6px;
+      text-align: start;
+
+    }
   mat-cell{
-    font-size:5px;
+    font-size:6px;
     text-align: center;
     mat-checkbox{
       width:3px;
@@ -57,16 +62,7 @@
     }
 
   }
-  mat-header-cell{
-    font-size:4px;
-    text-align: start;
-  }
   
-  mat-select{
-    
-    width:10px;
-
-  }
   
   }
 
@@ -75,6 +71,7 @@
 
 .header{
   background-color: #E5E5E5
+
 }
 .matSelect{
   width: 20px;
@@ -90,6 +87,18 @@ mat-header-cell{
   font-size:14px;
 }
 
-.maindiv{
+.main{
 background-color:#E6E6E6
+}
+.layout{
+  background-color:white;
+
+}
+mat-table{
+  background-color:white;
+  border-style:double;
+  border-color: lightgrey;
+ }
+ mat-card-content{
+  background-color:white;
 }

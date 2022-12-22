@@ -1,7 +1,7 @@
-<mat-card class="w-100  h-100 bg-light layout p-4 ">
-  <mat-card-content>
+<mat-card class="w-100  h-100  layout">
+  <mat-card-content class="p-4 h-100 w-100">
 
-    <div class=" d-flex m-1  p-2 justify-content-between header  rounded-top" fxLayoutAlign="space-between center" fxLayoutGap="5px"
+    <div class=" d-flex   pl-2 pr-2 justify-content-between header  rounded-top" fxLayoutAlign="space-between center" fxLayoutGap="5px"
       fxLayout.xs="row" fxLayout.sm="row" fxLayout="row">
       <div fxLayoutAlign="center center">Quizs
       </div>
@@ -13,8 +13,8 @@
       </div>
 
     </div>
-
-    <mat-table #table [dataSource]="dataSource">
+<div>
+    <mat-table #table [dataSource]="dataSource" class="mat-table">
       <div class="d-flex" fxFlex-xs="10%">
 
         <div>
@@ -28,8 +28,8 @@
 
         <div>
           <ng-container matColumnDef="status">
-            <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
-            <mat-cell *matCellDef="let element">{{element?.status}}</mat-cell>
+            <mat-header-cell *matHeaderCellDef class="h">Status</mat-header-cell>
+            <mat-cell *matCellDef="let element"  class="h">{{element?.status}}</mat-cell>
           </ng-container>
         </div>
 
@@ -40,7 +40,7 @@
             <mat-cell *matCellDef="let row">
               <button class="btn preview m-1" (click)="preview(row)">
                 <i class="fa fa-eye"  fxHide.gt-xs="true" fxLayoutAlign.xs="center"></i>
-                <p fxHide.lt-sm="true">Preview</p>
+                <span fxHide.lt-sm="true">Preview</span>
 
               </button>
 
@@ -71,6 +71,7 @@
         
       </div>
     </mat-table>
+  </div>
   </mat-card-content>
 
 </mat-card>

@@ -1,6 +1,8 @@
 <app-header-three></app-header-three>
-<mat-card class=" m-2 p-0 ">
-  <div
+<div class="main pl-5 pr-5 h-100 w-100">
+
+ <mat-card class="w-100  h-100  layout p-4">
+      <div
     class="header p-1 rounded-top"
     fxLayout="row"
     fxLayoutAlign="space-between none"
@@ -29,7 +31,6 @@
       <button class="btn bulk ">Bulk upload user</button>
     </div>
   </div>
-  <mat-divider></mat-divider>
   <mat-card-content>
     <mat-table #table [dataSource]="dataSource">
       <div class="d-flex" fxFlex-xs="100%">
@@ -115,3 +116,4 @@
     </mat-table>
   </mat-card-content>
 </mat-card>
+</div>

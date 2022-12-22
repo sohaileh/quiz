@@ -46,7 +46,7 @@ mat-card img {
     font-size:10px;
     text-align: center;
   mat-cell{
-    font-size:8px;
+    font-size:9px;
     text-align: center;
   span{
    font-size:9px;
@@ -64,12 +64,10 @@ mat-card img {
     width:50%;
 
   }
+  .h{
+    margin-left: 0;
   }
-
-
-
-  
-  
+  }
 }
 
 .create-button {
@@ -104,5 +102,30 @@ mat-card img {
   background-color: #E5E5E5
 
 }
+mat-card-content{
+  background-color:white;
+}
 
-  
+
+
+
+mat-table{
+ background-color:white;
+ border-style:double;
+ border-color: lightgrey;
+}
+.h{
+  margin-left: 35%;
+}
+mat-header-cell{
+  font-weight: 400;
+  font-size:12px
+}
+.layout{
+  background-color: #E5E5E5;
+  padding-left: 4%;
+  padding-right: 4%;
+  padding-top: 0;
+  padding-bottom: 0;
+
+}

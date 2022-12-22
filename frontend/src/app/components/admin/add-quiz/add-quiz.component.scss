@@ -73,3 +73,14 @@ mat-card-actions{
     width: 80%;
   } 
 }
+
+@media screen and(max-width:768px)  {
+  mat-table{
+    font-size:10px;
+    text-align: center;
+  mat-cell{
+    font-size:9px;
+    text-align: center;
+  }
+}
+}
