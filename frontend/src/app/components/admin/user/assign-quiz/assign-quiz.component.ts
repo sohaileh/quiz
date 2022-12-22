@@ -42,11 +42,8 @@ export class AssignQuizComponent implements OnInit {
       emailAddress: [" "],
       organization: [""],
     });
+    
     this.getOrganizationQuizzes();
-    this.userAssignedQuiz = this.route.snapshot.paramMap.getAll("existingUser");
-    this.assignedQuizList = JSON.parse(this.userAssignedQuiz);
-    this.quizAllocatedToUser = this.assignedQuizList.assignedQuizzes;
-    this.assignQuizForm.patchValue(this.assignedQuizList);
   }
 
   save() {

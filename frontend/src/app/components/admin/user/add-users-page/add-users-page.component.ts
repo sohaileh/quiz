@@ -51,7 +51,7 @@ export class AddUsersPageComponent implements OnInit {
   }
 
   assignQuizToUser() {
-    this.router.navigate(["/admin/assign-quiz"]);
+    this.router.navigate(["/admin/add-users"]);
   }
   getLoggedUser() {
     this.user.id = this.userId;
@@ -65,6 +65,7 @@ export class AddUsersPageComponent implements OnInit {
     this.user.organizationId = localStorage.getItem("userId");
     this.adminService.getOrganizationUsers(this.user).subscribe((res: any) => {
       res.push(this.loggedUser);
+      console.log(res.length,"ppp")
       this.dataSource = new MatTableDataSource<usersInterface>(res);
     });
   }
@@ -89,11 +90,10 @@ export class AddUsersPageComponent implements OnInit {
   }
 
   getUserInfo(user: any) {
-    this.existingUser = user;
+    const id = user._id;
+    console.log(id,"ii")
     this.router.navigate([
-      "/admin/assign-quiz",
-      { existingUser: JSON.stringify(this.existingUser) },
-    ]);
+      `/admin/edit-user/${id}`, ]);
   }
 
   deleteUser(user: any) {

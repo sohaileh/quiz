@@ -12,13 +12,14 @@ import { ConfigureComponent } from './configure/configure.component';
 const routes: Routes = [
   {path:'quiz/add-quiz/:id',component:AddQuizComponent},
   {path:'quiz/quiz-preview/:id',component:QuizPreviewComponent},
-  {path:'add-users',component:AddUsersPageComponent},
-  {path:'assign-quiz',component:AssignQuizComponent},
+  {path:'user-dashboard',component:AddUsersPageComponent},
+  {path:'edit-user/:id',component:AssignQuizComponent},
+  {path:'add-users' ,component:AssignQuizComponent},
   {path:'quiz/configure/:id',component:ConfigureComponent}
 
 
 
-];
+]
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

@@ -17,15 +17,15 @@
   </ol>
 </nav> -->
 <div class=" ">
-  <nav aria-label="breadcrumb" *ngIf="router.url==='/admin/add-users'">
+  <nav aria-label="breadcrumb" *ngIf="router.url==='/admin/user-dashboard'">
     <ol class="breadcrumb" >
       <p >Total Users:{{totalUsers}}</p>
     </ol>
     
   </nav>
-  <nav aria-label="breadcrumb"*ngIf="router.url==='/admin/assign-quiz'">
+  <nav aria-label="breadcrumb"*ngIf="router.url==='/admin/add-users'">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a [routerLink]="['/admin/add-users']">User</a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/admin/user-dashboard']">User</a></li>
      <li class="breadcrumb-item"><a >new</a></li>
     </ol>
   </nav>
