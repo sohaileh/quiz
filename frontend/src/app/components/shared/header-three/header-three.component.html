@@ -1,32 +1,19 @@
-
-<!-- <nav class="nav-bar">
- <ul class="nav-item">
-  <li class="nav-item"> <p *ngIf="router.url==='/admin/add-users'">Total Users:{{1}}</p></li>
- </ul>
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><p *ngIf="router.url==='/admin/assign-quiz'">User</p></li>
-    <li class="breadcrumb-item"><a *ngIf="router.url==='/admin/assign-quiz'">new</a></li>
-  </ol>
-</nav> -->
-
-<!-- <nav class="nav">
-  <p *ngIf="router.url==='/admin/add-users'">Total Users:{{1}}</p>
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><p *ngIf="router.url==='/admin/assign-quiz'">User</p></li>
-    <li class="breadcrumb-item"><a *ngIf="router.url==='/admin/assign-quiz'">new</a></li>
-  </ol>
-</nav> -->
 <div class=" ">
   <nav aria-label="breadcrumb" *ngIf="router.url==='/admin/user-dashboard'">
     <ol class="breadcrumb" >
       <p >Total Users:{{totalUsers}}</p>
-    </ol>
-    
+    </ol> 
   </nav>
   <nav aria-label="breadcrumb"*ngIf="router.url==='/admin/add-users'">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a [routerLink]="['/admin/user-dashboard']">User</a></li>
-     <li class="breadcrumb-item"><a >new</a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/admin/user-dashboard']">Users</a></li>
+     <li class="breadcrumb-item"><a *ngIf="router.url==='/admin/add-users'">New</a></li>
+    </ol>
+  </nav>
+  <nav aria-label="breadcrumb"*ngIf="router.url.includes('/admin/edit-user?id=')">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/admin/user-dashboard']">Users</a></li>
+     <li class="breadcrumb-item"><a>emailAddress</a></li>
     </ol>
   </nav>
 </div>

@@ -91,9 +91,8 @@ export class AddUsersPageComponent implements OnInit {
 
   getUserInfo(user: any) {
     const id = user._id;
-    console.log(id,"ii")
     this.router.navigate([
-      `/admin/edit-user/${id}`, ]);
+      '/admin/edit-user'],{queryParams:{id}});
   }
 
   deleteUser(user: any) {

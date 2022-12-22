@@ -17,8 +17,12 @@
           " [routerLink]="['/auth/login']" class="nav-link" routerLinkActive="active">Sign In</a>
       </li>
       <li class="nav-item">
-        <a *ngIf="router.url === '/home/dashboard'||router.url==='/admin/add-users' || router.url==='/admin/quiz/result' || showMenu" routerLinkActive="active"
-          [routerLink]="['/admin/user-dashboard']" class="nav-link">Users</a>
+        <a
+          *ngIf="router.url === '/home/dashboard'||router.url==='/admin/user-dashboard' || showMenu" routerLinkActive="active"
+          [routerLink]="['/admin/user-dashboard']"
+          class="nav-link"
+          >Users</a
+        >
       </li>
       <li class="nav-item">
         <a *ngIf="router.url === '/home/dashboard' || router.url==='/admin/quiz/result' || showMenu"

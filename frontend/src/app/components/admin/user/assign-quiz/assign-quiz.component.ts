@@ -36,6 +36,7 @@ export class AssignQuizComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log(this.router.url)
     this.assignQuizForm = this.fb.group({
       role: [""],
       password: [""],

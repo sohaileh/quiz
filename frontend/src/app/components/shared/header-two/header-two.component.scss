@@ -366,9 +366,10 @@ a {
 
   text-decoration: none;
 }
-a:hover {
-  border: 1px solid;
-  border-radius: 1px;
+.navbar ul li a:hover{
+    border-bottom: #fff 3px solid;
+    -webkit-transition: transform 400ms;
+    transition: transform 450ms;
 }
 .previewButton {
   padding-right: 196px;
@@ -378,10 +379,10 @@ a:hover {
   cursor: pointer;
 }
 .active{
-  background:none;
-  border: 1px solid #fff;
- border-radius: 2px;
-margin: 0px 5px;
+ border-bottom: #fff 3px solid;
+//  margin: 0px 2px;
+ -webkit-transition: transform 250ms;
+ transition: transform 300ms;
 }
 mat-toolbar {
   padding-left: 110px;
