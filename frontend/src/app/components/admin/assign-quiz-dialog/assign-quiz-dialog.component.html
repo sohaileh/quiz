@@ -1,9 +1,9 @@
 <p>Select quizzes to assign</p>
 <hr />
 
-<div class="container-fluid">
-  <div class="row d-flex justify-content-between">
-    <div class="col-5">
+<div class="container-fluid overflow">
+  <div class="row d-flex flex-column flex-md-row justify-content-between">
+    <div class="col-12 col-md-5">
       <p class="mb-0">Available</p>
       <div class="border border-dark rounded-left w-100 assign-height p-2">
         <option
@@ -19,7 +19,7 @@
       </div>
     </div>
     <div
-      class="col-2 d-flex flex-column align-items-center justify-content-center"
+      class=" col-12 mt-2 mt-md-0 col-md-2 d-flex flex-column align-items-center justify-content-center"
     >
       <button class="btn btn-light mb-3" (click)="assignQuiz()" [disabled]="!availableQuizzesExists">
         <mat-icon>fast_forward</mat-icon>
@@ -29,7 +29,7 @@
         <mat-icon>fast_rewind</mat-icon>
       </button>
     </div>
-    <div class="col-5">
+    <div class="col-12 col-md-5">
       <p class="mb-0">Assigned</p>
       <div class="border border-dark rounded-left w-100 assign-height p-2">
         <option

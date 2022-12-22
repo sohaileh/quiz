@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { Product } from "src/app/modals/product.model";
 import { CartItem } from "src/app/modals/cart-item";
 import { CartService } from "../services/cart.service";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { AdminService } from "../../admin/services/admin.service";
 
 @Component({
@@ -31,13 +31,15 @@ export class HeaderThreeComponent implements OnInit {
   user: any = {};
   dataSource: any;
   totalUsers: any;
-  userId: any;
+  userId: any={};
+  emailAddress={}
 
   // @ViewChild(ProductLeftSidebarComponent,{static:false}) MenuItem:ProductLeftSidebarComponent
   constructor(
     private cartService: CartService,
     public router: Router,
-    private adminService: AdminService
+    private adminService: AdminService,
+    private route:ActivatedRoute
   ) {
     this.cartService
       .getItems()
@@ -51,6 +53,12 @@ export class HeaderThreeComponent implements OnInit {
     this.flag = this.flags[0];
     this.getOrganizationUsers();
     console.log(this.router.url)
+    this.userId = this.route.snapshot.queryParamMap.get('id')
+    this.adminService.getUserDetails(this.userId).subscribe({
+      next:(resposne:any)=>{
+          this.emailAddress = resposne.emailAddress
+      }
+    })
   }
   // getOrganizationUsers() {
   //   this.user.organizationId = localStorage.getItem("userId");

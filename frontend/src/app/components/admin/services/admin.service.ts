@@ -67,5 +67,10 @@ export class AdminService {
     return this.http.post(`${this.serverUrl}auth/delete-user`,user)
 
   }
+  getUserDetails(userId:any){
+    return this.http.get(`${this.serverUrl}auth/get-user-details/${userId}`).pipe(
+      shareReplay()
+    )
+  }
 
 }

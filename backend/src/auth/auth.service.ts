@@ -176,4 +176,10 @@ export class AuthService {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
   }
+  async getUserDetails(userId){
+    const {id}= userId
+    const userDetails = await this.userModelDto.findOne({_id:id},{password:0,organizationId:0})
+    
+    return userDetails
+  }
 }

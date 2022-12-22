@@ -19,14 +19,15 @@ export class AssignQuizComponent implements OnInit {
   organizationQuizList: any = [];
   quizId: any = [];
   assignedQuizzes: any = [];
-  quizIdObject: any = {};
+  // quizIdObject: any = {};
+  quizIdObject: any = [];
   hide: Boolean = true;
   userAssignedQuiz: any = {};
   assignedQuizList: any = {};
   quizAllocatedToUser: any = [];
   disabled:boolean=true;
   totalQuizzes=[]
-
+  userId:any={}
   constructor(
     private fb: FormBuilder,
     private adminService: AdminService,
@@ -36,7 +37,6 @@ export class AssignQuizComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.router.url)
     this.assignQuizForm = this.fb.group({
       role: [""],
       password: [""],
@@ -47,12 +47,20 @@ export class AssignQuizComponent implements OnInit {
     });
     
     this.getOrganizationQuizzes();
-    this.userAssignedQuiz = this.route.snapshot.paramMap.getAll("existingUser");
-    if(this.userAssignedQuiz.length){
-    this.assignedQuizList = JSON.parse(this.userAssignedQuiz);
-    this.quizAllocatedToUser = this.assignedQuizList.assignedQuizzes.map((data)=> data.quizTitle)
-    this.assignQuizForm.patchValue(this.assignedQuizList);
-    
+    // this.userAssignedQuiz = this.route.snapshot.queryParamMap.get('id')
+    this.userId = this.route.snapshot.queryParamMap.get('id')
+    if(this.userId){
+      this.adminService.getUserDetails(this.userId).subscribe({
+        next:(response)=>{
+          this.assignedQuizList= response
+          this.quizAllocatedToUser=this.assignedQuizList.assignedQuizzes.map((data)=> data.quizTitle)
+          this.assignQuizForm.patchValue(this.assignedQuizList);
+        }
+      })
+    // this.assignedQuizList = JSON.parse(this.userAssignedQuiz);
+    // this.quizAllocatedToUser = this.assignedQuizList.assignedQuizzes.map((data)=> data.quizTitle)
+    // this.assignQuizForm.patchValue(this.assignedQuizList);
+
     }
     
   }
@@ -66,14 +74,15 @@ export class AssignQuizComponent implements OnInit {
     //     this.quizIdObject = {};
     //   });
     // }
-    
-
+    console.log('assinedquizlist',this.assignedQuizList)
+    console.log('objectid',this.quizIdObject)
       this.quizIdObject.forEach((quiz,i)=>{
-        if(this.assignedQuizList.assignedQuizzes && !this.assignedQuizList.assignedQuizzes.some((element)=>element.quizTitle === quiz.quizTitle))
+        if(this.assignedQuizList.assignedQuizzes && !this.assignedQuizList.assignedQuizzes.some((element)=>element.quizTitle == quiz.quizTitle))
         {
         this.assignedQuizzes.push({quizId:quiz._id,quizTitle:quiz.quizTitle})
-        }else{
+        }else if(!this.assignedQuizList.assignedQuizzes){
           this.assignedQuizzes.push({quizId:quiz._id,quizTitle:quiz.quizTitle})
+          
         }
       })
       this.quizIdObject={}
@@ -83,7 +92,7 @@ export class AssignQuizComponent implements OnInit {
     this.assignedQuizzes = [];
     this.adminService.assignQuizs(this.userModel).subscribe((res: any) => {
       if (res) {
-        this.router.navigate(["/admin/add-users"]);
+        this.router.navigate(["/admin/user-dashboard"]);
       }
     });
   }
