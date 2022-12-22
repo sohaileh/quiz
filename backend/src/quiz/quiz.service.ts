@@ -94,8 +94,8 @@ export class QuizService {
     try {
       const { userId } = organizationData;
       const quizzes = await this.quizModel.find(
-        { organizationId: userId },
-        { questionBank: 0 },
+        { organizationId: new Types.ObjectId(userId) },
+        { questionBank: 0},
       );
       return quizzes;
     } catch (err) {

@@ -149,7 +149,7 @@ export class AuthService {
           { emailAddress: emailAddress },
           { $push: { assignedQuizzes: userModel.assignedQuizzes } },
         );
-        return userExists;
+        return ;
       }
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
