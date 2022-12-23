@@ -7,6 +7,7 @@ import {
   Res,
   UseFilters,
   Get,
+  Param,
 } from '@nestjs/common';
 import { FormExceptionFilter } from 'src/exceptions/FormExceptionFilter';
 import { AuthService } from './auth.service';
@@ -113,6 +114,16 @@ export class AuthController {
       res.status(HttpStatus.OK).json(userDeleted);
     } catch (err) {
       res.status(HttpStatus.BAD_REQUEST).json(err.message);
+    }
+  }
+  @Get('get-user-details/:id')
+  async getUserDetails(@Param() userId,@Res() res){
+    try{
+      const userDetails = await this.authService.getUserDetails(userId)
+      res.status(HttpStatus.OK).json(userDetails)
+    }catch(err){
+      res.status(HttpStatus.BAD_REQUEST).json(err.message);
+
     }
   }
 }

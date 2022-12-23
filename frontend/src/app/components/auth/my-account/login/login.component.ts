@@ -124,6 +124,7 @@ export class LoginComponent implements OnInit {
           // Swal.fire(err.error);
         },
         complete: () => {
+          this.successMessage=''
           this.registerForm.clearValidators();
         },
       });

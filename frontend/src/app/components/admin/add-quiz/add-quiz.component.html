@@ -15,7 +15,7 @@
       </div>
         <mat-card-actions class="ml-2" >
           <button
-          class="btn "
+          class="btn"
           (click)="addQuestionDialog()" 
         >
           Add question
@@ -61,7 +61,7 @@
         <hr />
       </div>
 
-      <mat-card-actions class="mt-4 ml-2">
+      <mat-card-actions class="mt-4 ml-2" *ngIf="showButton">
         <button
           class="btn"
           (click)="addQuestionDialog()"
@@ -70,9 +70,7 @@
           Add question
         </button>
       </mat-card-actions>
-    </mat-card>
-
-   
+    </mat-card> 
   </div>
 </div>
 

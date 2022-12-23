@@ -46,11 +46,7 @@ mat-form-field{
   border: none;
   outline: none;
   color: #fff;
-  // text-transform: uppercase;
-  // font-weight: 600;
   margin: 10px 0;
-  // cursor: pointer;
-  // transition: 0.5s;
 }
 
 .options{
@@ -72,4 +68,15 @@ mat-card-actions{
   .options-width{
     width: 80%;
   } 
+}
+
+@media screen and(max-width:768px)  {
+  mat-table{
+    font-size:10px;
+    text-align: center;
+  mat-cell{
+    font-size:9px;
+    text-align: center;
+  }
+}
 }

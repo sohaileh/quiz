@@ -38,27 +38,31 @@
 }
 
 @media screen and(max-width:768px)  {
+  .bulk{
+    font-size: 9px;
+    height: 20px;
+    font-weight: 400;
+
+    
+  }
   mat-table{
     font-size:10px;
     text-align: center;
+    mat-header-cell{
+      font-size:6px;
+      text-align: start;
+
+    }
   mat-cell{
-    font-size:5px;
+    font-size:6px;
     text-align: center;
     mat-checkbox{
-      width:5px;
+      width:3px;
+      
     }
 
   }
-  mat-header-cell{
-    font-size:4px;
-    text-align: start;
-  }
   
-  mat-select{
-    
-    width:10px;
-
-  }
   
   }
 
@@ -66,9 +70,35 @@
 }
 
 .header{
-  background-color: lightgray;
+  background-color: #E5E5E5
+
 }
 .matSelect{
   width: 20px;
   
+}
+
+.mat-row:hover {
+  cursor: pointer;
+  background-color: whitesmoke;
+}
+mat-header-cell{
+  color:black;
+  font-size:14px;
+}
+
+.main{
+background-color:#E6E6E6
+}
+.layout{
+  background-color:white;
+
+}
+mat-table{
+  background-color:white;
+  border-style:double;
+  border-color: lightgrey;
+ }
+ mat-card-content{
+  background-color:white;
 }

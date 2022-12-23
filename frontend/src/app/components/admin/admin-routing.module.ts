@@ -5,6 +5,9 @@ import { QuizPreviewComponent } from './quiz-preview/quiz-preview.component';
 import { AddUsersPageComponent } from './user/add-users-page/add-users-page.component';
 import { AssignQuizComponent } from './user/assign-quiz/assign-quiz.component';
 import { ConfigureComponent } from './configure/configure.component';
+import { ResultComponent } from './result/result.component';
+import { ProfileComponent } from './profile/profile.component';
+import { UserResultComponent } from './user/user-result/user-result.component';
 
 
 
@@ -12,13 +15,19 @@ import { ConfigureComponent } from './configure/configure.component';
 const routes: Routes = [
   {path:'quiz/add-quiz/:id',component:AddQuizComponent},
   {path:'quiz/quiz-preview/:id',component:QuizPreviewComponent},
-  {path:'add-users',component:AddUsersPageComponent},
-  {path:'assign-quiz',component:AssignQuizComponent},
-  {path:'quiz/configure/:id',component:ConfigureComponent}
+  {path:'user-dashboard',component:AddUsersPageComponent},
+  // {path:'edit-user',component:AssignQuizComponent},
+  // {path:'add-users' ,component:AssignQuizComponent},
+  {path:'edit-user',component:ProfileComponent},
+  {path:'quiz/configure/:id',component:ConfigureComponent},
+  {path:'add-users',component:AssignQuizComponent},
+  // {path:'assign-quiz',component:AssignQuizComponent},
+  {path: 'quiz/result',component: ResultComponent},
+  {path:'user-result',component:UserResultComponent}
 
 
 
-];
+]
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

@@ -70,7 +70,8 @@ export class PublishQuizComponent implements OnInit {
     if (event.target.checked == true) {
       event.target.checked = false;
       this.dialog.open(DialogComponent, {
-        width: "75%",
+        width: "100%",
+        height:"95%",
         data: { callback: this.callBack.bind(this), defaultValue: this.url },
       });
     }

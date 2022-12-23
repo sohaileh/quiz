@@ -1,13 +1,11 @@
 .btn{
     height: 90px;
     border-radius: 8px;
-    border: 2px solid lightgray;
+    border: 2px solid darkgray;
     width:60px;
     margin-top: 6px;
 }
-.form-outline{
-    width: 58vw;
-}
+
 .close-button{
   float: right;
   border: none;
@@ -16,6 +14,7 @@
   
   .close-icon {
     transition: 1s ease-in-out;
+    color: darkgray;
   }
   
   .close-icon:hover {
@@ -24,20 +23,52 @@
 mat-divider{
   margin: 15px 0px;
 }
-@media screen and (max-width:768px) {
+mat-form-field {
+  position: relative;
+  left: 8px;
+  width: 61vw;
+  margin-top: -2px !important;
+  font-size: 10px;
+  input{
+    font-size: 14px;
+  }
+}
+mat-dialog-content{
+  max-height: 90%;
+  height: 90%;
+}
+@media screen and (max-width:562px) {
+  mat-dialog-content{
+    max-height: 70vh !important;
+  }
     form{
         margin-left: 0px;
         width:auto;
     }
+   
     .form-outline{
-        width: 50vw;
+        width: 55vw;
     }
     .btn{
-        height: 100px;
+        height: 60px;
         border-radius: 8px;
         border: 2px solid lightgray;
-        width:70px;
+        width:52px;
         margin-right: 20px;
     }
+   .d-flex{
+    max-width: 80%;
+   }
+   .d-inline-block{
+    max-width: 14%;
+    .float_subject{
+      left: -30px;
+    position: relative;
+    }
    
+   }
+   .editor{
+    width: 70vw;
+  }
+  
 }

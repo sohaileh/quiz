@@ -147,9 +147,9 @@ export class AuthService {
       } else {
         const quizAssigned = await this.userModelDto.updateOne(
           { emailAddress: emailAddress },
-          { $push: { assignedQuizzes: userModel.assignedQuizzes } },
+          {$set:{'assignedQuizzes':userModel.assignedQuizzes}}
         );
-        return userExists;
+        return ;
       }
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
@@ -175,5 +175,11 @@ export class AuthService {
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
+  }
+  async getUserDetails(userId){
+    const {id}= userId
+    const userDetails = await this.userModelDto.findOne({_id:id},{password:0,organizationId:0})
+    
+    return userDetails
   }
 }

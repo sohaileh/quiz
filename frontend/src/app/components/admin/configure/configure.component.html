@@ -12,11 +12,11 @@
                     </div>
                     <div class="navbar-collapse collapse sidebar-navbar-collapse" id="navbarSupportedContent2">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a [routerLink]="['/admin/quiz/configure',quizId]">General</a>
+                            <li routerLinkActive="active"><a [routerLink]="['/admin/quiz/configure',quizId]">General</a>
                             </li>
                             <!-- <li><a href="">Grading</a> -->
                             <!-- </li> -->
-                            <li><a>Results</a>
+                            <li routerLinkActive="active"><a [routerLink]="['/admin/quiz/result']">Results</a>
                             </li>
                             <li><a href="">Certificate </a></li>
                             <!-- <li><a href="">Notifications </a></li> -->
@@ -46,11 +46,11 @@
                                         (change)="setTimePerQuestion($event)">
                                 </label>
                                 <input value="" class="form-control TimeLimit" type="text" maxlength="5"
-                                    placeholder="hh:mm" formControlName="timeLimitPerQuestion">
+                                    placeholder="mm" formControlName="timeLimitPerQuestion">
                             </div>
                             <p class="help-block">
                                 Respondents will only have the set time to complete the whole quiz. The time limit is
-                                entered in the format hours:minutes (hh:mm)
+                                entered in the format minutes (mm)
                             </p>
                         </div>
                     </div>

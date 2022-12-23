@@ -259,7 +259,7 @@ i {
 
 ul li a {
   position: relative;
-  padding: 5px 0 5px;
+  padding: 5px 5px 5px;
   margin: 0 25px;
   color: rgb(255, 255, 255);
   text-decoration: none;
@@ -293,9 +293,9 @@ ul li a {
 }
 
 .navbar ul li a:hover:after {
-  -webkit-transform: translateX(-100%) scaleX(1);
+  // -webkit-transform: translateX(-100%) scaleX(1);
 
-  transform: translateX(-100%) scaleX(1);
+  // transform: translateX(-100%) scaleX(1);
 }
 
 .nav-2 ul li a:hover:after {
@@ -366,7 +366,11 @@ a {
 
   text-decoration: none;
 }
-
+.navbar ul li a:hover{
+    border-bottom: #fff 3px solid;
+    -webkit-transition: transform 400ms;
+    transition: transform 450ms;
+}
 .previewButton {
   padding-right: 196px;
   margin-top: 5px;
@@ -375,10 +379,13 @@ a {
   cursor: pointer;
 }
 .active{
-  background: red;
+ border-bottom: #fff 3px solid;
+//  margin: 0px 2px;
+ -webkit-transition: transform 250ms;
+ transition: transform 300ms;
 }
 mat-toolbar {
-  padding-left: 110px;
+  padding-left: 116px;
   height: 45px;
 }
 

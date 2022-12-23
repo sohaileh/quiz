@@ -3,6 +3,7 @@ import { Product } from 'src/app/modals/product.model';
 import { CartItem } from 'src/app/modals/cart-item';
 import { CartService } from '../services/cart.service';
 import { AdminService } from '../../admin/services/admin.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header-four',
@@ -30,7 +31,7 @@ export class HeaderFourComponent implements OnInit {
   quizTitle: any;
   quizStatus: any;
   // @ViewChild(ProductLeftSidebarComponent,{static:false}) MenuItem:ProductLeftSidebarComponent
-  constructor(private cartService: CartService, private adminService:AdminService) {
+  constructor(private cartService: CartService, private adminService:AdminService,public router:Router) {
     this.cartService.getItems().subscribe(shoppingCartItems => this.shoppingCartItems = shoppingCartItems);
    }
 

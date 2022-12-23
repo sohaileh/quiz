@@ -1,0 +1,58 @@
+<p>Select quizzes to assign</p>
+<hr />
+<mat-dialog-content>
+<div class="container-fluid">
+  <div class="row d-flex flex-column flex-md-row justify-content-between">
+    <div class="col-12 col-md-5">
+      <p class="mb-0">Available</p>
+      <div class="border border-dark rounded-left w-100 assign-height p-2">
+        <option
+          [value]="quiz"
+          [ngClass]="{
+            'selected-Option': selectedOption && i == selectedIndex && availableCliked
+          }"
+          (click)="selectQuiz($event, i,'available')"
+          *ngFor="let quiz of availableQuizzes; let i = index"
+        >
+          {{ quiz}}
+        </option>
+      </div>
+    </div>
+    <div
+      class=" col-12 mt-2 mt-md-0 col-md-2 d-flex flex-column align-items-center justify-content-center"
+    >
+      <button class="btn  mb-3" (click)="assignQuiz()" [disabled]="!availableQuizzesExists">
+        <mat-icon>fast_forward</mat-icon>
+      </button>
+
+      <button class="btn " (click)="removeQuiz()" [disabled]="!assignedQuizzesExists">
+        <mat-icon>fast_rewind</mat-icon>
+      </button>
+    </div>
+    <div class="col-12 col-md-5">
+      <p class="mb-0">Assigned</p>
+      <div class="border border-dark rounded-left w-100 assign-height p-2">
+        <option
+          [value]="quiz"
+          *ngFor="let quiz of assignedQuizzes; let i = index"
+          (click)="selectQuiz($event, i)"
+          [ngClass]="{
+            'selected-Option': selectedOption && i == selectedIndex && !availableCliked
+          }"
+        >
+          {{ quiz }}
+        </option>
+      </div>
+    </div>
+  </div>
+  
+  
+</div>
+</mat-dialog-content>
+<hr />
+<div class="row">
+  <div class="ml-auto">
+    <button class="btn mr-2" mat-dialog-close>Cancel</button>
+    <button class="btn" (click)="assignQuizzes()">Save</button>
+  </div>
+</div>

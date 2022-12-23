@@ -18,10 +18,10 @@
     margin: 10px 0;
     cursor: pointer;
     transition: 0.5s;
-    height:36px;
-      font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-      font-size: 14px;
-      font-weight: 400;
+    height: 36px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
   }
   mat-form-field {
     width: 50%;
@@ -43,12 +43,10 @@
   .float {
     margin-left: 256px;
   }
-  .text-dark{
+  .text-dark {
     font-size: 12px;
   }
 }
-
-
 
 @media screen and (min-width: 768px) {
   .col-sm-1,
@@ -93,8 +91,11 @@
   .help-block-quiz {
     width: 100% !important;
   }
+
   .publish_container {
     border: none;
+    overflow: scroll;
+    height: 100%;
   }
   .label_distribution {
     position: absolute !important;
@@ -104,7 +105,6 @@
     margin-left: 0px !important;
   }
   .publish_button {
-    
     margin-left: 0px !important;
   }
 }
@@ -134,16 +134,14 @@
 
   margin-left: 16px;
 }
-.checkbox_label{
+.checkbox_label {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 14px;
 
-font-size: 14px;
+  line-height: 1.42857143;
 
-line-height: 1.42857143;
+  color: #333;
 
-color: #333;
-
-background-color: #fff;
-
+  background-color: #fff;
 }

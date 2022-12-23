@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AdminRoutingModule } from './admin-routing.module';
@@ -28,8 +28,11 @@ import { AddUsersPageComponent } from './user/add-users-page/add-users-page.comp
 import {MatTableModule} from '@angular/material/table';
 import { MatDividerModule } from "@angular/material/divider";
 import { AssignQuizComponent } from './user/assign-quiz/assign-quiz.component';
-
-
+import { AssignQuizDialogComponent } from './assign-quiz-dialog/assign-quiz-dialog.component';
+import { SharedModule } from '../shared/shared.module';
+import { ResultComponent } from './result/result.component';
+import { ProfileComponent } from './profile/profile.component';
+import { UserResultComponent } from './user/user-result/user-result.component';
 
 
 
@@ -42,8 +45,12 @@ import { AssignQuizComponent } from './user/assign-quiz/assign-quiz.component';
     ConfigureComponent,
     AddUsersPageComponent,
     AssignQuizComponent,
+    AssignQuizDialogComponent,
+    ResultComponent,
+    ProfileComponent,
+    UserResultComponent,
     // FormErrorMsgDirective
-   
+    
    
   ],
   imports: [
@@ -68,11 +75,12 @@ import { AssignQuizComponent } from './user/assign-quiz/assign-quiz.component';
     CustomPipesModule,
     MatTableModule,
     MatDividerModule,
-    
+    SharedModule
     
     
 
   ],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA]
  
 })
 export class AdminModule { }

@@ -1,0 +1,21 @@
+.assign-height{
+    height: 200px;
+    overflow-y: scroll;
+}
+.selected-Option{
+    background-color: #337ab7;
+    color: white;
+    padding-left: 5px;
+}
+::-webkit-scrollbar{
+    width: 0;
+    background: transparent;
+}
+.btn{
+
+    background-color: #268e9b;
+    border: none;
+    outline: none;
+    color: #fff;
+    margin: 10px 0;
+  }

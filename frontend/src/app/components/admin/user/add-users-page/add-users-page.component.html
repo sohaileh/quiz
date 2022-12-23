@@ -1,6 +1,9 @@
-<mat-card class="m-3 p-0">
-  <div
-    class="header p-1"
+<app-header-three></app-header-three>
+<div class="main pl-5 pr-5 h-100 w-100">
+
+ <mat-card class="w-100  h-100  layout p-4">
+      <div
+    class="header p-1 rounded-top"
     fxLayout="row"
     fxLayoutAlign="space-between none"
     fxLayout.xs="column"
@@ -20,18 +23,17 @@
     </div>
     <div fxLayoutGap="5px">
       <button
-        class="btn create-button border-0"
-        [routerLink]="['/admin/assign-quiz']"
+        class="btn create-button border-0 m-3"
+        [routerLink]="['/admin/add-users']"
       >
         Add user
       </button>
-      <button class="btn bulk">Bulk upload user</button>
+      <button class="btn bulk ">Bulk upload user</button>
     </div>
   </div>
-  <mat-divider></mat-divider>
   <mat-card-content>
     <mat-table #table [dataSource]="dataSource">
-      <div class="d-flex" fxFlex-xs="10%">
+      <div class="d-flex" fxFlex-xs="100%">
         <div>
           <ng-container matColumnDef="selectRole">
             <mat-header-cell *matHeaderCellDef>
@@ -114,3 +116,4 @@
     </mat-table>
   </mat-card-content>
 </mat-card>
+</div>

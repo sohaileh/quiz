@@ -2,8 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { AdminService } from "../../services/admin.service";
 import { Router } from "@angular/router";
-import { map } from "rxjs";
 import { ActivatedRoute } from "@angular/router";
+import { MatDialog } from "@angular/material/dialog";
+import { AssignQuizDialogComponent } from "../../assign-quiz-dialog/assign-quiz-dialog.component";
+import { map, tap } from "rxjs";
 
 @Component({
   selector: "app-assign-quiz",
@@ -17,18 +19,21 @@ export class AssignQuizComponent implements OnInit {
   organizationQuizList: any = [];
   quizId: any = [];
   assignedQuizzes: any = [];
-  quizIdObject: any = {};
+  // quizIdObject: any = {};
+  quizIdObject: any = [];
   hide: Boolean = true;
   userAssignedQuiz: any = {};
   assignedQuizList: any = {};
   quizAllocatedToUser: any = [];
   disabled:boolean=true;
-
+  totalQuizzes=[]
+  userId:any={}
   constructor(
     private fb: FormBuilder,
     private adminService: AdminService,
-    private router: Router,
-    private route: ActivatedRoute
+    public router: Router,
+    private route: ActivatedRoute,
+    private dialog:MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -40,28 +45,34 @@ export class AssignQuizComponent implements OnInit {
       emailAddress: [" "],
       organization: [""],
     });
+    
     this.getOrganizationQuizzes();
-    this.userAssignedQuiz = this.route.snapshot.paramMap.getAll("existingUser");
-    this.assignedQuizList = JSON.parse(this.userAssignedQuiz);
-    this.quizAllocatedToUser = this.assignedQuizList.assignedQuizzes;
-    this.assignQuizForm.patchValue(this.assignedQuizList);
+    this.userId = this.route.snapshot.queryParamMap.get('id')
+    if(this.userId){
+      console.log('this.userid',this.userId)
+      this.adminService.getUserDetails(this.userId).subscribe({
+        next:(response)=>{
+          this.assignedQuizList= response
+          this.quizAllocatedToUser=this.assignedQuizList.assignedQuizzes.map((data)=> data.quizTitle)
+          this.assignQuizForm.patchValue(this.assignedQuizList);
+        }
+      })
+    }
+    
   }
 
   save() {
-    this.quizId.forEach((element) => {
-      this.quizIdObject.quizId = element._id;
-      this.quizIdObject.quizTitle = element.quizTitle;
-      this.assignedQuizzes.push(this.quizIdObject);
-      this.quizIdObject = {};
-    });
-
+      this.quizIdObject.forEach((quiz,i)=>{
+        this.assignedQuizzes.push({quizId:quiz._id,quizTitle:quiz.quizTitle})
+      })
+      this.quizIdObject={}
     this.userModel = this.assignQuizForm.value;
     this.userModel.assignedQuizzes = this.assignedQuizzes;
     this.userModel.organizationId = localStorage.getItem("userId");
     this.assignedQuizzes = [];
     this.adminService.assignQuizs(this.userModel).subscribe((res: any) => {
       if (res) {
-        this.router.navigate(["/admin/add-users"]);
+        this.router.navigate(["/admin/user-dashboard"]);
       }
     });
   }
@@ -71,7 +82,8 @@ export class AssignQuizComponent implements OnInit {
     this.adminService
       .getOrganizationQuizzes(this.organizationId)
       .subscribe((res: any) => {
-        this.organizationQuizList = res;
+        this.totalQuizzes=res
+        this.organizationQuizList = res.map((data)=>data.quizTitle)
       });
   }
 
@@ -79,7 +91,19 @@ export class AssignQuizComponent implements OnInit {
     this.hide = !this.hide;
   }
 
-  cancel() {
-    this.router.navigate(["/add-users"]);
+  assignQuizDialog(){
+    const dialogData = {available:this.organizationQuizList,assignedQuiz:this.quizAllocatedToUser}
+    const dialogRef= this.dialog.open(AssignQuizDialogComponent,{
+        width:'900px',
+        maxHeight:'100%',
+      disableClose: true,
+      data:dialogData
+      })
+      dialogRef.afterClosed().subscribe(({Quizzes})=>{
+          if(Quizzes)
+          this.quizIdObject = this.totalQuizzes.filter((quiz)=> Quizzes.includes(quiz.quizTitle))
+      })
+
   }
+
 }

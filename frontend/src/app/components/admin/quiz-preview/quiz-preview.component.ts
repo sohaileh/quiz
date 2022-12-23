@@ -10,6 +10,7 @@ import { interval, Observable, Subscription, take, tap } from "rxjs";
   styleUrls: ["./quiz-preview.component.scss"],
 })
 export class QuizPreviewComponent implements OnInit {
+  quizDetails=[]
   quizQuestions = [];
   color: ThemePalette = "primary";
   quizId: any;
@@ -73,6 +74,8 @@ export class QuizPreviewComponent implements OnInit {
       .subscribe({
         next: (response: any) => {
           this.optionSelected = false;
+          this.quizDetails=response
+          console.log('quizDetails',this.quizDetails)
           this.quizQuestions = response[0].questions;
           this.quizTitle = response[0].quizTitle;
           this.totalQuizQuestions = response[0].totalQuestions
@@ -86,10 +89,18 @@ export class QuizPreviewComponent implements OnInit {
           }
           if(response[0].questionSequence)
           this.sequencedQuestion=true
-          if(response[0].time_check){
+          if(response[0].time_check && response[0].timeLimitPerQuestion == 0
+            ){
             clearInterval(this.intervalId);
          this.timePerQuestionExists=true
             this.quizTime = this.quizQuestions[0].timeLimit
+            this.timer()
+          }
+          if(response[0].time_check && response[0].timeLimitPerQuestion > 0
+            ){
+            clearInterval(this.intervalId);
+         this.timePerQuestionExists=true
+            this.quizTime = response[0].timeLimitPerQuestion
             this.timer()
           }
           this.questionNumber += response[0].questionPerPage
