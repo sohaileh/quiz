@@ -2,91 +2,92 @@
 <div class="h-100 d-flex justify-content-center">
   <div class="pl-4 pr-4 pt-4 pb-3 mat-card  " [ngClass]="{'edit-page': router.url.includes('edit-user')}">
     <form class="w-100" [formGroup]="assignQuizForm">
-     <div class="row d-flex flex-column flex-sm-row mb-4 " *ngIf="router.url.includes('/admin/add-users')">
-      <div class="col-12 col-sm-6 mb-2 mb-sm-0">
-        <label class="font-weight-bold">Username</label>
-        <input type="text" class="form-control">
+      <div class="row d-flex flex-column flex-sm-row mb-4 " *ngIf="router.url.includes('/admin/add-users')">
+        <div class="col-12 col-sm-6 mb-2 mb-sm-0">
+          <label class="font-weight-bold">Username</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-12 col-sm-6 mb-2 mb-sm-0">
+          <label class="font-weight-bold">Role</label>
+          <input type="text" class="form-control" formControlName="role">
+        </div>
       </div>
-      <div class="col-12 col-sm-6 mb-2 mb-sm-0">
-        <label class="font-weight-bold">Role</label>
-        <input type="text" class="form-control"  formControlName="role">
+      <div class="row d-flex flex-column flex-sm-row mb-4 align-items-lg-end"
+        *ngIf="router.url.includes('/admin/edit-user')">
+        <div class="col-12 col-lg-5  mb-2 mb-lg-0">
+          <label class="font-weight-bold">Username</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class=" col-8 col-lg-2 mb-2 mb-lg-0">
+          <button class="btn  btn-sm">Reset Password</button>
+        </div>
+        <div class="col-12  col-lg-5 mb-2 mb-md-0">
+          <label class="font-weight-bold">Role</label>
+          <input type="text" class="form-control" formControlName="role">
+        </div>
       </div>
-     </div>
-     <div class="row d-flex flex-column flex-sm-row mb-4 align-items-lg-end"  *ngIf="router.url.includes('/admin/edit-user')" >
-      <div class="col-12 col-lg-5  mb-2 mb-lg-0">
-        <label class="font-weight-bold">Username</label>
-        <input type="text" class="form-control">
+      <div class="row d-flex flex-column flex-sm-row mb-4">
+        <div class="col-12 col-sm-6 mb-2 mb-sm-0">
+          <label class="font-weight-bold">Password</label>
+          <input type="text" class="form-control" formControlName="password">
+        </div>
       </div>
-      <div class=" col-8 col-lg-2 mb-2 mb-lg-0">
-        <button class="btn  btn-sm">Reset Password</button>
+      <div class="row d-flex mb-4">
+        <div class=" d-flex align-items-baseline col-3 mb-2 mb-sm-0">
+          <label class="font-weight-bold mr-2">Suspended</label>
+          <input type="checkbox">
+        </div>
       </div>
-      <div class="col-12  col-lg-5 mb-2 mb-md-0">
-        <label class="font-weight-bold">Role</label>
-        <input type="text" class="form-control"  formControlName="role">
+      <div class="row d-flex flex-column flex-sm-row mb-4 ">
+        <div class="col-12 col-sm-6 mb-2 mb-sm-0">
+          <label class="font-weight-bold">First name</label>
+          <input type="text" class="form-control" formControlName="firstName">
+        </div>
+        <div class="col-12 col-sm-6 mb-2 mb-sm-0">
+          <label class="font-weight-bold">Last name</label>
+          <input type="text" class="form-control" formControlName="lastName">
+        </div>
       </div>
-     </div>
-     <div class="row d-flex flex-column flex-sm-row mb-4">
-      <div class="col-12 col-sm-6 mb-2 mb-sm-0">
-        <label class="font-weight-bold">Password</label>
-        <input type="text" class="form-control" formControlName="password" >
+      <div class="row d-flex flex-column flex-sm-row mb-4 ">
+        <div class="col-12 col-sm-6 mb-2 mb-sm-0">
+          <label class="font-weight-bold">Email</label>
+          <input type="text" class="form-control" formControlName="emailAddress">
+        </div>
+        <div class="col-12 col-sm-6 mb-2 mb-sm-0">
+          <label class="font-weight-bold">Organization</label>
+          <input type="text" class="form-control" formControlName="organization">
+        </div>
       </div>
-     </div>
-     <div class="row d-flex mb-4">
-      <div class=" d-flex align-items-baseline col-3 mb-2 mb-sm-0">
-        <label class="font-weight-bold mr-2">Suspended</label>
-        <input type="checkbox">
+      <div class="row d-flex flex-column flex-sm-row mb-4 align-items-sm-end ">
+        <div class="col-12 col-sm-8 mb-2 mb-sm-0">
+          <label class="font-weight-bold">Assigned Quizzes</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-8 col-md-3 mb-sm-0 mt-2 mt-md-0 ">
+          <button class="btn   btn-sm" (click)="assignQuizDialog()">Assign Quiz</button>
+        </div>
       </div>
-     </div>
-     <div class="row d-flex flex-column flex-sm-row mb-4 ">
-      <div class="col-12 col-sm-6 mb-2 mb-sm-0">
-        <label class="font-weight-bold">First name</label>
-        <input type="text" class="form-control" formControlName="firstName" >
+      <div class="row d-flex flex-column flex-sm-row mb-4 align-items-sm-end ">
+        <div class="col-12 col-sm-8 mb-2 mb-sm-0">
+          <label class="font-weight-bold">Assigned Groups</label>
+          <input type="text" class="form-control">
+        </div>
+        <div class="col-8 col-md-3 mb-2 mb-sm-0 mt-2 mt-md-0">
+          <button class="btn  btn-sm">Assign Group</button>
+        </div>
       </div>
-      <div class="col-12 col-sm-6 mb-2 mb-sm-0">
-        <label class="font-weight-bold">Last name</label>
-        <input type="text" class="form-control" formControlName="lastName">
+      <div class="row d-flex flex-column flex-sm-row mb-4 align-items-sm-end ">
+        <div class="col-12  mb-2 mb-sm-0">
+          <label class="font-weight-bold">Notes</label>
+          <textarea class="form-control" cols="30" rows="5"></textarea>
+        </div>
       </div>
-     </div>
-     <div class="row d-flex flex-column flex-sm-row mb-4 ">
-      <div class="col-12 col-sm-6 mb-2 mb-sm-0">
-        <label class="font-weight-bold">Email</label>
-        <input type="text" class="form-control" formControlName="emailAddress">
+      <div class="row d-flex mt-4">
+        <mat-card-actions align="end" class="col-12  mb-2 mb-sm-0 mt-2 mt-md-0">
+          <button class="btn btn-md mr-2" [routerLink]="['/admin/user-dashboard']">Cancel</button>
+          <button class="btn mr-2 pr-3 pl-3" (click)="save()">Save</button>
+        </mat-card-actions>
       </div>
-      <div class="col-12 col-sm-6 mb-2 mb-sm-0">
-        <label class="font-weight-bold">Organization</label>
-        <input type="text" class="form-control"  formControlName="organization">
-      </div>
-     </div>
-     <div class="row d-flex flex-column flex-sm-row mb-4 align-items-sm-end ">
-      <div class="col-12 col-sm-8 mb-2 mb-sm-0">
-        <label class="font-weight-bold">Assigned Quizzes</label>
-        <input type="text" class="form-control">
-      </div>
-      <div class="col-8 col-md-3 mb-sm-0 mt-2 mt-md-0 ">
-        <button class="btn   btn-sm" (click)="assignQuizDialog()">Assign Quiz</button>
-      </div>
-     </div>
-     <div class="row d-flex flex-column flex-sm-row mb-4 align-items-sm-end ">
-      <div class="col-12 col-sm-8 mb-2 mb-sm-0">
-        <label class="font-weight-bold">Assigned Groups</label>
-        <input type="text" class="form-control">
-      </div>
-      <div class="col-8 col-md-3 mb-2 mb-sm-0 mt-2 mt-md-0">
-        <button class="btn  btn-sm">Assign Group</button>
-      </div>
-     </div>
-     <div class="row d-flex flex-column flex-sm-row mb-4 align-items-sm-end ">
-      <div class="col-12  mb-2 mb-sm-0">
-        <label class="font-weight-bold">Notes</label>
-       <textarea class="form-control" cols="30" rows="5"></textarea>
-      </div>
-     </div>
-     <div class="row d-flex mt-4">
-      <mat-card-actions align="end" class="col-12  mb-2 mb-sm-0 mt-2 mt-md-0">
-        <button class="btn btn-md mr-2" [routerLink]="['/admin/user-dashboard']">Cancel</button>
-        <button class="btn mr-2 pr-3 pl-3" (click)="save()">Save</button>
-      </mat-card-actions>
-     </div>
     </form>
   </div>
 </div>

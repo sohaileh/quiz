@@ -1,0 +1,139 @@
+.resultContainer {
+  background-color: rgba(255, 255, 255, 1);
+  border-left: solid #ddd 1px;
+  border-right: solid #ddd 1px;
+  padding-top: 64px;
+  margin: -52px auto -80px;
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  padding-bottom: 80px;
+}
+
+.resultContentSubMenu {
+  position: absolute;
+  width: 100%;
+  background-color: #fff;
+  left: 0;
+  height: 50px;
+  border-bottom: #ddd solid 1px;
+}
+
+.resultContentDescription {
+  margin-top: 4vw;
+  font-size: 15px;
+  color: #777;
+  position: relative;
+  padding-top: 4px;
+}
+
+.sectionTab {
+  //   border: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  border-radius: 0 0 4px 4px;
+  background-color: #fafafa;
+  padding: 25px;
+  width: auto;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.resultPanel {
+  margin-top: 25px;
+}
+.panel-primary > .panel-heading {
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #337ab7;
+}
+
+.resultViewer {
+  position: relative;
+  min-height: 200px;
+}
+
+.panel-body {
+  padding: 15px;
+}
+
+.panel-heading {
+  padding: 10px 15px;
+  border-bottom: 1px solid transparent;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.resultToolbar {
+  border-bottom: 1px solid #428bca;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+.panel-primary {
+  border-color: #337ab7;
+  border: 1px solid;
+}
+
+.panel {
+  margin-bottom: 20px;
+  background-color: #fff;
+  border: 1px solid #337ab7;
+  border-radius: 4px;
+  padding: 1px;
+  -webkit-box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
+  box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
+}
+.resultText {
+  font-size: 12px;
+}
+.reportViewerToolbar .navbar-right {
+  margin-right: 0;
+}
+
+a {
+  color: #337ab7 !important;
+  text-decoration: none;
+}
+
+.nav-tabs a {
+  color: #414141 !important;
+}
+
+.formContainer {
+  width: 100%;
+}
+
+.export-button {
+  margin-top: 10px;
+  margin-left: 16px;
+  margin-right: 10px;
+}
+
+.pdf-button {
+  margin-top: 10px;
+}
+
+.tableContainer {
+  margin-bottom: 30px;
+}
+
+.td_totalQuizzes {
+  width: 120px;
+}
+
+.th_avg {
+  width: 84px;
+}
+.table td,
+.table th {
+  border-top: 0 !important;
+}
+.quiz_bottom {
+  padding-left: 3.5vw;
+}
+
+@media screen and (min-width: 768px) {
+  .navbar-right {
+    float: right !important;
+  }
+}

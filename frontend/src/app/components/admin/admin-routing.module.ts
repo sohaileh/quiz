@@ -7,6 +7,7 @@ import { AssignQuizComponent } from './user/assign-quiz/assign-quiz.component';
 import { ConfigureComponent } from './configure/configure.component';
 import { ResultComponent } from './result/result.component';
 import { ProfileComponent } from './profile/profile.component';
+import { UserResultComponent } from './user/user-result/user-result.component';
 
 
 
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path:'add-users',component:AssignQuizComponent},
   // {path:'assign-quiz',component:AssignQuizComponent},
   {path: 'quiz/result',component: ResultComponent},
+  {path:'user-result',component:UserResultComponent}
 
 
 
