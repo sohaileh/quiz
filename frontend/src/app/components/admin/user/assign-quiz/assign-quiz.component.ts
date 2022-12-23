@@ -31,7 +31,7 @@ export class AssignQuizComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private adminService: AdminService,
-    private router: Router,
+    public router: Router,
     private route: ActivatedRoute,
     private dialog:MatDialog
   ) {}
@@ -47,9 +47,9 @@ export class AssignQuizComponent implements OnInit {
     });
     
     this.getOrganizationQuizzes();
-    // this.userAssignedQuiz = this.route.snapshot.queryParamMap.get('id')
     this.userId = this.route.snapshot.queryParamMap.get('id')
     if(this.userId){
+      console.log('this.userid',this.userId)
       this.adminService.getUserDetails(this.userId).subscribe({
         next:(response)=>{
           this.assignedQuizList= response
@@ -57,33 +57,13 @@ export class AssignQuizComponent implements OnInit {
           this.assignQuizForm.patchValue(this.assignedQuizList);
         }
       })
-    // this.assignedQuizList = JSON.parse(this.userAssignedQuiz);
-    // this.quizAllocatedToUser = this.assignedQuizList.assignedQuizzes.map((data)=> data.quizTitle)
-    // this.assignQuizForm.patchValue(this.assignedQuizList);
-
     }
     
   }
 
   save() {
-    // if(!this.userAssignedQuiz.length){
-    //   this.quizId.forEach((element) => {
-    //     this.quizIdObject.quizId = element._id;
-    //     this.quizIdObject.quizTitle = element.quizTitle;
-    //     this.assignedQuizzes.push(this.quizIdObject);
-    //     this.quizIdObject = {};
-    //   });
-    // }
-    console.log('assinedquizlist',this.assignedQuizList)
-    console.log('objectid',this.quizIdObject)
       this.quizIdObject.forEach((quiz,i)=>{
-        if(this.assignedQuizList.assignedQuizzes && !this.assignedQuizList.assignedQuizzes.some((element)=>element.quizTitle == quiz.quizTitle))
-        {
         this.assignedQuizzes.push({quizId:quiz._id,quizTitle:quiz.quizTitle})
-        }else if(!this.assignedQuizList.assignedQuizzes){
-          this.assignedQuizzes.push({quizId:quiz._id,quizTitle:quiz.quizTitle})
-          
-        }
       })
       this.quizIdObject={}
     this.userModel = this.assignQuizForm.value;
@@ -115,13 +95,15 @@ export class AssignQuizComponent implements OnInit {
     const dialogData = {available:this.organizationQuizList,assignedQuiz:this.quizAllocatedToUser}
     const dialogRef= this.dialog.open(AssignQuizDialogComponent,{
         width:'900px',
-        maxHeight:'87%',
+        maxHeight:'100%',
       disableClose: true,
       data:dialogData
       })
       dialogRef.afterClosed().subscribe(({Quizzes})=>{
+          if(Quizzes)
           this.quizIdObject = this.totalQuizzes.filter((quiz)=> Quizzes.includes(quiz.quizTitle))
       })
+
   }
 
 }

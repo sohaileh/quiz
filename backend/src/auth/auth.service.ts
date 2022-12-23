@@ -147,7 +147,7 @@ export class AuthService {
       } else {
         const quizAssigned = await this.userModelDto.updateOne(
           { emailAddress: emailAddress },
-          { $push: { assignedQuizzes: userModel.assignedQuizzes } },
+          {$set:{'assignedQuizzes':userModel.assignedQuizzes}}
         );
         return ;
       }

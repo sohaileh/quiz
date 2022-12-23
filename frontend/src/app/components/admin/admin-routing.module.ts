@@ -6,6 +6,7 @@ import { AddUsersPageComponent } from './user/add-users-page/add-users-page.comp
 import { AssignQuizComponent } from './user/assign-quiz/assign-quiz.component';
 import { ConfigureComponent } from './configure/configure.component';
 import { ResultComponent } from './result/result.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 
@@ -14,12 +15,13 @@ const routes: Routes = [
   {path:'quiz/add-quiz/:id',component:AddQuizComponent},
   {path:'quiz/quiz-preview/:id',component:QuizPreviewComponent},
   {path:'user-dashboard',component:AddUsersPageComponent},
-  {path:'edit-user',component:AssignQuizComponent},
-  {path:'add-users' ,component:AssignQuizComponent},
+  // {path:'edit-user',component:AssignQuizComponent},
+  // {path:'add-users' ,component:AssignQuizComponent},
+  {path:'edit-user',component:ProfileComponent},
   {path:'quiz/configure/:id',component:ConfigureComponent},
-  // {path:'add-users',component:AddUsersPageComponent},
-  {path:'assign-quiz',component:AssignQuizComponent},
-  {path: 'quiz/result',component: ResultComponent}
+  {path:'add-users',component:AssignQuizComponent},
+  // {path:'assign-quiz',component:AssignQuizComponent},
+  {path: 'quiz/result',component: ResultComponent},
 
 
 

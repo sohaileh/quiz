@@ -29,7 +29,7 @@ export class ConfigureComponent implements OnInit {
       quizTitle: [""],
       quizId:this.quizId,
       timeLimitPerQuestion: [0],
-      quizTimeLimit: [0],
+      quizTimeLimit: [10],
       randomizeQuestion: [false],
       questionSequence:[false],
       // autoNumberQuestion: [""],
@@ -128,7 +128,9 @@ export class ConfigureComponent implements OnInit {
           status:configurationDetails.status,
           quizTimeLimit:configurationDetails.quizTimeLimit,
           maxAttempts:configurationDetails.maxAttempts,
-          retake_check:configurationDetails.redirect_check
+          retake_check:configurationDetails.redirect_check,
+          questionSequence:configurationDetails.questionSequence,
+          timeLimitPerQuestion:configurationDetails.timeLimitPerQuestion
         })
        }
     })

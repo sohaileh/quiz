@@ -1,0 +1,19 @@
+ 
+ app-profile{
+ .main{
+    overflow-y: auto;
+}
+ .mat-tab-label-active{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: #fafafa;
+    opacity: 1; 
+  }
+ .mat-tab-label {
+    min-width: 100px;
+    padding: 5px;
+  }
+ .mat-tab-header{
+    border: none;
+  }
+}

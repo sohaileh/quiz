@@ -1,133 +1,26 @@
-<!-- <div class="container h-100">
-  <mat-card class="h-100">
-
-<div class="container">
-  <mat-card>
-    <div class="row pt-5">
-      <div class="col-md-12">
-        <form [formGroup]="assignQuizForm">
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <mat-form-field>
-                <mat-label>FirstName</mat-label>
-                <input matInput type="text" formControlName="firstName" />
-              </mat-form-field>
-            </div>
-            <div class="form-group col-md-6">
-              <mat-form-field >
-                <mat-label>Last Name</mat-label>
-                <input type="text" matInput formControlName="lastName"  />
-              </mat-form-field>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <mat-form-field>
-                <mat-label>Email</mat-label>
-                <input matInput formControlName="emailAddress" type="email" [readonly]="assignedQuizList.role === 'student' " />
-              </mat-form-field>
-            </div>
-            <div class="form-group col-md-6">
-              <mat-form-field>
-                <mat-label>Organisation</mat-label>
-                <input
-                  matInput
-                  placeholder="Organization"
-                  name="organization"
-                  formControlName="organization"
-                />
-              </mat-form-field>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <mat-form-field>
-                <mat-label>Role</mat-label>
-                <input
-                  matInput
-                  placeholder="Role"
-                  formControlName="role"
-                  required="required"
-                  type="text"
-                />
-              </mat-form-field>
-            </div>
-            <div class="form-group col-md-6">
-              <mat-form-field >
-                <mat-label>Password</mat-label>
-                <input   [readonly]="assignedQuizList.role === 'student' "
-                  matInput
-                  placeholder="Password"
-                  [type]="hide ? 'password' : 'text'"
-                  formControlName="password"
-                />
-                <mat-icon matSuffix (click)="hide = !hide">{{
-                  hide ? "visibility_off" : "visibility"
-                }}</mat-icon>
-              </mat-form-field>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <mat-form-field>
-                <mat-label>Quiz list</mat-label>
-                <mat-select
-                  [(ngModel)]="quizId"
-                  [ngModelOptions]="{ standalone: true }"
-                  name="quiz"
-                  multiple
-                >
-                  <mat-option
-                    *ngFor="let quiz of organizationQuizList"
-                    [value]="quiz"
-                  >
-                    {{ quiz.quizTitle }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="form-group col-md-6">
-              <mat-form-field>
-                <mat-label>Assigned Quizs</mat-label>
-                <mat-select
-                  [ngModelOptions]="{ standalone: true }"
-                  name="quiz"
-                  multiple
-                >
-                  <mat-option
-                    *ngFor="let quiz of quizAllocatedToUser"
-                    [value]="quiz"
-                  >
-                    {{ quiz.quizTitle }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div>
-          <div class="form-row float-right">
-            <span class="spacer"></span>
-            <div class="mr-5">
-              <button class="btn border-0 mr-1" (click)="cancel()">
-                cancel
-              </button>
-              <button class="btn border-0 mr-1" (click)="save()">save</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </mat-card>
-</div> -->
-<app-header-three></app-header-three>
+<app-header-three *ngIf="router.url.includes('/admin/add-users')"></app-header-three>
 <div class="h-100 d-flex justify-content-center">
-  <div class="pl-4 pr-4 pt-4 pb-3 mat-card ">
+  <div class="pl-4 pr-4 pt-4 pb-3 mat-card  " [ngClass]="{'edit-page': router.url.includes('edit-user')}">
     <form class="w-100" [formGroup]="assignQuizForm">
-     <div class="row d-flex flex-column flex-sm-row mb-4 ">
+     <div class="row d-flex flex-column flex-sm-row mb-4 " *ngIf="router.url.includes('/admin/add-users')">
       <div class="col-12 col-sm-6 mb-2 mb-sm-0">
         <label class="font-weight-bold">Username</label>
         <input type="text" class="form-control">
       </div>
       <div class="col-12 col-sm-6 mb-2 mb-sm-0">
+        <label class="font-weight-bold">Role</label>
+        <input type="text" class="form-control"  formControlName="role">
+      </div>
+     </div>
+     <div class="row d-flex flex-column flex-sm-row mb-4 align-items-lg-end"  *ngIf="router.url.includes('/admin/edit-user')" >
+      <div class="col-12 col-lg-5  mb-2 mb-lg-0">
+        <label class="font-weight-bold">Username</label>
+        <input type="text" class="form-control">
+      </div>
+      <div class=" col-8 col-lg-2 mb-2 mb-lg-0">
+        <button class="btn  btn-sm">Reset Password</button>
+      </div>
+      <div class="col-12  col-lg-5 mb-2 mb-md-0">
         <label class="font-weight-bold">Role</label>
         <input type="text" class="form-control"  formControlName="role">
       </div>
@@ -169,8 +62,8 @@
         <label class="font-weight-bold">Assigned Quizzes</label>
         <input type="text" class="form-control">
       </div>
-      <div class="col-5 col-md-3 mb-sm-0 mt-2 mt-md-0 ">
-        <button class="btn  btn-success btn-sm" (click)="assignQuizDialog()">Assign Quiz</button>
+      <div class="col-8 col-md-3 mb-sm-0 mt-2 mt-md-0 ">
+        <button class="btn   btn-sm" (click)="assignQuizDialog()">Assign Quiz</button>
       </div>
      </div>
      <div class="row d-flex flex-column flex-sm-row mb-4 align-items-sm-end ">
@@ -178,14 +71,20 @@
         <label class="font-weight-bold">Assigned Groups</label>
         <input type="text" class="form-control">
       </div>
-      <div class="col-5 col-md-3 mb-2 mb-sm-0 mt-2 mt-md-0">
-        <button class="btn btn-success btn-sm">Assign Group</button>
+      <div class="col-8 col-md-3 mb-2 mb-sm-0 mt-2 mt-md-0">
+        <button class="btn  btn-sm">Assign Group</button>
+      </div>
+     </div>
+     <div class="row d-flex flex-column flex-sm-row mb-4 align-items-sm-end ">
+      <div class="col-12  mb-2 mb-sm-0">
+        <label class="font-weight-bold">Notes</label>
+       <textarea class="form-control" cols="30" rows="5"></textarea>
       </div>
      </div>
      <div class="row d-flex mt-4">
       <mat-card-actions align="end" class="col-12  mb-2 mb-sm-0 mt-2 mt-md-0">
-        <button class="btn  btn-light btn-md mr-2" [routerLink]="['/admin/user-dashboard']">Cancel</button>
-        <button class="btn btn-primary  mr-2 pr-3 pl-3" (click)="save()">Save</button>
+        <button class="btn btn-md mr-2" [routerLink]="['/admin/user-dashboard']">Cancel</button>
+        <button class="btn mr-2 pr-3 pl-3" (click)="save()">Save</button>
       </mat-card-actions>
      </div>
     </form>

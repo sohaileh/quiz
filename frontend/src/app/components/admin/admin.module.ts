@@ -31,6 +31,7 @@ import { AssignQuizComponent } from './user/assign-quiz/assign-quiz.component';
 import { AssignQuizDialogComponent } from './assign-quiz-dialog/assign-quiz-dialog.component';
 import { SharedModule } from '../shared/shared.module';
 import { ResultComponent } from './result/result.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 
@@ -45,6 +46,7 @@ import { ResultComponent } from './result/result.component';
     AssignQuizComponent,
     AssignQuizDialogComponent,
     ResultComponent,
+    ProfileComponent,
     // FormErrorMsgDirective
     
    

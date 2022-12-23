@@ -54,20 +54,15 @@ export class HeaderThreeComponent implements OnInit {
     this.getOrganizationUsers();
     console.log(this.router.url)
     this.userId = this.route.snapshot.queryParamMap.get('id')
-    this.adminService.getUserDetails(this.userId).subscribe({
-      next:(resposne:any)=>{
-          this.emailAddress = resposne.emailAddress
-      }
-    })
+    if(this.userId){
+      this.adminService.getUserDetails(this.userId).subscribe({
+        next:(resposne:any)=>{
+            this.emailAddress = resposne.emailAddress
+        }
+      })
+    }
+   
   }
-  // getOrganizationUsers() {
-  //   this.user.organizationId = localStorage.getItem("userId");
-  //   this.adminService.getOrganizationUsers(this.user).subscribe((res: any) => {
-  //     this.totalUsers=res.length;
-  //     // this.dataSource =res;
-  //     // console.log(this.dataSource.filteredData.length)
-  //   });
-  // }
   getLoggedUser() {
     this.user.id = this.userId;
     this.adminService.getLoggedUser(this.user).subscribe((res: any) => {

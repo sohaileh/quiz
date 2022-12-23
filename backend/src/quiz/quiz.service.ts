@@ -665,6 +665,7 @@ export class QuizService {
             quizTimeLimit:1,
             questionSequence:1,
             status: 1,
+            timeLimitPerQuestion:1,
             questions: {
               $slice: [
                 '$questionBank',

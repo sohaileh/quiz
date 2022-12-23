@@ -19,7 +19,7 @@ assignedQuizzesExists:boolean
   }
 
   ngOnInit(): void {
-    this.availableQuizzes=this.data.available
+    this.availableQuizzes=this.data.available.filter((quiz)=> !this.data.assignedQuiz.includes(quiz))
     this.assignedQuizzes=this.data.assignedQuiz
     if(this.availableQuizzes.length)
     this.availableQuizzesExists=true
@@ -35,6 +35,7 @@ assignedQuizzesExists:boolean
    
   }
   assignQuiz(){
+  
     this.assignedQuizzes.push(this.selectedQuiz)
     this.assignedQuizzesExists=true
     this.availableQuizzes.splice(this.selectedIndex,1)
@@ -42,6 +43,7 @@ assignedQuizzesExists:boolean
     this.availableCliked=false
     if(!this.availableQuizzes.length)
     this.availableQuizzesExists =false
+    console.log('assigned quizzes',this.assignedQuizzes)
  
   }
   removeQuiz(){
