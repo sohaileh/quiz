@@ -41,25 +41,29 @@
             </div>
 
             <div class="d-inline-block">
-              <mat-form-field class="form-outline">
+              <mat-form-field class="form-outline" appearance="outline">
                 <input matInput formControlName="from"/>
               </mat-form-field>
             </div>
           </div>
           <div class="d-flex">
-            <div class="d-inline-block form-control">To</div>
+            <div class="d-inline-block form-control">
+             <span>To</span> 
+            </div>
 
             <div class="d-inline-block">
-              <mat-form-field class="form-outline">
+              <mat-form-field class="form-outline" appearance="outline">
                 <input matInput formControlName="to" />
               </mat-form-field>
             </div>
           </div>
           <div class="d-flex">
-            <div class="d-inline-block form-control">Cc</div>
+            <div class="d-inline-block form-control">
+             <span> Cc</span>
+            </div>
 
             <div class="d-inline-block">
-              <mat-form-field class="form-outline">
+              <mat-form-field class="form-outline" appearance="outline">
                 <input matInput formControlName="cc"/>
               </mat-form-field>
             </div>
@@ -67,12 +71,12 @@
           
           <div class="d-flex">
             <div class="col-lg-1 d-inline-block">
-              <span>Subject</span>
+              <span class="float_subject">Subject</span>
             </div>
 
-            <div class="d-inline-block">
-              <mat-form-field class="form-outline">
-                <input matInput class="" formControlName="subject"/>
+            <div class="d-inline-block float">
+              <mat-form-field class="form-outline" appearance="outline">
+                <input matInput  formControlName="subject"/>
               </mat-form-field>
             </div>
           </div>
@@ -84,9 +88,9 @@
         <button class="btn btn-default"(click)="sendEmailInvitation()"><i class="fa fa-send"></i>send</button>
       </div>
     </div>
-    <div class="d-flex" fxLayout.gt-sm="row">
-      <div class="col-lg-12">
-        <ckeditor formControlName="editor" [config]="ckeConfig"></ckeditor>
+    <div fxFlex fxLayout.gt-sm="row" fxFlex.lt-gt="row">
+      <div class="col-lg-12 editor">
+        <ckeditor  formControlName="editor" [config]="ckeConfig"></ckeditor>
       </div>
     </div>
   </div>
