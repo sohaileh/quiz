@@ -36,6 +36,8 @@ import { HeaderFourComponent } from './header-four/header-four.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { ToastrModule } from 'ngx-toastr';
+import { InfoDialogComponent } from './info-dialog/info-dialog.component';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -47,6 +49,8 @@ import { ToastrModule } from 'ngx-toastr';
     HeaderThreeComponent,
     HeaderFourComponent,
     DeleteDialogComponent,
+    InfoDialogComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
     CommonModule,

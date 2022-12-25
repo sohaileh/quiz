@@ -25,7 +25,7 @@ export class DeleteDialogComponent implements OnInit {
 
   deleteQuiz()
   {
-    this.sharedService.deleteQuiz(this.data).subscribe((res )=> {
+    this.sharedService.deleteQuiz(this.data).subscribe((res)=> {
       this.dialogRef.close({res});
 
    })

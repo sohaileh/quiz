@@ -51,6 +51,13 @@ export class HeaderThreeComponent implements OnInit {
   ngOnInit() {
     this.currency = this.currencies[0];
     this.flag = this.flags[0];
+    this.adminService.organizationUsers$.subscribe({
+      next:(response:any)=>{
+      this.totalUsers = response.length+1
+      },
+      error:(error)=>{},
+      complete:()=>{}
+    })
     this.getOrganizationUsers();
     console.log(this.router.url)
     this.userId = this.route.snapshot.queryParamMap.get('id')
