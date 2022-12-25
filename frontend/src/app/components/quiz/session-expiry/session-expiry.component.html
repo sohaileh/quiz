@@ -22,24 +22,21 @@
 
 
 
-<div class="container">
+<div class="container-fluid">
     <div class="left-sidebar-wrapper  details-wrapper sec-padding related-Items" ngClass.gt-xs="left" fxLayoutAlign="center center">
         <div class="sidebar-wrapper" fxLayout='row' fxLayout.lt-md="column">
 
            
                 <mat-card class="mt-4 card">
                   
-                        <div class="col-lg-12 col-md-12 col-sm-12 p-4 text-center">
-                            <img src="assets/images/expired.png" width="100px" height="100px">
+                        <div class="col-lg-12 col-md-12 col-sm-12 p-5 text-center">
+                            <img src="assets/images/thankyou.png" width="100px" height="100px">
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 text-center">
-                            <h4> Your response has been submitted successfully </h4>
+                            <h4> Your response has been submitted successfully</h4>
                         </div>
-                        <!-- <div class="col-lg-12 col-md-12 col-sm-12 text-center">
-                            <p>Please signIn, dont worry we kept all of your filters and breakdowns in place.</p>
-                        </div> -->
-                        <div class="col-lg-12 col-md-12 col-sm-12 mb-2 text-center">
-                            <button mat-raised-button [routerLink]="['/']" color="primary" class="btn" >Ok</button>
+                        <div class="col-lg-12 col-md-12 col-sm-12 p-5 text-center">
+                            <button mat-raised-button color="primary" class="btn"(click)="closeQuiz()" >Ok</button>
                         </div>
                   
                 </mat-card>

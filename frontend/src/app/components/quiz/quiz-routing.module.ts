@@ -34,8 +34,8 @@ const routes: Routes = [
   { path: "teams", component: TeamsComponent },
   { path: "quiz-title", component: QuizTitleComponent },
   {path:"publish-quiz/:id",component:PublishQuizComponent},
-  {path:"register-quiz/:id",component:RegisterQuizComponent},
-  {path:'session-expired',component:SessionExpiryComponent}
+  {path:"signin-quiz/:id",component:RegisterQuizComponent},
+  {path:'thank-you/:id',component:SessionExpiryComponent}
 ];
 
 @NgModule({

@@ -24,7 +24,7 @@
     font-weight: 400;
   }
   mat-form-field {
-    width: 50%;
+    width: 100%;
     font-size: 10px;
     input{
       font-size: 14px;
@@ -71,15 +71,15 @@
     width: 100%;
   }
   .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 0px;
   }
   .col-sm-2 {
     width: 16.66666667%;
   }
-  mat-form-field {
-    width: 60%;
-    font-size: 13px;
-  }
+  // mat-form-field {
+  //   width: 60%;
+  //   font-size: 13px;
+  // }
 }
 
 @media screen and (max-width: 512px) {

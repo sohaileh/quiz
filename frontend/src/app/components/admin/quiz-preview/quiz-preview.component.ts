@@ -139,7 +139,7 @@ export class QuizPreviewComponent implements OnInit {
         this.responseSubmitted = true;
         // this.redirectTime = interval(1000);
         // this.redirect();
-        this.router.navigate(['/session-expired'])
+        this.router.navigate([`/thank-you/${this.quizId}`])
       },
       error: (error) => {
         this.submitting = false;
@@ -147,7 +147,7 @@ export class QuizPreviewComponent implements OnInit {
       },
       complete: () => {
         // this.openSessionExpired();
-        this.router.navigate(['/session-expired'])
+        this.router.navigate([`/thank-you/${this.quizId}`])
       },
     });
   }

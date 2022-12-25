@@ -5,7 +5,6 @@ import Swal from 'sweetalert2';
 import { AdminService } from '../../admin/services/admin.service';
 import { AuthService } from '../../auth/services/auth.service';
 import { QuizService } from '../services/quiz.service';
-import { DialogueMessageComponent } from '../dialogue-message/dialogue-message/dialogue-message.component';
 import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-register-quiz',

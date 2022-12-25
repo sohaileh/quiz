@@ -52,7 +52,10 @@ mat-dialog-content{
   position: relative;
   left: 10px;
 }
-
+.editor{
+  width:71.6vw !important;
+  margin-left: 26px;
+}
 @media screen and (max-width:562px) {
   mat-dialog-content{
     max-height: 70vh !important;
@@ -85,7 +88,8 @@ mat-dialog-content{
    
    }
    .editor{
-    width: 70vw;
+    width: 70vw !important;
+    margin-left: 0px;
   }
   
 }

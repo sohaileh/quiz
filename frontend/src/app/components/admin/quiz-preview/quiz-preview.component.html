@@ -1,11 +1,24 @@
 <div class="header" *ngIf="router.url.includes('admin')">
-  <div class="title h4 mt-3">{{ quizTitle }}</div>
+  <div class="title h4 mt-3">
+    {{ quizTitle }}
+  </div>
 </div>
 
 <div class="attempt-header" *ngIf="router.url.includes('student')">
-  <div class="container h4 mt-3">{{ quizTitle }}</div>
+    
+  <div class="container-fluid h4 mt-3">
+    <div class="d-flex">
+      <div class="inline-block">
+      <img src="../../../../assets/images/logo2.png" alt="quiz-image" width="70px" height="40px">
+      </div>
+      <div class="inline-block mt-1  ml-5">
+      {{ quizTitle }}
+      </div>
+    </div>
+    
+  
+  </div>
 </div>
-
 <div class="h-100" *ngIf="totalQuestions && !responseSubmitted">
   
   <div class="container content h-100">

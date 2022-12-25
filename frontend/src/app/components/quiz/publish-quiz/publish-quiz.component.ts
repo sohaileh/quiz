@@ -64,7 +64,7 @@ export class PublishQuizComponent implements OnInit {
    this.show=true;
   }
   publishQuiz() {
-    this.url = `localhost:4200/register-quiz/${this.id}`;
+    this.url = `localhost:4200/signin-quiz/${this.id}`;
   }
   openDialog(event: any) {
     if (event.target.checked == true) {
