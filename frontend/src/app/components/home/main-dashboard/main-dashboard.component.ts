@@ -2,22 +2,21 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
 import { HomeService } from "../services/home.service";
 import { Router } from "@angular/router";
 import { MediaObserver, MediaChange } from "@angular/flex-layout";
-import { Observable, Subscription } from "rxjs";
+import {Subscription } from "rxjs";
 import { PageEvent } from "@angular/material/paginator";
-import { MatPaginator } from "@angular/material/paginator";
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { MatDialog} from "@angular/material/dialog";
 import { QuizInfoComponent } from "../../quiz/quiz-info/quiz-info.component";
 import { AuthService } from "../../auth/services/auth.service";
-import Swal from "sweetalert2";
 import { MatTableDataSource } from "@angular/material/table";
 import { QuizTitleComponent } from "../../quiz/quiz-title/quiz-title.component";
 import { QuizService } from "../../quiz/services/quiz.service";
 import { RenameQuizTitleComponent } from "../../quiz/rename-quiz-title/rename-quiz-title.component";
+import { DeleteDialogComponent } from "../../shared/delete-dialog/delete-dialog.component";
+import { ToasterNotificationsService } from "../../shared/services/toaster-notifications.service";
 
 export interface quizInterface {
   quizTitle: string;
   status: string;
-
 }
 @Component({
   selector: "app-main-dashboard",
@@ -39,7 +38,7 @@ export class MainDashboardComponent implements OnInit {
   pageSlice: any = [];
   ItemsPerPage: any = 3;
   handleDescriptionView: boolean = false;
-  displayedColumns: string[] = ['quizTitle', 'status', 'preview', 'action'];
+  displayedColumns: string[] = ['quizTitle', 'status', 'preview', 'analyze', 'action'];
   dataSource = new MatTableDataSource<quizInterface>(this.quizDetails);
   organizationId:any={}
   selectedRowIndex=-1
@@ -52,6 +51,7 @@ export class MainDashboardComponent implements OnInit {
     public mediaObserver: MediaObserver,
     public dialog: MatDialog,
     private quizservice: QuizService,
+    private ToasterNotificationsService:ToasterNotificationsService,
   ) { }
 
   ngOnInit(): void {
@@ -177,7 +177,7 @@ export class MainDashboardComponent implements OnInit {
 
   openQuizTitle(): void {
     let dialogRef = this.dialog.open(QuizTitleComponent, {
-      width: '250px',
+      width: '400px',
       position: {
         top: '60px',
       }
@@ -186,28 +186,40 @@ export class MainDashboardComponent implements OnInit {
   }
 
   deleteQuiz(quiz: any) {
-    const confirmDelete = confirm('Are you sure you want to delete this quiz ')
-    if (confirmDelete) {
-      this.homeService.deleteQuiz(quiz).subscribe((res => {
-        if (res) {
-          this.getOrganizationQuizzes()
-        }
-
-      }))
-
-    }
-  }
-
-
-  renameQuizTitle(quiz: any) {
-    let dialogRef = this.dialog.open(RenameQuizTitleComponent, {
-      width: '250px',
+    let deleteDialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '400px',
       position: {
         top: '60px',
       },
       data: quiz,
 
     });
+    deleteDialogRef.afterClosed().subscribe(result => {
+      if(result)
+      {
+          this.getOrganizationQuizzes();
+          this.ToasterNotificationsService.showSuccess("user deleted successfully !!", "Title",);
+
+
+      }
+    
+      
+    })
+    
+  }
+
+
+  renameQuizTitle(quiz: any) {
+    let dialogRef = this.dialog.open(RenameQuizTitleComponent, {
+      width: '400px',
+      position: {
+        top: '60px',
+      },
+      data: quiz,
+
+    }
+    );
+    
   }
 
 
@@ -234,7 +246,6 @@ preview(quiz){
   localStorage.setItem('quizId',quizId)
   this.router.navigate([`/admin/quiz/quiz-preview/${quizId}`])
 }
-
 
 
 }

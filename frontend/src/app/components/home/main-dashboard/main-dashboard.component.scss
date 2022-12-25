@@ -43,14 +43,21 @@ mat-card img {
 
 @media screen and(max-width:768px)  {
   mat-table{
-    font-size:10px;
+    font-size:8px;
     text-align: center;
+
+    mat-header-cell{
+      font-weight: 400;
+      font-size:9px
+    }
   mat-cell{
-    font-size:9px;
+    font-size:6px;
     text-align: center;
   span{
-   font-size:9px;
+   font-size:8px;
+   margin-left:1px;
   }
+
 
   }
   .dropdown{
@@ -110,11 +117,11 @@ mat-card-content{
 
 mat-table{
  background-color:white;
- border-style:double;
  border-color: lightgrey;
+ border-style:double;
 }
 .h{
-  margin-left: 35%;
+  margin-left: 40%;
 }
 mat-header-cell{
   font-weight: 400;
@@ -126,5 +133,13 @@ mat-header-cell{
   padding-right: 4%;
   padding-top: 0;
   padding-bottom: 0;
+
+}
+.preview
+{
+ background-color: #f0f0f0!important;
+ height: 30px !important;
+ font-size:12px;
+
 
 }

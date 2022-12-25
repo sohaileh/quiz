@@ -3,6 +3,8 @@ import { MatTableDataSource } from "@angular/material/table";
 import { Router } from "@angular/router";
 import { AdminService } from "../../services/admin.service";
 import { SelectionModel } from "@angular/cdk/collections";
+import { DeleteDialogComponent } from "src/app/components/shared/delete-dialog/delete-dialog.component";
+import { MatDialog} from "@angular/material/dialog";
 
 export interface usersInterface {
   firstName: string;
@@ -40,7 +42,7 @@ export class AddUsersPageComponent implements OnInit {
   dataSource = new MatTableDataSource<usersInterface>(this.userDetails);
   selection = new SelectionModel<usersInterface>(true, []);
 
-  constructor(private router: Router, private adminService: AdminService) {}
+  constructor(private router: Router, private adminService: AdminService,private dialog:MatDialog) {}
 
   ngOnInit(): void {
     this.userId = localStorage.getItem("userId");
@@ -95,10 +97,21 @@ export class AddUsersPageComponent implements OnInit {
   }
 
   deleteUser(user: any) {
-    this.adminService.deleteUser(user).subscribe((res: any) => {
-      if (res) {
-        this.getLoggedUser();
-      }
-    });
+
+let deleteDialogRef = this.dialog.open(DeleteDialogComponent, {
+  width: '400px',
+  position: {
+    top: '60px',
+  },
+  data: user,
+
+});
+deleteDialogRef.afterClosed().subscribe(result => {
+  if(result)
+  {
+    this.getLoggedUser();
   }
+})
+
+}
 }

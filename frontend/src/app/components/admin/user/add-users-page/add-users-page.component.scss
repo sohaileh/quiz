@@ -39,34 +39,46 @@
 
 @media screen and(max-width:768px)  {
   .bulk{
-    font-size: 9px;
-    height: 20px;
+    font-size: 7px;
+    height: 10px;
     font-weight: 400;
 
     
   }
   mat-table{
-    font-size:10px;
+    font-size:8px;
     text-align: center;
     mat-header-cell{
-      font-size:6px;
-      text-align: start;
-
+      font-weight: 400;
+      font-size:8px
     }
-  mat-cell{
-    font-size:6px;
-    text-align: center;
+      mat-cell{
+    font-size:7px;
+    font-weight: 400;
+     text-align: center;
+     span{
+      font-size:8px;
+      margin-left:1px;
+     }
+      }
     mat-checkbox{
       width:3px;
       
     }
-
-  }
+  
+    
   
   
   }
 
+ 
+  .create-button{
+    font-size:7px;
+    font-weight: 400;
+    width: 60px;
 
+
+  }
 }
 
 .header{

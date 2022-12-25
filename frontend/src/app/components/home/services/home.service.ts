@@ -23,9 +23,5 @@ export class HomeService {
   }
 
 
-  deleteQuiz(quiz:any)
-  {
-    return this.http.post(`${this.serverUrl}quiz/delete-quiz`,quiz)
-  }
 
 }
