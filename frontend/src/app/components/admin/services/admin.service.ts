@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { HttpClient, HttpParams } from "@angular/common/http";
-import { BehaviorSubject, Observable, shareReplay } from "rxjs";
+import { BehaviorSubject, Observable, shareReplay, tap } from "rxjs";
 
 
 @Injectable({
@@ -12,6 +12,7 @@ export class AdminService {
   serverUrl = environment.serverURL;
   quizQuestions$= new BehaviorSubject(null)
  menu$ = new BehaviorSubject<boolean>(false)
+ organizationUsers$ = new BehaviorSubject<number>(0) 
 
 
  constructor(private http: HttpClient) {}
@@ -49,14 +50,16 @@ export class AdminService {
   }
 
   getOrganizationQuizzes(organizationId: any) {
-    return this.http.post(`${this.serverUrl}quiz/getQuizzes`, organizationId);
+    return this.http.post(`${this.serverUrl}quiz/getQuizzes`, organizationId)
   }
 
   assignQuizs(userModel: any) {
     return this.http.post(`${this.serverUrl}auth/assign-quizs`, userModel);
   }
   getOrganizationUsers(userModel: any) {
-    return this.http.post(`${this.serverUrl}auth/get-organization-users`, userModel);
+    return this.http.post(`${this.serverUrl}auth/get-organization-users`, userModel).pipe(
+      tap((data:any)=>this.organizationUsers$.next(data))
+    );
   }
 
   getConfigurationDetails(quizId){

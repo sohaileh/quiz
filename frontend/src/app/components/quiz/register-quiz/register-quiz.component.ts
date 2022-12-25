@@ -6,6 +6,7 @@ import { AdminService } from '../../admin/services/admin.service';
 import { AuthService } from '../../auth/services/auth.service';
 import { QuizService } from '../services/quiz.service';
 import { MatDialog } from '@angular/material/dialog';
+import { InfoDialogComponent } from '../../shared/info-dialog/info-dialog.component';
 @Component({
   selector: 'app-register-quiz',
   templateUrl: './register-quiz.component.html',
@@ -61,7 +62,7 @@ export class RegisterQuizComponent implements OnInit {
     this.submitted = true;
     if (this.registerForm.valid) {
       this.registerModel=this.registerForm.value;
-      this.registerModel.role="Student";
+      this.registerModel.role="student";
       this.registerModel.attemptQuizes=this.attemptQuizes;
       this.registerModel.quizId= this.quizId
 
@@ -84,7 +85,10 @@ export class RegisterQuizComponent implements OnInit {
          
         },
         error: (error) => {
-          alert(error.error);
+          this.dialog.open(InfoDialogComponent,{
+              data:error.error,
+              disableClose: true
+          })
         },
         complete: () => {
       

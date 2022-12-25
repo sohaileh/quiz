@@ -5,6 +5,9 @@ import { AdminService } from "../../services/admin.service";
 import { SelectionModel } from "@angular/cdk/collections";
 import { DeleteDialogComponent } from "src/app/components/shared/delete-dialog/delete-dialog.component";
 import { MatDialog} from "@angular/material/dialog";
+import { ConfirmationDialogComponent } from "src/app/components/shared/confirmation-dialog/confirmation-dialog.component";
+import { SharedServiceService } from "src/app/components/shared/services/shared-service.service";
+import { ToasterNotificationsService } from "src/app/components/shared/services/toaster-notifications.service";
 
 export interface usersInterface {
   firstName: string;
@@ -42,7 +45,7 @@ export class AddUsersPageComponent implements OnInit {
   dataSource = new MatTableDataSource<usersInterface>(this.userDetails);
   selection = new SelectionModel<usersInterface>(true, []);
 
-  constructor(private router: Router, private adminService: AdminService,private dialog:MatDialog) {}
+  constructor(private router: Router, private adminService: AdminService,private dialog:MatDialog,private sharedService:SharedServiceService,private toastr:ToasterNotificationsService) {}
 
   ngOnInit(): void {
     this.userId = localStorage.getItem("userId");
@@ -97,21 +100,20 @@ export class AddUsersPageComponent implements OnInit {
   }
 
   deleteUser(user: any) {
-
-let deleteDialogRef = this.dialog.open(DeleteDialogComponent, {
-  width: '400px',
-  position: {
-    top: '60px',
-  },
-  data: user,
-
+const dialogRef= this.dialog.open(ConfirmationDialogComponent,{
+  data:'Are you sure you want to delete this user.'
 });
-deleteDialogRef.afterClosed().subscribe(result => {
-  if(result)
-  {
+dialogRef.afterClosed().subscribe(({ confirmation }) => {
+    if(!confirmation)
+    return
+    this.sharedService.deleteUser(user).subscribe((res)=> {
+      if(res){
     this.getLoggedUser();
-  }
-})
+    this.toastr.showSuccess("User deleted successfully");
+      }
+
+   })
+});
 
 }
 }

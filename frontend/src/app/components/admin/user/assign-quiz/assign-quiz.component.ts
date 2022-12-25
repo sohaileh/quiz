@@ -5,6 +5,8 @@ import { Router } from "@angular/router";
 import { ActivatedRoute } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
 import { AssignQuizDialogComponent } from "../../assign-quiz-dialog/assign-quiz-dialog.component";
+import { InfoDialogComponent } from "src/app/components/shared/info-dialog/info-dialog.component";
+import { ToasterNotificationsService } from "src/app/components/shared/services/toaster-notifications.service";
 
 @Component({
   selector: "app-assign-quiz",
@@ -34,7 +36,8 @@ export class AssignQuizComponent implements OnInit {
     private adminService: AdminService,
     public router: Router,
     private route: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private toatr:ToasterNotificationsService
   ) {}
 
   ngOnInit(): void {
@@ -99,6 +102,10 @@ export class AssignQuizComponent implements OnInit {
 
   saveUserDetails() {
     if (!this.assignQuizForm.valid) {
+      this.dialog.open(InfoDialogComponent,{
+        data:'Please fill all required fields',
+        disableClose: true
+      })
       return;
     }
     this.save();
@@ -106,11 +113,12 @@ export class AssignQuizComponent implements OnInit {
       next: (response) => {
         if (response) {
           this.router.navigate(["/admin/user-dashboard"]);
+        this.toatr.showSuccess('User added successfully')
+
         }
       },
       error: (error) => {
-        console.log(error)
-        alert(error.error.message)
+        this.toatr.showError(error.error.message)
       },
       complete: () => {
         this.assignQuizForm.clearValidators();
@@ -121,6 +129,9 @@ export class AssignQuizComponent implements OnInit {
   editUserDetails() {
     this.save();
     if (!this.assignQuizForm.valid) {
+      this.dialog.open(InfoDialogComponent,{
+        data:'Please fill all required fields correctly'
+      })
       return;
     }
 
@@ -129,9 +140,12 @@ export class AssignQuizComponent implements OnInit {
       next: (reponse) => {
         if (reponse) {
           this.router.navigate(["/admin/user-dashboard"]);
+        this.toatr.showSuccess('User edited successfully')
         }
       },
-      error: (error) => {},
+      error: (error) => {
+        this.toatr.showError(error.error.message)
+      },
       complete: () => {
         this.assignQuizForm.clearValidators();
       },

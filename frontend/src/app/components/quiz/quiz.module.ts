@@ -37,7 +37,6 @@ import { DialogComponent } from './dialog/dialog.component';
 import { CKEditorModule } from 'ng2-ckeditor';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import { DialogueMessageComponent } from './dialogue-message/dialogue-message/dialogue-message.component';
 import { SessionExpiryComponent } from './session-expiry/session-expiry.component';
 @NgModule({
   declarations: [
@@ -55,7 +54,6 @@ import { SessionExpiryComponent } from './session-expiry/session-expiry.componen
     RegisterQuizComponent,
     PublishQuizComponent,
     DialogComponent,
-    DialogueMessageComponent,
     SessionExpiryComponent,
   ],
   imports: [

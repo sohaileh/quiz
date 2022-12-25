@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder } from "@angular/forms";
 import { QuizService } from "../../quiz/services/quiz.service";
+import { ToasterNotificationsService } from "../../shared/services/toaster-notifications.service";
 import { AdminService } from "../services/admin.service";
 
 @Component({
@@ -18,7 +19,8 @@ export class ConfigureComponent implements OnInit {
   constructor(
     private adminService: AdminService,
     public formBuilder: FormBuilder,
-    private quizService: QuizService
+    private quizService: QuizService,
+    private toastr:ToasterNotificationsService
   ) {
     this.adminService.menu$.next(true);
     this.quizId = localStorage.getItem("quizId");
@@ -73,6 +75,7 @@ export class ConfigureComponent implements OnInit {
     this.quizService.configure(this.configureModel).subscribe({
       next: (response: any) => {
         this.adminService.quizQuestions$.next(response)
+        this.toastr.showSuccess("Configuration updated");
       },
       error: (error) => {
         console.log(error.error.message);

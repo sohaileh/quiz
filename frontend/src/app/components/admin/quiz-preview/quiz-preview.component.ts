@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { interval, Observable, Subscription, take, tap } from "rxjs";
 import { SessionExpiryComponent } from "../../quiz/session-expiry/session-expiry.component";
 import { MatDialog } from "@angular/material/dialog";
+import { InfoDialogComponent } from "../../shared/info-dialog/info-dialog.component";
+import { ConfirmationDialogComponent } from "../../shared/confirmation-dialog/confirmation-dialog.component";
 @Component({
   selector: "app-quiz-preview",
   templateUrl: "./quiz-preview.component.html",
@@ -109,8 +111,10 @@ export class QuizPreviewComponent implements OnInit {
           if (this.quizQuestions.length == 0) this.submitStudentResponse();
         },
         error: (error) => {
-          console.log('message',error)
-          alert(error.error.message)
+         this.dialog.open(InfoDialogComponent,{
+          data:error.error.message,
+          disableClose: true
+         })
           this.router.navigate([`/admin/quiz/add-quiz/${this.quizId}`])
         },
         complete: () => {},
@@ -119,14 +123,13 @@ export class QuizPreviewComponent implements OnInit {
   submitStudentResponse() {
     const userId = localStorage.getItem("userId");
     if(!this.quizTimeEnded){
-      const confirmation = confirm(
-        "Are you sure you want to submit your Response."
-      );
-  
-      if (!confirmation) return;
-    }
-    
-    this.submitting = true;
+      const dialogRef= this.dialog.open(ConfirmationDialogComponent,{
+        data:'Are you sure you want to submit your Response.'
+      });
+      dialogRef.afterClosed().subscribe(({ confirmation }) => {
+          if(!confirmation)
+          return
+          this.submitting = true;
     this.finalResponse = {
       quizId: this.quizId,
       userId: userId,
@@ -137,42 +140,35 @@ export class QuizPreviewComponent implements OnInit {
         clearInterval(this.intervalId);
         this.submitting = false;
         this.responseSubmitted = true;
-        // this.redirectTime = interval(1000);
-        // this.redirect();
-        this.router.navigate([`/thank-you/${this.quizId}`])
       },
       error: (error) => {
         this.submitting = false;
        
       },
       complete: () => {
-        // this.openSessionExpired();
-        this.router.navigate([`/thank-you/${this.quizId}`])
+        if(this.router.url.includes('admin')){
+          this.router.navigate(['/home/dashboard'])
+  
+          }else{
+          this.router.navigate([`/thank-you/${this.quizId}`])
+  
+          }
       },
     });
+    
+      }); 
+    }
+    
+    
   }
+
   removeCorrectAnswer(data) {
     data[0].questions.forEach((element) => {
       delete element.correctAnswer;
     });
     return data;
   }
-  // redirect() {
-  //   this.intervalSubscription = this.redirectTime.pipe(take(6)).subscribe({
-  //     next: (resposne) => {
-  //       this.showRedirectTime = this.redirectingIn - resposne;
-  //     },
-  //     error: (error) => {},
-  //     complete: () => {
-  //       this.router.navigate(["/home/dashboard"]);
-  //     },
-  //   });
-  // }
 
-  // redirectToDashboard(){
-  //   this.intervalSubscription.unsubscribe()
-  //   this.router.navigate(["/home/dashboard"]);
-  // }
   timer() {
     this.minutes = this.quizTime;
     this.seconds = this.minutes * 60;
@@ -197,16 +193,5 @@ export class QuizPreviewComponent implements OnInit {
   ngOnDestroy() {
     clearInterval(this.intervalId);
   }
-  // openSessionExpired(){
-   
-  //   // const dialogRef= this.dialog.open(SessionExpiryComponent ,{
-  //   //     width:'900px',
-  //   //     maxHeight:'100%',
-  //   //   disableClose: true,
-     
-  //   //   })
-  //     // dialogRef.afterClosed().subscribe(({Quizzes})=>{
-  //       this.router.navigate(['/'])
-  //     // })
-  // }
+
 }

@@ -3,6 +3,8 @@ import { FormGroup, FormArray, FormBuilder, Validators } from "@angular/forms";
 import { AdminService } from "../services/admin.service";
 import { ThemePalette } from "@angular/material/core";
 import { MatDialog, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { ToasterNotificationsService } from "../../shared/services/toaster-notifications.service";
+import { InfoDialogComponent } from "../../shared/info-dialog/info-dialog.component";
 @Component({
   selector: "app-add-edit-question",
   templateUrl: "./add-edit-question.component.html",
@@ -33,6 +35,7 @@ export class AddEditQuestionComponent implements OnInit {
     private fb: FormBuilder,
     private adminService: AdminService,
     private dialog: MatDialog,
+    private toastr:ToasterNotificationsService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.ckeConfig = {
@@ -112,7 +115,10 @@ export class AddEditQuestionComponent implements OnInit {
 
   removeOption(pos) {
     if(this.correctAnswerIndex==pos){
-      alert('This option is set as correct answer, you cannot delete it.')
+      this.dialog.open(InfoDialogComponent,{
+        data:'This option is set as correct answer, you cannot delete it.',
+        disableClose: true
+      })
         return
       }
     this.options.removeAt(pos);
@@ -154,15 +160,17 @@ export class AddEditQuestionComponent implements OnInit {
         this.answerSelected = false;
         this.correctAnswerIndex=444
         this.totalOptions=0
+        this.maxOptionsLimitReached=false
         this.questionBank.patchValue({
           type: "Choose Question Type",
         });
         this.questionType='Choose Question Type'
+        this.toastr.showSuccess("Question added");
       },
       (error) => {
         this.savingQuestion = false;
         this.answerSelected = false;
-        this.errorMessage = error.error.message;
+        this.toastr.showError(error.error.message);
       }
     );
   }
@@ -213,12 +221,14 @@ export class AddEditQuestionComponent implements OnInit {
         next: (response: any) => {
           this.errorMessage = "";
           this.adminService.quizQuestions$.next(response);
+        this.toastr.showSuccess("Question edited");
           this.editingQuestion = false;
+
           this.closeDialogModel();
         },
         error: (error) => {
           this.editingQuestion = false;
-          this.errorMessage = error.error.message;
+          this.toastr.showError(error.error.message);
         },
         complete: () => {},
       });
@@ -234,14 +244,5 @@ export class AddEditQuestionComponent implements OnInit {
       type: "Choose Question Type",
     });
   }
-  // saveQuiz() {
-  //   this.dialog.closeAll();
-  //   this.options.clear();
-  //   this.questionBank.reset();
-  //   this.answerSelected = false;
-  //   this.questionType = "";
-  //   this.questionBank.patchValue({
-  //     type: "Choose Question Type",
-  //   });
-  // }
+
 }
