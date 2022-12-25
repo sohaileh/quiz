@@ -72,5 +72,8 @@ export class AdminService {
       shareReplay()
     )
   }
-
+  editUserDetails(userModel:any){
+    return this.http.patch(`${this.serverUrl}auth/edit-user-details`,userModel)
+  }
+ 
 }

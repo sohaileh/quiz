@@ -1,8 +1,4 @@
-import {
-  Component,
-  Inject,
-  OnInit,
-} from "@angular/core";
+import { Component, Inject, OnInit } from "@angular/core";
 import { FormGroup, FormArray, FormBuilder, Validators } from "@angular/forms";
 import { AdminService } from "../services/admin.service";
 import { ThemePalette } from "@angular/material/core";
@@ -26,11 +22,13 @@ export class AddEditQuestionComponent implements OnInit {
   quizQuestions = [];
   answer: any;
   errorMessage = "";
-  correctAnswerIndex:any
-  answerSelected=false
-  selectedAnswerIndex:number
-
+  correctAnswerIndex: any;
+  answerSelected = false;
+  selectedAnswerIndex: number;
+  totalOptions: number = 0;
+  maxOptionsLimitReached = false;
   questionId: any = {};
+  responseSaved:boolean
   constructor(
     private fb: FormBuilder,
     private adminService: AdminService,
@@ -56,9 +54,7 @@ export class AddEditQuestionComponent implements OnInit {
       timeLimit: [],
       options: this.fb.array([]),
     });
-    
     if (this.data.question) {
-
       this.questionId = this.data._id;
       this.questionType = this.data.type;
       this.questionBank.patchValue({
@@ -68,14 +64,13 @@ export class AddEditQuestionComponent implements OnInit {
         marks: this.data.marks,
         correctAnswer: this.data.correctAnswer,
         timeLimit: this.data.timeLimit,
-        
       });
       this.correctAnswerIndex = this.data.options.findIndex(
         (option) => option.option === this.data.correctAnswer
       );
-      this.answerSelected=true
-      this.selectedAnswerIndex=this.correctAnswerIndex
-      this.answer=this?.data?.options[this.correctAnswerIndex]?.option
+      // this.answerSelected = true;
+      this.selectedAnswerIndex = this.correctAnswerIndex;
+      this.answer = this?.data?.options[this.correctAnswerIndex]?.option;
       this.questionBank.setControl(
         "options",
         this.setExistigOptions(this.data.options)
@@ -110,12 +105,21 @@ export class AddEditQuestionComponent implements OnInit {
     const questionOptions = this.fb.group({
       option: [""],
     });
-
     this.options.push(questionOptions);
+    this.totalOptions++;
+    if (this.totalOptions == 4) this.maxOptionsLimitReached = true;
   }
 
   removeOption(pos) {
+    if(this.correctAnswerIndex==pos){
+      alert('This option is set as correct answer, you cannot delete it.')
+        return
+      }
     this.options.removeAt(pos);
+    const options = this.questionBank.get('options').value
+      this.correctAnswerIndex = options.findIndex((option)=> option.option === this.answer)
+    this.totalOptions--;
+    this.maxOptionsLimitReached = false;
   }
 
   uploadFile(event: any) {
@@ -138,7 +142,6 @@ export class AddEditQuestionComponent implements OnInit {
     );
     formData.append("marks", this.questionBank.get("marks").value);
     formData.append("correctAnswer", this.answer);
-    this.options.clear();
 
     this.adminService.saveQuestion(formData, this.data).subscribe(
       (response: any) => {
@@ -147,15 +150,18 @@ export class AddEditQuestionComponent implements OnInit {
         this.quizQuestions = response.questionBank;
         this.quizStatus = response.status;
         this.questionBank.reset();
-        this.answerSelected=false
+        this.options.clear();
+        this.answerSelected = false;
+        this.correctAnswerIndex=444
+        this.totalOptions=0
         this.questionBank.patchValue({
           type: "Choose Question Type",
         });
+        this.questionType='Choose Question Type'
       },
       (error) => {
         this.savingQuestion = false;
-        this.answer = "";
-        this.answerSelected=false
+        this.answerSelected = false;
         this.errorMessage = error.error.message;
       }
     );
@@ -164,10 +170,12 @@ export class AddEditQuestionComponent implements OnInit {
   getCorrectAnswer(i, event: any) {
     if (event.checked) {
       this.answer = this.questionBank.get("options").value[i].option;
-      this.answerSelected=true
-      this.selectedAnswerIndex=i
-    }else{
-      this.answerSelected =false
+      // this.answerSelected = true;
+      // this.selectedAnswerIndex = i;
+      this.correctAnswerIndex=i
+    } else {
+      this.answerSelected = false;
+      this.answer=''
     }
   }
 
@@ -180,6 +188,8 @@ export class AddEditQuestionComponent implements OnInit {
         })
       );
     });
+    this.totalOptions = questionOptions.length;
+    if (this.totalOptions == 4) this.maxOptionsLimitReached = true;
     return questionOptions;
   }
   editQuestion() {
@@ -218,20 +228,20 @@ export class AddEditQuestionComponent implements OnInit {
     this.dialog.closeAll();
     this.options.clear();
     this.questionBank.reset();
-    this.answerSelected=false
+    this.answerSelected = false;
     this.questionType = "";
     this.questionBank.patchValue({
       type: "Choose Question Type",
     });
   }
-  saveQuiz() {
-    this.dialog.closeAll();
-    this.options.clear();
-    this.questionBank.reset();
-    this.answerSelected=false
-    this.questionType = "";
-    this.questionBank.patchValue({
-      type: "Choose Question Type",
-    });
-  }
+  // saveQuiz() {
+  //   this.dialog.closeAll();
+  //   this.options.clear();
+  //   this.questionBank.reset();
+  //   this.answerSelected = false;
+  //   this.questionType = "";
+  //   this.questionBank.patchValue({
+  //     type: "Choose Question Type",
+  //   });
+  // }
 }

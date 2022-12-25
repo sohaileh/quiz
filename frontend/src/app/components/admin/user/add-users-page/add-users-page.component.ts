@@ -65,7 +65,6 @@ export class AddUsersPageComponent implements OnInit {
     this.user.organizationId = localStorage.getItem("userId");
     this.adminService.getOrganizationUsers(this.user).subscribe((res: any) => {
       res.push(this.loggedUser);
-      console.log(res.length,"ppp")
       this.dataSource = new MatTableDataSource<usersInterface>(res);
     });
   }

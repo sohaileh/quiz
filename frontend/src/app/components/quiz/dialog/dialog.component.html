@@ -88,8 +88,8 @@
         <button class="btn btn-default"(click)="sendEmailInvitation()"><i class="fa fa-send"></i>send</button>
       </div>
     </div>
-    <div fxFlex fxLayout.gt-sm="row" fxFlex.lt-gt="row">
-      <div class="col-lg-12 editor">
+    <div fxFlex fxLayout.gt-sm="row" class="cke-editor" fxFlex.lt-gt="row">
+      <div class=" editor">
         <ckeditor  formControlName="editor" [config]="ckeConfig"></ckeditor>
       </div>
     </div>

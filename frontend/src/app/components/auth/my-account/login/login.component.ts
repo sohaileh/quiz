@@ -27,8 +27,6 @@ export class LoginComponent implements OnInit {
   userModel: any;
   hide:boolean=true;
   errMessage=''
-  successMessage=''
-  loginErrorMessage=''
   @ViewChild('f') regForm;
   constructor(
     public router: Router,
@@ -83,7 +81,6 @@ export class LoginComponent implements OnInit {
         },
         error: (err: any) => {
           console.log();
-          this.loginErrorMessage=err.error.message
         },
         complete: () => {
           this.authModel = {};
@@ -105,13 +102,11 @@ export class LoginComponent implements OnInit {
       this.authService.register(this.userModel).subscribe({
         next: (response: any) => {
           if (response.statusCode == 201) {
-            this.successMessage='User Registered Successfully'
             
             this.registerForm.reset();
             this.regForm.resetForm();
             this.userModel = {};
           } else {
-            this.successMessage='User Registered Successfully'
             this.regForm.resetForm();
             this.registerForm.reset();
             this.userModel = {};
@@ -120,11 +115,8 @@ export class LoginComponent implements OnInit {
         },
         error: (err: any) => {
           console.log('error',err)
-          this.errMessage=err.error
-          // Swal.fire(err.error);
         },
         complete: () => {
-          this.successMessage=''
           this.registerForm.clearValidators();
         },
       });

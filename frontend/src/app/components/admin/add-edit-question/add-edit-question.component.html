@@ -114,28 +114,32 @@
                     >
                       <div
                         [formGroup]="questionOptions"
-                        class="d-flex flex-grow-1"
+                        class="d-flex flex-grow-1 align-items-baseline"
                       >
                         <input
-                          class="form-control mr-1"
+                          class="form-control mr-3"
                           type="text"
                           formControlName="option"
                           name="option"
                           appFormErrorMsg
                           minlength="1"
                         />
-                        <div class="d-flex align-items-center">
+                        <div class="d-flex ">
                           <mat-checkbox
-                          [disabled]="answerSelected && selectedAnswerIndex !== i "
+                          color="primary"
+                            [checked]=" correctAnswerIndex == i "
                             class="example-margin"
                             (change)="getCorrectAnswer(i, $event)"
                           >
                             Correct
                           </mat-checkbox>
-                          <i
-                            class="fa fa-times margin ml-2 fa-lg icon text-danger cursor"
+                          <div>
+                            <i
+                            class="fa fa-times  ml-2   text-danger cursor"
                             (click)="removeOption(i)"
                           ></i>
+                          </div>
+                         
                         </div>
                       </div>
                       <hr />
@@ -146,9 +150,10 @@
               <div class="form-group d-flex" ngClass.lt-sm="d-flex flex-column">
                 <label class="col-sm-2 p-0" fxHide.lt-sm="true"></label>
                 <button
-                  class="btn"
+                  class="button btn"
                   ngClass.lt-sm="w-50"
                   (click)="addOptions()"
+                  [disabled]="maxOptionsLimitReached"
                 >
                   Add options
                 </button>
@@ -159,18 +164,18 @@
     <mat-error class="mr-sm-3 mb-2 mb-md-0  alert alert-danger  p-2" *ngIf="errorMessage">{{errorMessage}}</mat-error>
     <button
       type="button"
-      class=" btn mb-2 mb-md-0"
+      class=" btn btn-light mb-2 mb-md-0"
      (click)="closeDialogModel()"
     >
       Cancel
     </button>
 
-    <button type="button" [disabled]="savingQuestion" class="btn ml-1 mb-2 mb-md-0" (click)="addQuestion()">
+    <button type="button" [disabled]="savingQuestion" class="btn button ml-1 mb-2 mb-md-0" (click)="addQuestion()">
      {{savingQuestion?'Saving...':'Save and Add Another'}}
     </button>
-    <button type="button"  class="btn ml-1 mb-2 mb-md-0" (click)="saveQuiz()">
+    <!-- <button type="button"  class="btn button  ml-1 mb-2 mb-md-0" (click)="saveQuiz()">
      Save
-     </button>
+     </button> -->
   </mat-card-actions>
  
  
@@ -198,8 +203,8 @@
     >
     <div class="col-lg-4">
       <select
-        class="form-control question-type"
-        ngClass.lt-md="w-50"
+        class="form-control"
+        ngClass.lt-sm="w-50"
         id="exampleFormControlSelect1"
         formControlName="type"
         (change)="setQuestionType($event.target.value)"
@@ -215,7 +220,7 @@
       </select>
     </div>
     <div
-      class="col-lg-3 d-flex mt-2 mt-lg-0 justify-content-between align-items-baseline p-0 mr-2"
+      class="col-lg-3 d-flex  t-2 mt-lg-0 justify-content-between align-items-baseline p-0 mr-2"
     >
       <label class="control-label mr-1 font-weight-bold">Time</label>
       <input
@@ -289,29 +294,31 @@
                   >
                     <div
                       [formGroup]="questionOptions"
-                      class="d-flex flex-grow-1"
+                      class="d-flex flex-grow-1 align-items-baseline"
                     >
                       <input
-                        class="form-control mr-2"
+                        class="form-control mr-3"
                         type="text"
                         formControlName="option"
                         name="option"
                         appFormErrorMsg
                         minlength="1"
                       />
-                      <div class="d-flex align-items-center">
+                      <div class="d-flex">
                         <mat-checkbox
+                          color="primary"
                           class="example-margin"
-                          [disabled]="answerSelected && selectedAnswerIndex !== i "
                           [checked]="correctAnswerIndex==i"
                           (change)="getCorrectAnswer(i, $event)"
                         >
                           Correct
                         </mat-checkbox>
-                        <i
-                          class="fa fa-times margin ml-2 fa-lg icon text-danger cursor"
+                        <div>
+                          <i
+                          class="fa fa-times ml-2  text-danger cursor"
                           (click)="removeOption(i)"
                         ></i>
+                        </div>
                       </div>
                     </div>
                     <hr />
@@ -322,8 +329,9 @@
             <div class="form-group d-flex" ngClass.lt-sm="d-flex flex-column">
               <label class="col-sm-2 p-0" fxHide.lt-sm="true"></label>
               <button
-                class="btn"
+                class="button btn"
                 ngClass.lt-sm="w-50"
+                [disabled]="maxOptionsLimitReached"
                 (click)="addOptions()"
               >
                 Add options
@@ -336,13 +344,13 @@
     <mat-error class="mr-sm-3 mb-2 mb-md-0  alert alert-danger  p-2" *ngIf="errorMessage">{{errorMessage}}</mat-error>
     <button
       type="button"
-      class="btn mb-2 mb-md-0 "
+      class="btn btn-light mb-2 mb-md-0 "
      (click)="closeDialogModel()"
     >
       Cancel
     </button>
 
-    <button type="button" class="btn ml-1 mb-2 mb-md-0" [disabled]="editingQuestion" (click)="editQuestion()">
+    <button type="button" class="btn button ml-1 mb-2 mb-md-0" [disabled]="editingQuestion" (click)="editQuestion()">
       {{editingQuestion?'Editing...':'Edit'}}
     </button>
   </mat-card-actions>

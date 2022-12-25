@@ -21,7 +21,7 @@ mat-card-actions{
   margin-bottom: 0;
 
 }
-  .btn {
+  .button {
   
     background-color: #268e9b;
     border: none;
@@ -42,6 +42,12 @@ mat-card-actions{
       width: 80%;
     }
     
+  }
+
+  @media only  screen and (max-width:629px){
+    .question-type{
+      width:100%
+    }
   }
 
   @media only  screen and (max-width:991px) and (min-width:958px) {

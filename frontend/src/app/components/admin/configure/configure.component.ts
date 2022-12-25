@@ -118,20 +118,9 @@ export class ConfigureComponent implements OnInit {
     this.adminService.getConfigurationDetails(this.quizId).subscribe({
        next:(response:any)=>{
         const configurationDetails= response
+        configurationDetails.quizId=this.quizId
         console.log('configuration',configurationDetails)
-        this.configureForm.patchValue({
-          quizTitle:configurationDetails.quizTitle,
-          per_check:configurationDetails.per_check,
-          questionPerPage:configurationDetails.questionPerPage,
-          whole_check:configurationDetails.whole_check,
-          time_check:configurationDetails.time_check,
-          status:configurationDetails.status,
-          quizTimeLimit:configurationDetails.quizTimeLimit,
-          maxAttempts:configurationDetails.maxAttempts,
-          retake_check:configurationDetails.redirect_check,
-          questionSequence:configurationDetails.questionSequence,
-          timeLimitPerQuestion:configurationDetails.timeLimitPerQuestion
-        })
+        this.configureForm.patchValue(configurationDetails)
        }
     })
   }

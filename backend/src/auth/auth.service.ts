@@ -16,7 +16,11 @@ export class AuthService {
     private readonly organizationModelDto: Model<OrganizationDto>,
     private readonly jwtService: JwtService,
   ) {}
-
+  async generateHashedPassword(password) {
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(password, salt);
+    return hashedPassword;
+  }
   async login(authModel) {
     try {
       let payload;
@@ -61,10 +65,8 @@ export class AuthService {
       if (userExists)
         throw new HttpException('User Exists', HttpStatus.BAD_REQUEST);
 
-      const salt = await bcrypt.genSalt();
       const password = userModel.password;
-      const hashedPassword = await bcrypt.hash(password, salt);
-      userModel.password = hashedPassword;
+      userModel.password = await this.generateHashedPassword(password);
 
       const newUser = new this.userModelDto(userModel);
       newUser.save();
@@ -134,23 +136,24 @@ export class AuthService {
       const userExists = await this.userModelDto.exists({
         emailAddress: emailAddress,
       });
-
-      if (!userExists) {
-        const salt = await bcrypt.genSalt();
+      if(userExists)
+      throw new HttpException('User Exists', HttpStatus.BAD_REQUEST);
+     
         const password = userModel.password;
-        const hashedPassword = await bcrypt.hash(password, salt);
-        userModel.password = hashedPassword;
+        userModel.password = await this.generateHashedPassword(password);
 
         const newUser = new this.userModelDto(userModel);
         newUser.save();
         return newUser;
-      } else {
-        const quizAssigned = await this.userModelDto.updateOne(
-          { emailAddress: emailAddress },
-          {$set:{'assignedQuizzes':userModel.assignedQuizzes}}
-        );
-        return ;
-      }
+    
+      // } else {
+      //   const quizAssigned = await this.userModelDto.updateOne(
+      //     { emailAddress: emailAddress },
+      //     { $set: { assignedQuizzes: userModel.assignedQuizzes } },
+      //   );
+      //   return;
+      // }
+   
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
@@ -176,10 +179,30 @@ export class AuthService {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
   }
-  async getUserDetails(userId){
-    const {id}= userId
-    const userDetails = await this.userModelDto.findOne({_id:id},{password:0,organizationId:0})
-    
-    return userDetails
+  async getUserDetails(userId) {
+    try {
+      const { id } = userId;
+      const userDetails = await this.userModelDto.findOne(
+        { _id: id },
+        { password: 0, organizationId: 0 },
+      );
+      return userDetails;
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
+  }
+  async editUserDetails(userModel: any) {
+    try {
+      const { userId } = userModel;
+
+      delete userModel.password
+      const updateUser = await this.userModelDto.updateOne(
+        { _id: userId,role:'student'},
+        userModel,
+      );
+      return;
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
   }
 }

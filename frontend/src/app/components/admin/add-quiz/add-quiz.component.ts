@@ -29,32 +29,27 @@ export class AddQuizComponent implements OnInit {
 
   }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {     
     this.quizId= this.route.snapshot.paramMap.get('id')
+    this.getQuizQuestions();
     this.adminService.quizQuestions$.subscribe({
       next:(response:any)=>{
         this.quizQuestions = response?.questionBank;
         this.quizStatus= response?.status
         this.quizTitle = response?.quizTitle
-        if(this.quizQuestions?.length > 1){
-        this.showButton=true
-        }else{
-        this.showButton=false
-        }
       }
     })
-    this.getQuizQuestions();
+    
 
   }
 
   getQuizQuestions() {
     this.adminService.getQuizQuestions(this.quizId).subscribe({
       next: (response: any) => {
+        // this.adminService.quizQuestions$.next(response)
         this.quizQuestions = response.questionBank;
         this.quizStatus= response.status
         this.quizTitle = response.quizTitle
-        if(this.quizQuestions.length > 1)
-          this.showButton=true
      
       },
       error: (error) => {},
@@ -78,13 +73,8 @@ export class AddQuizComponent implements OnInit {
     return
     this.adminService.deleteQuestion(question,this.quizId).subscribe({
       next: (response: any) => {
+        // this.adminService.quizQuestions$.next(response);
         this.quizQuestions = response.questionBank;
-        if(this.quizQuestions.length > 1){
-        this.showButton=true
-
-        }else{
-          this.showButton=false
-        }
         this.quizStatus = response.status
         this.quizTitle= response.quizTitle
       },

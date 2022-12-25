@@ -77,7 +77,6 @@ export class QuizPreviewComponent implements OnInit {
         next: (response: any) => {
           this.optionSelected = false;
           this.quizDetails=response
-          console.log('quizDetails',this.quizDetails)
           this.quizQuestions = response[0].questions;
           this.quizTitle = response[0].quizTitle;
           this.totalQuizQuestions = response[0].totalQuestions
@@ -138,15 +137,17 @@ export class QuizPreviewComponent implements OnInit {
         clearInterval(this.intervalId);
         this.submitting = false;
         this.responseSubmitted = true;
-        this.redirectTime = interval(1000);
-        this.redirect();
+        // this.redirectTime = interval(1000);
+        // this.redirect();
+        this.router.navigate(['/session-expired'])
       },
       error: (error) => {
         this.submitting = false;
        
       },
       complete: () => {
-        this.openSessionExpired();
+        // this.openSessionExpired();
+        this.router.navigate(['/session-expired'])
       },
     });
   }
@@ -156,22 +157,22 @@ export class QuizPreviewComponent implements OnInit {
     });
     return data;
   }
-  redirect() {
-    this.intervalSubscription = this.redirectTime.pipe(take(6)).subscribe({
-      next: (resposne) => {
-        this.showRedirectTime = this.redirectingIn - resposne;
-      },
-      error: (error) => {},
-      complete: () => {
-        this.router.navigate(["/home/dashboard"]);
-      },
-    });
-  }
+  // redirect() {
+  //   this.intervalSubscription = this.redirectTime.pipe(take(6)).subscribe({
+  //     next: (resposne) => {
+  //       this.showRedirectTime = this.redirectingIn - resposne;
+  //     },
+  //     error: (error) => {},
+  //     complete: () => {
+  //       this.router.navigate(["/home/dashboard"]);
+  //     },
+  //   });
+  // }
 
-  redirectToDashboard(){
-    this.intervalSubscription.unsubscribe()
-    this.router.navigate(["/home/dashboard"]);
-  }
+  // redirectToDashboard(){
+  //   this.intervalSubscription.unsubscribe()
+  //   this.router.navigate(["/home/dashboard"]);
+  // }
   timer() {
     this.minutes = this.quizTime;
     this.seconds = this.minutes * 60;
@@ -196,16 +197,16 @@ export class QuizPreviewComponent implements OnInit {
   ngOnDestroy() {
     clearInterval(this.intervalId);
   }
-  openSessionExpired(){
+  // openSessionExpired(){
    
-    const dialogRef= this.dialog.open(SessionExpiryComponent ,{
-        width:'900px',
-        maxHeight:'100%',
-      disableClose: true,
+  //   // const dialogRef= this.dialog.open(SessionExpiryComponent ,{
+  //   //     width:'900px',
+  //   //     maxHeight:'100%',
+  //   //   disableClose: true,
      
-      })
-      dialogRef.afterClosed().subscribe(({Quizzes})=>{
-        this.router.navigate(['/'])
-      })
-  }
+  //   //   })
+  //     // dialogRef.afterClosed().subscribe(({Quizzes})=>{
+  //       this.router.navigate(['/'])
+  //     // })
+  // }
 }

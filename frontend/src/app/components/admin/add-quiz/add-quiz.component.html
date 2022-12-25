@@ -4,23 +4,22 @@
   <div class="custom-row h-100 w-100 d-flex justify-content-center mb-4">
     <mat-card class="col-12 col-md-8 p-0 pb-4">
       <div class="p-3 rounded quiz-heading d-flex justify-content-between">
-        <span
-          ><span class="body font-weight-bold body ">Quiz: </span>
-          <span class="body text-secondary">{{quizTitle}}</span>
+        <span class="d-flex align-items-end"
+          ><span class="body font-weight-bold body mr-1 ">Questions: </span>
+          <span class="body text-secondary">{{ quizQuestions?.length}}</span>
         </span>
         <span
-          ><span class="body font-weight-bold">Status: </span>
-          <span class="body text-secondary">{{quizStatus}}</span>
+          >
+            <button
+            class="button btn-sm"
+            (click)="addQuestionDialog()" 
+          >
+          <i class="fa fa-plus  m-1"></i> Add question
+          </button>
+ 
         </span>
       </div>
-        <mat-card-actions class="ml-2" >
-          <button
-          class="btn"
-          (click)="addQuestionDialog()" 
-        >
-          Add question
-        </button>
-        </mat-card-actions>
+       
       <div class="d-flex flex-column  pt-2" *ngFor="let question of quizQuestions;let i=index">
         <mat-card-content class="ml-2 ml-md-3 mt-2 mr-2">
           <div
@@ -28,7 +27,7 @@
           >
            <div class="d-flex align-items-baseline ">
             <div class="font-weight-bold mr-1 body">Q{{i+1}}.</div>
-            <div  class="font-weight-bold flex-space h5" [innerHTML]="question.question | sanitizedHtml"></div>
+            <div  class="flex-space h5" [innerHTML]="question.question | sanitizedHtml"></div>
 
            </div>
             <span class="text-secondary mb-3 ml-auto ">
@@ -60,16 +59,6 @@
         </mat-card-content>
         <hr />
       </div>
-
-      <mat-card-actions class="mt-4 ml-2" *ngIf="showButton">
-        <button
-          class="btn"
-          (click)="addQuestionDialog()"
-         
-        >
-          Add question
-        </button>
-      </mat-card-actions>
     </mat-card> 
   </div>
 </div>

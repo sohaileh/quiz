@@ -16,9 +16,9 @@
                             </li>
                             <!-- <li><a href="">Grading</a> -->
                             <!-- </li> -->
-                            <li routerLinkActive="active"><a [routerLink]="['/admin/quiz/result']">Results</a>
+                            <li routerLinkActive="active"><a [routerLink]="['/admin/quiz/result',quizId]">Results</a>
                             </li>
-                            <li><a href="">Certificate </a></li>
+                            <li><a>Certificate </a></li>
                             <!-- <li><a href="">Notifications </a></li> -->
 
                         </ul>
@@ -65,10 +65,10 @@
                                 <!-- <button class="btn btn-success">Set time
                                 limits</button> -->
                                 <input value="" class="form-control TimeLimit" type="text" maxlength="5"
-                                    placeholder="hh:mm" formControlName="quizTimeLimit">
+                                    placeholder="mm" formControlName="quizTimeLimit">
                             </div>
                             <p class="help-block">
-                                Set time limit for whole quiz
+                                Set time limit for whole quiz in minutes
                             </p>
                         </div>
                     </div>

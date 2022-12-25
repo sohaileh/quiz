@@ -9,12 +9,12 @@
 <div class="h-100" *ngIf="totalQuestions && !responseSubmitted">
   
   <div class="container content h-100">
-    <div class="time d-flex justify-content-center justify-content-sm-end" *ngIf="quizDetails[0].time_check || quizDetails[0].whole_check ">
+    <div class="time d-flex justify-content-center justify-content-sm-end" >
      <div class="d-flex flex-column">
       <div *ngIf="router.url.includes('admin')">
         <button class="btn btn-sm"[routerLink]="['/home/dashboard']">Stop preview</button>
       </div>
-      <div>
+      <div *ngIf="quizDetails[0].time_check || quizDetails[0].whole_check ">
           {{ minutes }}:{{ remainSeconds }}
         
       </div>

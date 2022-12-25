@@ -8,12 +8,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class SessionExpiryComponent implements OnInit {
 
-  constructor( @Inject(MAT_DIALOG_DATA) private data: any,private dialogRef: MatDialogRef<SessionExpiryComponent>) { }
+  constructor( ) { }
 
   ngOnInit(): void {
   }
-  closeDialog(){
-    this.dialogRef.close({result:true});
-  }
+  // closeDialog(){
+  //   this.dialogRef.close({result:true});
+  // }
 
 }
