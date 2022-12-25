@@ -2,9 +2,8 @@ import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { HttpClient } from "@angular/common/http";
 // import { BehaviorSubject, Observable, of, pipe } from "rxjs";
-import {tap } from "rxjs/operators";
-import { BehaviorSubject, pipe,Observable, of} from "rxjs";
- 
+import { tap } from "rxjs/operators";
+import { BehaviorSubject, pipe, Observable, of } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -19,12 +18,39 @@ export class QuizService {
   userInfo: any = {};
   certificateDetails: any = {};
   organization: any = {};
-  teamsEntered = new BehaviorSubject(null)
-  public newQuiz$= new BehaviorSubject<any>({})
-
-
-
-
+  teamsEntered = new BehaviorSubject(null);
+  public newQuiz$ = new BehaviorSubject<any>({});
+  data: any[];
+  getData() {
+    this.data = [
+      {
+        id: "Welcome",
+        message: "Welcome to quiz",
+        terms: [
+          {
+            key: 1,
+            value:
+              "An individual is permitted to participate in the Quiz's if assigned.",
+          },
+          {
+            key: 2,
+            value:
+              "Discovery/detection/noticing of use of any unfair/spurious means/malpractices, including but not limited to impersonation, double participation etc. during the participation in the quiz, will result in the participation being declared null and void and hence, rejected. The organisers of the quiz competition or any agency acting on their behalf reserves the right in this regard.",
+          },
+          {
+            key: 3,
+            value:
+              "Employees, directly or indirectly connected with organising the quiz, are not eligible to participate in the quiz.",
+          },
+          {
+            key: 4,
+            value: "All participants to get Participation Certificate.",
+          },
+        ],
+      },
+    ];
+    return this.data;
+  }
 
   constructor(private http: HttpClient) {}
 
@@ -32,7 +58,7 @@ export class QuizService {
     this.quizTime = quizTime;
   }
 
-  getQuestion(questionNo:any,quizId: any) {
+  getQuestion(questionNo: any, quizId: any) {
     this.quizInfo.questionNo = questionNo;
     this.quizInfo.quizId = quizId;
     this.quizInfo.userId = localStorage.getItem("userId");
@@ -93,7 +119,7 @@ export class QuizService {
     );
   }
 
-  getOrganizationUsers(organizationDetails:any) {
+  getOrganizationUsers(organizationDetails: any) {
     // this.organization.organizerId = organizerId;
     return this.http.post(
       `${this.serverUrl}quiz/get-organization-users`,
@@ -130,64 +156,61 @@ export class QuizService {
     );
   }
 
-
-  getTotalTeamsInQuiz(teamQuizDetail){
-    return this.http.post(`${this.serverUrl}organize/get-total-teams-in-quiz`,teamQuizDetail)
+  getTotalTeamsInQuiz(teamQuizDetail) {
+    return this.http.post(
+      `${this.serverUrl}organize/get-total-teams-in-quiz`,
+      teamQuizDetail
+    );
   }
 
-  enteredQuiz(entererdQuiz){
-    return this.http.post(`${this.serverUrl}quiz/enter-quiz`,entererdQuiz)
+  enteredQuiz(entererdQuiz) {
+    return this.http.post(`${this.serverUrl}quiz/enter-quiz`, entererdQuiz);
   }
 
-  teamToPlayQuiz(teamtoplayquiz)
-  {
-    return this.http.post(`${this.serverUrl}organize/team-To-Play-Quiz`,teamtoplayquiz)
+  teamToPlayQuiz(teamtoplayquiz) {
+    return this.http.post(
+      `${this.serverUrl}organize/team-To-Play-Quiz`,
+      teamtoplayquiz
+    );
   }
 
-
-  getQuestionForTeams (questionNo:any,quizId: any) {
+  getQuestionForTeams(questionNo: any, quizId: any) {
     this.quizInfo.questionNo = questionNo;
     this.quizInfo.quizId = quizId;
     this.quizInfo.userId = localStorage.getItem("userId");
     //  console.log('quizInfo',this.quizInfo)
-    return this.http.post(`${this.serverUrl}quiz/get-question-for-teams`, this.quizInfo);
+    return this.http.post(
+      `${this.serverUrl}quiz/get-question-for-teams`,
+      this.quizInfo
+    );
   }
 
-
-  createQuizTitle(quizTitle:any)
-  {
-    return this.http.post(`${this.serverUrl}quiz/quiz-title`,quizTitle).pipe(
-      tap((res) => 
-      this.newQuiz$.next(res)
-      
-
-      ),
-    )
+  createQuizTitle(quizTitle: any) {
+    return this.http
+      .post(`${this.serverUrl}quiz/quiz-title`, quizTitle)
+      .pipe(tap((res) => this.newQuiz$.next(res)));
   }
 
-  renameQuizTitle(newquizTitle:any)
-  {
-    return this.http.post(`${this.serverUrl}quiz/rename-quiz-title`,newquizTitle).pipe(
-      tap((res)=>this.newQuiz$.next(res))
-    )
-
+  renameQuizTitle(newquizTitle: any) {
+    return this.http
+      .post(`${this.serverUrl}quiz/rename-quiz-title`, newquizTitle)
+      .pipe(tap((res) => this.newQuiz$.next(res)));
   }
-  isQuizAssigned(quizModel:any){
-      return this.http.post(`${this.serverUrl}quiz/is-quiz-assigned`,quizModel)
+  isQuizAssigned(quizModel: any) {
+    return this.http.post(`${this.serverUrl}quiz/is-quiz-assigned`, quizModel);
   }
   configure(quizModel: any) {
-
     console.log(quizModel);
 
-    return this.http
+    return this.http.patch(
+      `${this.serverUrl}quiz/configure-general`,
+      quizModel
+    );
 
-      .patch(`${this.serverUrl}quiz/configure-general`, quizModel)
-
-      // .pipe(tap((res) => this.newQuiz$.next(res)));
-
+    // .pipe(tap((res) => this.newQuiz$.next(res)));
   }
-  sendEmailInvitation(payload:any){
-    console.log(payload)
-    return this.http.post(`${this.serverUrl}quiz/sendEmailInvitation`,payload)
+  sendEmailInvitation(payload: any) {
+    console.log(payload);
+    return this.http.post(`${this.serverUrl}quiz/sendEmailInvitation`, payload);
   }
 }

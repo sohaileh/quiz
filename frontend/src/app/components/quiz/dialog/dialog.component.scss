@@ -20,13 +20,14 @@
   .close-icon:hover {
     transform: rotate(180deg);
   }
+
 mat-divider{
   margin: 15px 0px;
 }
 mat-form-field {
   position: relative;
   left: 8px;
-  width: 61vw;
+  width: 58vw;
   margin-top: -2px !important;
   font-size: 10px;
   input{
@@ -36,10 +37,26 @@ mat-form-field {
 mat-dialog-content{
   max-height: 90%;
   height: 90%;
+  ::-webkit-scrollbar{
+    width: 0;
+    background: transparent;
 }
+}
+.d-flex{
+  max-width: 80%;
+ }
+ .d-inline-block{
+  width: 14%;
+}
+.float_subject{
+  position: relative;
+  left: 10px;
+}
+
 @media screen and (max-width:562px) {
   mat-dialog-content{
     max-height: 70vh !important;
+    
   }
     form{
         margin-left: 0px;
@@ -60,9 +77,9 @@ mat-dialog-content{
     max-width: 80%;
    }
    .d-inline-block{
-    max-width: 14%;
+    width: 18%;
     .float_subject{
-      left: -30px;
+      left: -15px;
     position: relative;
     }
    

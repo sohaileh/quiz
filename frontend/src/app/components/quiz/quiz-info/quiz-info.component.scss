@@ -1,13 +1,42 @@
-.dialog {
-  width: 400px;
-  height: 500px;
-}
+// .dialog {
+//   width: 400px;
+//   height: 500px;
+// }
 
-.first-row {
-  height: 220px;
-  margin: auto auto;
-}
+// .first-row {
+//   height: 220px;
+//   margin: auto auto;
+// }
 
-.button-width {
-  width: 13em;
+// .button-width {
+//   width: 13em;
+// }
+.container-fluid{
+  background-color: lightblue;
+  height:100%;
+  overflow: auto;
+ }
+ .btn{
+  width: 150px;
+  background-color: #268e9b;
+  border: none;
+  outline: none;
+  color: #fff;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 0.5s;
+  margin: 0;
+  width: 130px;
+  height: 41px;
+  font-weight: 600;
+  font-size: 0.8rem;
+ }
+mat-card{
+  overflow: auto;
+}
+@media screen and(max-width:520px) {
+  .container-fluid{
+    background-color: lightblue;
+    height:900px;
+   }
 }

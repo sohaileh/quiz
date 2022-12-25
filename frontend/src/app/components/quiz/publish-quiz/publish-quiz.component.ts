@@ -70,11 +70,12 @@ export class PublishQuizComponent implements OnInit {
     if (event.target.checked == true) {
       event.target.checked = false;
       this.dialog.open(DialogComponent, {
-        width: "100%",
-        height:"95%",
+        width: "80%",maxWidth: '90%',
+        height:"90%",
         data: { callback: this.callBack.bind(this), defaultValue: this.url },
       });
     }
+    
   }
  
   callBack(name: string) {
@@ -83,4 +84,5 @@ export class PublishQuizComponent implements OnInit {
   ngOnDestroy(){
     this.adminService.menu$.next(false)
   }
+  
 }

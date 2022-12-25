@@ -3,7 +3,8 @@ import { AdminService } from "../services/admin.service";
 import { ThemePalette } from "@angular/material/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { interval, Observable, Subscription, take, tap } from "rxjs";
-
+import { SessionExpiryComponent } from "../../quiz/session-expiry/session-expiry.component";
+import { MatDialog } from "@angular/material/dialog";
 @Component({
   selector: "app-quiz-preview",
   templateUrl: "./quiz-preview.component.html",
@@ -43,7 +44,8 @@ export class QuizPreviewComponent implements OnInit {
   constructor(
     private adminService: AdminService,
     private route: ActivatedRoute,
-    public router: Router
+    public router: Router,
+    private dialog:MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -141,9 +143,11 @@ export class QuizPreviewComponent implements OnInit {
       },
       error: (error) => {
         this.submitting = false;
-        this.router.navigate(['/home/dashboard'])
+       
       },
-      complete: () => {},
+      complete: () => {
+        this.openSessionExpired();
+      },
     });
   }
   removeCorrectAnswer(data) {
@@ -191,5 +195,17 @@ export class QuizPreviewComponent implements OnInit {
   }
   ngOnDestroy() {
     clearInterval(this.intervalId);
+  }
+  openSessionExpired(){
+   
+    const dialogRef= this.dialog.open(SessionExpiryComponent ,{
+        width:'900px',
+        maxHeight:'100%',
+      disableClose: true,
+     
+      })
+      dialogRef.afterClosed().subscribe(({Quizzes})=>{
+        this.router.navigate(['/'])
+      })
   }
 }

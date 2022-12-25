@@ -1,4 +1,4 @@
-<div
+<!-- <div
   class="conatiner-fluid dialog d-flex flex-column w-100 align-items-center h-100"
 >
   <mat-dialog-content>
@@ -57,13 +57,13 @@
         <p class="text-secondary">
           7. All participants to get Participation Certificate.
         </p>
-        <!-- <p class="text-secondary">
+        <p class="text-secondary">
           8. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione ab
           veritatis sit placeat, omnis nemo quaerat et tempore recusandae. Est,
           et. Nam, consectetur enim ut similique, repellat laborum iusto
           reprehenderit, molestiae ea illum soluta ex. Blanditiis sint molestiae
         </p> -->
-      </div>
+      <!-- </div> -->
       <!-- <div
         class="row d-flex flex-column justify-content-center align-items-center w-100"
       >
@@ -72,7 +72,7 @@
           Start Quiz
         </button>
       </div> -->
-      <div  fxLayout="row" fxLayoutAlign="end end" dir="ltr" fxLayoutGap="60px">
+      <!-- <div  fxLayout="row" fxLayoutAlign="end end" dir="ltr" fxLayoutGap="60px">
         <mat-checkbox [(ngModel)]="checked">I accept the Terms & Conditions</mat-checkbox>
         <button mat-raised-button [disabled]="!checked" class="btn btn-info"
             type="submit" (click)="playQuiz()">Start Quiz</button>
@@ -80,4 +80,31 @@
 
     </div>
   </mat-dialog-content>
+</div> --> 
+<div class="container-fluid d-flex justify-content-center align-items-center">
+  <div class="left-sidebar-wrapper  details-wrapper sec-padding related-Items"  fxLayoutAlign="center center">
+      <div class="sidebar-wrapper" fxLayoutAlign="center center">
+
+         
+              <mat-card class="col-lg-10 card ">
+                
+                      <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+                          <img src="assets/images/welcome.jpg" width="100px" height="100px">
+                      </div>
+                      <div class="col-lg-12 col-md-12 col-sm-12 mt-3 text-center">
+                          <h4>{{message}}</h4>
+                      </div>
+                      <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+                          <ul *ngFor="let data of data[0].terms;">
+                            <li >{{data.value}}</li>
+                          </ul>
+                      </div>
+                      <div class="col-lg-12 col-md-12 col-sm-12 mb-2 text-center">
+                          <button mat-raised-button class="btn" (click)="attemptQuiz()">continue</button>
+                      </div>
+                
+              </mat-card>
+         
+      </div>
+  </div>
 </div>

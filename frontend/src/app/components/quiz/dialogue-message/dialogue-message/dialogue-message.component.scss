@@ -1,0 +1,21 @@
+.spacer{
+    flex:1 1 auto ;
+}
+::-webkit-scrollbar{
+    width: 0;
+    background: transparent;
+}
+.btn{
+    background-color: #268e9b;
+    border: none;
+    outline: none;
+    color: #fff;
+    text-transform: uppercase;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: 0.5s;
+    height: 36px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+}
