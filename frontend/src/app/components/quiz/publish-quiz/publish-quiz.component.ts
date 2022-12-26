@@ -30,7 +30,8 @@ export class PublishQuizComponent implements OnInit {
     public dialog: MatDialog,
     private adminService: AdminService,
     private snackBar: MatSnackBar,
-    private clipboard: Clipboard
+    private clipboard: Clipboard,
+
   ) {
     this.publishForm = fb.group({
       quizLink: new FormControl(false),
@@ -64,7 +65,7 @@ export class PublishQuizComponent implements OnInit {
    this.show=true;
   }
   publishQuiz() {
-    this.url = `localhost:4200/signin-quiz/${this.id}`;
+     this.url=`${document.location.origin}/signin-quiz/${this.id}`
   }
   openDialog(event: any) {
     if (event.target.checked == true) {
