@@ -1,5 +1,5 @@
-<mat-card class="w-100  h-100  layout">
-  <mat-card-content class="p-4 h-100 w-100">
+<mat-card class="w-100  h-100  layout p-0 p-md-3 ">
+  <mat-card-content class="p-md-4 mt-3 mt-md-0 h-100 w-100">
 
     <div class=" d-flex   pl-2 pr-2 justify-content-between header  rounded-top" fxLayoutAlign="space-between center" fxLayoutGap="5px"
       fxLayout.xs="row" fxLayout.sm="row" fxLayout="row">
@@ -21,7 +21,7 @@
           <ng-container matColumnDef="quizTitle">
             <mat-header-cell *matHeaderCellDef>Quiz</mat-header-cell>
 
-            <mat-cell *matCellDef="let element" (click)="createQuizQuestion(element)" class="text-primary"> {{element?.quizTitle}} </mat-cell>
+            <mat-cell *matCellDef="let element" (click)="createQuizQuestion(element)" class="text-primary pl-1"> {{element?.quizTitle}} </mat-cell>
           </ng-container>
         </div>
 

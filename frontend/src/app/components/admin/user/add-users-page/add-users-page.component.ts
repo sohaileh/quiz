@@ -101,7 +101,8 @@ export class AddUsersPageComponent implements OnInit {
 
   deleteUser(user: any) {
 const dialogRef= this.dialog.open(ConfirmationDialogComponent,{
-  data:'Are you sure you want to delete this user.'
+  data:'Are you sure you want to delete this user.',
+  disableClose: true
 });
 dialogRef.afterClosed().subscribe(({ confirmation }) => {
     if(!confirmation)

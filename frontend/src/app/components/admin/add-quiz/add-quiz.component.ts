@@ -73,7 +73,8 @@ export class AddQuizComponent implements OnInit {
 
   deleteQuestion(question) {
    const dialogRef= this.dialog.open(ConfirmationDialogComponent,{
-      data:'Are you sure you want to delete this question?'
+      data:'Are you sure you want to delete this question.',
+      disableClose: true
     });
     dialogRef.afterClosed().subscribe(({ confirmation }) => {
         if(!confirmation)

@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  serverURL:'http://localhost:3000/',
-  // serverURL:'http://192.168.1.12:3000/',
+  // serverURL:'http://localhost:3000/',
+  serverURL:'http://192.168.1.12:3000/',
   apiUrl:"http://test.quiz.com/api/"
 };
 

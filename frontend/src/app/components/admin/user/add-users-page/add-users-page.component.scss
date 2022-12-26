@@ -53,24 +53,18 @@
       font-size:8px
     }
       mat-cell{
-    font-size:7px;
-    font-weight: 400;
      text-align: center;
-     span{
-      font-size:8px;
-      margin-left:1px;
-     }
+     font-size: 10px;
       }
     mat-checkbox{
       width:3px;
       
     }
-  
-    
-  
-  
   }
 
+  mat-cell{
+    font-size: 10px;
+  }
  
   .create-button{
     font-size:7px;
@@ -96,7 +90,7 @@
 }
 mat-header-cell{
   color:black;
-  font-size:14px;
+  // font-size:14px;
 }
 
 .main{

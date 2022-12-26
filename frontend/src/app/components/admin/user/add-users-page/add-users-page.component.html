@@ -1,12 +1,12 @@
 <app-header-three></app-header-three>
-<div class="main pl-5 pr-5 h-100 w-100">
+<div class="main pl-md-5 pr-md-5 h-100 w-100">
 
- <mat-card class="w-100  h-100  layout p-4">
+ <mat-card class="w-100  h-100  layout p-0 p-md-4">
       <div
     class="header  rounded-top"
     fxLayout="row"
     fxLayoutAlign="space-between none"
-    fxLayout.lt-sm="column"  
+    fxLayout.lt-xs="column"  
   >
     <div fxLayoutAlign="start center" class="searchIcon" >
       <i class="fa fa-search ml-2 searchIcon"  (click)="searchShow()"
@@ -30,7 +30,7 @@
       >
         Add user
       </button>
-      <button class="btn bulk  mr-2" >Bulk upload user</button>
+      <button class="btn bulk  mr-2" >Bulk upload</button>
     </div>
   </div>
   <mat-card-content>
@@ -75,7 +75,7 @@
 
         <div>
           <ng-container matColumnDef="emailAddress">
-            <mat-header-cell *matHeaderCellDef class="mr-1"
+            <mat-header-cell *matHeaderCellDef class="mr-0 mr-md-1"
               >Email</mat-header-cell
             >
             <mat-cell *matCellDef="let element"
@@ -102,7 +102,7 @@
         <div>
           <ng-container matColumnDef="action">
             <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
-            <mat-cell *matCellDef="let element" fxLayoutGap="4px">
+            <mat-cell *matCellDef="let element" fxLayoutGap="4px" class="ml-2 ml-md-0">
               <span><i class="fa fa-edit text-success ml-1"                
                   *ngIf="element.role !== 'admin'"
                   (click)="getUserInfo(element)"></i> </span>

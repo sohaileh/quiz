@@ -101,14 +101,14 @@ export class MainDashboardComponent implements OnInit {
 
   deleteQuiz(quiz: any) {
     const dialogRef= this.dialog.open(ConfirmationDialogComponent,{
-      data:'Are you sure you want to delete this Quiz.'
+      data:'Are you sure you want to delete this Quiz.',
+      disableClose: true
     });
     dialogRef.afterClosed().subscribe(({ confirmation }) => {
         if(!confirmation)
         return
         this.sharedService.deleteQuiz(quiz).subscribe((res)=> {
          if(res){
-          console.log('confirmation',confirmation)
           this.getOrganizationQuizzes();
           this.ToasterNotificationsService.showSuccess("Quiz deleted successfully");
 

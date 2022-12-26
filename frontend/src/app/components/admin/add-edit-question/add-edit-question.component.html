@@ -20,10 +20,10 @@
       <label class="col-lg-2 control-label p-0 font-weight-bold"
         >Question Type</label
       >
-      <div class="col-lg-4">
+      <div class="col-lg-4" ngClass.lt-md="p-0">
         <select
           class="form-control question-type"
-          ngClass.lt-md="w-50"
+          ngClass.lt-md="w-100"
           id="exampleFormControlSelect1"
           formControlName="type"
           (change)="setQuestionType($event.target.value)"
@@ -197,10 +197,10 @@
     <label class="col-lg-2 control-label p-0 font-weight-bold"
       >Question Type</label
     >
-    <div class="col-lg-4">
+    <div class="col-lg-4"  ngClass.lt-md="p-0 mb-1" >
       <select
         class="form-control"
-        ngClass.lt-sm="w-50"
+        ngClass.lt-md="w-100"
         id="exampleFormControlSelect1"
         formControlName="type"
         (change)="setQuestionType($event.target.value)"
