@@ -18,6 +18,9 @@ export class QuizInfoComponent implements OnInit {
   subscriber: any;
   ready: boolean = false;
   checked: boolean = false;
+  message: any;
+  terms:any;
+  quizId: any;
   constructor(
     private quizService: QuizService,
     private route: ActivatedRoute,
@@ -27,14 +30,19 @@ export class QuizInfoComponent implements OnInit {
   ) {}
   quizDetails: any = {};
   ngOnInit(): void {
-    this.quizDetails = this.data;
+    this.data = this.quizService.getData();  
+    this.message=this.data[0].message;
+    this.quizId=this.route.snapshot.params.id
   }
-
-  playQuiz() {
-    this.router.navigate([`/quiz/attempt-quiz/${this.quizDetails._id}`]);
-    sessionStorage.setItem("allow-quiz", "true");
-    sessionStorage.setItem("isSubmitted", "true");
-    this.quizService.setQuizTime(this.quizDetails?.totalTime);
-    this.dialog.closeAll();
+  attemptQuiz(){
+    this.router.navigate([`/student/quiz-attempt/${this.quizId}`]);
   }
+ 
+  // playQuiz() {
+  //   this.router.navigate([`/quiz/attempt-quiz/${this.quizDetails._id}`]);
+  //   sessionStorage.setItem("allow-quiz", "true");
+  //   sessionStorage.setItem("isSubmitted", "true");
+  //   this.quizService.setQuizTime(this.quizDetails?.totalTime);
+  //   this.dialog.closeAll();
+  // }
 }

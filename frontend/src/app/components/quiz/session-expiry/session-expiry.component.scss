@@ -1,0 +1,27 @@
+  // .card{
+  //   height: 310px;
+  //   width: 480px;
+  //   margin-top: 100px;
+  //  } 
+   .container-fluid{
+    background-color: lightblue;
+    height: 720px;
+   }
+   .card{
+    top: 60px;
+   }
+   .btn{
+    width: 150px;
+    background-color: #268e9b;
+    border: none;
+    outline: none;
+    color: #fff;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.5s;
+    margin: 0;
+    width: 130px;
+    height: 41px;
+    font-weight: 600;
+    font-size: 0.8rem;
+   }

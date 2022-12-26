@@ -39,34 +39,40 @@
 
 @media screen and(max-width:768px)  {
   .bulk{
-    font-size: 9px;
-    height: 20px;
+    font-size: 7px;
+    height: 10px;
     font-weight: 400;
 
     
   }
   mat-table{
-    font-size:10px;
+    font-size:8px;
     text-align: center;
     mat-header-cell{
-      font-size:6px;
-      text-align: start;
-
+      font-weight: 400;
+      font-size:8px
     }
-  mat-cell{
-    font-size:6px;
-    text-align: center;
+      mat-cell{
+     text-align: center;
+     font-size: 10px;
+      }
     mat-checkbox{
       width:3px;
       
     }
-
-  }
-  
-  
   }
 
+  mat-cell{
+    font-size: 10px;
+  }
+ 
+  .create-button{
+    font-size:7px;
+    font-weight: 400;
+    width: 60px;
 
+
+  }
 }
 
 .header{
@@ -84,7 +90,7 @@
 }
 mat-header-cell{
   color:black;
-  font-size:14px;
+  // font-size:14px;
 }
 
 .main{

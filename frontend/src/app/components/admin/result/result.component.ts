@@ -7,6 +7,10 @@ import { Component, OnInit } from "@angular/core";
 })
 export class ResultComponent implements OnInit {
   constructor() {}
+  quizId: any = {};
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.quizId = localStorage.getItem("quizId");
+
+  }
 }

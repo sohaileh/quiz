@@ -1,0 +1,27 @@
+ .btn {
+  background-color: #268e9b;
+  background-color: #268e9b;
+  border: none;
+  outline: none;
+  height: 30px !important;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: 0.5s;
+  font-size:12px;
+  }
+
+  @media screen and(max-width:720px)  {
+
+.btn{
+  font-size:8px;
+  text-align: center;
+  width:75px;
+
+}
+
+  
+  
+}

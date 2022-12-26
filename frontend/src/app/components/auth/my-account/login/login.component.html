@@ -20,10 +20,6 @@
             <mat-error *ngIf="checkError('password', 'required')">Password is required</mat-error>
           </mat-form-field>
         </p>
-        <p>
-          <mat-error class="alert alert-danger p-1 pl-2 pr-2" *ngIf="loginErrorMessage">{{loginErrorMessage}}</mat-error>
-
-        </p>
         <input type="submit" value="Login" class="btn solid" />
         <p class="social-text"><a [routerLink]="['/reset']">Forgot password?</a></p>
 
@@ -65,11 +61,7 @@
             <mat-error *ngIf="checkError('password', 'required')">Password is required</mat-error>
             <mat-error *ngIf="checkError('password', 'pattern')">Password must be 8 characters, 1 uppercase , 1 special character</mat-error>
           </mat-form-field>
-        </p>   
-        <p>
-          <mat-error class="alert alert-danger p-2" *ngIf="errMessage">{{errMessage}}</mat-error>
-          <mat-error class="alert alert-success p-1" *ngIf="successMessage">{{successMessage}}</mat-error>
-        </p>   
+        </p>  
         <input type="submit" class="btn" value="Sign up"  (click)="register()"/>
       </form>
     </div>

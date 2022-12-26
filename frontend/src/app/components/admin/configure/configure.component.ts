@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder } from "@angular/forms";
 import { QuizService } from "../../quiz/services/quiz.service";
+import { ToasterNotificationsService } from "../../shared/services/toaster-notifications.service";
 import { AdminService } from "../services/admin.service";
 
 @Component({
@@ -18,7 +19,8 @@ export class ConfigureComponent implements OnInit {
   constructor(
     private adminService: AdminService,
     public formBuilder: FormBuilder,
-    private quizService: QuizService
+    private quizService: QuizService,
+    private toastr:ToasterNotificationsService
   ) {
     this.adminService.menu$.next(true);
     this.quizId = localStorage.getItem("quizId");
@@ -73,6 +75,7 @@ export class ConfigureComponent implements OnInit {
     this.quizService.configure(this.configureModel).subscribe({
       next: (response: any) => {
         this.adminService.quizQuestions$.next(response)
+        this.toastr.showSuccess("Configuration updated");
       },
       error: (error) => {
         console.log(error.error.message);
@@ -118,20 +121,9 @@ export class ConfigureComponent implements OnInit {
     this.adminService.getConfigurationDetails(this.quizId).subscribe({
        next:(response:any)=>{
         const configurationDetails= response
+        configurationDetails.quizId=this.quizId
         console.log('configuration',configurationDetails)
-        this.configureForm.patchValue({
-          quizTitle:configurationDetails.quizTitle,
-          per_check:configurationDetails.per_check,
-          questionPerPage:configurationDetails.questionPerPage,
-          whole_check:configurationDetails.whole_check,
-          time_check:configurationDetails.time_check,
-          status:configurationDetails.status,
-          quizTimeLimit:configurationDetails.quizTimeLimit,
-          maxAttempts:configurationDetails.maxAttempts,
-          retake_check:configurationDetails.redirect_check,
-          questionSequence:configurationDetails.questionSequence,
-          timeLimitPerQuestion:configurationDetails.timeLimitPerQuestion
-        })
+        this.configureForm.patchValue(configurationDetails)
        }
     })
   }

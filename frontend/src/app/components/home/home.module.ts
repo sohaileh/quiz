@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
+
 import { MatCardModule } from "@angular/material/card";
 import { HomeRoutingModule } from "./home-routing.module";
 import { SwiperModule } from "swiper/angular";
@@ -29,7 +30,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatDialogModule,
     MatTableModule,
     MatMenuModule,
-    MatSelectModule
+    MatSelectModule,
+
   ],
 })
 export class HomeModule {}

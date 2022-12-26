@@ -37,6 +37,7 @@ import { DialogComponent } from './dialog/dialog.component';
 import { CKEditorModule } from 'ng2-ckeditor';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { SessionExpiryComponent } from './session-expiry/session-expiry.component';
 @NgModule({
   declarations: [
     AttemptQuizComponent,
@@ -53,6 +54,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     RegisterQuizComponent,
     PublishQuizComponent,
     DialogComponent,
+    SessionExpiryComponent,
   ],
   imports: [
     CommonModule,

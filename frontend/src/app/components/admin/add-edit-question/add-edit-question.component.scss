@@ -14,14 +14,14 @@
   }
 
 .mat-dialog-content{
-  max-height: 90%;
+  max-height: 86.6%;
   }
 mat-card-actions{
   padding: 0 0;
   margin-bottom: 0;
 
 }
-  .btn {
+  .button {
   
     background-color: #268e9b;
     border: none;
@@ -43,6 +43,7 @@ mat-card-actions{
     }
     
   }
+
 
   @media only  screen and (max-width:991px) and (min-width:958px) {
     .time{

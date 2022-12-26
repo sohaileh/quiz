@@ -17,7 +17,7 @@ export class CanActivateGuard implements CanActivate {
       return true
     }
     else {
-      this.router.navigate(['/auth/login'],{queryParams:{'redirectURL':state.url}})
+      this.router.navigate(['/auth/login'])
       return false
     }
 

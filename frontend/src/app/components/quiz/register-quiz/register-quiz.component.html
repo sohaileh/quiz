@@ -1,7 +1,7 @@
-<div class="heading" fxLayout="column">
+<!-- <div class="heading" fxLayout="column">
     <h3><span>Register for {{quizTitle}}</span></h3>
-  </div>
-  <div fxLayout="row">
+  </div> -->
+  <!-- <div fxLayout="row">
     <div class="container">
       <div class="card-body">
         <form class="form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
@@ -52,10 +52,7 @@
                 Email is required.
               </div>
             </div>
-            <!-- <span class="text-danger"
-                                  *ngIf="registerFormControl.email.touched && registerFormControl.email.errors?.email">
-                                  Enter a valid email address
-                              </span> -->
+          
                               <div class="form-group">
                                 <label>Password</label>
                                 <input type="password" class="form-control" formControlName="password">
@@ -80,4 +77,51 @@
       </div>
     </div>
   </div>
-  
+   -->
+  <div class="container ">
+    <div class="row d-flex align-items-center justify-content-center vh-100">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card border-0 shadow rounded-3 my-5">
+          <div class="card-body p-4 p-sm-5">
+            <div class="card-title text-center mb-5">
+            <img  src="../../../../assets/images/avatar.jpg" alt="quiz-img" />
+          </div>
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+              <div class="form-floating mb-3">
+               
+                <input type="email" class="form-control" formControlName="emailAddress" placeholder="Enter email">
+                <div
+              *ngIf="
+                registerForm.controls['emailAddress'].invalid &&
+                (registerForm.controls['emailAddress'].dirty ||
+                  registerForm.controls['emailAddress'].touched)
+              "
+              class="text-danger"
+            >
+              <div *ngIf="registerForm.controls['emailAddress'].errors.required">
+                Email is required.
+              </div>
+            </div>
+              </div>
+              <div class="form-floating mb-3">
+             
+                <input type="password" class="form-control" formControlName="password" placeholder="Password">
+                <div *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched)" class="text-danger">
+                  <div *ngIf="registerForm.controls['password'].errors.required">
+                 Password is required.
+                </div>
+              </div>
+              </div>
+
+              <div class=" text-center mt-5">
+                <button  [disabled]="registerForm.invalid"
+                type="submit" class="btn  btn-login text-uppercase " type="submit">Sign
+                  in</button>
+              </div>
+              
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

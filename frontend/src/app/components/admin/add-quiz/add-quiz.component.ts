@@ -4,6 +4,8 @@ import { ThemePalette } from "@angular/material/core";
 import { MatDialog } from "@angular/material/dialog";
 import { AddEditQuestionComponent } from "../add-edit-question/add-edit-question.component";
 import { ActivatedRoute } from "@angular/router";
+import { ConfirmationDialogComponent } from "../../shared/confirmation-dialog/confirmation-dialog.component";
+import { ToasterNotificationsService } from "../../shared/services/toaster-notifications.service";
 
 @Component({
   selector: "app-add-quiz",
@@ -23,38 +25,34 @@ export class AddQuizComponent implements OnInit {
   constructor(
     private adminService: AdminService,
     private dialog:MatDialog,
-    private route:ActivatedRoute
+    private route:ActivatedRoute,
+   private toastr:ToasterNotificationsService
   ) {
     this.adminService.menu$.next(true)
 
   }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {     
     this.quizId= this.route.snapshot.paramMap.get('id')
+    this.getQuizQuestions();
     this.adminService.quizQuestions$.subscribe({
       next:(response:any)=>{
         this.quizQuestions = response?.questionBank;
         this.quizStatus= response?.status
         this.quizTitle = response?.quizTitle
-        if(this.quizQuestions?.length > 1){
-        this.showButton=true
-        }else{
-        this.showButton=false
-        }
       }
     })
-    this.getQuizQuestions();
+    
 
   }
 
   getQuizQuestions() {
     this.adminService.getQuizQuestions(this.quizId).subscribe({
       next: (response: any) => {
+        // this.adminService.quizQuestions$.next(response)
         this.quizQuestions = response.questionBank;
         this.quizStatus= response.status
         this.quizTitle = response.quizTitle
-        if(this.quizQuestions.length > 1)
-          this.showButton=true
      
       },
       error: (error) => {},
@@ -64,33 +62,37 @@ export class AddQuizComponent implements OnInit {
 
   editdialog(question) {
     question.quizId=this.quizId
-    this.dialog.open(AddEditQuestionComponent,{
+   const dialogRef= this.dialog.open(AddEditQuestionComponent,{
       data:question,
       width:'900px',
       height:'87%',
       disableClose: true
     })
+   
   }
 
   deleteQuestion(question) {
-    const confirmation = confirm("Are you sure you want to delete this question?")
-    if(!confirmation)
-    return
-    this.adminService.deleteQuestion(question,this.quizId).subscribe({
-      next: (response: any) => {
-        this.quizQuestions = response.questionBank;
-        if(this.quizQuestions.length > 1){
-        this.showButton=true
-
-        }else{
-          this.showButton=false
-        }
-        this.quizStatus = response.status
-        this.quizTitle= response.quizTitle
-      },
-      error: (error) => {},
-      complete: () => {},
+   const dialogRef= this.dialog.open(ConfirmationDialogComponent,{
+      data:'Are you sure you want to delete this question.',
+      disableClose: true
     });
+    dialogRef.afterClosed().subscribe(({ confirmation }) => {
+        if(!confirmation)
+        return
+        this.adminService.deleteQuestion(question,this.quizId).subscribe({
+          next: (response: any) => {
+            // this.adminService.quizQuestions$.next(response);
+            this.quizQuestions = response.questionBank;
+            this.quizStatus = response.status
+            this.quizTitle= response.quizTitle
+          },
+          error: (error) => {},
+          complete: () => {
+            this.toastr.showSuccess('Question deleted')
+          },
+        });
+    }); 
+    
   }
   
 

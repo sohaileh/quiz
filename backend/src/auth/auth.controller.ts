@@ -8,6 +8,8 @@ import {
   UseFilters,
   Get,
   Param,
+  Patch,
+  HttpException,
 } from '@nestjs/common';
 import { FormExceptionFilter } from 'src/exceptions/FormExceptionFilter';
 import { AuthService } from './auth.service';
@@ -79,7 +81,7 @@ export class AuthController {
         .status(HttpStatus.CREATED)
         .json({ message: 'user created successfully' });
     } catch (err) {
-      res.status(HttpStatus.BAD_REQUEST).json(err.message);
+      throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -125,5 +127,16 @@ export class AuthController {
       res.status(HttpStatus.BAD_REQUEST).json(err.message);
 
     }
+  }
+  @Patch('edit-user-details')
+  async editUserDetails(@Body() userModel:any,@Res() res){
+    try{
+    const editUser = await this.authService.editUserDetails(userModel)
+    res.status(HttpStatus.OK).json({msg:'User updated'})
+
+    }catch(err){
+      res.status(HttpStatus.BAD_REQUEST).json(err.message);
+    }
+
   }
 }

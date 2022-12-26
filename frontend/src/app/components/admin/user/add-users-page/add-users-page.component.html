@@ -1,34 +1,36 @@
 <app-header-three></app-header-three>
-<div class="main pl-5 pr-5 h-100 w-100">
+<div class="main pl-md-5 pr-md-5 h-100 w-100">
 
- <mat-card class="w-100  h-100  layout p-4">
+ <mat-card class="w-100  h-100  layout p-0 p-md-4">
       <div
-    class="header p-1 rounded-top"
+    class="header  rounded-top"
     fxLayout="row"
     fxLayoutAlign="space-between none"
-    fxLayout.xs="column"
+    fxLayout.lt-xs="column"  
   >
-    <div fxLayoutAlign="start center">
-      <i class="fa fa-search ml-2" (click)="searchShow()"
+    <div fxLayoutAlign="start center" class="searchIcon" >
+      <i class="fa fa-search ml-2 searchIcon"  (click)="searchShow()"
         ><span class="ml-2"></span
       ></i>
-      <mat-form-field>
-        <input
+      <mat-form-field appearance="none">
+        <input 
           matInput
           (keyup)="applyFilter($event)"
           placeholder="search"
           #input
         />
       </mat-form-field>
+    
     </div>
-    <div fxLayoutGap="5px">
+    <div fxLayoutGap="4px"  fxLayout.xs="row" fxLayoutAlign="start center"
+    >
       <button
-        class="btn create-button border-0 m-3"
+        class="btn create-button border-0  ml-1"
         [routerLink]="['/admin/add-users']"
       >
         Add user
       </button>
-      <button class="btn bulk ">Bulk upload user</button>
+      <button class="btn bulk  mr-2" >Bulk upload</button>
     </div>
   </div>
   <mat-card-content>
@@ -53,7 +55,7 @@
           </ng-container>
         </div>
 
-        <div>
+        <div >
           <ng-container matColumnDef="firstName">
             <mat-header-cell *matHeaderCellDef>FirstName</mat-header-cell>
             <mat-cell *matCellDef="let element" (click)="getUserInfo(element)"
@@ -64,8 +66,8 @@
 
         <div>
           <ng-container matColumnDef="lastName">
-            <mat-header-cell *matHeaderCellDef>LastName</mat-header-cell>
-            <mat-cell *matCellDef="let element">{{
+            <mat-header-cell *matHeaderCellDef fxHide.lt-sm="true">LastName</mat-header-cell>
+            <mat-cell *matCellDef="let element" fxHide.lt-sm="true">{{
               element.lastName
             }}</mat-cell>
           </ng-container>
@@ -73,8 +75,8 @@
 
         <div>
           <ng-container matColumnDef="emailAddress">
-            <mat-header-cell *matHeaderCellDef class="m-1"
-              >EmailAddress</mat-header-cell
+            <mat-header-cell *matHeaderCellDef class="mr-0 mr-md-1"
+              >Email</mat-header-cell
             >
             <mat-cell *matCellDef="let element"
               >{{ element.emailAddress }}
@@ -84,15 +86,15 @@
 
         <div>
           <ng-container matColumnDef="role">
-            <mat-header-cell *matHeaderCellDef>Role</mat-header-cell>
-            <mat-cell *matCellDef="let element">{{ element.role }} </mat-cell>
+            <mat-header-cell *matHeaderCellDef fxHide.lt-sm="true">Role</mat-header-cell>
+            <mat-cell *matCellDef="let element" fxHide.lt-sm="true">{{ element.role }} </mat-cell>
           </ng-container>
         </div>
 
         <div>
           <ng-container matColumnDef="created">
-            <mat-header-cell *matHeaderCellDef>Created</mat-header-cell>
-            <mat-cell *matCellDef="let element">
+            <mat-header-cell *matHeaderCellDef fxHide.lt-sm="true">Created</mat-header-cell>
+            <mat-cell *matCellDef="let element" fxHide.lt-sm="true">
               {{ element.created | date }}
             </mat-cell>
           </ng-container>
@@ -100,12 +102,17 @@
         <div>
           <ng-container matColumnDef="action">
             <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
-            <mat-cell *matCellDef="let element">
-              <i
-                class="fa fa-trash mb-2"
-                *ngIf="element.role !== 'admin'"
-                (click)="deleteUser(element)"
-              ></i>
+            <mat-cell *matCellDef="let element" fxLayoutGap="4px" class="ml-2 ml-md-0">
+              <span><i class="fa fa-edit text-success ml-1"                
+                  *ngIf="element.role !== 'admin'"
+                  (click)="getUserInfo(element)"></i> </span>
+                  <span><i
+                    class="fa fa-trash  text-danger"
+                    *ngIf="element.role !== 'admin'"
+                    (click)="deleteUser(element)"
+                  ></i></span> 
+    
+
             </mat-cell>
           </ng-container>
         </div>

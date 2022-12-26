@@ -12,6 +12,7 @@ import { quizModel } from './models/quiz.model';
 import {
   deleteObject,
   getDownloadURL,
+  getMetadata,
   ref,
   uploadBytes,
 } from 'firebase/storage';
@@ -138,6 +139,15 @@ export class QuizService {
 
     return;
   }
+  async FileExistsAtReference(mediaStorage){
+    try{
+      await  getMetadata(mediaStorage)
+      return true
+    }catch(err){
+        return false
+    }
+ 
+  }
 
   async addQuestionToQuiz(questionBank: any, file: any, quizId: any) {
     try {
@@ -161,6 +171,13 @@ export class QuizService {
           'Atleast Two Options are required',
           HttpStatus.BAD_REQUEST,
         );
+        questionBank.options.forEach(option => {
+          if( option.option.trim() == '')
+          throw new HttpException(
+            'options are empty',
+            HttpStatus.BAD_REQUEST,
+          );
+        });
 
       let options = [];
       questionBank.options.forEach((option) => {
@@ -185,12 +202,34 @@ export class QuizService {
           HttpStatus.BAD_REQUEST,
         );
       if (type == 'face-recognition' || type == 'video' || type == 'audio') {
+        if(!file)
+        throw new HttpException(
+          'File not Uploaded',
+          HttpStatus.BAD_REQUEST,
+        );
+          if(type =='face-recognition' && file.mimetype.split('/')[0] !== 'image')
+          throw new HttpException(
+            'File Uploaded is not Image',
+            HttpStatus.BAD_REQUEST,
+          );
+          if(type =='video' && file.mimetype.split('/')[0] !== 'video')
+          throw new HttpException(
+            'File Uploaded is not video',
+            HttpStatus.BAD_REQUEST,
+          );
+          if(type =='audio' && file.mimetype.split('/')[0] !== 'audio')
+          throw new HttpException(
+            'File Uploaded is not audio',
+            HttpStatus.BAD_REQUEST,
+          );
         const mediaStorage = ref(
           storage,
           `${new Types.ObjectId(quizId)}/${file.originalname}`,
         );
+       const fileExists=  await this.FileExistsAtReference(mediaStorage)
+          if(fileExists)
+          throw new HttpException('File name already exists in this quiz',HttpStatus.BAD_REQUEST)
         await this.uploadFiletoFirebase(mediaStorage, file);
-
         const fileUrl = await getDownloadURL(ref(mediaStorage));
         questionBank.fileUrl = fileUrl;
         questionBank.fileName = file.originalname;
@@ -337,6 +376,14 @@ export class QuizService {
           HttpStatus.BAD_REQUEST,
         );
 
+        body.options.forEach(option => {
+          if( option.option.trim() == '')
+          throw new HttpException(
+            'options are empty',
+            HttpStatus.BAD_REQUEST,
+          );
+        });
+
       if (!quizId)
         throw new HttpException(
           'Something went wrong Please try later',
@@ -361,7 +408,9 @@ export class QuizService {
               storage,
               `${new Types.ObjectId(quizId)}/${fileName}`,
             );
-
+            const fileExists=  await this.FileExistsAtReference(mediaStorage)
+            if(fileExists)
+            throw new HttpException('File name already exists in this quiz',HttpStatus.BAD_REQUEST)
             await this.deleteFileFromFirebase(mediaStorage);
           }
 
@@ -369,6 +418,10 @@ export class QuizService {
             storage,
             `${new Types.ObjectId(quizId)}/${file.originalname}`,
           );
+          // mcq to mdeia type check if file already exists in firebase at this storage reference
+          const fileExists=  await this.FileExistsAtReference(uploadFileRef)
+          if(fileExists)
+          throw new HttpException('File name already exists in this quiz',HttpStatus.BAD_REQUEST)
           await this.uploadFiletoFirebase(uploadFileRef, file);
 
           const fileUrl = await getDownloadURL(ref(uploadFileRef));
@@ -393,7 +446,7 @@ export class QuizService {
 
           return quizQuestions;
         } else {
-          //if mcq to face-recognition/video/audio but file not uploaded
+          //if mcq to face-recognition/video/audio but file not uploaded 
           const question = await this.quizModel.find(
             { _id: new Types.ObjectId(quizId) },
             {
@@ -470,6 +523,8 @@ export class QuizService {
             'questionBank.$.options': body.options,
             'questionBank.$.marks': body.marks,
             'questionBank.$.correctAnswer': body.correctAnswer,
+            'questionBank.$.fileName':null,
+            'questionBank.$.fileUrl':null
           },
         },
       );
@@ -590,7 +645,7 @@ export class QuizService {
     try {
       if (!(question._id && quizId))
         throw new HttpException(
-          'Please Fill all fields',
+          'Something went wrong',
           HttpStatus.BAD_REQUEST,
         );
       const { type, _id: questionId } = question;

@@ -79,4 +79,13 @@
   .title{
     position: relative;
     left: 131px;
+    width: 76%;
+  }
+
+  @media  screen and (max-width:974px){
+    .title{
+      width: 100%;
+      position: relative;
+      left: 10px;
+    }
   }

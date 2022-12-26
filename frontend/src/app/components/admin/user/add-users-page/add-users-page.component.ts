@@ -3,6 +3,11 @@ import { MatTableDataSource } from "@angular/material/table";
 import { Router } from "@angular/router";
 import { AdminService } from "../../services/admin.service";
 import { SelectionModel } from "@angular/cdk/collections";
+import { DeleteDialogComponent } from "src/app/components/shared/delete-dialog/delete-dialog.component";
+import { MatDialog} from "@angular/material/dialog";
+import { ConfirmationDialogComponent } from "src/app/components/shared/confirmation-dialog/confirmation-dialog.component";
+import { SharedServiceService } from "src/app/components/shared/services/shared-service.service";
+import { ToasterNotificationsService } from "src/app/components/shared/services/toaster-notifications.service";
 
 export interface usersInterface {
   firstName: string;
@@ -40,7 +45,7 @@ export class AddUsersPageComponent implements OnInit {
   dataSource = new MatTableDataSource<usersInterface>(this.userDetails);
   selection = new SelectionModel<usersInterface>(true, []);
 
-  constructor(private router: Router, private adminService: AdminService) {}
+  constructor(private router: Router, private adminService: AdminService,private dialog:MatDialog,private sharedService:SharedServiceService,private toastr:ToasterNotificationsService) {}
 
   ngOnInit(): void {
     this.userId = localStorage.getItem("userId");
@@ -65,7 +70,6 @@ export class AddUsersPageComponent implements OnInit {
     this.user.organizationId = localStorage.getItem("userId");
     this.adminService.getOrganizationUsers(this.user).subscribe((res: any) => {
       res.push(this.loggedUser);
-      console.log(res.length,"ppp")
       this.dataSource = new MatTableDataSource<usersInterface>(res);
     });
   }
@@ -96,10 +100,21 @@ export class AddUsersPageComponent implements OnInit {
   }
 
   deleteUser(user: any) {
-    this.adminService.deleteUser(user).subscribe((res: any) => {
-      if (res) {
-        this.getLoggedUser();
+const dialogRef= this.dialog.open(ConfirmationDialogComponent,{
+  data:'Are you sure you want to delete this user.',
+  disableClose: true
+});
+dialogRef.afterClosed().subscribe(({ confirmation }) => {
+    if(!confirmation)
+    return
+    this.sharedService.deleteUser(user).subscribe((res)=> {
+      if(res){
+    this.getLoggedUser();
+    this.toastr.showSuccess("User deleted successfully");
       }
-    });
-  }
+
+   })
+});
+
+}
 }

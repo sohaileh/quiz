@@ -14,18 +14,18 @@
           (click)="selectQuiz($event, i,'available')"
           *ngFor="let quiz of availableQuizzes; let i = index"
         >
-          {{ quiz}}
+          {{quiz}}
         </option>
       </div>
     </div>
     <div
       class=" col-12 mt-2 mt-md-0 col-md-2 d-flex flex-column align-items-center justify-content-center"
     >
-      <button class="btn  mb-3" (click)="assignQuiz()" [disabled]="!availableQuizzesExists">
+      <button class="btn button  mb-3" (click)="assignQuiz()" [disabled]="!availableCliked">
         <mat-icon>fast_forward</mat-icon>
       </button>
 
-      <button class="btn " (click)="removeQuiz()" [disabled]="!assignedQuizzesExists">
+      <button class="btn button " (click)="removeQuiz()" [disabled]="availableCliked ">
         <mat-icon>fast_rewind</mat-icon>
       </button>
     </div>
@@ -52,7 +52,7 @@
 <hr />
 <div class="row">
   <div class="ml-auto">
-    <button class="btn mr-2" mat-dialog-close>Cancel</button>
-    <button class="btn" (click)="assignQuizzes()">Save</button>
+    <button class="btn btn-light mr-2" mat-dialog-close (click)="assignAlreadyAssignedQuizzes()">Cancel</button>
+    <button class="btn button" (click)="assignQuizzes()">Save</button>
   </div>
 </div>

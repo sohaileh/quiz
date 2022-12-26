@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { AdminService } from '../../admin/services/admin.service';
 import { AuthService } from '../../auth/services/auth.service';
 import { QuizService } from '../services/quiz.service';
+import { MatDialog } from '@angular/material/dialog';
+import { InfoDialogComponent } from '../../shared/info-dialog/info-dialog.component';
 @Component({
   selector: 'app-register-quiz',
   templateUrl: './register-quiz.component.html',
@@ -24,7 +27,8 @@ export class RegisterQuizComponent implements OnInit {
     private route:ActivatedRoute,
     private router:Router,
    private quizService:QuizService,
-   private adminService:AdminService
+   private adminService:AdminService,
+   private dialog: MatDialog
     
   ) { }
 
@@ -32,8 +36,6 @@ export class RegisterQuizComponent implements OnInit {
       this.quizId=this.route.snapshot.params.id
       this.attemptQuizes.push(this.Quiz);    
       this.registerForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
       emailAddress: ['', [Validators.required]],
       password:['',Validators.required]
     }
@@ -49,6 +51,7 @@ export class RegisterQuizComponent implements OnInit {
       },
       complete:()=>{}
     })
+   
   }
 
   get registerFormControl() {
@@ -56,38 +59,43 @@ export class RegisterQuizComponent implements OnInit {
   }
 
   onSubmit() {
-
     this.submitted = true;
     if (this.registerForm.valid) {
       this.registerModel=this.registerForm.value;
-      this.registerModel.role="Student";
+      this.registerModel.role="student";
       this.registerModel.attemptQuizes=this.attemptQuizes;
       this.registerModel.quizId= this.quizId
+
       this.quizService.isQuizAssigned(this.registerModel).subscribe({
+        
         next: (response: any) => {
             const quizId=response[0].quizId
           if (response.statusCode == 201) {
             console.log('res',response)
             this.registerForm.reset();
             this.registerModel = {};
-            this.router.navigate([`/student/quiz-attempt/${quizId}`]);
+          
+            
           } else {
             this.registerForm.reset();
             this.registerModel = {};
-            this.router.navigate([`/student/quiz-attempt/${quizId}`]);
-
+           
+            this.router.navigate([`/quiz-info/${quizId}`]);
           }
+         
         },
         error: (error) => {
-          alert(error.error);
+          this.dialog.open(InfoDialogComponent,{
+              data:error.error,
+              disableClose: true
+          })
         },
         complete: () => {
-         
-          
-        
+      
         },
       });
     }
     }
-  }
+   
 
+}

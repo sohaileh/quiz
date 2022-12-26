@@ -53,5 +53,6 @@ export class CommonService {
   getSearchCategory() {
     return this.obj.asObservable()
   }
+  
 }
 

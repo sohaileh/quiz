@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from "@angular/router";
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -33,6 +34,10 @@ import { HeaderTwoComponent } from './header-two/header-two.component';
 import { HeaderThreeComponent } from './header-three/header-three.component';
 import { HeaderFourComponent } from './header-four/header-four.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+import { ToastrModule } from 'ngx-toastr';
+import { InfoDialogComponent } from './info-dialog/info-dialog.component';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -43,6 +48,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HeaderTwoComponent,
     HeaderThreeComponent,
     HeaderFourComponent,
+    DeleteDialogComponent,
+    InfoDialogComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -67,7 +75,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatCardModule,
     FlexLayoutModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    // BrowserAnimationsModule,
+    ToastrModule.forRoot({timeOut:500})
+    
+
   ],
   exports: [
     CommonModule,

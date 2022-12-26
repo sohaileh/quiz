@@ -30,7 +30,7 @@ export const QuizSchema = new mongoose.Schema({
 
   timeLimitPerQuestion: {type:Number,default:0},
 
-  quizTimeLimit: {type:Number,default:1},
+  quizTimeLimit: {type:Number,default:10},
 
   randomizeQuestion: String,
 
