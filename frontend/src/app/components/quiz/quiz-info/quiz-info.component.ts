@@ -35,14 +35,7 @@ export class QuizInfoComponent implements OnInit {
     this.quizId=this.route.snapshot.params.id
   }
   attemptQuiz(){
-    this.router.navigate([`/student/quiz-attempt/${this.quizId}`]);
+    this.router.navigate([`/student/quiz-attempt/${this.quizId}`],{queryParamsHandling:'preserve'});
   }
  
-  // playQuiz() {
-  //   this.router.navigate([`/quiz/attempt-quiz/${this.quizDetails._id}`]);
-  //   sessionStorage.setItem("allow-quiz", "true");
-  //   sessionStorage.setItem("isSubmitted", "true");
-  //   this.quizService.setQuizTime(this.quizDetails?.totalTime);
-  //   this.dialog.closeAll();
-  // }
 }

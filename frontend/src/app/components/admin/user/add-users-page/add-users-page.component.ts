@@ -3,7 +3,6 @@ import { MatTableDataSource } from "@angular/material/table";
 import { Router } from "@angular/router";
 import { AdminService } from "../../services/admin.service";
 import { SelectionModel } from "@angular/cdk/collections";
-import { DeleteDialogComponent } from "src/app/components/shared/delete-dialog/delete-dialog.component";
 import { MatDialog} from "@angular/material/dialog";
 import { ConfirmationDialogComponent } from "src/app/components/shared/confirmation-dialog/confirmation-dialog.component";
 import { SharedServiceService } from "src/app/components/shared/services/shared-service.service";

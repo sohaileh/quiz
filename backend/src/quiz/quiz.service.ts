@@ -765,7 +765,9 @@ export class QuizService {
           'Quiz has not been assigned to you ',
           HttpStatus.BAD_REQUEST,
         );
-      return quizAssigned[0].assignedQuizzes;
+        console.log(quizAssigned,'quizAssigned')
+      // return quizAssigned[0].assignedQuizzes;
+      return quizAssigned
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }

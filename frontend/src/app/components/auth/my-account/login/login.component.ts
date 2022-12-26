@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { LoaderService } from "src/app/components/shared/services/loader.service";
 import { AuthService } from "../../services/auth.service";
 import Swal from "sweetalert2";
+import { ToasterNotificationsService } from "src/app/components/shared/services/toaster-notifications.service";
 
 @Component({
   selector: "app-login",
@@ -33,7 +34,8 @@ export class LoginComponent implements OnInit {
     private loaderService: LoaderService,
     private readonly authService: AuthService,
     private renderer: Renderer2,
-    private route:ActivatedRoute
+    private route:ActivatedRoute,
+    private toastr:ToasterNotificationsService
   ) {}
 
   ngOnInit(): void {
@@ -80,7 +82,8 @@ export class LoginComponent implements OnInit {
           this.loaderService.hideLoader();
         },
         error: (err: any) => {
-          console.log();
+          console.log(err.error.message);
+          this.toastr.showError(err.error.message)
         },
         complete: () => {
           this.authModel = {};

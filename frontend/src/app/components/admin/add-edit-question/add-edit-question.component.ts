@@ -184,6 +184,7 @@ export class AddEditQuestionComponent implements OnInit {
     } else {
       this.answerSelected = false;
       this.answer=''
+      this.correctAnswerIndex=444
     }
   }
 
