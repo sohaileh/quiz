@@ -9,7 +9,9 @@
             <div class="row resultToolbar">
               <div class="col-md-4">
                 <div class="input-group">
-                  <div class="input-group-addon"></div>
+                  <div class="input-group-addon">
+                    <i class="fa fa-search"></i>
+                  </div>
                   <input
                     type="text"
                     class="form-control"
@@ -20,12 +22,12 @@
 
               <div class="col-md-8">
                 <span class="navbar-right toolbarMenuItem export-button">
-                  <i class="fa fa-download"></i>
+                  <i class="fa fa-download export"></i>
                   Export
                 </span>
 
                 <span class="navbar-right toolbarMenuItem pdf-button">
-                  <i class="fa fa-file"></i>
+                  <i class="fa fa-file pdf"></i>
                   PDF
                 </span>
               </div>
@@ -52,15 +54,16 @@
               </tbody>
             </table>
 
-            <table class="table table-condensed resultText">
+            <table class="table table-condensed resultText desktop-only">
               <thead>
                 <tr>
-                  <th class="quiz_bottom">
+                  <th>
                     <a>
                       Quiz
                       <i class="fa fa-caret-down"></i>
                     </a>
                   </th>
+
                   <th>
                     <a> Date submitted </a>
                   </th>
@@ -76,11 +79,65 @@
                   <th>
                     <a> Pass </a>
                   </th>
-                  <th class="text-center">
+                  <th>
                     <a> Avg. Score </a>
                   </th>
                 </tr>
+                <td>/</td>
+                <td>/</td>
+                <td>/</td>
+                <td>/</td>
+                <td>/</td>
+                <td>/</td>
+                <td>/</td>
               </thead>
+            </table>
+            <table class="table table-condensed resultText mobile-only">
+              <tr>
+                <th>
+                  <a>
+                    Quiz
+                    <i class="fa fa-caret-down"></i>
+                  </a>
+                </th>
+                <td>/</td>
+              </tr>
+              <tr>
+                <th>
+                  <a> Date submitted </a>
+                </th>
+                <td>/</td>
+              </tr>
+              <tr>
+                <th>
+                  <a> Score </a>
+                </th>
+                <td>/</td>
+              </tr>
+              <tr>
+                <th>
+                  <a> Grade </a>
+                </th>
+                <td>/</td>
+              </tr>
+              <tr>
+                <th>
+                  <a> Duration </a>
+                </th>
+                <td>/</td>
+              </tr>
+              <tr>
+                <th>
+                  <a> Pass </a>
+                </th>
+                <td>/</td>
+              </tr>
+              <tr>
+                <th>
+                  <a> Avg. Score </a>
+                </th>
+                <td>/</td>
+              </tr>
             </table>
           </div>
         </div>
