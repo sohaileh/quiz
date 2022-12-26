@@ -183,7 +183,7 @@ export class AddEditQuestionComponent implements OnInit {
       this.correctAnswerIndex=i
     } else {
       this.answerSelected = false;
-      this.answer=''
+      this.answer='correctAnswerisDeSelectedTest'
       this.correctAnswerIndex=444
     }
   }
