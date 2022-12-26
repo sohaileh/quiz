@@ -69,7 +69,9 @@ export class RegisterQuizComponent implements OnInit {
       this.quizService.isQuizAssigned(this.registerModel).subscribe({
         
         next: (response: any) => {
-            const quizId=response[0].quizId
+          console.log('quizAsigned',response[0].assignedQuizzes[0].quizId)
+            const quizId=response[0].assignedQuizzes[0].quizId
+            const userId = response[0]._id
           if (response.statusCode == 201) {
             console.log('res',response)
             this.registerForm.reset();
@@ -80,7 +82,7 @@ export class RegisterQuizComponent implements OnInit {
             this.registerForm.reset();
             this.registerModel = {};
            
-            this.router.navigate([`/quiz-info/${quizId}`]);
+            this.router.navigate([`/quiz-info/${quizId}`],{ queryParams: { userId: userId } });
           }
          
         },

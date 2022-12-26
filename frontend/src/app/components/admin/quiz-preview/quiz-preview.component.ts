@@ -43,6 +43,8 @@ export class QuizPreviewComponent implements OnInit {
   quizTimeEnded=false
   questionSequenceStartAT:number
   sequencedQuestion=false
+  studentId:any={}
+  userId:any={}
   constructor(
     private adminService: AdminService,
     private route: ActivatedRoute,
@@ -52,6 +54,7 @@ export class QuizPreviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.quizId = this.route.snapshot.paramMap.get("id");
+    this.studentId= this.route.snapshot.queryParams['userId']
     this.getQuizQuestions();
   }
 
@@ -121,7 +124,10 @@ export class QuizPreviewComponent implements OnInit {
       });
   }
   submitStudentResponse() {
-    const userId = localStorage.getItem("userId");
+    if(this.studentId)
+     this.userId= this.studentId
+     if(!this.studentId)
+    this.userId = localStorage.getItem("userId");
     if(!this.quizTimeEnded){
       const dialogRef= this.dialog.open(ConfirmationDialogComponent,{
         data:'Are you sure you want to submit your Response.'
@@ -132,7 +138,7 @@ export class QuizPreviewComponent implements OnInit {
           this.submitting = true;
     this.finalResponse = {
       quizId: this.quizId,
-      userId: userId,
+      userId: this.userId,
       response: this.response,
     };
     this.adminService.submitStudentResponse(this.finalResponse).subscribe({
