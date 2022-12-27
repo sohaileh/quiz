@@ -40,40 +40,32 @@ mat-card img {
   word-wrap: break-word;
 }
 
-
-@media screen and(max-width:768px)  {
-  mat-table{
-    font-size:8px;
-    text-align: center;
-
-    mat-header-cell{
-      font-weight: 400;
-      // font-size:9px
-    }
-  mat-cell{
-    font-size:10px;
-    // text-align: left;
-  span{
-  //  font-size:8px;
-   margin-left:1px;
+@media screen and(max-width:768px) {
+  .icon-desk-p {
+    display: none;
   }
-
-
+  .icon-desk {
+    display: none;
   }
-  .dropdown{
-    font-size:10px;
-    text-align: center;
-
+  th {
+    width: 2vw !important;
+    font-weight: 400;
+    font-size: 12px;
+    border: none !important;
   }
-  .preview{
-    font-size:8px;
-    text-align: center;
-    width:50%;
-
+  .quiz_heading {
+    width: 5vw !important;
   }
-  .h{
-    margin-left: 0;
+  td {
+    width: 2vw !important;
+    border: none !important;
   }
+  .text-primary {
+    display: block;
+  }
+  .text-danger {
+    display: block;
+    margin-top: -16px;
   }
 }
 
@@ -88,8 +80,7 @@ mat-card img {
   margin: 10px 0;
   cursor: pointer;
   transition: 0.5s;
-  font-size:12px;
-
+  font-size: 12px;
 }
 
 .create-button:hover {
@@ -101,45 +92,78 @@ mat-card img {
   cursor: pointer;
   background-color: whitesmoke;
 }
-.highlight{
+.highlight {
   background: whitesmoke;
 }
-.header{
-  background-color: #E5E5E5
-
+.header {
+  background-color: #e5e5e5;
 }
-mat-card-content{
-  background-color:white;
+mat-card-content {
+  background-color: white;
 }
 
-
-
-
-mat-table{
- background-color:white;
- border-color: lightgrey;
- border-style:double;
+mat-table {
+  background-color: white;
+  border: 1px solid #ddd;
 }
-.h{
-  margin-left: 40%;
-}
-mat-header-cell{
+
+mat-header-cell {
   font-weight: 400;
-  font-size:12px
+  font-size: 12px;
 }
-.layout{
-  background-color: #E5E5E5;
+
+th {
+  width: 15vw !important;
+  font-weight: 400;
+  font-size: 12px;
+  border: none !important;
+}
+.quiz_heading {
+  width: 40vw !important;
+}
+
+.quiz_d {
+  padding-left: 24px !important;
+  color: blue;
+  width: 40vw !important;
+}
+td {
+  width: 15vw !important;
+  border: none !important;
+}
+.layout {
+  background-color: #e5e5e5;
   padding-left: 4%;
   padding-right: 4%;
   padding-top: 0;
   padding-bottom: 0;
-
 }
-.preview
-{
- background-color: #f0f0f0!important;
- height: 30px !important;
- font-size:12px;
+.preview {
+  background-color: #f0f0f0 !important;
+  height: 30px !important;
+  font-size: 12px;
+}
 
+.btn_text_span {
+  position: relative;
+  top: -2px;
+}
 
+.icon-desk {
+  position: relative;
+  top: -2px;
+  padding-right: 5px;
+  font-size: 14px;
+}
+
+.icon-desk-p {
+  position: relative;
+  top: -2px;
+  padding-right: 5px;
+  font-size: 16px;
+}
+
+.text-success {
+  position: relative;
+  top: 1px;
 }

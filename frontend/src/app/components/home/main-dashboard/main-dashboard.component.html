@@ -1,91 +1,74 @@
-<mat-card class="w-100  h-100  layout p-0 p-md-3 ">
+<mat-card class="w-100 h-100 layout p-0 p-md-3">
   <mat-card-content class="p-md-4 mt-3 mt-md-0 h-100 w-100">
-
-    <div class=" d-flex   pl-2 pr-2 justify-content-between header  rounded-top" fxLayoutAlign="space-between center" fxLayoutGap="5px"
-      fxLayout.xs="row" fxLayout.sm="row" fxLayout="row">
-      <div fxLayoutAlign="center center">Quizs
-      </div>
+    <div class="d-flex pl-5 pr-2 justify-content-between header rounded-top" fxLayoutAlign="space-between center"
+      fxLayoutGap="5px" fxLayout.xs="row" fxLayout.sm="row" fxLayout="row">
+      <div fxLayoutAlign="center center">Quizs</div>
 
       <div class="mr-1" fxLayoutAlign="center center">
-        <span><button class="btn  create-button border-0" (click)="openQuizTitle()"> <i class="fa fa-plus  m-1"></i>Create quiz</button></span>
-          
-
+        <span><button class="btn create-button border-0" (click)="openQuizTitle()">
+            <i class="fa fa-plus m-1"></i>Create quiz
+          </button></span>
       </div>
-
     </div>
-<div>
-    <mat-table #table [dataSource]="dataSource" class="mat-table">
-      <div class="d-flex" fxFlex-xs="10%">
-
-        <div>
+    <div>
+      <mat-table #table [dataSource]="dataSource" class="mat-table">
+        <div class="d-flex" fxFlex-xs="10%">
           <ng-container matColumnDef="quizTitle">
-            <mat-header-cell *matHeaderCellDef>Quiz</mat-header-cell>
+            <th mat-header-cell *matHeaderCellDef class="quiz_heading">Quiz</th>
 
-            <mat-cell *matCellDef="let element" (click)="createQuizQuestion(element)" class="text-primary pl-1"> {{element?.quizTitle}} </mat-cell>
+            <td mat-cell *matCellDef="let element" (click)="createQuizQuestion(element)" class="text-primary pl-1"
+              class="quiz_d">
+              {{ element?.quizTitle }}
+            </td>
           </ng-container>
-        </div>
 
-
-        <div>
           <ng-container matColumnDef="status">
-            <mat-header-cell *matHeaderCellDef class="h">Status</mat-header-cell>
-            <mat-cell *matCellDef="let element"  class="h">{{element?.status}}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef class="h">Status</th>
+            <td mat-cell *matCellDef="let element" class="h">
+              {{ element?.status }}
+            </td>
           </ng-container>
-        </div>
 
-
-        <div>
           <ng-container matColumnDef="preview">
-            <mat-header-cell *matHeaderCellDef class="pl-2 ">Preview</mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              <button class="btn preview m-1" (click)="preview(row)">
-                <i class="fa fa-eye"  fxHide.gt-xs="true" fxLayoutAlign.xs="center"></i>
-                <span fxHide.lt-sm="true">Preview</span>
-
+            <th mat-header-cell *matHeaderCellDef>Preview</th>
+            <td mat-cell *matCellDef="let row">
+              <button class="btn preview" (click)="preview(row)">
+                <i class="fa fa-eye" fxHide.gt-xs="true" fxLayoutAlign.xs="center"></i>
+                <i class="fa fa-eye icon-desk-p"></i>
+                <span fxHide.lt-sm="true" class="btn_text_span">Preview</span>
               </button>
-
-            </mat-cell>
+            </td>
           </ng-container>
+
+          <div>
+            <ng-container matColumnDef="analyze">
+              <th mat-header-cell *matHeaderCellDef>Analyze</th>
+              <td mat-cell *matCellDef="let row">
+                <button class="btn preview">
+                  <i class="fa fa-bar-chart" fxHide.gt-xs="true" fxLayoutAlign.xs="center"></i>
+                  <i class="fa fa-bar-chart icon-desk"></i>
+                  <span fxHide.lt-sm="true" class="btn_text_span">Analyze</span>
+                </button>
+              </td>
+            </ng-container>
+          </div>
+
+          <div>
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef class="p-1">Action</th>
+              <td mat-cell *matCellDef="let row" fxLayoutGap="8px">
+                <span><i class="fa fa-edit text-success" (click)="editQuiz(row)"></i>
+                </span>
+                <span><i class="fa fa-file-text-o text-primary" (click)="renameQuizTitle(row)"></i></span>
+                <span><i class="fa fa-trash text-danger" (click)="deleteQuiz(row)"></i></span>
+              </td>
+            </ng-container>
+          </div>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns" [ngClass]="{ highlight: selectedRowIndex == row.id }"
+            (click)="highlight(row)"></mat-row>
         </div>
-
-
-        <div>
-          <ng-container matColumnDef="analyze">
-            <mat-header-cell *matHeaderCellDef class="pl-2 ">Analyze</mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              <button class="btn preview">
-                <i class=" fa fa-signal"  fxHide.gt-xs="true" fxLayoutAlign.xs="center"></i>
-                <span fxHide.lt-sm="true">Analyze</span>
-              </button>
-            </mat-cell>
-          </ng-container>
-        </div>
-
-
-        <div>
-          <ng-container matColumnDef="action">
-            <mat-header-cell *matHeaderCellDef class="p-1">Action</mat-header-cell>
-            <mat-cell *matCellDef="let row" fxLayoutGap="8px">
-
-              <span><i class="fa fa-edit text-success " (click)="editQuiz(row)"></i> </span>
-              <span><i class="fa fa-file-text-o text-primary" (click)="renameQuizTitle(row)"></i></span>
-              <span><i class="fa fa-trash text-danger" (click)="deleteQuiz(row)"></i></span>
-
-
-
-            </mat-cell>
-          </ng-container>
-        </div>
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns"
-        [ngClass]="{'highlight': selectedRowIndex == row.id}"
-         (click)="highlight(row)"
-        
-         ></mat-row>
-        
-      </div>
-    </mat-table>
-  </div>
+      </mat-table>
+    </div>
   </mat-card-content>
-
 </mat-card>
