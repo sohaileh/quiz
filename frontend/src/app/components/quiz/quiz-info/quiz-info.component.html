@@ -1,86 +1,3 @@
-<!-- <div
-  class="conatiner-fluid dialog d-flex flex-column w-100 align-items-center h-100"
->
-  <mat-dialog-content>
-    <div class="d-flex align-items-center">
-      <h3 class="d-inline text-secondary">{{ quizDetails.eventName }}</h3>
-    </div>
-    <div
-      class="row font- d-flex bg-light flex-column first-row flex-md-row justify-content-md-around align-items-center ms-auto w-100 justify-content-center"
-    >
-      <div
-        class="mb-3 button-width bg-secondary text-light p-4 mt-2 d-flex flex-column justify-content-center align-items-center rounded"
-      >
-        <span>Questions</span><span>{{ quizDetails.totalQuestions }}</span>
-      </div>
-      <div
-        class="bg-secondary button-width text-light p-4 d-flex mb-2 flex-column justify-content-center align align-items-center rounded"
-      >
-        <span>Total Time</span> <span>{{ quizDetails.totalTime }} m</span>
-      </div>
-    </div>
-
-    <div class="row m-2 p-2">
-      <div class="d-flex align-items-center mb-3 mt-4">
-        <mat-icon class="me-2">calendar_today</mat-icon>
-        <span class="text-warning font-weight-bold"
-          >Terms and Condition <sup>***</sup></span
-        >
-      </div>
-
-      <div>
-        <p class="text-secondary">
-          1. An individual is permitted to participate only once in the quiz.
-        </p>
-
-        <p class="text-secondary">
-          2. You are required to update your name, email address, telephone number and postal address on Quiz portal.
-        </p>
-
-        <p class="text-secondary">
-          3. By submitting your contact details, you will give consent to use these details for further communication.
-        </p>
-
-        <p class="text-secondary">
-          4. The same mobile number and same email ID cannot be used more than once for participation in the quiz.
-        </p>
-
-        <p class="text-secondary">
-          5. Discovery/detection/noticing of use of any unfair/spurious means/malpractices, including but not limited to impersonation, double participation etc. during the participation in the quiz, will result in the participation being declared null and void and hence, rejected. The organisers of the quiz competition or any agency acting on their behalf reserves the right in this regard.
-
-        </p>
-
-        <p class="text-secondary">
-          6.Employees, directly or indirectly connected with organising the quiz, are not eligible to participate in the quiz. This ineligibility also applies to their immediate family members.
-
-        </p>
-        <p class="text-secondary">
-          7. All participants to get Participation Certificate.
-        </p>
-        <p class="text-secondary">
-          8. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione ab
-          veritatis sit placeat, omnis nemo quaerat et tempore recusandae. Est,
-          et. Nam, consectetur enim ut similique, repellat laborum iusto
-          reprehenderit, molestiae ea illum soluta ex. Blanditiis sint molestiae
-        </p> -->
-      <!-- </div> -->
-      <!-- <div
-        class="row d-flex flex-column justify-content-center align-items-center w-100"
-      >
-        <mat-checkbox [(ngModel)]="ready">Submit</mat-checkbox>
-        <button [disabled]="!ready" class="btn btn-info" (click)="playQuiz()">
-          Start Quiz
-        </button>
-      </div> -->
-      <!-- <div  fxLayout="row" fxLayoutAlign="end end" dir="ltr" fxLayoutGap="60px">
-        <mat-checkbox [(ngModel)]="checked">I accept the Terms & Conditions</mat-checkbox>
-        <button mat-raised-button [disabled]="!checked" class="btn btn-info"
-            type="submit" (click)="playQuiz()">Start Quiz</button>
-    </div>
-
-    </div>
-  </mat-dialog-content>
-</div> --> 
 <div class="container-fluid d-flex justify-content-center align-items-center">
   <div class="left-sidebar-wrapper  details-wrapper sec-padding related-Items"  fxLayoutAlign="center center">
       <div class="sidebar-wrapper" fxLayoutAlign="center center">
@@ -107,4 +24,9 @@
          
       </div>
   </div>
+</div>
+<div class="overlay d-flex justify-content-center align-items-center" *ngIf="studentattempts && timerStarted ">
+    <div class="overlay-border d-flex justify-content-center align-items-center">
+        <div class="text-white count-down">{{showRedirectTime}}</div>
+    </div>
 </div>

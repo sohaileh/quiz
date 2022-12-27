@@ -95,18 +95,18 @@ export class QuizPreviewComponent implements OnInit {
           }
           if(response[0].questionSequence)
           this.sequencedQuestion=true
-          if(response[0].time_check && response[0].timeLimitPerQuestion == 0
-            ){
-            clearInterval(this.intervalId);
-         this.timePerQuestionExists=true
-            this.quizTime = this.quizQuestions[0].timeLimit
-            this.timer()
-          }
-          if(response[0].time_check && response[0].timeLimitPerQuestion > 0
+          if(response[0].time_check
             ){
             clearInterval(this.intervalId);
          this.timePerQuestionExists=true
             this.quizTime = response[0].timeLimitPerQuestion
+            this.timer()
+          }
+            if(!response[0].time_check && !response[0].whole_check
+            ){
+            clearInterval(this.intervalId);
+         this.timePerQuestionExists=true
+            this.quizTime = this.quizQuestions[0].timeLimit
             this.timer()
           }
           this.questionNumber += response[0].questionPerPage
@@ -125,46 +125,55 @@ export class QuizPreviewComponent implements OnInit {
   }
   submitStudentResponse() {
     if(this.studentId)
-     this.userId= this.studentId
-     if(!this.studentId)
-    this.userId = localStorage.getItem("userId");
-    if(!this.quizTimeEnded){
-      const dialogRef= this.dialog.open(ConfirmationDialogComponent,{
-        data:'Are you sure you want to submit your Response.'
-      });
-      dialogRef.afterClosed().subscribe(({ confirmation }) => {
-          if(!confirmation)
-          return
-          this.submitting = true;
-    this.finalResponse = {
-      quizId: this.quizId,
-      userId: this.userId,
-      response: this.response,
-    };
-    this.adminService.submitStudentResponse(this.finalResponse).subscribe({
-      next: (response: any) => {
-        clearInterval(this.intervalId);
-        this.submitting = false;
-        this.responseSubmitted = true;
-      },
-      error: (error) => {
-        this.submitting = false;
-       
-      },
-      complete: () => {
-        if(this.router.url.includes('admin')){
+       this.userId= this.studentId
+       if(!this.studentId)
+      this.userId = localStorage.getItem("userId");
+      console.log('userId',this.userId)
+
+    if(this.quizTimeEnded){
+      this.submitting = true;
+      this.finalResponse = {
+        quizId: this.quizId,
+        userId: this.userId,
+        response: this.response,
+      };
+      this.adminService.submitStudentResponse(this.finalResponse).subscribe({
+        next: (response: any) => {
+          clearInterval(this.intervalId);
+          this.submitting = false;
+          this.responseSubmitted = true;
+  
+        },
+        error: (error) => {
+          this.submitting = false;
           this.router.navigate(['/home/dashboard'])
-  
-          }else{
-          this.router.navigate([`/thank-you/${this.quizId}`])
-  
-          }
-      },
-    });
-    
-      }); 
-    }
-    
+        },
+        complete: () => {
+          if(this.router.url.includes('admin')){
+                    this.router.navigate([`/thank-you/${this.quizId}`],{queryParamsHandling:'preserve'})
+            
+                    }else{
+                      this.router.navigate([`/thank-you/${this.quizId}`],{queryParamsHandling:'preserve'})
+            
+                    }
+        },
+      });
+        }
+        if(!this.quizTimeEnded){
+          const dialogRef= this.dialog.open(ConfirmationDialogComponent,{
+            data:'Are you sure you want to submit your Response.'
+          });
+          dialogRef.afterClosed().subscribe(({ confirmation }) => {
+            if(confirmation){
+              this.quizTimeEnded=true
+              this.submitStudentResponse()
+            }else{
+              return
+            }
+         
+      
+          })
+        }
     
   }
 
@@ -184,7 +193,6 @@ export class QuizPreviewComponent implements OnInit {
       this.minutes = Math.floor(this.seconds / 60);
       this.remainSeconds = this.seconds % 60;
       if (this.seconds == 0) {
-        console.log(this.totalQuestions,this.totalQuizQuestions,this.timePerQuestionExists)
         if(this.timePerQuestionExists && ( this.totalQuestions < this.totalQuizQuestions) ){
               this.getQuizQuestions()
         }else{

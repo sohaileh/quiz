@@ -19,7 +19,6 @@
  
         </span>
       </div>
-       
       <div class="d-flex flex-column border-bottom pt-2" *ngFor="let question of quizQuestions;let i=index">
         <mat-card-content class="ml-2 ml-md-3 mt-2 mr-2">
           <div
@@ -60,6 +59,13 @@
         <!-- <hr /> -->
       </div>
     </mat-card> 
+
   </div>
+
 </div>
+
+<div class="row mt-0 d-flex  justify-content-center">
+<mat-error class="alert alert-danger opacity p-1" *ngIf="addQuestion">Please add questions for your Quiz</mat-error>
+</div>
+
 

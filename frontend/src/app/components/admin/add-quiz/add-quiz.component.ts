@@ -22,6 +22,7 @@ export class AddQuizComponent implements OnInit {
   quizQuestions = [];
   questionId: any = {};
   showButton=false
+  addQuestion:boolean=true
   constructor(
     private adminService: AdminService,
     private dialog:MatDialog,
@@ -38,6 +39,10 @@ export class AddQuizComponent implements OnInit {
     this.adminService.quizQuestions$.subscribe({
       next:(response:any)=>{
         this.quizQuestions = response?.questionBank;
+        if(this.quizQuestions?.length !=0)
+            this.addQuestion=false
+            else
+            this.addQuestion=true
         this.quizStatus= response?.status
         this.quizTitle = response?.quizTitle
       }
@@ -49,7 +54,7 @@ export class AddQuizComponent implements OnInit {
   getQuizQuestions() {
     this.adminService.getQuizQuestions(this.quizId).subscribe({
       next: (response: any) => {
-        // this.adminService.quizQuestions$.next(response)
+        this.adminService.quizQuestions$.next(response)
         this.quizQuestions = response.questionBank;
         this.quizStatus= response.status
         this.quizTitle = response.quizTitle
@@ -81,7 +86,7 @@ export class AddQuizComponent implements OnInit {
         return
         this.adminService.deleteQuestion(question,this.quizId).subscribe({
           next: (response: any) => {
-            // this.adminService.quizQuestions$.next(response);
+            this.adminService.quizQuestions$.next(response);
             this.quizQuestions = response.questionBank;
             this.quizStatus = response.status
             this.quizTitle= response.quizTitle

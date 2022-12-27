@@ -71,6 +71,7 @@ export class ConfigureComponent implements OnInit {
   }
 
   configureQuiz() {
+
     this.configureModel = this.configureForm.getRawValue()
     this.quizService.configure(this.configureModel).subscribe({
       next: (response: any) => {
@@ -84,7 +85,7 @@ export class ConfigureComponent implements OnInit {
     });
   }
   setTimePerQuestion(event:any){
-      if(event.target.checked){
+      if(event?.target?.checked){
         this.configureForm.patchValue({
           quizTimeLimit:'',
           questionPerPage:1,
@@ -106,7 +107,7 @@ export class ConfigureComponent implements OnInit {
 
   }
   setQuizTime(event:any){
-      if(event.target.checked){
+      if(event?.target?.checked){
         this.configureForm.get('time_check').disable()
         this.configureForm.patchValue({
           time_check:false
@@ -122,8 +123,19 @@ export class ConfigureComponent implements OnInit {
        next:(response:any)=>{
         const configurationDetails= response
         configurationDetails.quizId=this.quizId
-        console.log('configuration',configurationDetails)
         this.configureForm.patchValue(configurationDetails)
+        console.log('thisconfiguew',this.configureForm)
+        if(configurationDetails.time_check){
+          const event={target:{checked:true}}
+          this.setTimePerQuestion(event)
+        }
+        
+       
+        if(configurationDetails.whole_check){
+          const event={target:{checked:true}}
+          this.setQuizTime(event)
+        }
+       
        }
     })
   }

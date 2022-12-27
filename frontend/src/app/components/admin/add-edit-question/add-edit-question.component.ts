@@ -28,6 +28,7 @@ export class AddEditQuestionComponent implements OnInit {
   answerSelected = false;
   selectedAnswerIndex: number;
   totalOptions: number = 0;
+  totalQuestions:number
   maxOptionsLimitReached = false;
   questionId: any = {};
   responseSaved:boolean
@@ -79,6 +80,13 @@ export class AddEditQuestionComponent implements OnInit {
         this.setExistigOptions(this.data.options)
       );
     }
+    this.adminService.quizQuestions$.subscribe({
+      next:(response:any)=>{
+        this.quizQuestions = response?.questionBank;
+        this.totalQuestions= this.quizQuestions.length
+         
+      }
+    })
   }
 
   typeOfQuestions = [
@@ -244,6 +252,18 @@ export class AddEditQuestionComponent implements OnInit {
     this.questionBank.patchValue({
       type: "Choose Question Type",
     });
+  }
+
+  saveQuiz(){
+    if(this.totalQuestions >=5)
+    this.dialog.closeAll()
+    else{
+      const dialogRef= this.dialog.open(InfoDialogComponent,{
+        data:'Quiz Should atleast have 5 Questions',
+        disableClose: true,
+      })
+    }
+      
   }
 
 }

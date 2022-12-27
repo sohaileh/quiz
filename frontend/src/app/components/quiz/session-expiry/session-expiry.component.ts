@@ -16,7 +16,7 @@ export class SessionExpiryComponent implements OnInit {
     this.quizId=this.route.snapshot.paramMap.get('id');
   }
   closeQuiz(){
-  this.router.navigate([`/signin-quiz/${this.quizId}`]);
+  this.router.navigate([`/quiz-result/${this.quizId}`],{queryParamsHandling:'preserve'});
   }
 
 }

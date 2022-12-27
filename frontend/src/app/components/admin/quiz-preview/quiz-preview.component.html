@@ -27,7 +27,8 @@
       <div *ngIf="router.url.includes('admin')">
         <button class="btn btn-sm"[routerLink]="['/home/dashboard']">Stop preview</button>
       </div>
-      <div *ngIf="quizDetails[0].time_check || quizDetails[0].whole_check ">
+      <!-- <div *ngIf="quizDetails[0].time_check || quizDetails[0].whole_check  "> -->
+        <div>
           {{ minutes }}:{{ remainSeconds }}
         
       </div>

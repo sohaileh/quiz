@@ -731,6 +731,7 @@ export class QuizService {
           },
         },
       ]);
+      console.log(questions)
       return questions;
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);

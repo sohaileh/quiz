@@ -2,6 +2,7 @@ import { Inject, Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
 import { QuizService } from "../services/quiz.service";
+import { interval, Observable, take } from "rxjs";
 
 @Component({
   selector: "app-quiz-info",
@@ -21,6 +22,11 @@ export class QuizInfoComponent implements OnInit {
   message: any;
   terms:any;
   quizId: any;
+  timerStarted=false
+  redirectingIn = 3;
+  redirectTime: Observable<number>;
+  showRedirectTime: number;
+  studentattempts:boolean=true
   constructor(
     private quizService: QuizService,
     private route: ActivatedRoute,
@@ -35,7 +41,22 @@ export class QuizInfoComponent implements OnInit {
     this.quizId=this.route.snapshot.params.id
   }
   attemptQuiz(){
-    this.router.navigate([`/student/quiz-attempt/${this.quizId}`],{queryParamsHandling:'preserve'});
+    this.studentattempts=true
+    this.redirectTime = interval(1000);
+    this.redirect()
   }
+  redirect() {
+    this.redirectTime.pipe(take(4)).subscribe({
+          next: (resposne) => {
+          this.timerStarted=true
+            this.showRedirectTime = this.redirectingIn - resposne;
+          },
+          error: (error) => {},
+          complete: () => {
+    this.router.navigate([`/student/quiz-attempt/${this.quizId}`],{queryParamsHandling:'preserve'});
+
+          },
+        });
+      }
  
 }
