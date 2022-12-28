@@ -1,4 +1,4 @@
- .btn {
+.btn {
   background-color: #268e9b;
   background-color: #268e9b;
   border: none;
@@ -10,15 +10,18 @@
   margin: 10px 0;
   cursor: pointer;
   transition: 0.5s;
-  font-size:12px;
-  }
-
-  @media screen and(max-width:720px)  {
-
-.btn{
-  font-size:8px;
-  text-align: center;
-  width:75px;
-
+  font-size: 12px;
 }
+
+@media screen and(max-width:720px) {
+  .btn {
+    font-size: 8px;
+    text-align: center;
+    width: 75px;
   }
+}
+
+.cancel-btn {
+  background-color: #f0f0f0 !important;
+  color: #333;
+}

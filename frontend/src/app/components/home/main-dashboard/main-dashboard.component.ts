@@ -91,7 +91,7 @@ export class MainDashboardComponent implements OnInit {
 
   openQuizTitle(): void {
     let dialogRef = this.dialog.open(QuizTitleComponent, {
-      width: '400px',
+      width: '600px',
       position: {
         top: '60px',
       }

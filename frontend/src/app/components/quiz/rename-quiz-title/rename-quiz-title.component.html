@@ -1,20 +1,17 @@
 <div>
-    <p >Rename Title</p>
-    </div>
+    <p>Rename Title</p>
+</div>
 
- <div>
-                <input matInput placeholder="New Title" class="form-control"  [(ngModel)]="newquizTitle" appFormErrorMsg required >
-     </div>
+<div>
+    <input matInput placeholder="New Title" class="form-control" [(ngModel)]="newquizTitle" appFormErrorMsg required>
+</div>
 
-     <div class="mt-2" fxLayoutAlign="end">
-        <div  class="d-flex p-1"  fxLayoutGap="5px" fxLayout.xs="row">
-        <button class="btn border-0 " (click)="onNoClick()">Cancel</button>
+<div class="mt-2" fxLayoutAlign="end">
+    <div class="d-flex p-1" fxLayoutGap="5px" fxLayout.xs="row">
+        <button class="btn border-0 cancel-btn" (click)="onNoClick()">Cancel</button>
 
         <button class="btn border-0" (click)="renameQuizTitle()">Rename</button>
 
     </div>
-    
-     </div>
-  
 
-  
+</div>

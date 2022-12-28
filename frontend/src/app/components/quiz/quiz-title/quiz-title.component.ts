@@ -4,10 +4,12 @@ import { QuizService } from '../services/quiz.service';
 
 
 
+
 @Component({
   selector: 'app-quiz-title',
   templateUrl: './quiz-title.component.html',
-  styleUrls: ['./quiz-title.component.scss']
+  styleUrls: ['./quiz-title.component.scss'],
+ 
 })
 export class QuizTitleComponent implements OnInit {
   quizTitle:string;

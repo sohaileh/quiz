@@ -1,20 +1,10 @@
-<div>
-    <p >New Quiz</p>
+<div mat-dialog-container>
+    <h4 mat-dialog-title class="head-div">New Quiz</h4>
+    <div class="input_q">
+        <input placeholder="Enter Quiz Title" class="form-control" [(ngModel)]="quizTitle" appFormErrorMsg required>
     </div>
-
- <div>
-<input  placeholder="Enter Quiz Title" class="form-control"  [(ngModel)]="quizTitle" appFormErrorMsg required >
-     </div>
-
-     <div class="mt-2" fxLayoutAlign="end"   >
-        <div  class="d-flex p-1"  fxLayoutGap="5px" fxLayout.xs="row" >
-        <button class="btn border-0 " (click)="onNoClick()">Cancel</button>
-
+    <mat-dialog-actions class="float-right">
+        <button class="btn border-0 cancel-btn" (click)="onNoClick()">Cancel</button>
         <button class="btn border-0" (click)="createQuizTitle()">Create</button>
-
-    </div>
-    
-     </div>
-  
-
-  
+    </mat-dialog-actions>
+</div>
