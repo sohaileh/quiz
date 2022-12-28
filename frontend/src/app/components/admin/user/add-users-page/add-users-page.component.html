@@ -1,126 +1,91 @@
 <app-header-three></app-header-three>
 <div class="main pl-md-5 pr-md-5 h-100 w-100">
-
- <mat-card class="w-100  h-100  layout p-0 p-md-4">
-      <div
-    class="header  rounded-top"
-    fxLayout="row"
-    fxLayoutAlign="space-between none"
-    fxLayout.lt-xs="column"  
-  >
-    <div fxLayoutAlign="start center" class="searchIcon" >
-      <i class="fa fa-search ml-2 searchIcon search_icon"  (click)="searchShow()"
-        ><span class="ml-2"></span
-      ></i>
-      <mat-form-field appearance="none">
-        <input 
-          matInput
-          (keyup)="applyFilter($event)"
-          placeholder="search"
-          #input
-        />
-      </mat-form-field>
-    
+  <mat-card class="w-100 h-100 layout p-0 p-md-4">
+    <div class="header rounded-top" fxLayout="row" fxLayoutAlign="space-between none" fxLayout.lt-xs="column">
+      <div fxLayoutAlign="start center" class="searchIcon">
+        <i class="fa fa-search ml-2 searchIcon search_icon" (click)="searchShow()"><span class="ml-2"></span></i>
+        <mat-form-field appearance="none">
+          <input matInput (keyup)="applyFilter($event)" placeholder="search" #input />
+        </mat-form-field>
+      </div>
+      <div fxLayoutGap="4px" fxLayout.xs="row" fxLayoutAlign="start center">
+        <button class="btn create-button border-0 ml-1" [routerLink]="['/admin/add-users']">
+          Add user
+        </button>
+        <button class="btn bulk mr-2">Bulk upload</button>
+      </div>
     </div>
-    <div fxLayoutGap="4px"  fxLayout.xs="row" fxLayoutAlign="start center"
-    >
-      <button
-        class="btn create-button border-0  ml-1"
-        [routerLink]="['/admin/add-users']"
-      >
-        Add user
-      </button>
-      <button class="btn bulk  mr-2" >Bulk upload</button>
-    </div>
-  </div>
-  <mat-card-content>
-    <mat-table #table [dataSource]="dataSource">
-      <div class="d-flex" fxFlex-xs="100%">
-        <div>
+    <mat-card-content>
+      <mat-table #table [dataSource]="dataSource">
+        <div class="d-flex" fxFlex-xs="100%">
           <ng-container matColumnDef="selectRole">
-            <mat-header-cell *matHeaderCellDef>
+            <th mat-header-cell *matHeaderCellDef>
               <mat-select class="matSelect">
                 <mat-option>All</mat-option>
                 <mat-option>Trainers</mat-option>
                 <mat-option>Administrater</mat-option>
               </mat-select>
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              <mat-checkbox
-                [hidden]="row.role === 'admin'"
-                (click)="$event.stopPropagation()"
-              >
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <mat-checkbox [hidden]="row.role === 'admin'" (click)="$event.stopPropagation()">
               </mat-checkbox>
-            </mat-cell>
+            </td>
           </ng-container>
-        </div>
 
-        <div >
           <ng-container matColumnDef="firstName">
-            <mat-header-cell *matHeaderCellDef>FirstName</mat-header-cell>
-            <mat-cell *matCellDef="let element" (click)="getUserInfo(element)"
-              >{{ element.firstName }}
-            </mat-cell>
+            <th mat-header-cell *matHeaderCellDef class="word-br">
+              FirstName
+            </th>
+            <td mat-cell *matCellDef="let element" (click)="getUserInfo(element)">
+              {{ element.firstName }}
+            </td>
           </ng-container>
-        </div>
 
-        <div>
           <ng-container matColumnDef="lastName">
-            <mat-header-cell *matHeaderCellDef fxHide.lt-sm="true">LastName</mat-header-cell>
-            <mat-cell *matCellDef="let element" fxHide.lt-sm="true">{{
-              element.lastName
-            }}</mat-cell>
+            <th mat-header-cell *matHeaderCellDef class="word-br">
+              LastName
+            </th>
+            <td mat-cell *matCellDef="let element">{{ element.lastName }}</td>
           </ng-container>
-        </div>
 
-        <div>
           <ng-container matColumnDef="emailAddress">
-            <mat-header-cell *matHeaderCellDef class="mr-0 mr-md-1"
-              >Email</mat-header-cell
-            >
-            <mat-cell *matCellDef="let element"
-              >{{ element.emailAddress }}
-            </mat-cell>
+            <th mat-header-cell *matHeaderCellDef class="th-w-25">
+              Email
+            </th>
+            <td mat-cell *matCellDef="let element" class="th-w-25">
+              {{ element.emailAddress }}
+            </td>
           </ng-container>
-        </div>
 
-        <div>
           <ng-container matColumnDef="role">
-            <mat-header-cell *matHeaderCellDef fxHide.lt-sm="true">Role</mat-header-cell>
-            <mat-cell *matCellDef="let element" fxHide.lt-sm="true">{{ element.role }} </mat-cell>
+            <th mat-header-cell *matHeaderCellDef>Role</th>
+            <td mat-cell *matCellDef="let element">{{ element.role }}</td>
           </ng-container>
-        </div>
 
-        <div>
           <ng-container matColumnDef="created">
-            <mat-header-cell *matHeaderCellDef fxHide.lt-sm="true">Created</mat-header-cell>
-            <mat-cell *matCellDef="let element" fxHide.lt-sm="true">
+            <th mat-header-cell *matHeaderCellDef class="th-w-20">
+              Created
+            </th>
+            <td mat-cell *matCellDef="let element" class="th-w-20">
               {{ element.created | date }}
-            </mat-cell>
+            </td>
           </ng-container>
-        </div>
-        <div>
+
           <ng-container matColumnDef="action">
-            <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
-            <mat-cell *matCellDef="let element" fxLayoutGap="4px" class="ml-2 ml-md-0">
-              <span><i class="fa fa-edit text-success ml-1"                
-                  *ngIf="element.role !== 'admin'"
-                  (click)="getUserInfo(element)"></i> </span>
-                  <span><i
-                    class="fa fa-trash  text-danger"
-                    *ngIf="element.role !== 'admin'"
-                    (click)="deleteUser(element)"
-                  ></i></span> 
-    
-
-            </mat-cell>
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let element" fxLayoutGap="4px" class="ml-2 ml-md-0">
+              <span><i class="fa fa-edit text-success" *ngIf="element.role !== 'admin'"
+                  (click)="getUserInfo(element)"></i>
+              </span>
+              <span><i class="fa fa-trash text-danger" *ngIf="element.role !== 'admin'"
+                  (click)="deleteUser(element)"></i></span>
+            </td>
           </ng-container>
-        </div>
 
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-      </div>
-    </mat-table>
-  </mat-card-content>
-</mat-card>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </div>
+      </mat-table>
+    </mat-card-content>
+  </mat-card>
 </div>
