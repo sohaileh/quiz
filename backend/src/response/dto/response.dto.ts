@@ -5,7 +5,7 @@ export class ResponseModelDto{
     public quizId:any;
 
     @IsNotEmpty()
-    @IsString()
+    @IsObject()
     public userID:String;
 
     @IsNotEmpty()

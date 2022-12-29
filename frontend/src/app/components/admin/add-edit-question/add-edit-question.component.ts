@@ -53,7 +53,7 @@ export class AddEditQuestionComponent implements OnInit {
       question: [""],
       type: ["Choose Question Type"],
       file: [null],
-      marks: [],
+      points: [],
       correctAnswer: [""],
       timeLimit: [],
       options: this.fb.array([]),
@@ -65,7 +65,7 @@ export class AddEditQuestionComponent implements OnInit {
         question: this.data.question,
         type: this.data.type,
         file: this.data.file,
-        marks: this.data.marks,
+        points: this.data.points,
         correctAnswer: this.data.correctAnswer,
         timeLimit: this.data.timeLimit,
       });
@@ -91,7 +91,7 @@ export class AddEditQuestionComponent implements OnInit {
 
   typeOfQuestions = [
     {
-      type: "face-recognition",
+      type: "image",
     },
     {
       type: "mcq",
@@ -118,7 +118,7 @@ export class AddEditQuestionComponent implements OnInit {
     });
     this.options.push(questionOptions);
     this.totalOptions++;
-    if (this.totalOptions == 4) this.maxOptionsLimitReached = true;
+    if (this.totalOptions == 5) this.maxOptionsLimitReached = true;
   }
 
   removeOption(pos) {
@@ -154,7 +154,7 @@ export class AddEditQuestionComponent implements OnInit {
       "options",
       JSON.stringify(this.questionBank.get("options").value)
     );
-    formData.append("marks", this.questionBank.get("marks").value);
+    formData.append("points", this.questionBank.get("points").value);
     formData.append("correctAnswer", this.answer);
 
     this.adminService.saveQuestion(formData, this.data).subscribe(
@@ -206,7 +206,7 @@ export class AddEditQuestionComponent implements OnInit {
       );
     });
     this.totalOptions = questionOptions.length;
-    if (this.totalOptions == 4) this.maxOptionsLimitReached = true;
+    if (this.totalOptions == 5) this.maxOptionsLimitReached = true;
     return questionOptions;
   }
   editQuestion() {
@@ -221,7 +221,7 @@ export class AddEditQuestionComponent implements OnInit {
       "options",
       JSON.stringify(this.questionBank.get("options").value)
     );
-    formData.append("marks", this.questionBank.get("marks").value);
+    formData.append("points", this.questionBank.get("points").value);
     formData.append("correctAnswer", this.answer);
 
     this.adminService

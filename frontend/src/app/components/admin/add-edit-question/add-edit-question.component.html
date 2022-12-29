@@ -55,13 +55,13 @@
       <div
         class="col-lg-3 mt-2 mt-lg-0 d-flex justify-content-between align-items-baseline p-0"
       >
-        <label class="control-label mr-1 font-weight-bold">Marks</label>
+        <label class="control-label mr-1 font-weight-bold">Points</label>
         <input
           type="number"
           class="form-control marks"
           ngClass.lt-md="w-25"
-          formControlName="marks"
-          name="marks"
+          formControlName="points"
+          name="points"
         />
       </div>
     </div>
@@ -81,7 +81,7 @@
                 class="form-group d-flex"
                 ngClass.lt-sm="d-flex flex-column"
                 *ngIf="
-                  questionType == 'face-recognition' ||
+                  questionType == 'image' ||
                   questionType == 'audio' ||
                   questionType == 'video'
                 "
@@ -234,13 +234,13 @@
     <div
       class="col-lg-3 mt-2 mt-lg-0 d-flex justify-content-between align-items-baseline p-0"
     >
-      <label class="control-label mr-1 font-weight-bold">Marks</label>
+      <label class="control-label mr-1 font-weight-bold">Points</label>
       <input
         type="number"
         class="form-control marks"
         ngClass.lt-md="w-25"
-        formControlName="marks"
-        name="marks"
+        formControlName="points"
+        name="points"
       />
     </div>
   </div>
@@ -260,7 +260,7 @@
               class="form-group d-flex"
               ngClass.lt-sm="d-flex flex-column"
               *ngIf="
-                questionType == 'face-recognition' ||
+                questionType == 'image' ||
                 questionType == 'audio' ||
                 questionType == 'video'
               "

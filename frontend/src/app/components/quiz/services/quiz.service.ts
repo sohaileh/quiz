@@ -213,4 +213,7 @@ export class QuizService {
     console.log(payload);
     return this.http.post(`${this.serverUrl}quiz/sendEmailInvitation`, payload);
   }
+  getUserQuizResponse(quizId,userId){
+    return this.http.get(`${this.serverUrl}response/get-user-quiz-response/${quizId}/${userId}`)
+  }
 }

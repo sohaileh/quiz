@@ -79,5 +79,7 @@ passValue(data:any) {
   editUserDetails(userModel:any){
     return this.http.patch(`${this.serverUrl}auth/edit-user-details`,userModel)
   }
- 
+  getRoles(){
+    return this.http.get(`${this.serverUrl}role/get-roles`)
+  }
 }

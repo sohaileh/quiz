@@ -6,6 +6,8 @@ import {
   HttpStatus,
   HttpException,
   UseGuards,
+  Get,
+  Param,
 } from '@nestjs/common';
 import { Roles } from 'src/auth/authorization/decorator/roles.decorator';
 import { RolesGuard } from 'src/auth/authorization/guard/roles.guard';
@@ -29,7 +31,7 @@ export class ResponseController {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
   }
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Post('submit-student-response')
   async submitStudentResponse (@Body() body:any,@Res() res){
    try{
@@ -39,5 +41,16 @@ export class ResponseController {
     throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
 
    }
+  }
+
+  @Get('get-user-quiz-response/:quizId/:userId')
+  async getUserQuizResponse(@Res() res,@Param() params){
+    try{
+      const quizResponse = await this.responseService.getUserQuizResponse(params)
+    res.status(HttpStatus.OK).json(quizResponse)
+    }catch(err){
+    throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+
+    }
   }
 }

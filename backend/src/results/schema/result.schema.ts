@@ -9,7 +9,7 @@ export const ResultSchema = new mongoose.Schema({
            score:Number,
            totalCorrectAnswers:Number,
            totalQuestions:Number,
-           totalMarks:Number,
+           totalPoints:Number,
            playedOn:{type:Date,default:Date.now}
            
         }

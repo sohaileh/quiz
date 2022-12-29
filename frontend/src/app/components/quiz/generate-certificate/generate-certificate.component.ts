@@ -47,7 +47,6 @@ export class GenerateCertificateComponent implements OnInit {
   generateCertificate() {
     this.quizService.generateCertificate(this.userId, this.quizId).subscribe(
       (res: any) => {
-        // console.log('certificate reponse',res)
         this.firstName = res.userDetails[0].firstName;
         this.lastname = res.userDetails[0].lastName;
         this.eventName = res.quizDetails[0].eventName;

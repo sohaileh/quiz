@@ -7,6 +7,7 @@
       <p class="mb-0">Available</p>
       <div class="border border-dark rounded-left w-100 assign-height p-2">
         <option
+        class="cursor"
           [value]="quiz"
           [ngClass]="{
             'selected-Option': selectedOption && i == selectedIndex && availableCliked
@@ -33,6 +34,7 @@
       <p class="mb-0">Assigned</p>
       <div class="border border-dark rounded-left w-100 assign-height p-2">
         <option
+        class="cursor"
           [value]="quiz"
           *ngFor="let quiz of assignedQuizzes; let i = index"
           (click)="selectQuiz($event, i)"

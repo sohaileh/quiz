@@ -38,6 +38,7 @@ import { CKEditorModule } from 'ng2-ckeditor';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { SessionExpiryComponent } from './session-expiry/session-expiry.component';
+import { CustomPipesModule } from "../Pipes/Pipes.molule";
 @NgModule({
   declarations: [
     AttemptQuizComponent,
@@ -79,7 +80,8 @@ import { SessionExpiryComponent } from './session-expiry/session-expiry.componen
     DirectivesModule,
     CKEditorModule,
     ClipboardModule,
-    MatTooltipModule
+    MatTooltipModule,
+    CustomPipesModule,
   ],
   providers: [{ provide: MAT_DIALOG_DATA, useValue: {} }],
 })

@@ -50,3 +50,13 @@ mat-form-field {
     bottom: 0.6em;
     right: 1.3em;
 }
+.assign-quiz{
+
+  min-height:50px;
+  overflow-y: auto;
+}
+.assign-input{
+  outline: none;
+  border: none;
+  border-top: 1px solid #ced4da;
+}

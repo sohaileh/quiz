@@ -26,6 +26,7 @@ export class AddQuizComponent implements OnInit {
   quizQuestions = [];
   questionId: any = {};
   showButton=false
+  hideOptions=false
   addQuestion:boolean=true
   hide:boolean=false;
   constructor(
@@ -139,6 +140,7 @@ export class AddQuizComponent implements OnInit {
       disableClose: true
     })
   }
+ 
 
   ngOnDestroy(){
     this.adminService.menu$.next(false)

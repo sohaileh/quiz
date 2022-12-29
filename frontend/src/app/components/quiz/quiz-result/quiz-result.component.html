@@ -1,55 +1,39 @@
-<div class="my-account sec-padding d-flex flex-column align-items-center h-100">
-  <div class="d-flex flex-column align-items-center badge badge-info custom">
-    <div class="row mt-4 w-100 row-1">
-      <div class="col-12 col-md-6 col-lg-3 mb-2">
-        <div
-          class="d-flex flex-column flex-sm-row flex-md-column flex-xl-row justify-content-center align-items-center badge badge-light text-info rounded p-3"
-        >
-          <span><mat-icon>assignment_late</mat-icon></span>
-          <span>Total Questions:{{ result[0]?.totalQuestions }} </span>
-        </div>
-      </div>
-      <div class="col-12 col-md-6 col-lg-3 mb-2">
-        <div
-          class="d-flex flex-column flex-sm-row flex-md-column flex-xl-row justify-content-center align-items-center badge badge-light text-info rounded p-3"
-        >
-          <span> <mat-icon>check_circle_outline</mat-icon> </span>
-          <span>Correct answers:{{ result[0]?.totalCorrectAnswers }} </span>
-        </div>
-      </div>
-      <div class="col-12 col-md-6 col-lg-3 mb-2">
-        <div
-          class="d-flex flex-column flex-sm-row flex-md-column flex-xl-row justify-content-center align-items-center badge badge-light text-info rounded p-3"
-        >
-          <span><mat-icon>highlight_off</mat-icon></span>
-          <span>Incorrect answers:{{ incorrectanswers }} </span>
-        </div>
-      </div>
-      <div class="col-12 col-md-6 col-lg-3">
-        <div
-          class="d-flex flex-column flex-sm-row flex-md-column flex-xl-row justify-content-center align-items-center badge badge-light text-info rounded p-3"
-        >
-          <span> <mat-icon>assignment</mat-icon> </span>
-          <span
-            >Marks: {{ result[0]?.score }}/ {{ result[0]?.totalMarks }}
-          </span>
-        </div>
-      </div>
-    </div>
 
-    <div
-      class="row w-100 d-flex justify-content-center row-2 flex-column min-width"
-    >
-      <div class="mb-4">
-        <p class="text-light percentage-content">
-          Score:{{ percentage | number: "1.2-2" }}%
-        </p>
+<div class="container-fluid mt-4">
+  <div class="custom-row h-100 w-100 d-flex justify-content-center mb-4">
+    <mat-card class="col-12 col-md-8 p-0">
+      <div class="p-3 rounded quiz-heading d-flex justify-content-between">
+      
       </div>
-      <div>
-        <h4 class="text-light" [routerLink]="['/quiz/my-quizzes']">
-          See All of your Results
-        </h4>
+      <div class="d-flex flex-column border-bottom pt-2" *ngFor="let question of quizQuestions;let i=index">
+        <mat-card-content class="ml-2 ml-md-3 mt-2 mr-2">
+          <div
+            class="question d-flex flex-column "
+          >
+           <div class="d-flex align-items-baseline ">
+            <div class="font-weight-bold mr-1 body">Q{{i+1}}.</div>
+            <div  class="flex-space h5" [innerHTML]="question.question | sanitizedHtml"></div>
+
+           </div>
+           
+          </div>
+          <div class="options w-100">
+              <mat-radio-group class="col-12 d-flex flex-column flex-lg-row flex-lg-wrap"
+                disabled
+              >
+                <mat-radio-button [color]="color"
+                  class="col-12 col-lg-5 border border-info rounded mr-4 mb-4 pt-3 pb-2 "
+                  *ngFor="let option of question.options"
+                  [value]="option.option"
+                  >{{ option.option }}</mat-radio-button
+                >
+              </mat-radio-group>
+          </div>
+        </mat-card-content>
+        <!-- <hr /> -->
       </div>
-    </div>
+    </mat-card> 
+
   </div>
+
 </div>

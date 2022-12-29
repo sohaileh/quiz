@@ -2,46 +2,6 @@
 <div class="h-100 d-flex justify-content-center">
   <div class="pl-4 pr-4 pt-4 pb-3 mat-card  " [ngClass]="{'edit-page': router.url.includes('edit-user')}">
     <form class="w-100" [formGroup]="assignQuizForm">
-      <div class="row d-flex flex-column flex-sm-row mb-4 " *ngIf="router.url.includes('/admin/add-users')">
-        <div class="col-12 col-sm-6 mb-2 mb-sm-0">
-          <label class="font-weight-bold">Username</label>
-          <input type="text" class="form-control">
-        </div>
-        <div class="col-12 col-sm-6 mb-2 mb-sm-0">
-          <label class="font-weight-bold">Role</label>
-          <input type="text" class="form-control" formControlName="role">
-        </div>
-      </div>
-      <div class="row d-flex flex-column flex-sm-row mb-4 align-items-lg-end"
-        *ngIf="router.url.includes('/admin/edit-user')">
-        <div class="col-12 col-lg-5  mb-2 mb-lg-0">
-          <label class="font-weight-bold">Username</label>
-          <input type="text" class="form-control">
-        </div>
-        <div class=" col-8 col-lg-2 mb-2 mb-lg-0 ">
-          <button class="btn button btn-sm">Reset Password</button>
-        </div>
-        <div class="col-12  col-lg-5 mb-2 mb-md-0">
-          <label class="font-weight-bold">Role</label>
-          <input type="text" class="form-control" formControlName="role">
-        </div>
-      </div>
-      <div class="row d-flex flex-column flex-sm-row mb-4" *ngIf="router.url.includes('/admin/add-users')" >
-        <div class="col-12 col-sm-6 mb-2 mb-sm-0 parent-position">
-          <label class="font-weight-bold">Password</label>
-          <input [type]="hide?'password':'text'" class="form-control" formControlName="password">
-          <i class="fa fa-eye-slash  cursor position" aria-hidden="true"(click)="hide=!hide" *ngIf="hide"></i>
-          <i class="fa fa-eye  cursor position cursor  " aria-hidden="true"(click)="hide=!hide" *ngIf="!hide"></i>
-          <mat-error *ngIf="checkError('password', 'required') && assignQuizForm.get('password').touched ">Password is required</mat-error>
-          <mat-error *ngIf="checkError('password', 'pattern') && assignQuizForm.get('password').touched  " >Password must be 8 characters, 1 uppercase , 1 special character</mat-error>
-        </div>
-      </div>
-      <div class="row d-flex mb-4">
-        <div class=" d-flex align-items-baseline col-3 mb-2 mb-sm-0">
-          <label class="font-weight-bold mr-2">Suspended</label>
-          <input type="checkbox">
-        </div>
-      </div>
       <div class="row d-flex flex-column flex-sm-row mb-4 ">
         <div class="col-12 col-sm-6 mb-2 mb-sm-0">
           <label class="font-weight-bold">First name</label>
@@ -66,14 +26,51 @@
           <input type="text" class="form-control" formControlName="organization">
         </div>
       </div>
+      <div class="row d-flex flex-column flex-sm-row mb-4" >
+        <div class="col-12 col-sm-6 mb-2 mb-sm-0 parent-position">
+          <label class="font-weight-bold">Role</label>
+          <!-- <input type="text" class="form-control" formControlName="role"> -->
+          <select formControlName="role" class="form-control">
+            <option disabled>Choose Role</option>
+            <option [value]=role *ngFor="let role of roles">{{role}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row d-flex flex-column flex-sm-row mb-4 align-items-lg-end"
+        *ngIf="router.url.includes('/admin/edit-user')">
+        <div class=" col-8 col-lg-2 mb-2 mb-lg-0 ">
+          <button class="btn button btn-sm">Reset Password</button>
+        </div>
+
+      </div>
+      <div class="row d-flex flex-column flex-sm-row mb-4" *ngIf="router.url.includes('/admin/add-users')" >
+        <div class="col-12 col-sm-6 mb-2 mb-sm-0 parent-position">
+          <label class="font-weight-bold">Password</label>
+          <input [type]="hide?'password':'text'" class="form-control" formControlName="password">
+          <i class="fa fa-eye-slash  cursor position" aria-hidden="true"(click)="hide=!hide" *ngIf="hide"></i>
+          <i class="fa fa-eye  cursor position cursor  " aria-hidden="true"(click)="hide=!hide" *ngIf="!hide"></i>
+          <mat-error *ngIf="checkError('password', 'required') && assignQuizForm.get('password').touched ">Password is required</mat-error>
+          <mat-error *ngIf="checkError('password', 'pattern') && assignQuizForm.get('password').touched  " >Password must be 8 characters, 1 uppercase , 1 special character</mat-error>
+        </div>
+      </div>
+      <div class="row d-flex mb-4">
+        <div class=" d-flex align-items-baseline col-3 mb-2 mb-sm-0">
+          <label class="font-weight-bold mr-2">Suspended</label>
+          <input type="checkbox">
+        </div>
+      </div>
       <div class="row d-flex flex-column flex-sm-row mb-4 align-items-sm-end ">
-        <div class="col-12 col-sm-8 mb-2 mb-sm-0" *ngIf="!userId">
+        <div class="col-12 col-sm-8 mb-2 mb-sm-0 " *ngIf="!userId">
           <label class="font-weight-bold">Assigned Quizzes</label>
-          <input type="text" class="form-control mb-2" [value]="quiz.quizTitle" *ngFor="let quiz of quizIdObject">
+          <div class="border assign-quiz rounded">
+          <input type="text" class="form-control  assign-input" [value]="quiz.quizTitle" *ngFor="let quiz of quizIdObject">
+          </div>
         </div>
         <div class="col-12 col-sm-8 mb-2 mb-sm-0" *ngIf="userId">
           <label class="font-weight-bold">Assigned Quizzes</label>
-          <input type="text" class="form-control mb-2" [value]="quiz" *ngFor="let quiz of quizAllocatedToUser">
+          <div class="border assign-quiz rounded">
+          <input type="text" class="form-control  assign-input" [value]="quiz" *ngFor="let quiz of quizAllocatedToUser">
+            </div>
         </div>
         <div class="col-8 col-md-3 mb-sm-0 mt-2 mt-md-0 align-items-baseline pb-2">
           <button class="btn button   btn-sm" (click)="assignQuizDialog()">Assign Quiz</button>

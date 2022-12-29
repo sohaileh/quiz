@@ -206,6 +206,7 @@ export class QuizPreviewComponent implements OnInit {
   }
   ngOnDestroy() {
     clearInterval(this.intervalId);
+    this.dialog.closeAll()
   }
 
 }

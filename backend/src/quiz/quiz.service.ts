@@ -201,13 +201,13 @@ export class QuizService {
           'Fill Valid question Type',
           HttpStatus.BAD_REQUEST,
         );
-      if (type == 'face-recognition' || type == 'video' || type == 'audio') {
+      if (type == 'image' || type == 'video' || type == 'audio') {
         if(!file)
         throw new HttpException(
           'File not Uploaded',
           HttpStatus.BAD_REQUEST,
         );
-          if(type =='face-recognition' && file.mimetype.split('/')[0] !== 'image')
+          if(type =='image' && file.mimetype.split('/')[0] !== 'image')
           throw new HttpException(
             'File Uploaded is not Image',
             HttpStatus.BAD_REQUEST,
@@ -390,7 +390,7 @@ export class QuizService {
           HttpStatus.BAD_REQUEST,
         );
 
-      if (type == 'face-recognition' || type == 'video' || type == 'audio') {
+      if (type == 'image' || type == 'video' || type == 'audio') {
         // if question is of media type and want file updation as well
         if (file) {
           const question = await this.quizModel.find(
@@ -649,7 +649,7 @@ export class QuizService {
           HttpStatus.BAD_REQUEST,
         );
       const { type, _id: questionId } = question;
-      if (type == 'face-recognition' || type == 'video' || type == 'audio') {
+      if (type == 'image' || type == 'video' || type == 'audio') {
         const question = await this.quizModel.find(
           { _id: new Types.ObjectId(quizId) },
           {

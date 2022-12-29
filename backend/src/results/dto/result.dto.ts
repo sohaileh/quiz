@@ -9,7 +9,7 @@ export class ResultModelDto{
    public score:Number;
    public totalCorrectAnswers:Number;
    public totalQuestions:Number;
-   public totalMarks:Number;
+   public totalPoints:Number;
    
 
 }

@@ -15,7 +15,7 @@ export const QuizSchema = new mongoose.Schema({
       attempted: { type: Boolean },
 
       type: { type: String, default: null },
-      marks: { type: Number, default: 0 },
+      points: { type: Number, default: 0 },
       fileName: { type: String, default: null },
       timeLimit: { type: Number, default: 1 },
       question: String,

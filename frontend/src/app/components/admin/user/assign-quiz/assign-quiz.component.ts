@@ -31,6 +31,7 @@ export class AssignQuizComponent implements OnInit {
   editQuizAssign = [];
   userId: any = {};
   dialogOpened = false;
+  roles:string[]
   constructor(
     private fb: FormBuilder,
     private adminService: AdminService,
@@ -42,7 +43,7 @@ export class AssignQuizComponent implements OnInit {
 
   ngOnInit(): void {
     this.assignQuizForm = this.fb.group({
-      role: [""],
+      role: ["Choose Role"],
       password: [
         "",
         [
@@ -81,6 +82,7 @@ export class AssignQuizComponent implements OnInit {
         },
       });
     }
+    this.getRoles()
   }
 
   save() {
@@ -188,5 +190,12 @@ export class AssignQuizComponent implements OnInit {
   };
   get formError() {
     return this.assignQuizForm.controls;
+  }
+  getRoles(){
+    this.adminService.getRoles().subscribe({
+      next:(response:any)=>{
+       this.roles=response
+      },error:(error)=>{},complete:()=>{}
+    })
   }
 }
