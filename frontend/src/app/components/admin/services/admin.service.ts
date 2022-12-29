@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { HttpClient, HttpParams } from "@angular/common/http";
-import { BehaviorSubject, Observable, shareReplay, tap } from "rxjs";
+import { BehaviorSubject, Observable, shareReplay, Subject, tap } from "rxjs";
 
 
 @Injectable({
@@ -14,7 +14,9 @@ export class AdminService {
  menu$ = new BehaviorSubject<boolean>(false)
  organizationUsers$ = new BehaviorSubject<number>(0) 
 
+ public print = new Subject<string>();
 
+  
  constructor(private http: HttpClient) {}
 
  saveQuestion(quizData: any,quizId) {
@@ -23,7 +25,10 @@ export class AdminService {
     quizData
   );
 }
-
+passValue(data:any) {
+  //passing the data as the next observable
+  this.print.next(data);
+}
   submitInfo(quizDetails: any) {
     return this.http.post(`${this.serverUrl}quiz/submit-info`, quizDetails);
   }

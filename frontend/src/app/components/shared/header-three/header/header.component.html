@@ -1,44 +1,48 @@
 
 
 
-
-
-
-
-<div class="home-header">
-  <div class="container" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px" fxlayoutalign="space-between center">
-    <div class="logo">
-        <a  ><img src="assets/images/logo-01.png"></a>
-    </div>
-    <div fxflexoffset.gt-sm="10"  fxFlex class="search-form">
-        <form class="search-form" fxLayout="row">
-          <div class="form-wrap">
-             <input type="text" placeholder="Type to search...">
-             <button class="btn-search" type="submit">Search</button>
-          </div>
-        </form>
-       </div>
-    <div class="call-bucket-wrap" fxLayout="row" fxLayout.sm="row" fxLayoutAlign="center center" >
-        <div class="info-message-icon"  fxLayout="row" fxLayoutAlign="center center">
-          <div class="icon"  fxLayout="row" >
-            <i class="fa fa-lock "></i>
-              <!-- <mat-icon class="mat-icon-lg mat-icon material-icons">call</mat-icon> -->
-          </div>
-            <div class="info-text">
-              <p>Login</p>
-               <span>02(981)336 111</span>
-            </div>
-        </div>
-        <div class="main-menu-wrapper-2" fxLayout="row" fxLayoutAlign="space-between center" >
-            <mat-toolbar class="top-navbar top menu">
-              <app-shopping-widgets [shoppingCartItems]="shoppingCartItems"></app-shopping-widgets>
-            </mat-toolbar>
-          </div>
-      </div>
-
+<mat-toolbar class="mat-elevation-z10" fxLayout="row">
+  <div fxFlex fxLayout="row" fxLayoutAlign="flex-start" fxHide.xs>
+      <ul fxLayout fxLayoutGap="20px" class="menu-items pt-3">
+          <li><a mat-button routerLinkActive="active" (click)="create()">Create</a></li>
+          <li> <a mat-button [routerLinkActive]="" (click)="configure()">Configure</a></li>
+          <li><a mat-button [routerLinkActive]="" (click)="publish()">Publish</a></li>
+      </ul>
+      <span class="  spacer"></span>
+      <span mat-button class="printButton pt-3" ngClass.lt-sm="mr-0 mt-0" (click)="passPrint($event)">
+       <i class="fa fa-print"></i> Print
+      </span>
+      <span mat-button class="previewButton pt-3" ngClass.lt-sm="mr-0 mt-0" id="preview" (click)="preview()">
+        <i class="fa fa-eye"></i> Preview
+      </span>
   </div>
-</div>
-<div class="menu-container1">
-    <app-menu></app-menu>
-</div>
+  <div fxFlex fxLayout="row" fxLayoutAlign="flex-end" fxHide.gt-xs>
+      <a class="valign-center" mat-icon-button [matMenuTriggerFor]="menu" aria-label="additional links">
+          <mat-icon>more_vert</mat-icon>
+      </a>
+      <mat-menu #menu="matMenu">
+        <a mat-menu-item  (click)="create()">Create</a>
+        <a mat-menu-item (click)="configure()">Configure</a>
+        <a mat-menu-item  (click)="publish()">Publish</a>
+        <a mat-menu-item (click)="preview()">Preview</a>
+        <a mat-menu-item (click)="passPrint($event)" >Print</a>
+      </mat-menu>
+  </div>
+</mat-toolbar>
 
+
+
+
+<!-- <mat-toolbar *ngIf="router.url.includes('/admin/quiz/result') || showMenu" class="bg-dark">
+  <a mat-button routerLinkActive="active" (click)="create()">Create</a>
+  <a mat-button [routerLinkActive]="" (click)="configure()">Configure</a>
+  <a mat-button [routerLinkActive]="" (click)="publish()">Publish</a>
+  <a mat-button>Analyze</a>
+  <span class=" spacer"></span>
+  <span mat-button class="printButton" ngClass.lt-sm="mr-0 mt-0">
+   <i class="fa fa-print"></i> Print
+  </span>
+  <span mat-button class="previewButton" ngClass.lt-sm="mr-0 mt-0" id="preview" (click)="preview()">
+    <i class="fa fa-eye"></i> Preview
+  </span>
+</mat-toolbar> -->

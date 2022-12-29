@@ -2,8 +2,8 @@
 <!-- new design -->
 <div class="container-fluid">
   <div class="custom-row h-100 w-100 d-flex justify-content-center mb-4">
-    <mat-card class="col-12 col-md-8 p-0">
-      <div class="p-3 rounded quiz-heading d-flex justify-content-between">
+    <mat-card class="col-12 col-md-8 p-0"  >
+      <div class="p-3 rounded quiz-heading d-flex justify-content-between" >
         <span class="d-flex align-items-end"
           ><span class="body font-weight-bold body mr-1 ">Questions: </span>
           <span class="body text-secondary">{{ quizQuestions?.length}}</span>
@@ -13,14 +13,15 @@
             <button
             class="button btn-sm"
             (click)="addQuestionDialog()" 
+           
           >
           <i class="fa fa-plus  m-1"></i> Add question
           </button>
  
         </span>
       </div>
-      <div class="d-flex flex-column border-bottom pt-2" *ngFor="let question of quizQuestions;let i=index">
-        <mat-card-content class="ml-2 ml-md-3 mt-2 mr-2">
+      <div class="d-flex flex-column border-bottom pt-2"   id="content" #content *ngFor="let question of quizQuestions;let i=index">
+        <mat-card-content class="ml-2 ml-md-3 mt-2 mr-2" >
           <div
             class="question d-flex flex-column "
           >
@@ -29,7 +30,8 @@
             <div  class="flex-space h5" [innerHTML]="question.question | sanitizedHtml"></div>
 
            </div>
-            <span class="text-secondary mb-3 ml-auto ">
+           
+            <span class="text-secondary mb-3 ml-auto only-show-on-hover"  >
               <i
                 class="fa fa-edit mr-2 text-info cursor  bg-light rounded p-2 mb-2"
                 (click)="editdialog(question)"
@@ -43,6 +45,7 @@
                 Delete</i
               >
             </span>
+          
           </div>
           <div class="options w-100">
               <mat-radio-group class="col-12 d-flex flex-column flex-lg-row flex-lg-wrap"

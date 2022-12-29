@@ -1,3 +1,42 @@
 // .icon{
 //     font-size: 12px;
 // }
+// mat-toolbar a:hover {
+//     border: 1px solid;
+//     border-radius: 1px;
+//   }
+  .mat-toolbar {
+    color: white;
+  }
+  
+  .mat-button {
+    color: white;
+  }
+  .spacer {
+    flex: 1 1 auto;
+  }
+  .printButton{
+    padding-right: 40px;
+    margin-top: 5px;
+    cursor: pointer;
+  }
+  
+  .previewButton {
+    padding-right: 196px;
+    margin-top: 5px;
+    color: white;
+  
+    cursor: pointer;
+  }
+//   .active{
+//    border-bottom: #fff 3px solid;
+//   //  margin: 0px 2px;
+//    -webkit-transition: transform 250ms;
+//    transition: transform 300ms;
+//   }
+  mat-toolbar {
+    padding-left: 116px;
+    height: 45px;
+    background-color: black;
+  }
+  

@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from "@angular/core";
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from "@angular/core";
 import { AdminService } from "../services/admin.service";
 import { ThemePalette } from "@angular/material/core";
 import { MatDialog } from "@angular/material/dialog";
@@ -6,13 +6,17 @@ import { AddEditQuestionComponent } from "../add-edit-question/add-edit-question
 import { ActivatedRoute } from "@angular/router";
 import { ConfirmationDialogComponent } from "../../shared/confirmation-dialog/confirmation-dialog.component";
 import { ToasterNotificationsService } from "../../shared/services/toaster-notifications.service";
+import jsPDF from "jspdf";
 
+import html2canvas from "html2canvas";
+import jspdf from "jspdf";
 @Component({
   selector: "app-add-quiz",
   templateUrl: "./add-quiz.component.html",
   styleUrls: ["./add-quiz.component.scss"],
 })
 export class AddQuizComponent implements OnInit {
+  @ViewChild("content", { static: true }) content: ElementRef;
   color: ThemePalette = "primary";
   quizStatus=''
   quizTitle=''
@@ -23,6 +27,7 @@ export class AddQuizComponent implements OnInit {
   questionId: any = {};
   showButton=false
   addQuestion:boolean=true
+  hide:boolean=false;
   constructor(
     private adminService: AdminService,
     private dialog:MatDialog,
@@ -32,7 +37,6 @@ export class AddQuizComponent implements OnInit {
     this.adminService.menu$.next(true)
 
   }
-
   ngOnInit(): void {     
     this.quizId= this.route.snapshot.paramMap.get('id')
     this.getQuizQuestions();
@@ -48,9 +52,35 @@ export class AddQuizComponent implements OnInit {
       }
     })
     
+    this.adminService.print.subscribe(
+      data => 
+      {
+        console.log('next subscribed value: ' + data);
+        // this.name = data;
+        this.downloadPDF();
+      }
+    );
 
   }
+  
+  downloadPDF() {
+    var data = document.getElementById("content");
+    html2canvas(data).then(canvas => {
+      // Few necessary setting options
+      var imgWidth = 208;
+      var pageHeight = 295;
+      var imgHeight = (canvas.height * imgWidth) / canvas.width;
+      var heightLeft = imgHeight;
+      const contentDataURL = canvas.toDataURL("pdf");
+      let pdf = new jspdf("p", "mm", "a4"); // A4 size page of PDF
+      var position = 0;
+      pdf.addImage(contentDataURL, "PNG", 0, position, imgWidth, imgHeight);
+      pdf.save("MYPdf.pdf"); // Generated PDF
+    });
+  
+  }
 
+  
   getQuizQuestions() {
     this.adminService.getQuizQuestions(this.quizId).subscribe({
       next: (response: any) => {

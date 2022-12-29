@@ -75,14 +75,18 @@
 
 </nav>
 </div> -->
-<mat-toolbar *ngIf="router.url.includes('/admin/quiz/result') || showMenu" class="bg-dark">
+<!-- <mat-toolbar *ngIf="router.url.includes('/admin/quiz/result') || showMenu" class="bg-dark">
   <a mat-button routerLinkActive="active" (click)="create()">Create</a>
   <a mat-button [routerLinkActive]="" (click)="configure()">Configure</a>
   <a mat-button [routerLinkActive]="" (click)="publish()">Publish</a>
   <a mat-button>Analyze</a>
   <span class=" spacer"></span>
-  <span mat-button class="previewButton" ngClass.lt-sm="mr-0 mt-0" id="preview" (click)="preview()">
-    Preview
+  <span mat-button class="printButton" ngClass.lt-sm="mr-0 mt-0">
+   <i class="fa fa-print"></i> Print
   </span>
-</mat-toolbar>
+  <span mat-button class="previewButton" ngClass.lt-sm="mr-0 mt-0" id="preview" (click)="preview()">
+    <i class="fa fa-eye"></i> Preview
+  </span>
+</mat-toolbar> -->
+<app-header *ngIf="router.url.includes('/admin/quiz/result') || showMenu" class="bg-dark"></app-header>
 <app-header-four *ngIf="router.url.includes('/admin/quiz/result') || showMenu"></app-header-four>

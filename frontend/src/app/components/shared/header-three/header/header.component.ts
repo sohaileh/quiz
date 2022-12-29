@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Product } from 'src/app/modals/product.model';
 import { CartItem } from 'src/app/modals/cart-item';
 import { CartService } from '../../services/cart.service';
+import { Router } from '@angular/router';
+import { AdminService } from 'src/app/components/admin/services/admin.service';
 
 @Component({
   selector: 'app-header',
@@ -9,39 +11,36 @@ import { CartService } from '../../services/cart.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  public sidenavMenuItems:Array<any>;
-
-  public currencies = ['USD', 'EUR'];
-  public currency:any;
-  public flags = [
-    { name:'English', image: 'assets/images/flags/gb.svg' },
-    { name:'German', image: 'assets/images/flags/de.svg' },
-    { name:'French', image: 'assets/images/flags/fr.svg' },
-    { name:'Russian', image: 'assets/images/flags/ru.svg' },
-    { name:'Turkish', image: 'assets/images/flags/tr.svg' }
-  ]
-  public flag:any;
-
-  products: Product[];
-
-  indexProduct: number;
-  shoppingCartItems: CartItem[] = [];
-
-  // @ViewChild(ProductLeftSidebarComponent,{static:false}) MenuItem:ProductLeftSidebarComponent
-  constructor(private cartService: CartService) {
-    this.cartService.getItems().subscribe(shoppingCartItems => this.shoppingCartItems = shoppingCartItems);
+  
+quizId:any;
+showMenu: boolean;
+  
+  constructor(private router:Router, private adminService:AdminService) {
+    this.adminService.menu$.subscribe({
+      next:(response)=>{
+        this.showMenu=response
+        this.quizId= localStorage.getItem('quizId')
+      }
+     })
   }
-
+  
   ngOnInit() {
-    this.currency = this.currencies[0];
-    this.flag = this.flags[0];
+   
   }
-
-  public changeCurrency(currency){
-    this.currency = currency;
+ passPrint(event:any){
+  // console.log(event)
+    this.adminService.passValue(event);
   }
-  public changeLang(flag){
-    this.flag = flag;
+  create(){
+    this.router.navigate([`/admin/quiz/add-quiz/${this.quizId}`])
   }
-
+  configure(){
+    this.router.navigate([`/admin/quiz/configure/${this.quizId}`])
+  }
+  preview(){
+    this.router.navigate([`admin/quiz/quiz-preview/${this.quizId}`])
+  }
+  publish(){
+    this.router.navigate([`quiz/publish-quiz/${this.quizId}`])
+  }
 }
