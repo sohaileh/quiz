@@ -27,9 +27,11 @@
         </div>
       </div>
       <div class="row d-flex flex-column flex-sm-row mb-4" *ngIf="router.url.includes('/admin/add-users')" >
-        <div class="col-12 col-sm-6 mb-2 mb-sm-0">
+        <div class="col-12 col-sm-6 mb-2 mb-sm-0 parent-position">
           <label class="font-weight-bold">Password</label>
-          <input type="text" class="form-control" formControlName="password">
+          <input [type]="hide?'password':'text'" class="form-control" formControlName="password">
+          <i class="fa fa-eye-slash  cursor position" aria-hidden="true"(click)="hide=!hide" *ngIf="hide"></i>
+          <i class="fa fa-eye  cursor position cursor  " aria-hidden="true"(click)="hide=!hide" *ngIf="!hide"></i>
           <mat-error *ngIf="checkError('password', 'required') && assignQuizForm.get('password').touched ">Password is required</mat-error>
           <mat-error *ngIf="checkError('password', 'pattern') && assignQuizForm.get('password').touched  " >Password must be 8 characters, 1 uppercase , 1 special character</mat-error>
         </div>

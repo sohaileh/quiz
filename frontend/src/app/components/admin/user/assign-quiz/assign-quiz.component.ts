@@ -162,10 +162,6 @@ export class AssignQuizComponent implements OnInit {
       });
   }
 
-  showPassword() {
-    this.hide = !this.hide;
-  }
-
   assignQuizDialog() {
     this.dialogOpened = true;
     const dialogData = {
