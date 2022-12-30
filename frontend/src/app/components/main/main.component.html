@@ -8,7 +8,7 @@
             <app-sidebar *ngFor="let item of sidenav" [item]="item"></app-sidebar>
         </div>
     </mat-sidenav>
-   <app-header-two  *ngIf="router.url != '/pages/error'" ></app-header-two>
+   <app-header-two  *ngIf="router.url != '/pages/error' || !router.url.includes('quiz-result')" ></app-header-two>
   <router-outlet></router-outlet>
   <!-- <app-footer *ngIf="router.url != '/pages/error' && url != '/auth/login' && url != '/home/home-page' "></app-footer>
   <app-footer-two *ngIf="url == '/home/five'"></app-footer-two> -->

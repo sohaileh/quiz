@@ -47,6 +47,7 @@
           placeholder="minutes"
           formControlName="timeLimit"
           name="Time"
+          min="1"
           class="form-control time"
           ngClass.lt-md="w-25"
           
@@ -62,6 +63,7 @@
           ngClass.lt-md="w-25"
           formControlName="points"
           name="points"
+          min="1"
         />
       </div>
     </div>
@@ -228,6 +230,8 @@
         name="Time"
         class="form-control time"
         ngClass.lt-md="w-25"
+        min="1"
+
         
       />
     </div>
@@ -241,6 +245,8 @@
         ngClass.lt-md="w-25"
         formControlName="points"
         name="points"
+        min="1"
+
       />
     </div>
   </div>

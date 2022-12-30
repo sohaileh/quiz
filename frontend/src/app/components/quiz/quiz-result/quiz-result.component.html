@@ -1,39 +1,74 @@
-
 <div class="container-fluid mt-4">
   <div class="custom-row h-100 w-100 d-flex justify-content-center mb-4">
-    <mat-card class="col-12 col-md-8 p-0">
-      <div class="p-3 rounded quiz-heading d-flex justify-content-between">
-      
-      </div>
-      <div class="d-flex flex-column border-bottom pt-2" *ngFor="let question of quizQuestions;let i=index">
-        <mat-card-content class="ml-2 ml-md-3 mt-2 mr-2">
-          <div
-            class="question d-flex flex-column "
-          >
-           <div class="d-flex align-items-baseline ">
-            <div class="font-weight-bold mr-1 body">Q{{i+1}}.</div>
-            <div  class="flex-space h5" [innerHTML]="question.question | sanitizedHtml"></div>
+    <mat-card class="col-12 col-md-8 p-0 mb-4">
+      <div class="mt-3 d-flex justify-content-between">
+        <div class="ml-2 font-style d-flex align-items-center font-weight-bold">Review Answers</div>
 
-           </div>
-           
+        <button class="btn button justify-content-end mr-2">Pdf</button>
+      </div>
+      <hr />
+      <div
+        class="p-3 rounded quiz-heading d-flex justify-content-between"
+      ></div>
+      <div
+        class="d-flex flex-column border-bottom pt-2"
+        *ngFor="let question of quizQuestions; let i = index"
+      >
+        <mat-card-content class="ml-2 ml-md-3 mt-2 mr-2">
+          <div class="question d-flex flex-column">
+            <div class="d-flex align-items-baseline">
+              <div class="font-weight-bold mr-1 body">Q{{ i + 1 }}.</div>
+              <div
+                class="flex-space h5"
+                [innerHTML]="question.question | sanitizedHtml"
+              ></div>
+            </div>
           </div>
           <div class="options w-100">
-              <mat-radio-group class="col-12 d-flex flex-column flex-lg-row flex-lg-wrap"
-                disabled
-              >
-                <mat-radio-button [color]="color"
-                  class="col-12 col-lg-5 border border-info rounded mr-4 mb-4 pt-3 pb-2 "
-                  *ngFor="let option of question.options"
+            <mat-radio-group class="" disabled>
+              <div class="col-12 d-flex flex-column flex-lg-row flex-lg-wrap">
+                <mat-radio-button
+                  [color]="color"
+                  class="col-12 col-lg-5 border rounded mr-4 mb-4 pt-3 pb-2"
+                  [ngClass]="{
+                    success: question.correctAnswer == option.option,
+                    incorrect:
+                      question.answer == option.option &&
+                      question.answer != question.correctAnswer
+                  }"
+                  *ngFor="let option of question.options; let i = index"
                   [value]="option.option"
+                  [checked]="question.answer == option.option"
                   >{{ option.option }}</mat-radio-button
                 >
-              </mat-radio-group>
+              </div>
+              <span
+                *ngIf="question.answer"
+                class="d-flex justify-content-end"
+                [ngClass]="{
+                  scored: question.correctAnswer == question.answer,
+                  'not-scored': question.correctAnswer != question.answer
+                }"
+              >
+                Points:
+                {{
+                  question.answer != question.correctAnswer
+                    ? 0
+                    : question.points
+                }}/{{ question.points }}
+              </span>
+              <span
+                *ngIf="!question.answer"
+                class="d-flex justify-content-end text-danger"
+                >Not Attempted</span
+              >
+            </mat-radio-group>
           </div>
         </mat-card-content>
-        <!-- <hr /> -->
       </div>
-    </mat-card> 
-
+      <mat-card-actions align="end" class="mr-2 mb-2">
+        <button class="btn btn-light">Close</button>
+      </mat-card-actions>
+    </mat-card>
   </div>
-
 </div>

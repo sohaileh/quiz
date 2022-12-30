@@ -30,7 +30,7 @@ export class ConfigureComponent implements OnInit {
     this.configureForm = this.formBuilder.group({
       quizTitle: [""],
       quizId:this.quizId,
-      timeLimitPerQuestion: [0],
+      timeLimitPerQuestion: [1],
       quizTimeLimit: [10],
       randomizeQuestion: [false],
       questionSequence:[false],
@@ -87,7 +87,7 @@ export class ConfigureComponent implements OnInit {
   setTimePerQuestion(event:any){
       if(event?.target?.checked){
         this.configureForm.patchValue({
-          quizTimeLimit:'',
+          quizTimeLimit:10,
           questionPerPage:1,
           per_check:true,
           whole_check:false,

@@ -54,7 +54,7 @@ export class QuizPreviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.quizId = this.route.snapshot.paramMap.get("id");
-    this.studentId= this.route.snapshot.queryParams['userId']
+    this.userId= this.route.snapshot.queryParams['userId']
     this.getQuizQuestions();
   }
 
@@ -124,12 +124,6 @@ export class QuizPreviewComponent implements OnInit {
       });
   }
   submitStudentResponse() {
-    if(this.studentId)
-       this.userId= this.studentId
-       if(!this.studentId)
-      this.userId = localStorage.getItem("userId");
-      console.log('userId',this.userId)
-
     if(this.quizTimeEnded){
       this.submitting = true;
       this.finalResponse = {

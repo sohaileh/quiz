@@ -23,6 +23,7 @@ export class QuizInfoComponent implements OnInit {
   terms:any;
   quizId: any;
   timerStarted=false
+  timerStarting:boolean
   redirectingIn = 3;
   redirectTime: Observable<number>;
   showRedirectTime: number;
@@ -42,6 +43,7 @@ export class QuizInfoComponent implements OnInit {
   }
   attemptQuiz(){
     this.studentattempts=true
+    this.timerStarting=true
     this.redirectTime = interval(1000);
     this.redirect()
   }
@@ -49,6 +51,7 @@ export class QuizInfoComponent implements OnInit {
     this.redirectTime.pipe(take(4)).subscribe({
           next: (resposne) => {
           this.timerStarted=true
+          this.timerStarting=false
             this.showRedirectTime = this.redirectingIn - resposne;
           },
           error: (error) => {},

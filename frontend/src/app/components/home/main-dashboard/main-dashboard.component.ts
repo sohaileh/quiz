@@ -153,8 +153,9 @@ highlight(row){
 
 preview(quiz){
   const quizId =quiz._id
+  const userId= localStorage.getItem('userId')
   localStorage.setItem('quizId',quizId)
-  this.router.navigate([`/admin/quiz/quiz-preview/${quizId}`])
+  this.router.navigate([`/admin/quiz/quiz-preview/${quizId}`],{queryParams:{userId:userId}})
 }
 
 

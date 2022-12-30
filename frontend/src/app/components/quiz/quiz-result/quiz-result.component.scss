@@ -22,7 +22,36 @@
   cursor: pointer;
   text-decoration: underline;
 }
-
+.success{
+  background-color: rgb(151, 218, 151); 
+}
+.incorrect{
+  background-color: #e78080;
+}
+.button {
+  
+  background-color: #268e9b;
+  height: 37px;
+  border: none;
+  outline: none;
+  color: #fff;
+}
+mat-card {
+  overflow-y: auto;
+}
+.scored{
+color: green;
+}
+.not-scored{
+  color: #dc3545!important;
+}
+::-webkit-scrollbar{
+  width: 0;
+  background: transparent;
+}
+.font-style{
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
 @media screen and (max-width: 600px) {
   .custom {
     height: 85%;

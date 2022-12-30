@@ -222,8 +222,9 @@ export class AddEditQuestionComponent implements OnInit {
       JSON.stringify(this.questionBank.get("options").value)
     );
     formData.append("points", this.questionBank.get("points").value);
-    formData.append("correctAnswer", this.answer);
-
+    const correctOption = this.questionBank.get(`options.${this.correctAnswerIndex}`).value
+    this.answer= correctOption.option
+    formData.append("correctAnswer",this.answer);
     this.adminService
       .editQuestion(formData, this.questionId, this.data.quizId)
       .subscribe({

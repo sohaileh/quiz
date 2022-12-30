@@ -38,7 +38,8 @@ showMenu: boolean;
     this.router.navigate([`/admin/quiz/configure/${this.quizId}`])
   }
   preview(){
-    this.router.navigate([`admin/quiz/quiz-preview/${this.quizId}`])
+    const userId = localStorage.getItem('userId')
+    this.router.navigate([`admin/quiz/quiz-preview/${this.quizId}`],{queryParams:{userId:userId}})
   }
   publish(){
     this.router.navigate([`quiz/publish-quiz/${this.quizId}`])

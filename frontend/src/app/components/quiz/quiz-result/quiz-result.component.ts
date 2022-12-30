@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { forkJoin } from "rxjs";
 import { AdminService } from "../../admin/services/admin.service";
 import { QuizService } from "../services/quiz.service";
+import { ThemePalette } from "@angular/material/core";
 
 @Component({
   selector: "app-quiz-result",
@@ -11,6 +12,7 @@ import { QuizService } from "../services/quiz.service";
   styleUrls: ["./quiz-result.component.scss"],
 })
 export class QuizResultComponent implements OnInit {
+  color: ThemePalette = "primary";
   result: any[] = [];
   userId: any = {};
   quizId: any = {};
@@ -31,7 +33,7 @@ this.getResultInfo()
 
 
   getResultInfo(){
- this.userId = localStorage.getItem('userId')
+ this.userId =  this.route.snapshot.queryParams['userId']
     forkJoin({
       questions:this.adminService.getQuizQuestions(this.quizId),
       response:this.quizService.getUserQuizResponse(this.quizId,this.userId)
@@ -40,7 +42,12 @@ this.getResultInfo()
         const {questions} = res
           const {response}= res
         this.quizQuestions = questions.questionBank
-        console.log('resone',response)
+        this.quizQuestions.forEach(question => {
+          const answer=  response.response.find((response)=>response.questionId ==question._id)
+              if(answer)
+              question.answer=answer.answer
+        });
+        console.log('resone', this.quizQuestions)
       },
       error:(error)=>{
         console.log('error',error)
@@ -50,6 +57,4 @@ this.getResultInfo()
       }
     })
   }
-
- 
 }

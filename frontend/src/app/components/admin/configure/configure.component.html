@@ -45,7 +45,7 @@
                                     <input type="checkbox" formControlName="time_check"
                                         (change)="setTimePerQuestion($event)">
                                 </label>
-                                <input value="" class="form-control TimeLimit" type="number" maxlength="5"
+                                <input value="" class="form-control TimeLimit" type="number" min="1"
                                     placeholder="mm" formControlName="timeLimitPerQuestion">
                             </div>
                             <p class="help-block">
@@ -64,8 +64,8 @@
                                 </label>
                                 <!-- <button class="btn btn-success">Set time
                                 limits</button> -->
-                                <input value="" class="form-control TimeLimit" type="number" maxlength="5"
-                                    placeholder="mm" formControlName="quizTimeLimit">
+                                <input value="" class="form-control TimeLimit" type="number" min="1"
+                                    placeholder="mm" formControlName="quizTimeLimit" >
                             </div>
                             <p class="help-block">
                                 Set time limit for whole quiz in minutes
@@ -122,7 +122,7 @@
                                 </label>
 
                                 <input id="totalQuestionsOnEachPage" value="" class="form-control MaxRandomQuestions"
-                                    type="number" maxlength="5" formControlName="questionPerPage">
+                                    type="number" min="1" formControlName="questionPerPage">
                                 <span>questions</span>
                             </div>
                             <p class="help-block">
@@ -136,7 +136,7 @@
                     <div class="form-group" id="configureMaximumAttempts">
                         <label class="col-sm-2 control-label">Maximum quiz attempts</label>
                         <div class="col-sm-10">
-                            <input value="1" class="form-control maxAttempts" type="number" maxlength="5"
+                            <input value="1" class="form-control maxAttempts" type="number" min="1"
                                 placeholder="Unlimited" formControlName="maxAttempts">
 
                             <div class="checkbox retake">
