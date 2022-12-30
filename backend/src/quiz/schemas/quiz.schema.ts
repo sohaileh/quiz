@@ -28,7 +28,7 @@ export const QuizSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now() },
   quizName: String,
 
-  timeLimitPerQuestion: {type:Number,default:0},
+  timeLimitPerQuestion: {type:Number,default:1},
 
   quizTimeLimit: {type:Number,default:10},
 

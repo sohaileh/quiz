@@ -132,10 +132,14 @@ export class AuthService {
 
   async assignQuizs(userModel: any) {
     try {
+      if(userModel.role=='Choose Role')
+      throw new HttpException('Choose a valid role for user', HttpStatus.BAD_REQUEST);
+      
       const { emailAddress } = userModel;
       const userExists = await this.userModelDto.exists({
         emailAddress: emailAddress,
       });
+      
       if(userExists)
       throw new HttpException('User Exists', HttpStatus.BAD_REQUEST);
      

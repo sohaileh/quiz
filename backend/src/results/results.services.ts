@@ -3,6 +3,8 @@ import { Model, Types } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { ResultModelDto } from './dto/result.dto';
 import { UserModelDto } from 'src/auth/dto/user.dto';
+import { ResponseModelDto } from 'src/response/dto/response.dto'; 
+
 @Injectable()
 export class ResultService {
   constructor(

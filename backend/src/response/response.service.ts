@@ -153,7 +153,6 @@ export class ResponseService {
             },
           },
         ]);
-        console.log('result',result)
         result.forEach((element) => {
           if (
             element.response.answer ==
