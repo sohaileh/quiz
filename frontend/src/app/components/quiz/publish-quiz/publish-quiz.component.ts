@@ -73,7 +73,7 @@ export class PublishQuizComponent implements OnInit {
       this.dialog.open(DialogComponent, {
         width: "80%",maxWidth: '90%',
         height:"90%",
-        data: { callback: this.callBack.bind(this), defaultValue: this.url },
+        data: { callback: this.callBack.bind(this.url), data:{data: this.url,id:this.id}},
       });
     }
     

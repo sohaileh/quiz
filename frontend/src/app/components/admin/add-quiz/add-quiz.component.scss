@@ -1,7 +1,4 @@
-.hide{
-  display: none;
-}
-.custom-row{
+.custom-row {
   margin-left: 2px;
   margin-right: 2px;
   margin-top: 2em;
@@ -12,7 +9,7 @@ mat-card-content span.only-show-on-hover {
 mat-card-content:hover span.only-show-on-hover {
   visibility: visible;
 }
-.quiz-heading{
+.quiz-heading {
   background-color: #f5f5f5;
 }
 
@@ -20,31 +17,29 @@ mat-card-content:hover span.only-show-on-hover {
   margin: 0 10px;
 }
 
-.icon{
+.icon {
   position: relative;
   top: -4px;
   cursor: pointer;
 }
 
-.cursor{
+.cursor {
   cursor: pointer;
 }
 
-mat-form-field{
+mat-form-field {
   width: 230px;
   font-size: 12px;
-  margin-bottom: 0;  
-
+  margin-bottom: 0;
 }
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   width: 0;
   background: transparent;
 }
 
-.flex-space{
+.flex-space {
   flex: 1;
 }
-
 
 .button {
   background-color: #268e9b;
@@ -53,38 +48,42 @@ mat-form-field{
   color: #fff;
 }
 
-.options{
+.options {
   margin-right: 30px;
 }
-.options-width{
+.options-width {
   width: 100%;
 }
-.body{
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+.body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
 }
-mat-card-actions{
+mat-card-actions {
   margin-bottom: 0;
 }
 
-.opacity{
-  opacity: .8;
+.opacity {
+  opacity: 0.8;
 }
 
-@media  screen and(max-width:340px) {
-
-  .options-width{
+@media screen and(max-width:340px) {
+  .options-width {
     width: 80%;
-  } 
+  }
+  #content{
+    width: 100%;
+    orientation: landscape;
+  }
+
 }
 
-@media screen and(max-width:768px)  {
-  mat-table{
-    font-size:10px;
+@media screen and(max-width:768px) {
+  mat-table {
+    font-size: 10px;
     text-align: center;
-  mat-cell{
-    font-size:9px;
-    text-align: center;
+    mat-cell {
+      font-size: 9px;
+      text-align: center;
+    }
   }
-}
 }

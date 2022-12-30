@@ -13,18 +13,22 @@
             <button
             class="button btn-sm"
             (click)="addQuestionDialog()" 
-           
           >
           <i class="fa fa-plus  m-1"></i> Add question
           </button>
  
         </span>
       </div>
-      <div class="d-flex flex-column border-bottom pt-2"   id="content" #content *ngFor="let question of quizQuestions;let i=index">
+      <div id="content" #content>
+        <!-- <span  class="print" >{{quizTitle}}</span> -->
+      <div class="d-flex flex-column border-bottom pt-2"    *ngFor="let question of quizQuestions;let i=index">
+       
         <mat-card-content class="ml-2 ml-md-3 mt-2 mr-2" >
+          
           <div
             class="question d-flex flex-column "
           >
+         
            <div class="d-flex align-items-baseline ">
             <div class="font-weight-bold mr-1 body">Q{{i+1}}.</div>
             <div  class="flex-space h5" [innerHTML]="question.question | sanitizedHtml"></div>
@@ -61,10 +65,11 @@
         </mat-card-content>
         <!-- <hr /> -->
       </div>
+      </div>
     </mat-card> 
 
-  </div>
-
+ 
+</div>
 </div>
 
 <div class="row mt-0 d-flex  justify-content-center">

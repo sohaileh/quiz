@@ -6,10 +6,8 @@ import { AddEditQuestionComponent } from "../add-edit-question/add-edit-question
 import { ActivatedRoute } from "@angular/router";
 import { ConfirmationDialogComponent } from "../../shared/confirmation-dialog/confirmation-dialog.component";
 import { ToasterNotificationsService } from "../../shared/services/toaster-notifications.service";
-import jsPDF from "jspdf";
-
 import html2canvas from "html2canvas";
-import jspdf from "jspdf";
+import jspdf, { jsPDF } from "jspdf";
 @Component({
   selector: "app-add-quiz",
   templateUrl: "./add-quiz.component.html",
@@ -28,7 +26,7 @@ export class AddQuizComponent implements OnInit {
   showButton=false
   hideOptions=false
   addQuestion:boolean=true
-  hide:boolean=false;
+  hide:boolean=true;
   constructor(
     private adminService: AdminService,
     private dialog:MatDialog,
@@ -57,7 +55,7 @@ export class AddQuizComponent implements OnInit {
       data => 
       {
         console.log('next subscribed value: ' + data);
-        // this.name = data;
+   
         this.downloadPDF();
       }
     );
@@ -65,20 +63,39 @@ export class AddQuizComponent implements OnInit {
   }
   
   downloadPDF() {
-    var data = document.getElementById("content");
-    html2canvas(data).then(canvas => {
-   
-      // Few necessary setting options
-      var imgWidth = 208;
-      var pageHeight = 295;
-      var imgHeight = (canvas.height * imgWidth) / canvas.width;
-      var heightLeft = imgHeight;
-      const contentDataURL = canvas.toDataURL("pdf");
-      let pdf = new jspdf("p", "mm", "a4");
-      var position = 0;
-      pdf.addImage(contentDataURL, "PNG", 0, position, imgWidth, imgHeight);
-      pdf.save("MYPdf.pdf"); 
-    });
+//     var data = document.getElementById("content")as HTMLCanvasElement;
+//     html2canvas(data).then(canvas => {
+//       // // Few necessary setting options
+//       // var imgWidth = 208;
+//       // var pageHeight = 295;
+//       // var imgHeight = (canvas.height * imgWidth) / canvas.width;
+//       // var heightLeft = imgHeight;
+      
+
+
+//       const contentDataURL = canvas.toDataURL("image/png");
+      
+//       let pdf = new jspdf("p", "mm","a4"); // A4 size page of PDF
+//       var width = pdf.internal.pageSize.getWidth();
+// var height = pdf.internal.pageSize.getHeight();
+//       var position = 0;
+//       pdf.addImage(contentDataURL, "PDF", 20, position, width, height);
+//       pdf.save("MYPdf.pdf"); // Generated PDF
+//     }); 
+var data = document.getElementById("content")as HTMLCanvasElement;
+html2canvas(data)
+.then((canvas) => {
+  const imgData = canvas.toDataURL('image/png');
+  const pdf = new jsPDF({
+    orientation: 'portrait',
+  });
+  const imgProps= pdf.getImageProperties(imgData);
+  const pdfWidth = pdf.internal.pageSize.getWidth();
+  const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+  pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+  pdf.save('download.pdf');
+});
+        
   
   }
 
