@@ -77,10 +77,11 @@ mat-card img {
   color: #fff;
   text-transform: uppercase;
   font-weight: 400;
-  margin: 10px 0;
+  margin: 10px;
   cursor: pointer;
   transition: 0.5s;
   font-size: 12px;
+  padding: 0 10px;
 }
 
 .create-button:hover {
