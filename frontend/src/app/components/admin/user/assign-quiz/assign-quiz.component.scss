@@ -11,7 +11,6 @@ mat-form-field {
     width: 78vw;
   }
 }
-
 .mat-card {
   width: 80%;
   background-color: white;
@@ -37,26 +36,53 @@ mat-form-field {
   border: none;
   outline: none;
   color: #fff;
-  margin-top:2px
 }
-.cursor{
+.cursor {
   cursor: pointer;
 }
-.parent-position{
+.parent-position {
   position: relative;
 }
-.position{
+.position {
   position: absolute;
-    bottom: 0.6em;
-    right: 1.3em;
+  bottom: 0.6em;
+  right: 1.3em;
 }
-.assign-quiz{
-
-  min-height:50px;
+.assign-quiz {
+  // min-height:50px;
+  height: calc(1.5em + 0.75rem + 2px);
   overflow-y: auto;
 }
-.assign-input{
+.assign-btn {
+  position: relative;
+  top: 8px;
+}
+.assign-input {
   outline: none;
   border: none;
-  border-top: 1px solid #ced4da;
+}
+
+.cancel {
+  margin: 10px;
+}
+.save {
+  background-color: #268e9b;
+  border: none;
+  outline: none;
+  color: #fff;
+}
+
+@media screen and (min-width: 768px) {
+  .save {
+    margin: 10px;
+    width: 5vw !important;
+    background-color: #268e9b;
+    border: none;
+    outline: none;
+    color: #fff;
+  }
+
+  .button {
+    width: 9vw;
+  }
 }

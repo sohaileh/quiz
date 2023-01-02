@@ -6,27 +6,35 @@
         <div class="col-12 col-sm-6 mb-2 mb-sm-0">
           <label class="font-weight-bold">First name</label>
           <input type="text" class="form-control" formControlName="firstName">
-          <mat-error class="mt-1" *ngIf="checkError('firstName', 'required') && assignQuizForm.get('firstName').touched ">First name is required</mat-error>
+          <mat-error class="mt-1"
+            *ngIf="checkError('firstName', 'required') && assignQuizForm.get('firstName').touched ">First name is
+            required</mat-error>
         </div>
         <div class="col-12 col-sm-6 mb-2 mb-sm-0">
           <label class="font-weight-bold">Last name</label>
           <input type="text" class="form-control" formControlName="lastName">
-          <mat-error class="mt-1" *ngIf="checkError('lastName', 'required') && assignQuizForm.get('lastName').touched ">Last name is required</mat-error>
+          <mat-error class="mt-1"
+            *ngIf="checkError('lastName', 'required') && assignQuizForm.get('lastName').touched ">Last name is
+            required</mat-error>
         </div>
       </div>
       <div class="row d-flex flex-column flex-sm-row mb-4 ">
         <div class="col-12 col-sm-6 mb-2 mb-sm-0">
           <label class="font-weight-bold">Email</label>
           <input type="text" class="form-control" formControlName="emailAddress">
-          <mat-error class="mt-1" *ngIf="checkError('emailAddress', 'required') && assignQuizForm.get('emailAddress').touched ">Email is required</mat-error>
-            <mat-error class="mt-1" *ngIf="checkError('emailAddress', 'pattern') && assignQuizForm.get('emailAddress').touched  ">Invalid Email</mat-error>
+          <mat-error class="mt-1"
+            *ngIf="checkError('emailAddress', 'required') && assignQuizForm.get('emailAddress').touched ">Email is
+            required</mat-error>
+          <mat-error class="mt-1"
+            *ngIf="checkError('emailAddress', 'pattern') && assignQuizForm.get('emailAddress').touched  ">Invalid
+            Email</mat-error>
         </div>
         <div class="col-12 col-sm-6 mb-2 mb-sm-0">
           <label class="font-weight-bold">Organization</label>
           <input type="text" class="form-control" formControlName="organization">
         </div>
       </div>
-      <div class="row d-flex flex-column flex-sm-row mb-4" >
+      <div class="row d-flex flex-column flex-sm-row mb-4">
         <div class="col-12 col-sm-6 mb-2 mb-sm-0 parent-position">
           <label class="font-weight-bold">Role</label>
           <!-- <input type="text" class="form-control" formControlName="role"> -->
@@ -43,14 +51,16 @@
         </div>
 
       </div>
-      <div class="row d-flex flex-column flex-sm-row mb-4" *ngIf="router.url.includes('/admin/add-users')" >
+      <div class="row d-flex flex-column flex-sm-row mb-4" *ngIf="router.url.includes('/admin/add-users')">
         <div class="col-12 col-sm-6 mb-2 mb-sm-0 parent-position">
           <label class="font-weight-bold">Password</label>
           <input [type]="hide?'password':'text'" class="form-control" formControlName="password">
-          <i class="fa fa-eye-slash  cursor position" aria-hidden="true"(click)="hide=!hide" *ngIf="hide"></i>
-          <i class="fa fa-eye  cursor position cursor  " aria-hidden="true"(click)="hide=!hide" *ngIf="!hide"></i>
-          <mat-error *ngIf="checkError('password', 'required') && assignQuizForm.get('password').touched ">Password is required</mat-error>
-          <mat-error *ngIf="checkError('password', 'pattern') && assignQuizForm.get('password').touched  " >Password must be 8 characters, 1 uppercase , 1 special character</mat-error>
+          <i class="fa fa-eye-slash  cursor position" aria-hidden="true" (click)="hide=!hide" *ngIf="hide"></i>
+          <i class="fa fa-eye  cursor position cursor  " aria-hidden="true" (click)="hide=!hide" *ngIf="!hide"></i>
+          <mat-error *ngIf="checkError('password', 'required') && assignQuizForm.get('password').touched ">Password is
+            required</mat-error>
+          <mat-error *ngIf="checkError('password', 'pattern') && assignQuizForm.get('password').touched  ">Password must
+            be 8 characters, 1 uppercase , 1 special character</mat-error>
         </div>
       </div>
       <div class="row d-flex mb-4">
@@ -63,17 +73,19 @@
         <div class="col-12 col-sm-8 mb-2 mb-sm-0 " *ngIf="!userId">
           <label class="font-weight-bold">Assigned Quizzes</label>
           <div class="border assign-quiz rounded">
-          <input type="text" class="form-control  assign-input" [value]="quiz.quizTitle" *ngFor="let quiz of quizIdObject">
+            <input type="text" class="form-control  assign-input" [value]="quiz.quizTitle"
+              *ngFor="let quiz of quizIdObject">
           </div>
         </div>
         <div class="col-12 col-sm-8 mb-2 mb-sm-0" *ngIf="userId">
           <label class="font-weight-bold">Assigned Quizzes</label>
           <div class="border assign-quiz rounded">
-          <input type="text" class="form-control  assign-input" [value]="quiz" *ngFor="let quiz of quizAllocatedToUser">
-            </div>
+            <input type="text" class="form-control  assign-input" [value]="quiz"
+              *ngFor="let quiz of quizAllocatedToUser">
+          </div>
         </div>
         <div class="col-8 col-md-3 mb-sm-0 mt-2 mt-md-0 align-items-baseline pb-2">
-          <button class="btn button   btn-sm" (click)="assignQuizDialog()">Assign Quiz</button>
+          <button class="btn button   btn-sm assign-btn" (click)="assignQuizDialog()">Assign Quiz</button>
         </div>
       </div>
       <div class="row d-flex flex-column flex-sm-row mb-4 align-items-sm-end ">
@@ -93,9 +105,9 @@
       </div>
       <div class="row d-flex mt-4">
         <mat-card-actions align="end" class="col-12  mb-2 mb-sm-0 mt-2 mt-md-0">
-          <button class="btn btn-light  btn-md mr-2" [routerLink]="['/admin/user-dashboard']">Cancel</button>
-          <button class="btn button mr-2 pr-3 pl-3" *ngIf="!userId" (click)="saveUserDetails()">Save</button>
-          <button class="btn button mr-2 pr-3 pl-3" *ngIf="userId" (click)="editUserDetails()">Edit</button>
+          <button class="btn btn-light cancel" [routerLink]="['/admin/user-dashboard']">Cancel</button>
+          <button class="btn btn-light save" *ngIf="!userId" (click)="saveUserDetails()">Save</button>
+          <button class="btn btn-light save" *ngIf="userId" (click)="editUserDetails()">Edit</button>
         </mat-card-actions>
       </div>
     </form>

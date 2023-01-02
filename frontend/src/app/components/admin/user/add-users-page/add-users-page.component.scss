@@ -12,6 +12,7 @@
   transition: 0.5s;
   font-size: 12px;
 }
+
 .bulk {
   background-color: #268e9b;
   background-color: #268e9b;
@@ -168,3 +169,12 @@ td {
 .th-w-20 {
   width: 20% !important;
 }
+
+
+@media screen and (min-width:768px) {
+  .btn{
+    margin: 10px !important;
+    width: 7vw !important;
+  }
+}
+
