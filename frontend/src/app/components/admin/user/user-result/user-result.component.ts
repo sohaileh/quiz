@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-user-result',
@@ -7,9 +9,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserResultComponent implements OnInit {
 
-  constructor() { }
+  userId:any={}
+  userResults:any[]
+  totalQuizzes:number
+  constructor(private adminService:AdminService,private route:ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.userId = this.route.snapshot.queryParamMap.get("id");
+    this.getUserResults()
   }
 
+  getUserResults(){
+    this.adminService.getUserResults(this.userId).subscribe({
+      next:(response:any)=>{
+        this.userResults=response
+        this.totalQuizzes= this.userResults.length
+      },
+      error:(error)=>{
+
+      },
+      complete:()=>{}
+    })
+}
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation} from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 
 @Component({
   selector: 'app-profile',
@@ -7,10 +7,8 @@ import { Component, OnInit, ViewEncapsulation} from '@angular/core';
   encapsulation : ViewEncapsulation.None
 })
 export class ProfileComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }

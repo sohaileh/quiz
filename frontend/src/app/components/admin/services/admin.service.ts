@@ -82,4 +82,8 @@ passValue(data:any) {
   getRoles(){
     return this.http.get(`${this.serverUrl}role/get-roles`)
   }
+
+  getUserResults(userId){
+    return this.http.get(`${this.serverUrl}result/get-user-results/${userId}`)
+  }
 }

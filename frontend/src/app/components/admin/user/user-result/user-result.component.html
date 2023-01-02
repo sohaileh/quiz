@@ -37,7 +37,7 @@
               <tbody>
                 <tr>
                   <td class="td_totalQuizzes">Total quizzes:</td>
-                  <td>0</td>
+                  <td>{{totalQuizzes}}</td>
                 </tr>
                 <tr>
                   <td>Total passed:</td>
@@ -83,13 +83,15 @@
                     <a> Avg. Score </a>
                   </th>
                 </tr>
+                <tr  *ngFor="let quiz of userResults">
+                <td>{{quiz?.results?.output[0]?.quizTitle}}</td>
+                <td>{{quiz?.results?.playedOn | date}}   </td>
+                <td>{{quiz?.results?.score}}</td>
                 <td>/</td>
                 <td>/</td>
                 <td>/</td>
                 <td>/</td>
-                <td>/</td>
-                <td>/</td>
-                <td>/</td>
+                </tr>
               </thead>
             </table>
             <table class="table table-condensed resultText mobile-only">

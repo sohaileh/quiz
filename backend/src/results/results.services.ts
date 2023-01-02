@@ -11,8 +11,9 @@ export class ResultService {
     @InjectModel('Results') private readonly resultModel: Model<ResultModelDto>,
   ) {}
 
-  async getUseresults(user: any) {
-    const userId: any = new Types.ObjectId(user.userId);
+  async getUseresults(param: any) {
+const {id}= param
+    const userId: any = new Types.ObjectId(id); 
     const userResults = await this.resultModel.aggregate([
       { $match: { userId: userId } },
       { $unwind: '$results' },
@@ -27,8 +28,7 @@ export class ResultService {
       {
         $project: {
           'results.score': 1,
-          'results.output.eventName': 1,
-          'results.output.organizationName': 1,
+          'results.output.quizTitle': 1,
           'results.playedOn': 1,
           _id: 0,
           'results.output._id': 1,
