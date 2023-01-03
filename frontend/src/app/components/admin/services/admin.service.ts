@@ -86,4 +86,8 @@ passValue(data:any) {
   getUserResults(userId){
     return this.http.get(`${this.serverUrl}result/get-user-results/${userId}`)
   }
+  resetPasswordUser(_id,password){
+    const resetPassword={password:password}
+    return this.http.put(`${this.serverUrl}auth/reset-user-passsword/${_id}`,resetPassword)
+  }
 }

@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { ActivatedRoute } from "@angular/router";
+import { ToasterNotificationsService } from "src/app/components/shared/services/toaster-notifications.service";
 import { AdminService } from "../../services/admin.service";
 
 @Component({
@@ -17,18 +18,12 @@ export class ResetPasswordComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private adminService: AdminService
+    private adminService: AdminService,
+    private toastr:ToasterNotificationsService,
+
   ) {}
 
   ngOnInit(): void {
-    const userId = this.route.snapshot.queryParamMap.get("id");
-    this.adminService.getUserDetails(userId).subscribe({
-      next: (response) => {
-        this.userId = response;
-        console.log(this.userId.password);
-      },
-    });
-
     this.resetForm = this.fb.group({
       password: [
         "",
@@ -41,6 +36,15 @@ export class ResetPasswordComponent implements OnInit {
         ],
       ],
     });
+    const userId = this.route.snapshot.queryParamMap.get("id");
+    this.adminService.getUserDetails(userId).subscribe({
+      next: (response) => {
+        this.userId = response;
+        console.log(this.userId);
+      },
+    });
+
+   
   }
 
   onNoClick(): void {
@@ -48,6 +52,15 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   resetPasswordUser() {
-    console.log("he");
+    const {_id}=this.userId
+    const password = this.resetForm.get('password').value
+    this.adminService.resetPasswordUser(_id,password).subscribe({
+      next:(response)=>{
+        this.dialogRef.close()
+        this.toastr.showSuccess("Password updated");
+      },
+      error:(error)=>{},
+      complete:()=>{}
+    })
   }
 }

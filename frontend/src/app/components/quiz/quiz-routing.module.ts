@@ -24,11 +24,14 @@ const routes: Routes = [
   },
   { path: "quiz-info/:id", component: QuizInfoComponent },
   { path: "my-quizzes", component: MyQuizzesComponent },
+  // {
+  //   path: "generate-certificate/:quizId/:userId",
+  //   component: GenerateCertificateComponent,
+  // },
   {
-    path: "generate-certificate/:quizId/:userId",
+    path: "generate-certificate",
     component: GenerateCertificateComponent,
   },
-  // { path: "result/:userId/:quizId",component: QuizResultComponent },
   { path: "quiz-result/:id",component: QuizResultComponent },
   { path: "organize-quiz/:quizId", component: OrganizeQuizComponent },
   {path:'team-quiz/:quizId/:organizedQuizId/:teamId',component:AttemptTeamQuizComponent},

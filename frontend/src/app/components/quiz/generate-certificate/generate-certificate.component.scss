@@ -5,52 +5,80 @@
   padding: 0;
 }
 
-.contain {
-  height: 400px;
-  background: #42428d;
-  clip-path: polygon(100% 0, 100% 82%, 52% 94%, 0 81%, 0 0);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
+// .contain {
+//   height: 400px;
+//   background: #42428d;
+//   clip-path: polygon(100% 0, 100% 82%, 52% 94%, 0 81%, 0 0);
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   width: 100%;
+// }
+
+// .certification-title {
+//   color: white;
+//   margin-top: 7%;
+//   letter-spacing: 8px;
+//   font-size: 3rem;
+// }
+
+// .name {
+//   font-family: "Pacifico", cursive;
+// }
+// .certificate-sub-title {
+//   color: white;
+//   font-size: 1.5rem;
+//   letter-spacing: 5px;
+// }
+
+// .footer {
+//   color: white;
+//   background: #42428d;
+//   margin-top: 6em;
+//   width: auto;
+//   padding-bottom: 0;
+//   // height: 100px;
+// }
+
+// #certificate {
+//   border: 1px solid red;
+//   height: auto;
+//   padding: 0;
+//   margin-bottom: 2em;
+// }
+
+// .custom {
+//   letter-spacing: 0.3em;
+// }
+.title{
+  letter-spacing: 0.2em;
 }
 
-.certification-title {
-  color: white;
-  margin-top: 7%;
-  letter-spacing: 8px;
-  font-size: 3rem;
+// .border-5 {
+//   border-width: 30px !important;
+// }
+.content{
+  width: 60%;
+}
+.examiner{
+  position: absolute;
+  bottom: 0;
+}
+.custom-position{
+  position: absolute;
+  top: 30%;
+  left: 10%;
 }
 
-.name {
-  font-family: "Pacifico", cursive;
-}
-.certificate-sub-title {
-  color: white;
-  font-size: 1.5rem;
-  letter-spacing: 5px;
-}
 
-.footer {
-  color: white;
-  background: #42428d;
-  margin-top: 6em;
-  width: auto;
-  padding-bottom: 0;
-  height: 100px;
-}
-
-#certificate {
-  border: 1px solid red;
-  height: auto;
-  padding: 0;
-  margin-bottom: 2em;
-}
-
-.custom {
-  letter-spacing: 0.3em;
-}
-
-.border-5 {
-  border-width: 30px !important;
+@media screen and (max-width:768px){
+  .title{
+    font-size: 13px !important;
+  }
+  .sub-title{
+    font-size: 13px;
+  }
+  .content{
+    width: 100% !important;
+  }
 }

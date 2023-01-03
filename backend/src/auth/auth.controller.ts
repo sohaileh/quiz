@@ -49,10 +49,12 @@ export class AuthController {
     res.status(HttpStatus.OK).json(loggedUserDetails);
   }
 
-  @Put('update')
-  async update(@Res() res: any, @Body() body: any) {
+  @Put('reset-user-passsword/:id')
+  async resetUserPassword(@Res() res: any, @Body() body:any, @Param() param) {
     try {
-      const isUpdated = await this.authService.update(body);
+      const {id:userId} = param
+      const {password}= body
+      const isUpdated = await this.authService.resetUserPassword(userId,password);
       res
         .status(HttpStatus.OK)
         .json({ message: 'Password Updated Successfully' });

@@ -84,14 +84,13 @@ export class AuthService {
     return loggedUserDetails;
   }
 
-  async update(user: any) {
-    try {
-      console.log('user update', user);
-      const isUpdatedUser = await this.userModelDto.findOneAndUpdate(
-        { _id: user.id },
-        { $set: { password: user.password } },
+  async resetUserPassword(id,password) {
+    try { 
+      const hashedPassword= await this.generateHashedPassword(password)
+ await this.userModelDto.findOneAndUpdate(
+        { _id: id },
+        { $set: { password: hashedPassword } },
       );
-
       return;
     } catch (error: any) {
       throw new HttpException(error, HttpStatus.BAD_REQUEST);
