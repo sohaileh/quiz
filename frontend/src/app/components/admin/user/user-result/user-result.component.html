@@ -94,7 +94,7 @@
                 </tr>
               </thead>
             </table>
-            <table class="table table-condensed resultText mobile-only">
+            <table class="table table-condensed resultText mobile-only" *ngFor="let quiz of userResults">
               <tr>
                 <th>
                   <a>
@@ -102,19 +102,19 @@
                     <i class="fa fa-caret-down"></i>
                   </a>
                 </th>
-                <td>/</td>
+                <td>{{quiz?.results?.output[0]?.quizTitle}}</td>
               </tr>
               <tr>
                 <th>
                   <a> Date submitted </a>
                 </th>
-                <td>/</td>
+                <td>{{quiz?.results?.playedOn | date}} </td>
               </tr>
               <tr>
                 <th>
                   <a> Score </a>
                 </th>
-                <td>/</td>
+                <td>{{quiz?.results?.score}}</td>
               </tr>
               <tr>
                 <th>

@@ -47,7 +47,7 @@
       <div class="row d-flex flex-column flex-sm-row mb-4 align-items-lg-end"
         *ngIf="router.url.includes('/admin/edit-user')">
         <div class=" col-8 col-lg-2 mb-2 mb-lg-0 ">
-          <button class="btn button btn-sm">Reset Password</button>
+          <button class="btn button btn-sm" (click)="resetPassword()">Reset Password</button>
         </div>
 
       </div>

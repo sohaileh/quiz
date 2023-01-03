@@ -7,6 +7,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { AssignQuizDialogComponent } from "../../assign-quiz-dialog/assign-quiz-dialog.component";
 import { InfoDialogComponent } from "src/app/components/shared/info-dialog/info-dialog.component";
 import { ToasterNotificationsService } from "src/app/components/shared/services/toaster-notifications.service";
+import { ResetPasswordComponent } from "../reset-password/reset-password.component";
 
 @Component({
   selector: "app-assign-quiz",
@@ -31,14 +32,14 @@ export class AssignQuizComponent implements OnInit {
   editQuizAssign = [];
   userId: any = {};
   dialogOpened = false;
-  roles:string[]
+  roles: string[];
   constructor(
     private fb: FormBuilder,
     private adminService: AdminService,
     public router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private toatr:ToasterNotificationsService
+    private toatr: ToasterNotificationsService
   ) {}
 
   ngOnInit(): void {
@@ -71,7 +72,7 @@ export class AssignQuizComponent implements OnInit {
     this.getOrganizationQuizzes();
     this.userId = this.route.snapshot.queryParamMap.get("id");
     if (this.userId) {
-      this.assignQuizForm.get('password').disable()
+      this.assignQuizForm.get("password").disable();
       this.adminService.getUserDetails(this.userId).subscribe({
         next: (response) => {
           this.assignedQuizList = response;
@@ -82,7 +83,7 @@ export class AssignQuizComponent implements OnInit {
         },
       });
     }
-    this.getRoles()
+    this.getRoles();
   }
 
   save() {
@@ -104,10 +105,10 @@ export class AssignQuizComponent implements OnInit {
 
   saveUserDetails() {
     if (!this.assignQuizForm.valid) {
-      this.dialog.open(InfoDialogComponent,{
-        data:'Please fill all required fields',
-        disableClose: true
-      })
+      this.dialog.open(InfoDialogComponent, {
+        data: "Please fill all required fields",
+        disableClose: true,
+      });
       return;
     }
     this.save();
@@ -115,12 +116,11 @@ export class AssignQuizComponent implements OnInit {
       next: (response) => {
         if (response) {
           this.router.navigate(["/admin/user-dashboard"]);
-        this.toatr.showSuccess('User added successfully')
-
+          this.toatr.showSuccess("User added successfully");
         }
       },
       error: (error) => {
-        this.toatr.showError(error.error.message)
+        this.toatr.showError(error.error.message);
       },
       complete: () => {
         this.assignQuizForm.clearValidators();
@@ -131,9 +131,9 @@ export class AssignQuizComponent implements OnInit {
   editUserDetails() {
     this.save();
     if (!this.assignQuizForm.valid) {
-      this.dialog.open(InfoDialogComponent,{
-        data:'Please fill all required fields correctly'
-      })
+      this.dialog.open(InfoDialogComponent, {
+        data: "Please fill all required fields correctly",
+      });
       return;
     }
 
@@ -142,11 +142,11 @@ export class AssignQuizComponent implements OnInit {
       next: (reponse) => {
         if (reponse) {
           this.router.navigate(["/admin/user-dashboard"]);
-        this.toatr.showSuccess('User edited successfully')
+          this.toatr.showSuccess("User edited successfully");
         }
       },
       error: (error) => {
-        this.toatr.showError(error.error.message)
+        this.toatr.showError(error.error.message);
       },
       complete: () => {
         this.assignQuizForm.clearValidators();
@@ -191,11 +191,23 @@ export class AssignQuizComponent implements OnInit {
   get formError() {
     return this.assignQuizForm.controls;
   }
-  getRoles(){
+  getRoles() {
     this.adminService.getRoles().subscribe({
-      next:(response:any)=>{
-       this.roles=response
-      },error:(error)=>{},complete:()=>{}
-    })
+      next: (response: any) => {
+        this.roles = response;
+      },
+      error: (error) => {},
+      complete: () => {},
+    });
+  }
+
+  resetPassword(quiz: any) {
+    let dialogRef = this.dialog.open(ResetPasswordComponent, {
+      width: "600px",
+      position: {
+        top: "60px",
+      },
+      data: quiz,
+    });
   }
 }
