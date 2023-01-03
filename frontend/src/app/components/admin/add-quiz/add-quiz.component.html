@@ -1,79 +1,87 @@
-
-<!-- new design -->
+<button
+  hidden
+  printSectionId="content"
+  class="d-none"
+  type="button"
+  printSectionId="content"
+  printTitle="Response"
+  id="print"
+  #print
+  [useExistingCss]="true"
+  ngxPrint
+  
+>
+  print
+</button>
 <div class="container">
   <div class="custom-row h-100 w-100 d-flex justify-content-center mb-4">
-    <mat-card class="col-12 buttoncol-md-8 p-0"  >
-      <div class="p-3 rounded quiz-heading d-flex justify-content-between" >
+    <mat-card class="col-12 buttoncol-md-8 p-0">
+      <div class="p-3 rounded quiz-heading d-flex justify-content-between">
         <span class="d-flex align-items-end"
-          ><span class="body font-weight-bold body mr-1 ">Questions: </span>
-          <span class="body text-secondary">{{ quizQuestions?.length}}</span>
+          ><span class="body font-weight-bold body mr-1">Questions: </span>
+          <span class="body text-secondary">{{ quizQuestions?.length }}</span>
         </span>
-        <span
-          >
-            <button
-            class="button btn-sm"
-            (click)="addQuestionDialog()" 
-          >
-          <i class="fa fa-plus  m-1"></i> Add question
+        <span>
+          <button class="button btn-sm" (click)="addQuestionDialog()">
+            <i class="fa fa-plus m-1"></i> Add question
           </button>
- 
         </span>
       </div>
-      <div id="content" #content>
-        <!-- <span  class="print" >{{quizTitle}}</span> -->
-      <div class="d-flex flex-column border-bottom pt-2"    *ngFor="let question of quizQuestions;let i=index">
-       
-        <mat-card-content class="ml-2 ml-md-3 mt-2 mr-2" >
-          
-          <div
-            class="question d-flex flex-column "
-          >
-         
-           <div class="d-flex align-items-baseline ">
-            <div class="font-weight-bold mr-1 body">Q{{i+1}}.</div>
-            <div  class="flex-space h5" [innerHTML]="question.question | sanitizedHtml"></div>
 
-           </div>
-           
-            <span class="text-secondary mb-3 ml-auto only-show-on-hover"  >
-              <i
-                class="fa fa-edit mr-2 text-info cursor  bg-light rounded p-2 mb-2"
-                (click)="editdialog(question)"
+      <div id="content" #content>
+        <h3 class="ml-3" id="title">{{ quizTitle }}</h3>
+        <div
+          class="d-flex flex-column border-bottom pt-2"
+          *ngFor="let question of quizQuestions; let i = index"
+        >
+          <mat-card-content class="ml-2 ml-md-3 mt-2 mr-2">
+            <div class="question d-flex flex-column">
+              <div class="d-flex align-items-baseline">
+                <div class="font-weight-bold mr-1 body">Q{{ i + 1 }}.</div>
+                <div
+                  class="flex-space h5"
+                  [innerHTML]="question.question | sanitizedHtml"
+                ></div>
+              </div>
+
+              <span class="text-secondary mb-3 ml-auto only-show-on-hover">
+                <i
+                  class="fa fa-edit mr-2 text-info cursor bg-light rounded p-2 mb-2"
+                  (click)="editdialog(question)"
+                >
+                  Edit</i
+                >
+                <i
+                  class="fa fa-trash text-danger cursor bg-light rounded p-2"
+                  (click)="deleteQuestion(question)"
+                >
+                  Delete</i
+                >
+              </span>
+            </div>
+            <div class="options w-100">
+              <mat-radio-group
+                class="col-12 d-flex flex-column flex-lg-row flex-lg-wrap"
               >
-                Edit</i
-              >
-              <i
-                class="fa fa-trash text-danger cursor  bg-light rounded p-2"
-                (click)="deleteQuestion(question)"
-              >
-                Delete</i
-              >
-            </span>
-          
-          </div>
-          <div class="options w-100">
-              <mat-radio-group class="col-12 d-flex flex-column flex-lg-row flex-lg-wrap"
-              >
-                <mat-radio-button [color]="color"
-                  class="col-12 col-lg-5 border border-info rounded mr-4 mb-4 pt-3 pb-2 "
+                <mat-radio-button
+                  [color]="color"
+                  class="col-12 col-lg-5 border border-info rounded mr-4 mb-4 pt-3 pb-2"
                   *ngFor="let option of question.options"
                   [value]="option.option"
                   >{{ option.option }}</mat-radio-button
                 >
               </mat-radio-group>
-          </div>
-        </mat-card-content>
-        <!-- <hr /> -->
+            </div>
+          </mat-card-content>
+          <!-- <hr /> -->
+        </div>
       </div>
-      </div>
-    </mat-card> 
-
- 
-</div>
+    </mat-card>
+  </div>
 </div>
 
-<div class="row mt-0 d-flex  justify-content-center">
-<mat-error class="alert alert-danger opacity p-1" *ngIf="addQuestion">Please add questions for your Quiz</mat-error>
+<div class="row mt-0 d-flex justify-content-center">
+  <mat-error class="alert alert-danger opacity p-1" *ngIf="addQuestion"
+    >Please add questions for your Quiz</mat-error
+  >
 </div>
-
-

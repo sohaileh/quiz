@@ -1,3 +1,6 @@
+#title{
+  visibility: hidden;
+}
 .custom-row {
   margin-left: 2px;
   margin-right: 2px;
@@ -76,8 +79,14 @@ mat-card-actions {
   }
 
 }
+@media print{
+  #content{
+    width: 250vw;
+  }
+}
 
 @media screen and(max-width:768px) {
+  
   mat-table {
     font-size: 10px;
     text-align: center;

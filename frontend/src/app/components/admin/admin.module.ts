@@ -33,10 +33,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ResultComponent } from './result/result.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserResultComponent } from './user/user-result/user-result.component';
-
-
-
-
+import { NgxPrintModule } from "ngx-print";
 @NgModule({
   declarations: [
     AddQuizComponent,
@@ -75,7 +72,8 @@ import { UserResultComponent } from './user/user-result/user-result.component';
     CustomPipesModule,
     MatTableModule,
     MatDividerModule,
-    SharedModule
+    SharedModule,
+    NgxPrintModule
     
     
 
