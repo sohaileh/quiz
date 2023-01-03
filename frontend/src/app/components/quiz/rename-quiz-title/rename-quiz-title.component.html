@@ -1,24 +1,10 @@
-<div>
-  <p>Rename Title</p>
-</div>
-
-<div>
-  <input
-    matInput
-    placeholder="New Title"
-    class="form-control"
-    [(ngModel)]="newquizTitle"
-    appFormErrorMsg
-    required
-  />
-</div>
-
-<div class="mt-2" fxLayoutAlign="end">
-  <div class="d-flex p-1" fxLayoutGap="5px" fxLayout.xs="row">
-    <button class="btn border-0 cancel-btn" (click)="onNoClick()">
-      Cancel
-    </button>
-
-    <button class="btn border-0" (click)="renameQuizTitle()">Rename</button>
+<div mat-dialog-container>
+  <h4 mat-dialog-title class="head-div">Rename Title</h4>
+  <div class="input_q">
+      <input placeholder="New Title" class="form-control"  [(ngModel)]="newquizTitle" appFormErrorMsg required>
   </div>
+  <mat-dialog-actions class="float-right">
+      <button class="btn border-0 cancel-btn" (click)="onNoClick()">Cancel</button>
+      <button class="btn border-0" (click)="renameQuizTitle()">Rename</button>
+  </mat-dialog-actions>
 </div>
