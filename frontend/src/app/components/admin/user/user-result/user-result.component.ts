@@ -31,16 +31,8 @@ export class UserResultComponent implements OnInit {
       complete:()=>{}
     })
     this.getOrganizationUsers();
-    console.log(this.router.url)
     this.userId = this.route.snapshot.queryParamMap.get('id')
-    if(this.userId){
-      this.adminService.getUserDetails(this.userId).subscribe({
-        next:(resposne:any)=>{
-          this.fullName =`${resposne.firstName} ${resposne.lastName}`
-         
-          }
-      })
-    }
+   
    
   }
   getLoggedUser() {
@@ -71,4 +63,11 @@ export class UserResultComponent implements OnInit {
       complete:()=>{}
     })
 }
+printcertificate(quiz:any){
+  const quizId=quiz.results.output[0]._id
+  this.router.navigate([`/quiz/generate-certificate`],{queryParams:{userId:this.userId,quizId:quizId}})
+    
+  
 }
+}
+ 

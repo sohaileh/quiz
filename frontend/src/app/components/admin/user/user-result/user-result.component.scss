@@ -126,7 +126,9 @@ a {
   display: table !important;
   border: 1px solid #337ab7;
 }
-
+.cursor{
+  cursor: pointer;
+}
 @media screen and (min-width: 768px) {
   .col-md-8 {
     top: 0 !important;

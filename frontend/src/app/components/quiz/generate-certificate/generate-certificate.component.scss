@@ -4,59 +4,10 @@
   margin: 0;
   padding: 0;
 }
-
-// .contain {
-//   height: 400px;
-//   background: #42428d;
-//   clip-path: polygon(100% 0, 100% 82%, 52% 94%, 0 81%, 0 0);
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   width: 100%;
+// .title{
+//   letter-spacing: 0.2em;
 // }
 
-// .certification-title {
-//   color: white;
-//   margin-top: 7%;
-//   letter-spacing: 8px;
-//   font-size: 3rem;
-// }
-
-// .name {
-//   font-family: "Pacifico", cursive;
-// }
-// .certificate-sub-title {
-//   color: white;
-//   font-size: 1.5rem;
-//   letter-spacing: 5px;
-// }
-
-// .footer {
-//   color: white;
-//   background: #42428d;
-//   margin-top: 6em;
-//   width: auto;
-//   padding-bottom: 0;
-//   // height: 100px;
-// }
-
-// #certificate {
-//   border: 1px solid red;
-//   height: auto;
-//   padding: 0;
-//   margin-bottom: 2em;
-// }
-
-// .custom {
-//   letter-spacing: 0.3em;
-// }
-.title{
-  letter-spacing: 0.2em;
-}
-
-// .border-5 {
-//   border-width: 30px !important;
-// }
 .content{
   width: 60%;
 }
@@ -64,12 +15,90 @@
   position: absolute;
   bottom: 0;
 }
+.custom-position-1{
+  position:absolute;
+  top: 10%;
+  width: 200px;
+  height: 200px;
+
+}
+img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
 .custom-position{
+  height: 70px;
+  width: 80%;
   position: absolute;
-  top: 30%;
-  left: 10%;
+  top: 0;
+  clip-path: circle(45.7% at 51% 0);
+  background-color: rgb(213, 179, 135);
+}
+.custom-position-2{
+  height: 70px;
+  width: 80%;
+  position: absolute;
+  top: 0;
+  clip-path: circle(43.7% at 51% 0);
+  background-color:  #17a2b8!important;
+}
+.custom-position-3{
+  position:absolute;
+  top: 35%;
+}
+.custom-position-4{
+  position:absolute;
+  top: 40%;
+  font-size: 35px;
+}
+.custom-position-5{
+  position:absolute;
+top: 50%;
 }
 
+.custom-position-6{
+  position:absolute;
+  font-size: 35px;
+  top: 55%;
+}
+
+.custom-position-7{
+  position:absolute;
+  top: 65%;
+}
+.custom-position-8{
+  position:absolute;
+  top: 75%;
+}
+.custom-position-9{
+  position:absolute;
+  top: 80%;
+}
+
+.custom-position-10{
+  position:absolute;
+  width: 200px;
+  top: 10px;
+  
+}
+
+.custom-position-11{
+  height: 70px;
+  width: 80%;
+  position: absolute;
+  bottom: 0;
+  clip-path: circle(45.7% at 51% 100%);
+  background-color: rgb(213, 179, 135);
+}
+.custom-position-12{
+  height: 70px;
+  width: 80%;
+  position: absolute;
+  bottom: 0;
+  clip-path: circle(43.7% at 51% 100%);
+  background-color:  #17a2b8!important;
+}
 
 @media screen and (max-width:768px){
   .title{
@@ -80,5 +109,13 @@
   }
   .content{
     width: 100% !important;
+  }
+  .custom-position-8{
+    position:absolute;
+    top: 80%;
+  }
+  .custom-position-9{
+    position:absolute;
+    top: 85%;
   }
 }

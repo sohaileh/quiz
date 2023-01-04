@@ -73,14 +73,14 @@
         <div class="col-12 col-sm-8 mb-2 mb-sm-0 " *ngIf="!userId">
           <label class="font-weight-bold">Assigned Quizzes</label>
           <div class="border assign-quiz rounded">
-            <input type="text" class="form-control  assign-input" [value]="quiz.quizTitle"
+            <input readonly  type="text" class="form-control  assign-input" [value]="quiz.quizTitle" 
               *ngFor="let quiz of quizIdObject">
           </div>
         </div>
         <div class="col-12 col-sm-8 mb-2 mb-sm-0" *ngIf="userId">
           <label class="font-weight-bold">Assigned Quizzes</label>
           <div class="border assign-quiz rounded">
-            <input type="text" class="form-control  assign-input" [value]="quiz"
+            <input type="text" class="form-control  assign-input" [value]="quiz" readonly
               *ngFor="let quiz of quizAllocatedToUser">
           </div>
         </div>

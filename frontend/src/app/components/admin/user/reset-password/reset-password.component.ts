@@ -52,6 +52,8 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   resetPasswordUser() {
+    if(!this.resetForm.valid)
+    return
     const {_id}=this.userId
     const password = this.resetForm.get('password').value
     this.adminService.resetPasswordUser(_id,password).subscribe({
@@ -62,5 +64,11 @@ export class ResetPasswordComponent implements OnInit {
       error:(error)=>{},
       complete:()=>{}
     })
+  }
+  public checkError = (controlName: string, errorName: string) => {
+    return this.resetForm.controls[controlName].hasError(errorName);
+  };
+  get formError() {
+    return this.resetForm.controls;
   }
 }

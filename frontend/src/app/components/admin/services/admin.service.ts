@@ -90,4 +90,9 @@ passValue(data:any) {
     const resetPassword={password:password}
     return this.http.put(`${this.serverUrl}auth/reset-user-passsword/${_id}`,resetPassword)
   }
+
+  getUserQuizResult(userId,quizId){
+    const userDetails={userId:userId,quizId:quizId}
+    return this.http.post(`${this.serverUrl}result/get-user-quiz-result`,userDetails)
+  }
 }
