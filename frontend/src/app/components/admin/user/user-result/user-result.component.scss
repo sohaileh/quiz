@@ -150,3 +150,32 @@ a {
     margin-right: 2px;
   }
 }
+
+.result-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.reslut-table th {
+  color: #337ab7 !important;
+  padding: 0.75rem;
+  vertical-align: top;
+}
+.heading{
+  border-bottom: 1px solid #ddd;
+  margin: 10px;
+  padding-bottom: 20px;
+}
+.result{
+  border-bottom: 2px solid #ddd;
+  margin: 20px;
+}
+.result_data td{
+  padding: 0.75rem;
+  vertical-align: top;
+}
+.btn{
+  outline: none;
+}
+.btn:focus {
+  outline: none;
+}
