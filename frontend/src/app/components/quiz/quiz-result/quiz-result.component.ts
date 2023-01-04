@@ -15,6 +15,7 @@ export class QuizResultComponent implements OnInit {
   color: ThemePalette = "primary";
   result: any[] = [];
   userId: any = {};
+  quizTitle:any={}
   quizId: any = {};
   percentage: any;
   incorrectanswers: number;
@@ -27,20 +28,23 @@ export class QuizResultComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.quizId= this.route.snapshot.paramMap.get('id')
+ this.userId =  this.route.snapshot.queryParams['userId']
+ this.quizId= this.route.snapshot.paramMap.get('id')
 this.getResultInfo()
   }
 
 
   getResultInfo(){
- this.userId =  this.route.snapshot.queryParams['userId']
+ console.log('userId',this.userId)
     forkJoin({
       questions:this.adminService.getQuizQuestions(this.quizId),
       response:this.quizService.getUserQuizResponse(this.quizId,this.userId)
     }).subscribe({
       next:(res:any)=>{
+        console.log('res',res)
         const {questions} = res
           const {response}= res
+        this.quizTitle = questions.quizTitle
         this.quizQuestions = questions.questionBank
         this.quizQuestions.forEach(question => {
           const answer=  response.response.find((response)=>response.questionId ==question._id)
@@ -56,5 +60,12 @@ this.getResultInfo()
         console.log('complete')
       }
     })
+  }
+  redirect(){
+    const userId = localStorage.getItem('userId')
+    if(userId)
+    this.router.navigate(['/home/dashboard'])
+    else
+    this.router.navigate([`/signin-quiz/${this.quizId}`])
   }
 }

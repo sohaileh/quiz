@@ -42,7 +42,6 @@ const appRoutes: Routes = [
       {
         path:'quiz',
         loadChildren:()=>import('./components/quiz/quiz.module').then(m=>m.QuizModule),
-        canActivate:[CanActivateGuard]
       },
       {
         path:'auth',

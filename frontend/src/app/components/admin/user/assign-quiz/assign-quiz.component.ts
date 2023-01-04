@@ -33,6 +33,7 @@ export class AssignQuizComponent implements OnInit {
   userId: any = {};
   dialogOpened = false;
   roles: string[];
+  passwordError=false
   constructor(
     private fb: FormBuilder,
     private adminService: AdminService,
