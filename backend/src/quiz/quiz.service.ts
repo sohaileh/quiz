@@ -21,6 +21,7 @@ import { UserModelDto } from 'src/auth/dto/user.dto';
 import { Type } from 'class-transformer';
 import { ResultModelDto } from 'src/results/dto/result.dto';
 import { OrganizeModelDto } from 'src/organize/dto/organize.dto';
+import { GradeModelDto } from './dto/grade.dto';
 import { MailerService } from '@nestjs-modules/mailer';
 @Injectable()
 export class QuizService {
@@ -33,7 +34,8 @@ export class QuizService {
     @InjectModel('Results') private readonly resultModel: Model<ResultModelDto>,
     @InjectModel('Organizes')
     private readonly organizeModel: Model<OrganizeModelDto>,
-    private readonly mailerService: MailerService
+    private readonly mailerService: MailerService,
+    @InjectModel('Grade') private readonly gradeModel:Model<GradeModelDto>
   ) {}
   public sendEmailInvitation(emailPayload:any){
     this.mailerService
@@ -799,5 +801,22 @@ export class QuizService {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
 
     }
+  }
+  async grade(id){
+    console.log(id)
+    
+    // try {
+    //   // const {quizId} =quizId
+    //   const quiz=await this.gradeModel.exists({quizId:quizId})
+    //   if(quiz){
+    //     throw new HttpException("Grade already saved for this quiz", HttpStatus.BAD_REQUEST);
+    //   }else{
+    //     const grades = await new this.gradeModel(quizId);
+    //     const newGrade = grades.save();
+    //     return newGrade;
+    //   }
+    // } catch (err) {
+    //   throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    // }
   }
 }

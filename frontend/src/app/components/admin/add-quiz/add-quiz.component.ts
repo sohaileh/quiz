@@ -52,11 +52,8 @@ export class AddQuizComponent implements OnInit {
         this.quizTitle = response?.quizTitle;
       },
     });
-
     this.adminService.print.subscribe((data) => {
-      console.log("next subscribed value: " + data);
-
-      this.downloadPDF();
+     this.downloadPDF();
     });
   }
 

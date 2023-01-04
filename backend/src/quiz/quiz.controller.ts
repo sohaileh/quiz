@@ -290,4 +290,13 @@ export class QuizController {
       res.status(HttpStatus.BAD_REQUEST).json(err.message);
     }
   }
+  @Post('grade')
+  async grade(@Body() body: any, @Res() res) {
+    try {
+      const grade = await this.quizService.grade(body.quizId);
+      res.status(HttpStatus.OK).json({grade,msg:"saved successfully"});
+    } catch (err) {
+      res.status(HttpStatus.BAD_REQUEST).json(err.message);
+    }
+  }
 }
