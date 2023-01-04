@@ -179,3 +179,10 @@ a {
 .btn:focus {
   outline: none;
 }
+.page-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  border-top: 1px solid black; /* for demo */
+  background: yellow; /* for demo */
+}

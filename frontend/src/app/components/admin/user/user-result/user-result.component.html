@@ -1,9 +1,9 @@
-<div class="h-100 d-flex justify-content-center" >
+<div class="h-100 d-flex justify-content-center">
   <div class="form-horizontal" role="form" class="formContainer">
     <div class="sectionTab">
       <div>
-        <div class="panel panel-primary resultPanel" >
-          <div class="panel-heading">User </div>
+        <div class="panel panel-primary resultPanel">
+          <div class="panel-heading">User</div>
 
           <div class="panel-body resultViewer">
             <div class="row resultToolbar">
@@ -23,22 +23,24 @@
               <div class="col-md-8">
                 <span class="navbar-right toolbarMenuItem export-button">
                   <i class="fa fa-download export"></i>
-                  <button  class="btn btn-sm outline-none"
-                  printSectionId="content"
-                  printTitle="User Result"
-                  [useExistingCss]="true"
-                  ngxPrint> 
-                  Export Pdf
+                  <button
+                    class="btn btn-sm outline-none"
+                    printSectionId="content"
+                    printTitle="User Result"
+                    [useExistingCss]="true"
+                    ngxPrint
+                    [printStyle]="{ th : {'color': '#337ab7','font-size':'12px'}}"
+                  >Print
                   </button>
                 </span>
               </div>
             </div>
 
-            <table class="resultText tableContainer" >
-              <tbody >
+            <table class="resultText tableContainer">
+              <tbody>
                 <tr>
                   <td class="td_totalQuizzes">Total quizzes:</td>
-                  <td>{{totalQuizzes}}</td>
+                  <td>{{ totalQuizzes }}</td>
                 </tr>
                 <tr>
                   <td>Total passed:</td>
@@ -55,7 +57,7 @@
               </tbody>
             </table>
 
-            <table class="table table-condensed resultText desktop-only" >
+            <table class="table table-condensed resultText desktop-only">
               <thead>
                 <tr>
                   <th>
@@ -83,19 +85,26 @@
                   <th>
                     <a> Avg. Score </a>
                   </th>
+                  <th>
+                    <a>Certificate</a>
+                  </th>
                 </tr>
-                <tr  *ngFor="let quiz of userResults">
-                <td>{{quiz?.results?.output[0]?.quizTitle}}</td>
-                <td>{{quiz?.results?.playedOn | date}}   </td>
-                <td>{{quiz?.results?.score}}</td>
-                <td>/</td>
-                <td>/</td>
-                <td>/</td>
-                <td>/</td>
+                <tr *ngFor="let quiz of userResults">
+                  <td>{{ quiz?.results?.output[0]?.quizTitle }}</td>
+                  <td>{{ quiz?.results?.playedOn | date }}</td>
+                  <td>{{ quiz?.results?.score }}</td>
+                  <td>/</td>
+                  <td>/</td>
+                  <td>/</td>
+                  <td>/</td>
+                  <td><a>Print Certificate</a></td>
                 </tr>
               </thead>
             </table>
-            <table class="table table-condensed resultText mobile-only" *ngFor="let quiz of userResults">
+            <table
+              class="table table-condensed resultText mobile-only"
+              *ngFor="let quiz of userResults"
+            >
               <tr>
                 <th>
                   <a>
@@ -103,19 +112,19 @@
                     <i class="fa fa-caret-down"></i>
                   </a>
                 </th>
-                <td>{{quiz?.results?.output[0]?.quizTitle}}</td>
+                <td>{{ quiz?.results?.output[0]?.quizTitle }}</td>
               </tr>
               <tr>
                 <th>
                   <a> Date submitted </a>
                 </th>
-                <td>{{quiz?.results?.playedOn | date}} </td>
+                <td>{{ quiz?.results?.playedOn | date }}</td>
               </tr>
               <tr>
                 <th>
                   <a> Score </a>
                 </th>
-                <td>{{quiz?.results?.score}}</td>
+                <td>{{ quiz?.results?.score }}</td>
               </tr>
               <tr>
                 <th>
@@ -141,6 +150,12 @@
                 </th>
                 <td>/</td>
               </tr>
+              <tr>
+              <th>
+                <a>Certificate</a>
+              </th>
+              <td><a>Print Certificate</a></td>
+            </tr>
             </table>
           </div>
         </div>
@@ -149,46 +164,39 @@
   </div>
 </div>
 <div id="content" hidden>
-<div class="heading pl-1">User : {{fullName}}</div>
-    <div class="panel-body ">
-      <div class="mb-2">
-        <div>
-          Total quizzes: <span>1</span>
-        </div>
-        <div>
-          Total passed: <span>0</span>
-        </div>
-        <div>
-          Cumulative score: <span>0/0</span>
-        </div>
-        <div>
-          Duration: <span>00s</span>
-        </div>
-        
-      </div>
-      </div>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Quiz</th>
-      <th scope="col">Date submitted</th>
-      <th scope="col">Score</th>
-      <th scope="col">Grade</th>
-      <th scope="col">Duration</th>
-      <th scope="col">Pass</th>
-      <th scope="col">Avg. Score</th>
-    </tr>
-  </thead>
-  <tbody>
-      <tr  *ngFor="let quiz of userResults" class="result_data">
-        <td>{{quiz?.results?.output[0]?.quizTitle}}</td>
-        <td>{{quiz?.results?.playedOn | date}}   </td>
-        <td>{{quiz?.results?.score}}</td>
+
+  <div class="heading pl-1">User : {{ fullName }}</div>
+  <div class="panel-body">
+    <div class="mb-2">
+      <div>Total quizzes: <span>1</span></div>
+      <div>Total passed: <span>0</span></div>
+      <div>Cumulative score: <span>0/0</span></div>
+      <div>Duration: <span>00s</span></div>
+    </div>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Quiz</th>
+        <th scope="col">Date submitted</th>
+        <th scope="col">Score</th>
+        <th scope="col">Grade</th>
+        <th scope="col">Duration</th>
+        <th scope="col">Pass</th>
+        <th scope="col">Avg. Score</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let quiz of userResults" class="result_data">
+        <td>{{ quiz?.results?.output[0]?.quizTitle }}</td>
+        <td>{{ quiz?.results?.playedOn | date }}</td>
+        <td>{{ quiz?.results?.score }}</td>
         <td>/</td>
         <td>/</td>
         <td>/</td>
         <td>/</td>
-    </tr>
-  </tbody>
-</table>
+      </tr>
+    </tbody>
+  </table>
 </div>
