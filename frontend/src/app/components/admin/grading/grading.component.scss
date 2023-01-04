@@ -1,0 +1,160 @@
+.gradingContentTheme {
+  padding-bottom: 2vw;
+  margin-bottom: 20px;
+  padding-top: 20px;
+  background-color: #f1f1f1;
+  position: relative;
+  top: 15px;
+}
+
+.configureContentContainer {
+  background-color: rgba(255, 255, 255, 1);
+  border-left: solid #ddd 1px;
+  border-right: solid #ddd 1px;
+  padding-top: 20px;
+  padding-bottom: 80px;
+}
+
+.navbar-nav > li:hover,
+.navbar-nav > li > a:hover {
+  background-color: #f1f1f1;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  cursor: pointer;
+  text-decoration: none !important;
+}
+
+.configureMenu .navbar-nav > li > a {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: #337ab7;
+}
+
+label {
+  display: inline-block;
+  padding: 2px;
+  max-width: 100%;
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+
+.navbar-nav {
+  margin: 27.5px -31px 0 5px;
+}
+
+.active {
+  background-color: #f1f1f1;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.fa-bars {
+  color: black;
+  font-size: 28px;
+}
+
+.help-block {
+  font-size: 12px;
+  display: block;
+  margin-top: 5px;
+  color: #737373;
+}
+
+@media screen and (min-width: 768px) {
+  .col-sm-10 {
+    width: 83.33333333%;
+    margin-bottom: 1vw;
+  }
+
+  .control-label {
+    text-align: right;
+  }
+  .form-group {
+    margin-bottom: 15px;
+  }
+  .navbar-nav > li {
+    float: left;
+  }
+  .navbar-header {
+    display: none;
+  }
+
+  .col-sm-2 {
+    width: 16.66666667%;
+  }
+
+  .col-sm-12,
+  .col-sm-9 {
+    float: left;
+  }
+
+  .navbar-toggle {
+    display: none;
+  }
+  .navbar-collapse.collapse {
+    display: block !important;
+    height: auto !important;
+    padding-bottom: 0;
+    overflow: visible !important;
+  }
+  .navbar-collapse {
+    width: auto;
+    border-top: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+  .navbar-nav > li {
+    float: left;
+    padding: 10px;
+  }
+}
+
+.table > tbody > tr > td {
+  vertical-align: middle;
+}
+.table-condensed > tbody > tr > td,
+.table-condensed > thead > tr > th {
+  padding: 5px !important;
+}
+
+.minCol {
+  min-width: 102px !important;
+}
+.inputTitle {
+  width: 100% !important;
+}
+
+.bottom-checkbox {
+  margin-top: 10px;
+  display: inline-block;
+}
+
+th {
+  background-color: #f5f5f5;
+}
+
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+
+.faClose {
+  min-width: 40px;
+  font-size: 18px;
+  color: #a8a8a8;
+  cursor: pointer;
+  position: relative;
+  left: 10px;
+}
+
+.row {
+  padding-bottom: 150px;
+}
+
+.btn-fa {
+  font-size: 18px;
+  color: #a8a8a8;
+  border: none;
+}

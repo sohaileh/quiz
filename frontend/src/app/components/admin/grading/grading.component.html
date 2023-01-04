@@ -1,0 +1,116 @@
+<div class="container configureContentContainer">
+  <div class="row">
+    <div class="configureMenu col-sm-2">
+      <div class="sidebar-nav">
+        <div class="navbar" role="navigation">
+          <div class="navbar-header">
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarSupportedContent2"
+              aria-controls="navbarSupportedContent2"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"
+                ><i class="fa fa-bars"></i
+              ></span>
+            </button>
+          </div>
+          <div
+            class="navbar-collapse collapse sidebar-navbar-collapse"
+            id="navbarSupportedContent2"
+          >
+            <ul class="nav navbar-nav">
+              <li routerLinkActive="active">
+                <a [routerLink]="['/admin/quiz/configure', quizId]">General</a>
+              </li>
+              <li routerLinkActive="active">
+                <a [routerLink]="['/admin/quiz/grading']">Grading</a>
+              </li>
+              <li routerLinkActive="active">
+                <a [routerLink]="['/admin/quiz/result', quizId]">Results</a>
+              </li>
+              <li><a>Certificate </a></li>
+              <!-- <li><a href="">Notifications </a></li> -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-9 gradingContentTheme">
+      <div class="form-horizontal" role="form">
+        <div class="form-group">
+          <div class="col-sm-12">
+            <table class="table table-condensed">
+              <thead>
+                <tr>
+                  <th>Grade</th>
+                  <th>Minimum %</th>
+                  <th>Pass</th>
+
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of inputFields; index as i">
+                  <td class="inputTitle">
+                    <input
+                      type="text"
+                      maxlength="1000"
+                      class="form-control"
+                      value="Fail"
+                      [(ngModel)]="inputFields[i][0]"
+                    />
+                  </td>
+
+                  <td class="minCol">
+                    <input
+                      type="number"
+                      class="form-control minRangeMarkPercent"
+                      min="0"
+                      max="100"
+                      value="0"
+                      [(ngModel)]="inputFields[i][1]"
+                    />
+                  </td>
+
+                  <td class="faClose" [(ngModel)]="inputFields[i][2]">
+                    <button class="btn-fa" (click)="deleteInputField(i)">
+                      <i class="fa fa-close"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <button class="btn btn-sm btn-success" (click)="addInputField()">
+              Add grade
+            </button>
+            <p class="help-block">
+              The result and grade can be shown to the respondent by setting the
+              Display Options within the
+              <a [routerLink]="['/admin/quiz/result', quizId]">Results</a>
+              tab
+            </p>
+
+            <!-- <div>
+              <div class="checkbox bottom-checkbox">
+                <label>
+                  <input type="checkbox" />
+                  Redirect based on grade
+                </label>
+              </div>
+              <p class="help-block">
+                After completing the quiz respondents can be redirected to a
+                specific URL or another quiz based on the grade they have
+                achieved. Any registration details will also be automatically
+                passed to the new quiz
+              </p>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
