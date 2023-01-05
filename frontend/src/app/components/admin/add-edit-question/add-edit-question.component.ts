@@ -5,12 +5,37 @@ import { ThemePalette } from "@angular/material/core";
 import { MatDialog, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { ToasterNotificationsService } from "../../shared/services/toaster-notifications.service";
 import { InfoDialogComponent } from "../../shared/info-dialog/info-dialog.component";
+
 @Component({
   selector: "app-add-edit-question",
   templateUrl: "./add-edit-question.component.html",
   styleUrls: ["./add-edit-question.component.scss"],
 })
 export class AddEditQuestionComponent implements OnInit {
+
+  values= [
+    {
+      label: 'image ',
+      value: 'image',
+      icon: 'image'
+    },
+    {
+      label: 'mcq',
+      value: 'mcq',
+      icon: 'check_circle_outline'
+    },
+    {
+      label: 'audio',
+      value: 'audio',
+      icon: 'audiotrack'
+    },
+    {
+      label: 'video',
+      value: 'video',
+      icon: 'video_camera_front'
+    }
+  ]
+
   color: ThemePalette = "primary";
   UploadFile: any;
   editingQuestion = false;

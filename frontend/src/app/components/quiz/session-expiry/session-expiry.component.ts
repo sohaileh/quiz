@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './session-expiry.component.html',
   styleUrls: ['./session-expiry.component.scss']
 })
+
 export class SessionExpiryComponent implements OnInit {
   quizId: any;
 
