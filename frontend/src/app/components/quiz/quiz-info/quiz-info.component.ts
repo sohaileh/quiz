@@ -56,7 +56,7 @@ export class QuizInfoComponent implements OnInit {
           },
           error: (error) => {},
           complete: () => {
-    this.router.navigate([`/student/quiz-attempt/${this.quizId}`],{queryParamsHandling:'preserve'});
+    this.router.navigate([`/student/quiz-attempt/${this.quizId}`],{queryParamsHandling:'preserve',skipLocationChange:true});
 
           },
         });

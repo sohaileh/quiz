@@ -80,7 +80,7 @@ export class RegisterQuizComponent implements OnInit {
             this.registerForm.reset();
             this.registerModel = {};
            
-            this.router.navigate([`/quiz-info/${quizId}`],{ queryParams: { userId: userId } });
+            this.router.navigate([`/quiz-info/${quizId}`],{ queryParams: { userId: userId },skipLocationChange:true },);
           }
          
         },
