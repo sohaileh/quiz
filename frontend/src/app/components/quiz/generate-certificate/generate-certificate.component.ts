@@ -5,13 +5,13 @@ import {
   ViewChild,
   ElementRef,
 } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { QuizService } from "../services/quiz.service";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { HasElementRef } from "@angular/material/core/common-behaviors/color";
 import { AdminService } from "../../admin/services/admin.service";
-
+import {Location} from '@angular/common';
 @Component({
   selector: "app-generate-certificate",
   templateUrl: "./generate-certificate.component.html",
@@ -28,7 +28,9 @@ export class GenerateCertificateComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private quizService: QuizService,
-    private adminService:AdminService
+    private adminService:AdminService,
+    private router:Router,
+    private _location: Location
   ) {}
 
   ngOnInit(): void {
@@ -91,4 +93,7 @@ export class GenerateCertificateComponent implements OnInit {
   // getCertificateDetails(){
 
   // }
+  back(){
+    this._location.back()
+  }
 }

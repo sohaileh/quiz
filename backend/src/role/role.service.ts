@@ -12,12 +12,10 @@ export class RoleService {
 
     async getRoles(){
         try{
-            // const roles = await mongoose.model('roles',RoleSchema)
-            // // console.log('roles',roles.schema.path('roles').schema.path('roles'))
-            // console.log(roles.schema.path('roles'))
-            const {roles} = await this.rolesModel.findOne({},{_id:0})
-           return roles
-            return
+         const userRoles=   await this.rolesModel.aggregate([
+                {$group:{_id:'$role'}}
+            ])
+           return userRoles
         }catch(err){
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
 

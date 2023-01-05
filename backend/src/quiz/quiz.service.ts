@@ -23,6 +23,7 @@ import { ResultModelDto } from 'src/results/dto/result.dto';
 import { OrganizeModelDto } from 'src/organize/dto/organize.dto';
 import { GradeModelDto } from './dto/grade.dto';
 import { MailerService } from '@nestjs-modules/mailer';
+import * as bcrypt from 'bcrypt';
 @Injectable()
 export class QuizService {
   totalTeamsEnteredQuiz: any = 0;
@@ -706,7 +707,7 @@ export class QuizService {
         );
         if (questionsLength[0].questionBank.length === 0)
           throw new HttpException(
-            'Questions not added yet',
+            'Questions not added yet. Add questions to  preview Quiz',
             HttpStatus.BAD_REQUEST,
           );
       }
@@ -742,17 +743,26 @@ export class QuizService {
   async isQuizAssigned(userData) {
     try {
       const { emailAddress, quizId } = userData;
-      const userExists = await this.userModel.exists({
+      const userExists = await this.userModel.findOne({
         emailAddress: emailAddress,
       });
+  
       if (!userExists)
-        throw new HttpException('User does not exists', HttpStatus.BAD_REQUEST);
+        throw new HttpException('Incorrect Credentials', HttpStatus.BAD_REQUEST);
       const quizExists = await this.quizModel.exists({ _id: quizId });
       if (!quizExists)
         throw new HttpException(
           'Quiz has been removed',
           HttpStatus.BAD_REQUEST,
         );
+        const {password}= userExists
+        const passwordMatched = await bcrypt.compare(userData.password,password);
+        if (!passwordMatched)
+          throw new HttpException(
+            'Incorrect Credentials',
+            HttpStatus.UNAUTHORIZED,
+          );
+  
       const quizAssigned = await this.userModel.find(
         {
           emailAddress: emailAddress,
@@ -768,8 +778,6 @@ export class QuizService {
           'Quiz has not been assigned to you ',
           HttpStatus.BAD_REQUEST,
         );
-        console.log(quizAssigned,'quizAssigned')
-      // return quizAssigned[0].assignedQuizzes;
       return quizAssigned
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);

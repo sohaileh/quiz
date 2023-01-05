@@ -260,8 +260,9 @@ export class AddEditQuestionComponent implements OnInit {
     this.dialog.closeAll()
     else{
       const dialogRef= this.dialog.open(InfoDialogComponent,{
-        data:'Quiz Should atleast have 5 Questions',
+        data:'Quiz must atleast have 5 Questions',
         disableClose: true,
+        width:'300px'
       })
     }
       

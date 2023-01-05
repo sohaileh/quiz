@@ -130,7 +130,7 @@
                           <mat-checkbox
                           color="primary"
                             [checked]=" correctAnswerIndex == i "
-                            class="example-margin"
+                            class="example-margin custom-checkbox"
                             (change)="getCorrectAnswer(i, $event)"
                           >
                             Correct
@@ -175,7 +175,7 @@
      {{savingQuestion?'Saving...':'Save and Add Another'}}
     </button>
     <button type="button" class="btn button ml-1 mb-2 mb-md-0"  (click)="saveQuiz()">
-      Save
+      Finish
     </button>
   </mat-card-actions>
  

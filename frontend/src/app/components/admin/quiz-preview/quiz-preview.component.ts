@@ -114,11 +114,14 @@ export class QuizPreviewComponent implements OnInit {
           if (this.quizQuestions.length == 0) this.submitStudentResponse();
         },
         error: (error) => {
-         this.dialog.open(InfoDialogComponent,{
+        const dialogRef= this.dialog.open(InfoDialogComponent,{
           data:error.error.message,
-          disableClose: true
+          disableClose: true,
+          width:'400px',
          })
+         dialogRef.afterClosed().subscribe(({})=>{
           this.router.navigate([`/admin/quiz/add-quiz/${this.quizId}`])
+         })
         },
         complete: () => {},
       });

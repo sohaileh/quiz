@@ -69,11 +69,9 @@ export class RegisterQuizComponent implements OnInit {
       this.quizService.isQuizAssigned(this.registerModel).subscribe({
         
         next: (response: any) => {
-          console.log('quizAsigned',response[0].assignedQuizzes[0].quizId)
             const quizId=response[0].assignedQuizzes[0].quizId
             const userId = response[0]._id
           if (response.statusCode == 201) {
-            console.log('res',response)
             this.registerForm.reset();
             this.registerModel = {};
           
@@ -89,7 +87,8 @@ export class RegisterQuizComponent implements OnInit {
         error: (error) => {
           this.dialog.open(InfoDialogComponent,{
               data:error.error,
-              disableClose: true
+              disableClose: true,
+              width:'300px'
           })
         },
         complete: () => {

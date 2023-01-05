@@ -109,12 +109,16 @@ export class ConfigureComponent implements OnInit {
   setQuizTime(event:any){
       if(event?.target?.checked){
         this.configureForm.get('time_check').disable()
+        this.configureForm.get('timeLimitPerQuestion').disable()
+        
         this.configureForm.patchValue({
           time_check:false
         })
 
       }else{
         this.configureForm.get('time_check').enable()
+        this.configureForm.get('timeLimitPerQuestion').enable()
+
 
       }
   }
