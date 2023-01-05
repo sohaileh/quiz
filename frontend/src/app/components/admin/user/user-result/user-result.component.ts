@@ -26,20 +26,18 @@ export class UserResultComponent implements OnInit {
   ngOnInit(): void {
     this.userId = this.route.snapshot.queryParamMap.get("id");
     this.getUserResults();
-    this.adminService.organizationUsers$.subscribe({
-      next: (response: any) => {
-        this.fullName = `${response[0].firstName} ${response[0].lastName}`;
-      },
-      error: (error) => {},
-      complete: () => {},
-    });
-    this.getOrganizationUsers();
-    this.userId = this.route.snapshot.queryParamMap.get("id");
+    this.userId = localStorage.getItem("userId");
+    this.getLoggedUser();
+  }
+ 
+
+  assignQuizToUser() {
+    this.router.navigate(["/admin/add-users"]);
   }
   getLoggedUser() {
-    this.user.id = this.userId;
+    this.user.id =this.route.snapshot.queryParamMap.get("id");
     this.adminService.getLoggedUser(this.user).subscribe((res: any) => {
-      this.loggedUser = res;
+      this.fullName=`${res.firstName} ${res.lastName}`
       this.getOrganizationUsers();
     });
   }
@@ -47,8 +45,7 @@ export class UserResultComponent implements OnInit {
   getOrganizationUsers() {
     this.user.organizationId = localStorage.getItem("userId");
     this.adminService.getOrganizationUsers(this.user).subscribe((res: any) => {
-      res.push(this.loggedUser);
-      this.totalUsers = res.length;
+      console.log(res)
     });
   }
 
