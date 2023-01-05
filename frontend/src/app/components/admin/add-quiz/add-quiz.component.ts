@@ -32,6 +32,11 @@ export class AddQuizComponent implements OnInit {
   hideOptions = false;
   addQuestion: boolean = true;
   hide: boolean = false;
+  hourDegrees = 0;
+  minuteDegrees = 0;
+  secondDegrees = 0;
+
+ 
   constructor(
     private adminService: AdminService,
     private dialog: MatDialog,
@@ -39,6 +44,16 @@ export class AddQuizComponent implements OnInit {
     private toastr: ToasterNotificationsService
   ) {
     this.adminService.menu$.next(true);
+    setInterval(() => {
+      const now = new Date();
+      const hours = now.getHours() % 12;
+      const minutes = now.getMinutes();
+      const seconds = now.getSeconds();
+
+      this.hourDegrees = (hours / 12) * 360 + (minutes / 60) * 30;
+      this.minuteDegrees = (minutes / 60) * 360 + (seconds / 60) * 6;
+      this.secondDegrees = (seconds / 60) * 360;
+    }, 1000);
   }
   ngOnInit(): void {
     this.quizId = this.route.snapshot.paramMap.get("id");

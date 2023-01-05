@@ -205,5 +205,25 @@ export class QuizPreviewComponent implements OnInit {
     clearInterval(this.intervalId);
     this.dialog.closeAll()
   }
-
+  // const hourHand = document.querySelector('#hour-hand');
+  // const minuteHand = document.querySelector('#minute-hand');
+  // const secondHand = document.querySelector('#second-hand');
+  
+   updateClock() {
+    const now = new Date();
+    const hours = now.getHours() % 12;
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
+  
+    const hourDegrees = (hours / 12) * 360 + (minutes / 60) * 30;
+    const minuteDegrees = (minutes / 60) * 360 + (seconds / 60) * 6;
+    const secondDegrees = (seconds / 60) * 360;
+  
+    // this.hourHand.style.transform = `rotate(${hourDegrees}deg)`;
+    // this.minuteHand.style.transform = `rotate(${minuteDegrees}deg)`;
+    // this.secondHand.style.transform = `rotate(${secondDegrees}deg)`;
+  }
+  
+  // updateClock();
+  // setInterval(updateClock, 1000);
 }

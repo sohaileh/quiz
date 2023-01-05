@@ -20,8 +20,8 @@
       <label class="col-lg-2 control-label p-0 font-weight-bold"
         >Question Type</label
       >
-      <div class="col-lg-4" ngClass.lt-md="p-0">
-        <select
+      <div class="col-lg-3" ngClass.lt-md="p-0">
+        <!-- <select
           class="form-control question-type"
           ngClass.lt-md="w-100"
           id="exampleFormControlSelect1"
@@ -36,19 +36,27 @@
           >
             {{ questiontype.type }}
           </option>
-        </select>
-        <!-- <mat-form-field appearance="outline">
-          <mat-label>Select an option</mat-label>
-          <mat-select class="question-type"  formControlName="type"
-          (change)="setQuestionType($event.target.value)"
-          name="Type of Question">
-            <mat-option *ngFor="let option of values" [value]="option.icon">
-              <mat-icon>{{ option.icon}}</mat-icon>
-              <mat-label>{{option.value}}</mat-label>
+        </select> -->
+        
+        <mat-form-field class="d-block" appearance="outline" >
+          <mat-select
+          formControlName="type"
+            [(value)]="icon"
+            placeholder="Please Select a type"  (selectionChange)="onChange($event)"
+          >
+            <mat-select-trigger *ngIf="icon" class="icon">
+              <mat-icon>{{icon.iconName}}</mat-icon>
+              <span>{{icon.name}}</span>
+            </mat-select-trigger>
+        
+            <mat-option *ngFor="let icon of iconList" [value]="icon">
+              <mat-icon>{{icon.iconName}}</mat-icon>
+        
+              <span>{{icon.name}}</span>
             </mat-option>
           </mat-select>
-        </mat-form-field> -->
-      
+        </mat-form-field>
+        
       </div>
       <div
         class="col-lg-3 d-flex mt-2 mt-lg-0 justify-content-between align-items-baseline p-0 mr-2"

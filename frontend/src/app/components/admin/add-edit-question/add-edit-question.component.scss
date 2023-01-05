@@ -49,3 +49,26 @@ mat-card-actions {
     width: 50%;
   }
 }
+:host {
+  .mark {
+    mat-icon {
+      position: absolute;
+      bottom: -3px;
+    }
+    span {
+      margin-left: 28px;
+      position: relative;
+    bottom: 5px;
+    left: 10px;
+    }
+  }
+}
+mat-form-field{
+  font-size: 9px;
+}
+mat-select span{
+  position: relative;
+  bottom: 5px;
+  left: 10px;
+  }
+

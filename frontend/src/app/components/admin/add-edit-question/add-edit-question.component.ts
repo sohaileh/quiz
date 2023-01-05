@@ -12,30 +12,13 @@ import { InfoDialogComponent } from "../../shared/info-dialog/info-dialog.compon
   styleUrls: ["./add-edit-question.component.scss"],
 })
 export class AddEditQuestionComponent implements OnInit {
-
-  values= [
-    {
-      label: 'image ',
-      value: 'image',
-      icon: 'image'
-    },
-    {
-      label: 'mcq',
-      value: 'mcq',
-      icon: 'check_circle_outline'
-    },
-    {
-      label: 'audio',
-      value: 'audio',
-      icon: 'audiotrack'
-    },
-    {
-      label: 'video',
-      value: 'video',
-      icon: 'video_camera_front'
-    }
-  ]
-
+  icon: customIcons = null;
+  iconList: customIcons[] = [
+    new customIcons({ id: 1, name: 'image', number: 1 }),
+    new customIcons({ id: 2, name: 'mcq', number: 2 }),
+    new customIcons({ id: 3, name: 'audio', number: 3 }),
+    new customIcons({ id: 4, name: 'video', number: 4 })
+  ];
   color: ThemePalette = "primary";
   UploadFile: any;
   editingQuestion = false;
@@ -57,12 +40,15 @@ export class AddEditQuestionComponent implements OnInit {
   maxOptionsLimitReached = false;
   questionId: any = {};
   responseSaved:boolean
+  selectedOption: any;
+  name:any;
   constructor(
     private fb: FormBuilder,
     private adminService: AdminService,
     private dialog: MatDialog,
     private toastr:ToasterNotificationsService,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    
   ) {
     this.ckeConfig = {
       allowedContent: false,
@@ -76,7 +62,7 @@ export class AddEditQuestionComponent implements OnInit {
   ngOnInit(): void {
     this.questionBank = this.fb.group({
       question: [""],
-      type: ["Choose Question Type"],
+      type: this.name,
       file: [null],
       points: [],
       correctAnswer: [""],
@@ -129,9 +115,12 @@ export class AddEditQuestionComponent implements OnInit {
     },
   ];
 
-  setQuestionType(QuestionType) {
-    console.log(QuestionType);
-    this.questionType = QuestionType;
+  setQuestionType(event:any) {
+    console.log(event);
+    // this.questionType = QuestionType;
+  }
+  onChange(event:any) {
+    this.name=event.value.name; 
   }
   get options() {
     return this.questionBank.get("options") as FormArray;
@@ -293,4 +282,33 @@ export class AddEditQuestionComponent implements OnInit {
       
   }
 
+}
+
+class customIcons {
+  id: number;
+  name: string;
+  number: number;
+  constructor(icon?: any) {
+    this.id = (icon && icon.id) || null;
+    this.name = (icon && icon.name) || null;
+    this.number = (icon && icon.number) || null;
+  }
+  get iconName(): string {
+    let iconName = '';
+    switch (this.number) {
+      case 1:
+        iconName = 'image';
+        break;
+      case 2:
+        iconName = 'check_circle_outline';
+        break;
+      case 3:
+        iconName = 'audiotrack';
+        break;
+      case 4:
+      iconName='video_camera_front';
+      break
+    }
+    return iconName;
+  }
 }
