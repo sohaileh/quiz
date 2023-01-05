@@ -2,7 +2,7 @@ import { IsArray, IsNotEmpty, IsNotEmptyObject, IsObject, IsString } from 'class
 export class ResultModelDto{
   
   
-    public userID:String;
+    public userId:String;
 
     public results:any[];
 

@@ -200,7 +200,7 @@ export class AuthService {
 
       delete userModel.password
       const updateUser = await this.userModelDto.updateOne(
-        { _id: userId,role:'student'},
+        { _id: userId},
         userModel,
       );
       return;

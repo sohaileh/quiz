@@ -122,7 +122,7 @@
               'error-position':
                 assignQuizForm.get('password')?.errors?.required &&
                 assignQuizForm.get('password').touched,
-              position: assignQuizForm.get('password').errors,
+                'position': assignQuizForm.get('password').errors || !assignQuizForm.get('password').errors,
               'error-password-strength':
                 assignQuizForm.get('password')?.errors?.pattern &&
                 assignQuizForm.get('password').touched

@@ -7,9 +7,6 @@ import {
 } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { QuizService } from "../services/quiz.service";
-import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
-import { HasElementRef } from "@angular/material/core/common-behaviors/color";
 import { AdminService } from "../../admin/services/admin.service";
 import {Location} from '@angular/common';
 @Component({
@@ -52,47 +49,8 @@ export class GenerateCertificateComponent implements OnInit {
     })
   }
 
-  // @ViewChild("para") para: ElementRef;
   @ViewChild("print", { static: true }) print: ElementRef;
 
-  // ngAfterViewInit() {
-  //   console.log("on after view init", this.para);
-  //   this.pdfData = this.para.nativeElement;
-  //   this.printPdf();
-  // }
-
-  // generateCertificate() {
-  //   this.quizService.generateCertificate(this.userId, this.quizId).subscribe(
-  //     (res: any) => {
-  //       this.firstName = res.userDetails[0].firstName;
-  //       this.lastname = res.userDetails[0].lastName;
-  //       this.eventName = res.quizDetails[0].eventName;
-  //       this.organizationName = res.quizDetails[0].organizationName;
-  //       this.playedOn = res.playedOn;
-  //     },
-  //     (error: any) => {},
-  //     () => {}
-  //   );
-  // }
-
-
-  // printPdf() {
-  //   this.generatePdf(this.pdfData);
-  // }
-
-  // generatePdf(htmlcontent) {
-  //   html2canvas(htmlcontent).then((canvas) => {
-  //     let fileWidth = 290;
-  //     let fileHeight = 190;
-  //     const fileUrl = canvas.toDataURL("img/png");
-  //     let pdf = new jsPDF("l", "mm", "a4");
-  //     pdf.addImage(fileUrl, "PNG", 5, 5, fileWidth, fileHeight);
-  //     pdf.save("certificate");
-  //   });
-  // }
-  // getCertificateDetails(){
-
-  // }
   back(){
     this._location.back()
   }
