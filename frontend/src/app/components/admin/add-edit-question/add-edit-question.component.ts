@@ -12,13 +12,6 @@ import { InfoDialogComponent } from "../../shared/info-dialog/info-dialog.compon
   styleUrls: ["./add-edit-question.component.scss"],
 })
 export class AddEditQuestionComponent implements OnInit {
-  icon: customIcons = null;
-  iconList: customIcons[] = [
-    new customIcons({ id: 1, name: 'image', number: 1 }),
-    new customIcons({ id: 2, name: 'mcq', number: 2 }),
-    new customIcons({ id: 3, name: 'audio', number: 3 }),
-    new customIcons({ id: 4, name: 'video', number: 4 })
-  ];
   color: ThemePalette = "primary";
   UploadFile: any;
   editingQuestion = false;
@@ -62,7 +55,7 @@ export class AddEditQuestionComponent implements OnInit {
   ngOnInit(): void {
     this.questionBank = this.fb.group({
       question: [""],
-      type: this.name,
+      type: ['Choose Question Type'],
       file: [null],
       points: [],
       correctAnswer: [""],
@@ -117,7 +110,7 @@ export class AddEditQuestionComponent implements OnInit {
 
   setQuestionType(event:any) {
     console.log(event);
-    // this.questionType = QuestionType;
+    this.questionType=event
   }
   onChange(event:any) {
     this.name=event.value.name; 
@@ -284,31 +277,3 @@ export class AddEditQuestionComponent implements OnInit {
 
 }
 
-class customIcons {
-  id: number;
-  name: string;
-  number: number;
-  constructor(icon?: any) {
-    this.id = (icon && icon.id) || null;
-    this.name = (icon && icon.name) || null;
-    this.number = (icon && icon.number) || null;
-  }
-  get iconName(): string {
-    let iconName = '';
-    switch (this.number) {
-      case 1:
-        iconName = 'image';
-        break;
-      case 2:
-        iconName = 'check_circle_outline';
-        break;
-      case 3:
-        iconName = 'audiotrack';
-        break;
-      case 4:
-      iconName='video_camera_front';
-      break
-    }
-    return iconName;
-  }
-}
