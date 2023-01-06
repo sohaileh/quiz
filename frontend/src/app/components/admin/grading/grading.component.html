@@ -48,7 +48,7 @@
                 <tr>
                   <th>Grade</th>
                   <th>Minimum %</th>
-                  <th>Pass</th>
+                  <th></th>
 
                   <th></th>
                 </tr>
@@ -60,7 +60,7 @@
                       type="text"
                       maxlength="1000"
                       class="form-control"
-                      value="Fail"
+                      value="Pass"
                       [(ngModel)]="inputFields[i][0]"
                     />
                   </td>
@@ -84,6 +84,7 @@
                 </tr>
               </tbody>
             </table>
+
             <button class="btn btn-sm btn-success" (click)="addInputField()">
               Add grade
             </button>
@@ -93,21 +94,6 @@
               <a [routerLink]="['/admin/quiz/result', quizId]">Results</a>
               tab
             </p>
-
-            <!-- <div>
-              <div class="checkbox bottom-checkbox">
-                <label>
-                  <input type="checkbox" />
-                  Redirect based on grade
-                </label>
-              </div>
-              <p class="help-block">
-                After completing the quiz respondents can be redirected to a
-                specific URL or another quiz based on the grade they have
-                achieved. Any registration details will also be automatically
-                passed to the new quiz
-              </p>
-            </div> -->
           </div>
         </div>
       </div>
