@@ -108,102 +108,137 @@ export class ResponseService {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
   }
-
-  async submitStudentResponse(finalResponse){
-    try{
+  async submitStudentResponse(finalResponse) {
+    try {
       let totalCorrectAnswers = 0;
-      let pointsObtained = 0;
-      let totalPoints = 0;
-      let totalQuestions = 0;
-         const response = await  new this.responseModel(finalResponse)
-              await response.save()
-              
-              const quizId = new Types.ObjectId(finalResponse.quizId)
-              const userId = new Types.ObjectId(finalResponse.userId)
-        const result = await this.responseModel.aggregate([
-          { $match: { quizId: quizId, userId: userId } },
-          { $unwind: '$response' },
-          {
-            $lookup: {
-              from: 'quizs',
-              let: { questionId: '$response.questionId' },
-              pipeline: [
-                { $match: { _id: quizId } },
-                {
-                  $project: {
-                    questionBank: {
-                      $filter: {
-                        input: '$questionBank',
-                        as: 'questions',
-                        cond: { $eq: ['$$questions._id', '$$questionId'] },
-                      },
-                    },
-                    _id: 0,
-                  },
-                },
-                {
-                  $project: {
-                    'questionBank.correctAnswer': 1,
-                    _id: 0,
-                    'questionBank.points': 1,
-                  },
-                },
-              ],
-              as: 'response.output',
-            },
-          },
-        ]);
-        result.forEach((element) => {
-          if (
-            element.response.answer ==
-            element.response.output[0].questionBank[0].correctAnswer
-          ) {
-            pointsObtained += element.response.output[0].questionBank[0].points;
-            totalPoints += element.response.output[0].questionBank[0].points;
-            totalQuestions++;
-            totalCorrectAnswers++;
-          } else {
-            totalQuestions++;
-            totalPoints += element.response.output[0].questionBank[0].points;
-          }
-        });
-  
-        this.resultOfUser.userId = finalResponse.userId;
-        this.results.quizId = response.quizId;
-        this.results.totalCorrectAnswers = totalCorrectAnswers;
-        this.results.score = pointsObtained;
-        this.results.totalPoints = totalPoints;
-        this.results.totalQuestions = totalQuestions;
-        this.resultOfUser.results = this.results;
 
-        const userExits = await this.resultModel.findOne({
-          userId: userId,
-        });
-  
-        if (!userExits) {
-          const userResult = await new this.resultModel(this.resultOfUser);
-          await userResult.save();
+      let pointsObtained = 0;
+
+      let totalPoints = 0;
+
+      let totalQuestions = 0;
+
+      const response = await new this.responseModel(finalResponse);
+
+      await response.save();
+
+      const quizId = new Types.ObjectId(finalResponse.quizId);
+
+      const userId = new Types.ObjectId(finalResponse.userId);
+
+      const result = await this.responseModel.aggregate([
+        { $match: { quizId: quizId, userId: userId } },
+
+        { $unwind: '$response' },
+
+        {
+          $lookup: {
+            from: 'quizs',
+
+            let: { questionId: '$response.questionId' },
+
+            pipeline: [
+              { $match: { _id: quizId } },
+
+              {
+                $project: {
+                  questionBank: {
+                    $filter: {
+                      input: '$questionBank',
+
+                      as: 'questions',
+
+                      cond: { $eq: ['$$questions._id', '$$questionId'] },
+                    },
+                  },
+
+                  _id: 0,
+                },
+              },
+
+              {
+                $project: {
+                  'questionBank.correctAnswer': 1,
+
+                  _id: 0,
+
+                  'questionBank.points': 1,
+                },
+              },
+            ],
+
+            as: 'response.output',
+          },
+        },
+      ]);
+
+      result.forEach((element) => {
+        if (
+          element.response.answer ==
+          element.response.output[0].questionBank[0].correctAnswer
+        ) {
+          pointsObtained += element.response.output[0].questionBank[0].points;
+
+          totalPoints += element.response.output[0].questionBank[0].points;
+
+          totalQuestions++;
+
+          totalCorrectAnswers++;
         } else {
-          const updateUser = await this.resultModel.updateOne(
-            { userId: userId },
-            { $push: { results: this.results } },
-          );
+          totalQuestions++;
+
+          totalPoints += element.response.output[0].questionBank[0].points;
         }
-  
-        return;
-    }catch(err){
+      });
+
+      this.resultOfUser.userId = finalResponse.userId;
+
+      this.results.quizId = response.quizId;
+
+      this.results.totalCorrectAnswers = totalCorrectAnswers;
+
+      this.results.score = pointsObtained;
+
+      this.results.totalPoints = totalPoints;
+
+      this.results.totalQuestions = totalQuestions;
+
+      this.resultOfUser.results = this.results;
+
+      const userExits = await this.resultModel.findOne({
+        userId: userId,
+      });
+
+      if (!userExits) {
+        const userResult = await new this.resultModel(this.resultOfUser);
+
+        await userResult.save();
+      } else {
+        const updateUser = await this.resultModel.updateOne(
+          { userId: userId },
+
+          { $push: { results: this.results } },
+        );
+      }
+
+      return;
+    } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
   }
-  async getUserQuizResponse(params){
-    try{
-      const {quizId,userId}= params
-        const response  = await this.responseModel.findOne({quizId:quizId,userId:userId})
 
-      return response
-    }catch(err){
+  async getUserQuizResponse(params) {
+    try {
+      const { quizId, userId } = params;
+
+      const response = await this.responseModel.findOne({
+        quizId: quizId,
+        userId: userId,
+      });
+
+      return response;
+    } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
-
     }
   }
 }

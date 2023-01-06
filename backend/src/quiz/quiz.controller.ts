@@ -299,4 +299,16 @@ export class QuizController {
       res.status(HttpStatus.BAD_REQUEST).json(err.message);
     }
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('get-quiz-publish-date')
+  async getQuizPublishDate(@Res() res: any, @Body() body: any) {
+    try {
+      const quizTime = await this.quizService.getQuizPublishDate(body);
+      res.status(HttpStatus.OK).json(quizTime);
+    } catch (err) {
+      throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
 }

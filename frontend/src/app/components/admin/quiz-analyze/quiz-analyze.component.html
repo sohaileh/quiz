@@ -1,0 +1,163 @@
+
+<div class="h-100 d-flex justify-content-center">
+    
+    <div class="form-horizontal" role="form" class="formContainer">
+        
+      <div class="sectionTab">
+        <div>
+            <div>
+                <div>
+            <div class="mb-2 d-flex">
+                <div class="resultText">Date Published</div>
+                <div class="summarized-data resultText">{{quizPublishedDate | date}}</div>
+            </div>
+            <div class="resultText mb-2 d-flex">
+                <div>Total Respondents</div>
+                <div class="summarized-data">{{totalRespondents}}</div>
+            </div>
+            <div class="resultText mb-2 d-flex">
+                <div>Total Assigned Users</div>
+                <div class="totalUser">{{totalAssignedUsers}}</div>
+             </div>
+            <div class=" resultText mb-2 d-flex">
+                    <div>
+                    Report type
+                    </div>
+            
+                    <!-- <div class="summarized-data">
+                    <select class="select">
+                        <option value="individualSummary" selected>Individual Summary</option>
+                        <option value="individualResponses">individual Responses</option>
+                        <option value="responseSummary">response Summary</option>
+
+
+                    </select>
+                </div> -->
+            </div>
+        </div>
+        
+        <div>
+          <div class="panel panel-primary resultPanel">
+            
+            <div class="panel-heading">Summary</div>
+  
+            <div class="panel-body resultViewer">
+              <div class="row resultToolbar">
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-toggle-off"></i>
+                    </div>
+                    <div class="ml-2 mt-2">Include unsubmitted quizs</div>
+                  </div>
+                </div>
+  
+                <div class="col-md-8">
+                  <span class="navbar-right toolbarMenuItem export-button">
+                    <i class="fa fa-download export"></i>
+                    PDF
+
+                  </span>
+  
+                </div>
+              </div>
+  
+              <table class="table table-condensed resultText desktop-only">
+                <thead>
+                  <tr>
+                    <th>
+                      <a>
+                        First Name
+                        <i class="fa fa-caret-down"></i>
+                      </a>
+                    </th>
+  
+                    <th>
+                      <a> Last Name</a>
+                    </th>
+                    <th>
+                      <a> Email </a>
+                    </th>
+                    <th>
+                      <a> Date submitted </a>
+                    </th>
+                    <th>
+                      <a> Score </a>
+                    </th>
+                    <th>
+                      <a> Grade </a>
+                    </th>
+                    <th>
+                      <a> Pass </a>
+                    </th>
+                  </tr>
+                  <tr  *ngFor="let quiz of userList">
+                  <td>{{quiz?.firstName}}</td>
+                  <td>{{quiz?.lastName}}   </td>
+                  <td>{{quiz?.emailAddress}}</td>
+                  <td>{{quiz?.playedOn }}</td>
+                  <td>{{quiz?.score}}</td>
+                  <td>/</td>
+                  <td>/</td>
+                  </tr>
+                </thead>
+              </table>
+               <table class="table table-condensed resultText mobile-only" *ngFor="let quiz of userList">
+
+                <tr>
+                  <th>
+                    <a>
+                        First Name
+                       <i class="fa fa-caret-down"></i> 
+                    </a>
+                  </th>
+                  <td>{{quiz.firstName}}</td>
+                </tr>
+                <tr>
+                  <th>
+                    <a> lastName </a>
+                  </th>
+                  <td>>{{quiz.lastName}}  </td>
+                </tr>
+                <tr>
+                  <th>
+                    <a> Email </a>
+                  </th>
+                  <td>{{quiz.emailAddress}}</td>
+                </tr>
+                <tr>
+                  <th>
+                    <a> Date submitted </a>
+                  </th>
+                  <td>{{quiz?.playedOn }}</td>
+                </tr>
+                  <tr>
+                  <th>
+                    <a> Score </a>
+                  </th>
+                  <td>{{quiz?.score}}</td>
+                </tr>
+                <tr>
+                  <th>
+                    <a> Grade </a>
+                  </th>
+                  <td>/</td>
+                </tr>
+                <tr>
+                  <th>
+                    <a> Pass </a>
+                  </th>
+                  <td>/</td>
+                </tr>
+
+
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+

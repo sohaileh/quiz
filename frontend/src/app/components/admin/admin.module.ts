@@ -36,6 +36,10 @@ import { UserResultComponent } from './user/user-result/user-result.component';
 import { NgxPrintModule } from "ngx-print";
 import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
 import { GradingComponent } from './grading/grading.component';
+import { QuizAnalyzeComponent } from './quiz-analyze/quiz-analyze.component';
+
+
+
 
 @NgModule({
   declarations: [
@@ -51,6 +55,7 @@ import { GradingComponent } from './grading/grading.component';
     UserResultComponent,
     ResetPasswordComponent,
     GradingComponent,
+    QuizAnalyzeComponent,
     // FormErrorMsgDirective
     
    

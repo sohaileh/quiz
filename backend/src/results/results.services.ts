@@ -23,7 +23,7 @@ const {id}= param
         $lookup: {
           from: 'quizs',
           localField: 'results.quizId',
-          foreignField: '_id',
+          foreignField:'_id',
           as: 'results.output',
         },
       },
