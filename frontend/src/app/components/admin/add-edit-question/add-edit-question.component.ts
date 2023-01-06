@@ -54,12 +54,12 @@ export class AddEditQuestionComponent implements OnInit {
 
   ngOnInit(): void {
     this.questionBank = this.fb.group({
-      question: [""],
+      question: ["",{validators:[Validators.required]}],
       type: ['Choose Question Type'],
       file: [null],
-      points: [],
+      points: [,{validators:[Validators.required]}],
       correctAnswer: [""],
-      timeLimit: [],
+      timeLimit: [,{validators:[Validators.required]}],
       options: this.fb.array([]),
     });
     if (this.data.question) {
@@ -274,6 +274,8 @@ export class AddEditQuestionComponent implements OnInit {
     }
       
   }
-
+  public checkError = (controlName: string, errorName: string) => {
+    return this.questionBank.controls[controlName].hasError(errorName);
+  };
 }
 

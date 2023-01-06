@@ -13,6 +13,7 @@ import { AdminService } from "../../services/admin.service";
 export class ResetPasswordComponent implements OnInit {
   userId: any = {};
   resetForm: FormGroup;
+  hide=true
   constructor(
     public dialogRef: MatDialogRef<ResetPasswordComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,

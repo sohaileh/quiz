@@ -59,7 +59,6 @@ export class HeaderThreeComponent implements OnInit {
       complete:()=>{}
     })
     this.getOrganizationUsers();
-    console.log(this.router.url)
     this.userId = this.route.snapshot.queryParamMap.get('id')
     if(this.userId){
       this.adminService.getUserDetails(this.userId).subscribe({

@@ -25,7 +25,6 @@ export class FormErrorMsgDirective implements OnInit, OnDestroy, DoCheck, AfterV
     private renderer: Renderer2, @Inject(DOCUMENT) private document) {
   }
   ngAfterViewInit() {
-    console.log('element',this.el.nativeElement.name)
     this.feildName = this.el.nativeElement.name
     if (this.ncontrol && this.ncontrol.control) {
       this.control = this.ncontrol.control;
@@ -147,8 +146,6 @@ export class FormErrorMsgDirective implements OnInit, OnDestroy, DoCheck, AfterV
       this.errorKey = Object.keys(errors)[0];
       switch (Object.keys(errors)[0]) {
         case 'minlength':
-          // console.log(errors.minlength.requiredLength)
-          // console.log(errors.minlength.actualLength)
           message = `Required minimum length of ${errors.minlength.requiredLength} while it is ${errors.minlength.actualLength}`;
           break;
         case 'maxlength':
@@ -200,7 +197,6 @@ export class FormErrorMsgDirective implements OnInit, OnDestroy, DoCheck, AfterV
 
         default:
           message = 'Unknown error ' + Object.keys(errors)[0];
-          console.log(errors);
       }
     }
     if (message) {
