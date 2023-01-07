@@ -44,7 +44,7 @@
             <ng-container matColumnDef="analyze">
               <th mat-header-cell *matHeaderCellDef>Analyze</th>
               <td mat-cell *matCellDef="let row">
-                <button class="btn preview">
+                <button class="btn preview" (click)="analyze(row)">
                   <i class="fa fa-bar-chart" fxHide.gt-xs="true" fxLayoutAlign.xs="center"></i>
                   <i class="fa fa-bar-chart icon-desk"></i>
                   <span fxHide.lt-sm="true" class="btn_text_span">Analyze</span>

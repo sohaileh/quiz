@@ -824,7 +824,19 @@ export class QuizService {
     //   }
     // } catch (err) {
     //   throw new HttpException(err, HttpStatus.BAD_REQUEST);
-    // }
+     }
+
+
+
+  async getQuizPublishDate(quiz){
+    try{
+      const {quizId} = quiz
+      const publishDate =   await this.quizModel.findOne({_id:quizId},{questionBank:0,_id:0})
+      return publishDate
+    }catch(err){
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+
+    }
   }
   async retakeTest(quizId: string, userId: string, attempts: number) {
     const quizResult = await this.resultModel.findOne({ quizId, userId });

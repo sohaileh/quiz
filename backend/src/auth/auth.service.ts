@@ -7,6 +7,7 @@ import { OrganizationDto } from './dto/organization.dto';
 import { Types } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import e from 'express';
+import { ResultModelDto } from 'src/results/dto/result.dto';
 
 @Injectable()
 export class AuthService {
@@ -14,7 +15,10 @@ export class AuthService {
     @InjectModel('Users') private readonly userModelDto: Model<UserModelDto>,
     @InjectModel('Organization')
     private readonly organizationModelDto: Model<OrganizationDto>,
+
     private readonly jwtService: JwtService,
+    @InjectModel('Results')
+    private readonly resultModelDto: Model<ResultModelDto>,
   ) {}
   async generateHashedPassword(password) {
     const salt = await bcrypt.genSalt();
@@ -131,24 +135,27 @@ export class AuthService {
 
   async assignQuizs(userModel: any) {
     try {
-      if(userModel.role=='Choose Role')
-      throw new HttpException('Choose a valid role for user', HttpStatus.BAD_REQUEST);
-      
+      if (userModel.role == 'Choose Role')
+        throw new HttpException(
+          'Choose a valid role for user',
+          HttpStatus.BAD_REQUEST,
+        );
+
       const { emailAddress } = userModel;
       const userExists = await this.userModelDto.exists({
         emailAddress: emailAddress,
       });
-      
-      if(userExists)
-      throw new HttpException('User Exists', HttpStatus.BAD_REQUEST);
-     
-        const password = userModel.password;
-        userModel.password = await this.generateHashedPassword(password);
 
-        const newUser = new this.userModelDto(userModel);
-        newUser.save();
-        return newUser;
-    
+      if (userExists)
+        throw new HttpException('User Exists', HttpStatus.BAD_REQUEST);
+
+      const password = userModel.password;
+      userModel.password = await this.generateHashedPassword(password);
+
+      const newUser = new this.userModelDto(userModel);
+      newUser.save();
+      return newUser;
+
       // } else {
       //   const quizAssigned = await this.userModelDto.updateOne(
       //     { emailAddress: emailAddress },
@@ -156,7 +163,6 @@ export class AuthService {
       //   );
       //   return;
       // }
-   
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
@@ -198,12 +204,54 @@ export class AuthService {
     try {
       const { userId } = userModel;
 
-      delete userModel.password
+      delete userModel.password;
       const updateUser = await this.userModelDto.updateOne(
         { _id: userId},
         userModel,
       );
       return;
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async getUserList(quiz: any) {
+    try {
+      const { quizId } = quiz;
+      const userList = await this.userModelDto.aggregate([
+        { $unwind: '$assignedQuizzes' },
+        { $match: { 'assignedQuizzes.quizId': new Types.ObjectId(quizId) } },
+        {
+          $lookup: {
+            from: 'results',
+            let: { userID: '$_id' },
+
+            pipeline: [
+              {
+                $project: {
+                  results: {
+                    $filter: {
+                      input: '$results',
+                      as: 'r',
+                      cond: {
+                        $and: [
+                          { $eq: ['$userId', '$$userID'] },
+                          { $eq: ['$$r.quizId', new Types.ObjectId(quizId)] },
+                        ],
+                      },
+                    },
+                  },
+                },
+              },
+
+              { $project: { 'results.playedOn': 1, 'results.score': 1 } },
+            ],
+
+            as: 'assignedQuizzes.output',
+          },
+        },
+      ]);
+      return userList;
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }

@@ -35,13 +35,11 @@ this.getResultInfo()
 
 
   getResultInfo(){
- console.log('userId',this.userId)
     forkJoin({
       questions:this.adminService.getQuizQuestions(this.quizId),
       response:this.quizService.getUserQuizResponse(this.quizId,this.userId)
     }).subscribe({
       next:(res:any)=>{
-        console.log('res',res)
         const {questions} = res
           const {response}= res
         this.quizTitle = questions.quizTitle
@@ -51,13 +49,10 @@ this.getResultInfo()
               if(answer)
               question.answer=answer.answer
         });
-        console.log('resone', this.quizQuestions)
       },
       error:(error)=>{
-        console.log('error',error)
       },
       complete:()=>{
-        console.log('complete')
       }
     })
   }

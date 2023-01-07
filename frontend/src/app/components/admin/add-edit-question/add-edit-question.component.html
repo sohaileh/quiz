@@ -20,8 +20,8 @@
       <label class="col-lg-2 control-label p-0 font-weight-bold"
         >Question Type</label
       >
-      <div class="col-lg-3" ngClass.lt-md="p-0">
-        <!-- <select
+      <div class="col-lg-4" ngClass.lt-md="p-0">
+        <select
           class="form-control question-type"
           ngClass.lt-md="w-100"
           id="exampleFormControlSelect1"
@@ -36,53 +36,60 @@
           >
             {{ questiontype.type }}
           </option>
-        </select> -->
-        
-        <mat-form-field class="d-block" appearance="outline" >
-          <mat-select
-          formControlName="type"
-            [(value)]="icon"
-            placeholder="Please Select a type"  (selectionChange)="onChange($event)"
-          >
-            <mat-select-trigger *ngIf="icon" class="icon">
-              <mat-icon>{{icon.iconName}}</mat-icon>
-              <span>{{icon.name}}</span>
-            </mat-select-trigger>
-            <mat-option *ngFor="let icon of iconList" [value]="icon">
-              <mat-icon>{{icon.iconName}}</mat-icon>
-              <span>{{icon.name}}</span>
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+        </select>
         
       </div>
       <div
         class="col-lg-3 d-flex mt-2 mt-lg-0 justify-content-between align-items-baseline p-0 mr-2"
       >
         <label class="control-label mr-1 font-weight-bold">Time(min)</label>
-        <input
+        <div class="w-100" ngClass.lt-lg="d-flex flex-column align-items-end">
+          <input
           type="number"
           placeholder="minutes"
           formControlName="timeLimit"
           name="Time"
           min="1"
           class="form-control time"
-          ngClass.lt-md="w-25"
+          ngClass.lt-md="w-50"
+          ngClass.lt-sm="w-100"
           
         />
+        <mat-error 
+        *ngIf="
+          checkError('timeLimit', 'required') &&
+          questionBank.get('timeLimit').touched
+        "
+        >Time is required</mat-error
+      >
+        </div>
+        
       </div>
       <div
         class="col-lg-3 mt-2 mt-lg-0 d-flex justify-content-between align-items-baseline p-0"
       >
         <label class="control-label mr-1 font-weight-bold">Points</label>
-        <input
+        <div class="w-100" ngClass.lt-lg="d-flex flex-column align-items-end">
+          <input
           type="number"
           class="form-control marks"
-          ngClass.lt-md="w-25"
           formControlName="points"
           name="points"
           min="1"
+          placeholder="points"
+          ngClass.lt-md="w-50"
+          ngClass.lt-sm="w-100"
         />
+        <mat-error 
+        *ngIf="
+          checkError('points', 'required') &&
+          questionBank.get('points').touched
+        "
+        >Points is required</mat-error
+      >
+        </div>
+
+        
       </div>
     </div>
 
@@ -95,8 +102,15 @@
         formControlName="question"
         [config]="ckeConfig"
       ></ckeditor>
+      <mat-error 
+      *ngIf="
+        checkError('question', 'required') &&
+        questionBank.get('question').touched 
+      "
+      >Question is required</mat-error>
     </div>
     </div>
+   
     <div
                 class="form-group d-flex"
                 ngClass.lt-sm="d-flex flex-column"
@@ -107,7 +121,7 @@
                 "
               >
                 <label class="col-sm-2 control-label p-0 font-weight-bold"
-                  >Image</label
+                  >File</label
                 >
                 <div class="col-sm-10">
                   <span>
@@ -162,6 +176,7 @@
                          
                         </div>
                       </div>
+                  
                       <hr />
                     </ng-container>
                   </ng-container>
@@ -242,30 +257,51 @@
       class="col-lg-3 d-flex  t-2 mt-lg-0 justify-content-between align-items-baseline p-0 mr-2"
     >
       <label class="control-label mr-1 font-weight-bold">Time</label>
-      <input
+      <div class="w-100" ngClass.lt-lg="d-flex flex-column align-items-end">
+        <input
         type="number"
         formControlName="timeLimit"
         name="Time"
         class="form-control time"
-        ngClass.lt-md="w-25"
-        min="1"
-
-        
+        ngClass.lt-md="w-50"
+        ngClass.lt-sm="w-100"
+        min="1" 
       />
+      <mat-error 
+        *ngIf="
+          checkError('timeLimit', 'required') &&
+          questionBank.get('timeLimit').touched
+        "
+        >Time is required</mat-error
+      >
+      </div>
+
+      
     </div>
     <div
       class="col-lg-3 mt-2 mt-lg-0 d-flex justify-content-between align-items-baseline p-0"
     >
       <label class="control-label mr-1 font-weight-bold">Points</label>
-      <input
+      <div class="w-100" ngClass.lt-lg="d-flex flex-column align-items-end">
+        <input
         type="number"
         class="form-control marks"
-        ngClass.lt-md="w-25"
         formControlName="points"
         name="points"
         min="1"
+        ngClass.lt-md="w-50"
+        ngClass.lt-sm="w-100"
 
       />
+      <mat-error 
+      *ngIf="
+        checkError('points', 'required') &&
+        questionBank.get('points').touched
+      "
+      >Points is required</mat-error
+    >
+      </div>
+     
     </div>
   </div>
 
@@ -278,6 +314,12 @@
       formControlName="question"
       [config]="ckeConfig"
     ></ckeditor>
+    <mat-error 
+      *ngIf="
+        checkError('question', 'required') &&
+        questionBank.get('question').touched 
+      "
+      >Question is required</mat-error>
   </div>
   </div>
   <div

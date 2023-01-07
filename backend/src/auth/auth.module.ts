@@ -9,11 +9,13 @@ import { jwtConfig } from 'src/config/jwt.config';
 import {JwtStrategy} from './strategy/jwt.strategy'
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './authorization/guard/roles.guard';
+import { ResultSchema } from 'src/results/schema/result.schema';
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: 'Users', schema: UserSchema },
       {name:'Organization', schema:OrganizationSchema},
+      {name:'Results',schema:ResultSchema}
     ]),
     JwtModule.registerAsync(jwtConfig)
   ],

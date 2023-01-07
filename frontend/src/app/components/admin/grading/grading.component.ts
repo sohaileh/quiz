@@ -6,13 +6,13 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./grading.component.scss"],
 })
 export class GradingComponent implements OnInit {
-  inputFields = [];
+  inputFields = [{ value: "" }];
   constructor() {}
 
   ngOnInit(): void {}
 
   addInputField() {
-    this.inputFields.push("");
+    this.inputFields.push({ value: "" });
   }
 
   deleteInputField(index: number) {

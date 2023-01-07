@@ -48,7 +48,7 @@
             </th>
             <td mat-cell *matCellDef="let row">
               <mat-checkbox
-                [hidden]="row.role === 'admin'"
+                [hidden]="row?.role === 'admin'"
                 (click)="$event.stopPropagation()"
               >
               </mat-checkbox>
@@ -62,31 +62,31 @@
               *matCellDef="let element"
               (click)="getUserInfo(element)"
             >
-              {{ element.firstName }}
+              {{ element?.firstName }}
             </td>
           </ng-container>
 
           <ng-container matColumnDef="lastName">
             <th mat-header-cell *matHeaderCellDef class="word-br">LastName</th>
-            <td mat-cell *matCellDef="let element">{{ element.lastName }}</td>
+            <td mat-cell *matCellDef="let element">{{ element?.lastName }}</td>
           </ng-container>
 
           <ng-container matColumnDef="emailAddress">
             <th mat-header-cell *matHeaderCellDef class="th-w-25">Email</th>
             <td mat-cell *matCellDef="let element" class="th-w-25">
-              {{ element.emailAddress }}
+              {{ element?.emailAddress }}
             </td>
           </ng-container>
 
           <ng-container matColumnDef="role">
             <th mat-header-cell *matHeaderCellDef>Role</th>
-            <td mat-cell *matCellDef="let element">{{ element.role }}</td>
+            <td mat-cell *matCellDef="let element">{{ element?.role }}</td>
           </ng-container>
 
           <ng-container matColumnDef="created">
             <th mat-header-cell *matHeaderCellDef class="th-w-20">Created</th>
             <td mat-cell *matCellDef="let element" class="th-w-20">
-              {{ element.created | date }}
+              {{ element?.created | date }}
             </td>
           </ng-container>
 
@@ -101,14 +101,14 @@
               <span
                 ><i
                   class="fa fa-edit text-success"
-                  *ngIf="element.role !== 'admin'"
+                  *ngIf="element?.role !== 'admin'"
                   (click)="getUserInfo(element)"
                 ></i>
               </span>
               <span
                 ><i
                   class="fa fa-trash text-danger"
-                  *ngIf="element.role !== 'admin'"
+                  *ngIf="element?.role !== 'admin'"
                   (click)="deleteUser(element)"
                 ></i
               ></span>

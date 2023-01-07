@@ -10,6 +10,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { UserResultComponent } from './user/user-result/user-result.component';
 import { GradingComponent } from './grading/grading.component';
 import { GroupProfileComponent } from './groups/group-profile/group-profile/group-profile.component';
+import { QuizAnalyzeComponent } from './quiz-analyze/quiz-analyze.component';
 
 
 
@@ -25,6 +26,7 @@ const routes: Routes = [
   {path:'user-result',component:UserResultComponent},
   {path:'quiz/grading',component:GradingComponent},
   {path:'group-dashboard',component:GroupProfileComponent}
+
 
 ]
 

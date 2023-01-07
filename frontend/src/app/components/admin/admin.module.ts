@@ -39,6 +39,10 @@ import { GradingComponent } from './grading/grading.component';
 import { GroupsComponent } from './groups/groups.component';
 import { GroupProfileComponent } from './groups/group-profile/group-profile/group-profile.component';
 import { GroupTitleDialogComponent } from './groups/group-title-dialog/group-title-dialog.component';
+import { QuizAnalyzeComponent } from './quiz-analyze/quiz-analyze.component';
+
+
+
 
 @NgModule({
   declarations: [
@@ -57,6 +61,7 @@ import { GroupTitleDialogComponent } from './groups/group-title-dialog/group-tit
     GroupsComponent,
     GroupProfileComponent,
     GroupTitleDialogComponent,
+    QuizAnalyzeComponent,
     // FormErrorMsgDirective
     
    

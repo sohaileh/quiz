@@ -141,4 +141,16 @@ export class AuthController {
     }
 
   }
+
+
+  @Post('get-users-list')
+  async getUserList(@Body() body: any, @Res() res: any) {
+    try {
+      const userDeleted = await this.authService.getUserList(body);
+      res.status(HttpStatus.OK).json(userDeleted);
+    } catch (err) {
+      res.status(HttpStatus.BAD_REQUEST).json(err.message);
+    }
+  }
+
 }

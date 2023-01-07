@@ -95,4 +95,14 @@ passValue(data:any) {
     const userDetails={userId:userId,quizId:quizId}
     return this.http.post(`${this.serverUrl}result/get-user-quiz-result`,userDetails)
   }
+
+  getUserList(quizId:any)
+  {
+    return this.http.post(`${this.serverUrl}auth/get-users-list`,quizId)
+  }
+  getQuizPublishDate(quizId:any)
+  {
+    return this.http.post(`${this.serverUrl}quiz/get-quiz-publish-date`,quizId)
+
+  }
 }

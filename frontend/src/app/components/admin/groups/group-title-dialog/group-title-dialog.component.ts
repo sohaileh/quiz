@@ -26,10 +26,8 @@ export class GroupTitleDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  createGroupTitle() {
+  createGroup() {
     this.organizationId = localStorage.getItem("userId");
-
-
     this.groupservice.createGroup(this.organizationId,this.groupName).subscribe((res:any)=>{
       this.dialogRef.close();
       

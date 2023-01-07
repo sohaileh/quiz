@@ -1,6 +1,6 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
+import { ChangeDetectorRef, Component, OnInit, ViewChild ,HostListener,OnDestroy} from "@angular/core";
 import { HomeService } from "../services/home.service";
-import { Router } from "@angular/router";
+import { NavigationStart, Router } from "@angular/router";
 import { MediaObserver, MediaChange } from "@angular/flex-layout";
 import {Subscription } from "rxjs";
 import { PageEvent } from "@angular/material/paginator";
@@ -15,6 +15,8 @@ import { DeleteDialogComponent } from "../../shared/delete-dialog/delete-dialog.
 import { ToasterNotificationsService } from "../../shared/services/toaster-notifications.service";
 import { ConfirmationDialogComponent } from "../../shared/confirmation-dialog/confirmation-dialog.component";
 import { SharedServiceService } from "../../shared/services/shared-service.service";
+import { fromEvent, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 export interface quizInterface {
   quizTitle: string;
@@ -25,7 +27,9 @@ export interface quizInterface {
   templateUrl: "./main-dashboard.component.html",
   styleUrls: ["./main-dashboard.component.scss"],
 })
-export class MainDashboardComponent implements OnInit {
+export class MainDashboardComponent implements OnInit,OnDestroy {
+  private unsubscriber : Subject<void> = new Subject<void>();
+
   mediaSub: Subscription;
   public slides = [];
   userRole: any;
@@ -44,6 +48,7 @@ export class MainDashboardComponent implements OnInit {
   dataSource = new MatTableDataSource<quizInterface>(this.quizDetails);
   organizationId:any={}
   selectedRowIndex=-1
+  showErrorModal: any;
 
 
 
@@ -58,13 +63,32 @@ export class MainDashboardComponent implements OnInit {
     private ToasterNotificationsService:ToasterNotificationsService,
   ) { }
 
+  
+
   ngOnInit(): void {
     this.quizservice.newQuiz$.subscribe((res: any) => {
       this.getOrganizationQuizzes()
     })
 
     this.getOrganizationQuizzes();
+
+  
+  history.pushState(null, '');
+
+  fromEvent(window, 'popstate').pipe(
+    takeUntil(this.unsubscriber)
+  ).subscribe((_) => {
+    history.pushState(null, '');
+  });
+
+
+
   }
+  ngOnDestroy(): void {
+    this.unsubscriber.next();
+    this.unsubscriber.complete();
+  }
+  
 
 
 
@@ -157,9 +181,15 @@ preview(quiz){
   localStorage.setItem('quizId',quizId)
   this.router.navigate([`/admin/quiz/quiz-preview/${quizId}`],{queryParams:{userId:userId}})
 }
+analyze(quiz)
+{ 
+  const quizId=quiz._id;
+  this.router.navigate([`/quiz/quiz-analyze/${quizId}`])
+}
 
 
 }
+
 
 
 
