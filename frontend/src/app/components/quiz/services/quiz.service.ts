@@ -216,4 +216,7 @@ export class QuizService {
   getUserQuizResponse(quizId,userId){
     return this.http.get(`${this.serverUrl}response/get-user-quiz-response/${quizId}/${userId}`)
   }
+  retakeTest(userId: any, quizId: any,attempts:any){
+    return this.http.delete(`${this.serverUrl}quiz/retake-test/${quizId}/${userId}/${attempts}`);
+  }
 }

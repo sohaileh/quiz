@@ -36,6 +36,9 @@ import { UserResultComponent } from './user/user-result/user-result.component';
 import { NgxPrintModule } from "ngx-print";
 import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
 import { GradingComponent } from './grading/grading.component';
+import { GroupsComponent } from './groups/groups.component';
+import { GroupProfileComponent } from './groups/group-profile/group-profile/group-profile.component';
+import { GroupTitleDialogComponent } from './groups/group-title-dialog/group-title-dialog.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +54,9 @@ import { GradingComponent } from './grading/grading.component';
     UserResultComponent,
     ResetPasswordComponent,
     GradingComponent,
+    GroupsComponent,
+    GroupProfileComponent,
+    GroupTitleDialogComponent,
     // FormErrorMsgDirective
     
    

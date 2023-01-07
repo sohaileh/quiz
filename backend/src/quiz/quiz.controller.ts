@@ -299,4 +299,13 @@ export class QuizController {
       res.status(HttpStatus.BAD_REQUEST).json(err.message);
     }
   }
+  @Delete('retake-test/:quizId/:userId/:attempts')
+async retakeQuiz(@Param('quizId') quizId: string, @Param('userId') userId: string,@Param ('attempts') attempts:number, @Res() res) {
+  try {
+    const response = await this.quizService.retakeTest(quizId,userId,attempts);
+    res.status(HttpStatus.OK).json({response});
+  } catch (err) {
+    res.status(HttpStatus.BAD_REQUEST).json(err.message);
+  }
+}
 }

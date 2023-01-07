@@ -9,6 +9,7 @@ import { ResultComponent } from './result/result.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserResultComponent } from './user/user-result/user-result.component';
 import { GradingComponent } from './grading/grading.component';
+import { GroupProfileComponent } from './groups/group-profile/group-profile/group-profile.component';
 
 
 
@@ -22,7 +23,8 @@ const routes: Routes = [
   {path:'add-users',component:AssignQuizComponent},
   {path: 'quiz/result/:id',component: ResultComponent},
   {path:'user-result',component:UserResultComponent},
-  {path:'quiz/grading',component:GradingComponent}
+  {path:'quiz/grading',component:GradingComponent},
+  {path:'group-dashboard',component:GroupProfileComponent}
 
 ]
 

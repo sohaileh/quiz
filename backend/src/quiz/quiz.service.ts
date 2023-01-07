@@ -22,8 +22,10 @@ import { Type } from 'class-transformer';
 import { ResultModelDto } from 'src/results/dto/result.dto';
 import { OrganizeModelDto } from 'src/organize/dto/organize.dto';
 import { GradeModelDto } from './dto/grade.dto';
+import { responseModel } from 'src/response/models/response.model';
 import { MailerService } from '@nestjs-modules/mailer';
 import * as bcrypt from 'bcrypt';
+import { ResponseModelDto } from 'src/response/dto/response.dto';
 @Injectable()
 export class QuizService {
   totalTeamsEnteredQuiz: any = 0;
@@ -36,22 +38,24 @@ export class QuizService {
     @InjectModel('Organizes')
     private readonly organizeModel: Model<OrganizeModelDto>,
     private readonly mailerService: MailerService,
-    @InjectModel('Grade') private readonly gradeModel:Model<GradeModelDto>
+    @InjectModel('Grade') private readonly gradeModel: Model<GradeModelDto>,
+    @InjectModel('Responses')
+    private readonly responseModel: Model<ResponseModelDto>,
   ) {}
-  public sendEmailInvitation(emailPayload:any){
+  public sendEmailInvitation(emailPayload: any) {
     this.mailerService
       .sendMail({
         from: emailPayload.from, // sender address
         to: emailPayload.to, // list of receivers
-        cc:emailPayload.cc,
+        cc: emailPayload.cc,
         subject: emailPayload.subject, // Subject line
         html: emailPayload.editor, // HTML body content
       })
       .then((a) => {
-        console.log(a)
+        console.log(a);
       })
       .catch((b) => {
-        console.log(b)
+        console.log(b);
       });
   }
   async submitInfo(quiz: any) {
@@ -99,7 +103,7 @@ export class QuizService {
       const { userId } = organizationData;
       const quizzes = await this.quizModel.find(
         { organizationId: new Types.ObjectId(userId) },
-        { questionBank: 0},
+        { questionBank: 0 },
       );
       return quizzes;
     } catch (err) {
@@ -142,14 +146,13 @@ export class QuizService {
 
     return;
   }
-  async FileExistsAtReference(mediaStorage){
-    try{
-      await  getMetadata(mediaStorage)
-      return true
-    }catch(err){
-        return false
+  async FileExistsAtReference(mediaStorage) {
+    try {
+      await getMetadata(mediaStorage);
+      return true;
+    } catch (err) {
+      return false;
     }
- 
   }
 
   async addQuestionToQuiz(questionBank: any, file: any, quizId: any) {
@@ -174,13 +177,10 @@ export class QuizService {
           'Atleast Two Options are required',
           HttpStatus.BAD_REQUEST,
         );
-        questionBank.options.forEach(option => {
-          if( option.option.trim() == '')
-          throw new HttpException(
-            'options are empty',
-            HttpStatus.BAD_REQUEST,
-          );
-        });
+      questionBank.options.forEach((option) => {
+        if (option.option.trim() == '')
+          throw new HttpException('options are empty', HttpStatus.BAD_REQUEST);
+      });
 
       let options = [];
       questionBank.options.forEach((option) => {
@@ -205,22 +205,19 @@ export class QuizService {
           HttpStatus.BAD_REQUEST,
         );
       if (type == 'image' || type == 'video' || type == 'audio') {
-        if(!file)
-        throw new HttpException(
-          'File not Uploaded',
-          HttpStatus.BAD_REQUEST,
-        );
-          if(type =='image' && file.mimetype.split('/')[0] !== 'image')
+        if (!file)
+          throw new HttpException('File not Uploaded', HttpStatus.BAD_REQUEST);
+        if (type == 'image' && file.mimetype.split('/')[0] !== 'image')
           throw new HttpException(
             'File Uploaded is not Image',
             HttpStatus.BAD_REQUEST,
           );
-          if(type =='video' && file.mimetype.split('/')[0] !== 'video')
+        if (type == 'video' && file.mimetype.split('/')[0] !== 'video')
           throw new HttpException(
             'File Uploaded is not video',
             HttpStatus.BAD_REQUEST,
           );
-          if(type =='audio' && file.mimetype.split('/')[0] !== 'audio')
+        if (type == 'audio' && file.mimetype.split('/')[0] !== 'audio')
           throw new HttpException(
             'File Uploaded is not audio',
             HttpStatus.BAD_REQUEST,
@@ -229,21 +226,23 @@ export class QuizService {
           storage,
           `${new Types.ObjectId(quizId)}/${file.originalname}`,
         );
-       const fileExists=  await this.FileExistsAtReference(mediaStorage)
-          if(fileExists)
-          throw new HttpException('File name already exists in this quiz',HttpStatus.BAD_REQUEST)
+        const fileExists = await this.FileExistsAtReference(mediaStorage);
+        if (fileExists)
+          throw new HttpException(
+            'File name already exists in this quiz',
+            HttpStatus.BAD_REQUEST,
+          );
         await this.uploadFiletoFirebase(mediaStorage, file);
         const fileUrl = await getDownloadURL(ref(mediaStorage));
         questionBank.fileUrl = fileUrl;
         questionBank.fileName = file.originalname;
         await this.quizModel.updateOne(
           { _id: new Types.ObjectId(quizId) },
-          
+
           {
-            $push:{questionBank:questionBank},
-            $inc:{'totalQuestions':1}
-          }
-        
+            $push: { questionBank: questionBank },
+            $inc: { totalQuestions: 1 },
+          },
         );
         const questions = await this.quizModel.findOne(
           { _id: new Types.ObjectId(quizId) },
@@ -254,11 +253,9 @@ export class QuizService {
       await this.quizModel.updateOne(
         { _id: new Types.ObjectId(quizId) },
         {
-          $push:{questionBank:questionBank},
-          $inc:{'totalQuestions':1}
-        }
-       
-
+          $push: { questionBank: questionBank },
+          $inc: { totalQuestions: 1 },
+        },
       );
       const questions = await this.quizModel.findOne(
         { _id: new Types.ObjectId(quizId) },
@@ -321,8 +318,8 @@ export class QuizService {
 
   async deleteQuiz(quiz: any) {
     try {
-      const {_id} = quiz
-      const updatedquiz = await this.quizModel.deleteOne({ _id: _id});
+      const { _id } = quiz;
+      const updatedquiz = await this.quizModel.deleteOne({ _id: _id });
       return updatedquiz;
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
@@ -379,13 +376,10 @@ export class QuizService {
           HttpStatus.BAD_REQUEST,
         );
 
-        body.options.forEach(option => {
-          if( option.option.trim() == '')
-          throw new HttpException(
-            'options are empty',
-            HttpStatus.BAD_REQUEST,
-          );
-        });
+      body.options.forEach((option) => {
+        if (option.option.trim() == '')
+          throw new HttpException('options are empty', HttpStatus.BAD_REQUEST);
+      });
 
       if (!quizId)
         throw new HttpException(
@@ -411,9 +405,12 @@ export class QuizService {
               storage,
               `${new Types.ObjectId(quizId)}/${fileName}`,
             );
-            const fileExists=  await this.FileExistsAtReference(mediaStorage)
-            if(fileExists)
-            throw new HttpException('File name already exists in this quiz',HttpStatus.BAD_REQUEST)
+            const fileExists = await this.FileExistsAtReference(mediaStorage);
+            if (fileExists)
+              throw new HttpException(
+                'File name already exists in this quiz',
+                HttpStatus.BAD_REQUEST,
+              );
             await this.deleteFileFromFirebase(mediaStorage);
           }
 
@@ -422,9 +419,12 @@ export class QuizService {
             `${new Types.ObjectId(quizId)}/${file.originalname}`,
           );
           // mcq to mdeia type check if file already exists in firebase at this storage reference
-          const fileExists=  await this.FileExistsAtReference(uploadFileRef)
-          if(fileExists)
-          throw new HttpException('File name already exists in this quiz',HttpStatus.BAD_REQUEST)
+          const fileExists = await this.FileExistsAtReference(uploadFileRef);
+          if (fileExists)
+            throw new HttpException(
+              'File name already exists in this quiz',
+              HttpStatus.BAD_REQUEST,
+            );
           await this.uploadFiletoFirebase(uploadFileRef, file);
 
           const fileUrl = await getDownloadURL(ref(uploadFileRef));
@@ -449,7 +449,7 @@ export class QuizService {
 
           return quizQuestions;
         } else {
-          //if mcq to face-recognition/video/audio but file not uploaded 
+          //if mcq to face-recognition/video/audio but file not uploaded
           const question = await this.quizModel.find(
             { _id: new Types.ObjectId(quizId) },
             {
@@ -526,8 +526,8 @@ export class QuizService {
             'questionBank.$.options': body.options,
             'questionBank.$.marks': body.marks,
             'questionBank.$.correctAnswer': body.correctAnswer,
-            'questionBank.$.fileName':null,
-            'questionBank.$.fileUrl':null
+            'questionBank.$.fileName': null,
+            'questionBank.$.fileUrl': null,
           },
         },
       );
@@ -647,10 +647,7 @@ export class QuizService {
   async deleteQuestion(question, quizId) {
     try {
       if (!(question._id && quizId))
-        throw new HttpException(
-          'Something went wrong',
-          HttpStatus.BAD_REQUEST,
-        );
+        throw new HttpException('Something went wrong', HttpStatus.BAD_REQUEST);
       const { type, _id: questionId } = question;
       if (type == 'image' || type == 'video' || type == 'audio') {
         const question = await this.quizModel.find(
@@ -674,9 +671,9 @@ export class QuizService {
       const deletedQuestion = await this.quizModel.updateOne(
         { _id: new Types.ObjectId(quizId) },
         {
-           $pull: { questionBank: { _id: new Types.ObjectId(question._id) } },
-          $inc:{'totalQuestions':-1}
-      },
+          $pull: { questionBank: { _id: new Types.ObjectId(question._id) } },
+          $inc: { totalQuestions: -1 },
+        },
       );
       const updatedQuiz = await this.quizModel.findOne(
         {
@@ -717,13 +714,13 @@ export class QuizService {
           $project: {
             questionPerPage: 1,
             quizTitle: 1,
-            time_check:1,
-            totalQuestions:1,
-            whole_check:1,
-            quizTimeLimit:1,
-            questionSequence:1,
+            time_check: 1,
+            totalQuestions: 1,
+            whole_check: 1,
+            quizTimeLimit: 1,
+            questionSequence: 1,
             status: 1,
-            timeLimitPerQuestion:1,
+            timeLimitPerQuestion: 1,
             questions: {
               $slice: [
                 '$questionBank',
@@ -734,7 +731,7 @@ export class QuizService {
           },
         },
       ]);
-      console.log(questions)
+      console.log(questions);
       return questions;
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
@@ -746,23 +743,26 @@ export class QuizService {
       const userExists = await this.userModel.findOne({
         emailAddress: emailAddress,
       });
-  
+
       if (!userExists)
-        throw new HttpException('Incorrect Credentials', HttpStatus.BAD_REQUEST);
+        throw new HttpException(
+          'Incorrect Credentials',
+          HttpStatus.BAD_REQUEST,
+        );
       const quizExists = await this.quizModel.exists({ _id: quizId });
       if (!quizExists)
         throw new HttpException(
           'Quiz has been removed',
           HttpStatus.BAD_REQUEST,
         );
-        const {password}= userExists
-        const passwordMatched = await bcrypt.compare(userData.password,password);
-        if (!passwordMatched)
-          throw new HttpException(
-            'Incorrect Credentials',
-            HttpStatus.UNAUTHORIZED,
-          );
-  
+      const { password } = userExists;
+      const passwordMatched = await bcrypt.compare(userData.password, password);
+      if (!passwordMatched)
+        throw new HttpException(
+          'Incorrect Credentials',
+          HttpStatus.UNAUTHORIZED,
+        );
+
       const quizAssigned = await this.userModel.find(
         {
           emailAddress: emailAddress,
@@ -778,7 +778,7 @@ export class QuizService {
           'Quiz has not been assigned to you ',
           HttpStatus.BAD_REQUEST,
         );
-      return quizAssigned
+      return quizAssigned;
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
@@ -786,10 +786,7 @@ export class QuizService {
   async configure(quiz: any) {
     try {
       const { quizId } = quiz;
-    await this.quizModel.findOneAndUpdate(
-        { _id: quizId },
-        quiz,
-      );
+      await this.quizModel.findOneAndUpdate({ _id: quizId }, quiz);
 
       const questions = await this.quizModel.findOne(
         { _id: new Types.ObjectId(quizId) },
@@ -800,19 +797,21 @@ export class QuizService {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
   }
-  async getConfigurationDetails(quizId){
-    try{
-      const {id} = quizId
-      const quizDetails =   await this.quizModel.findOne({_id:id},{questionBank:0,_id:0})
-      return quizDetails
-    }catch(err){
+  async getConfigurationDetails(quizId) {
+    try {
+      const { id } = quizId;
+      const quizDetails = await this.quizModel.findOne(
+        { _id: id },
+        { questionBank: 0, _id: 0 },
+      );
+      return quizDetails;
+    } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
-
     }
   }
-  async grade(id){
-    console.log(id)
-    
+  async grade(id) {
+    console.log(id);
+
     // try {
     //   // const {quizId} =quizId
     //   const quiz=await this.gradeModel.exists({quizId:quizId})
@@ -826,5 +825,16 @@ export class QuizService {
     // } catch (err) {
     //   throw new HttpException(err, HttpStatus.BAD_REQUEST);
     // }
+  }
+  async retakeTest(quizId: string, userId: string, attempts: number) {
+    const quizResult = await this.resultModel.findOne({ quizId, userId });
+    console.log(!quizResult || quizResult.attempts < attempts)
+    if (!quizResult || quizResult.attempts < attempts) {
+      await this.responseModel.deleteOne({quizId,userId})
+      await this.resultModel.deleteOne({ quizId, userId });
+      return { message: 'Quiz result deleted, you can retake the quiz' };
+    } else {
+      return { message: 'You have reached the maximum number of attempts' };
+    }
   }
 }

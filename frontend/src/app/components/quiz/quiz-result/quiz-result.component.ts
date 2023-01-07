@@ -68,4 +68,15 @@ this.getResultInfo()
     else
     this.router.navigate([`/signin-quiz/${this.quizId}`])
   }
+  retakeTest(){
+    this.userId =  this.route.snapshot.queryParams['userId']
+    this.quizId= this.route.snapshot.paramMap.get('id')
+    let attempts=3;
+    this.quizService.retakeTest(this.userId, this.quizId,attempts).subscribe(
+      (res: any) => {
+        alert(res.response.message)
+        this.router.navigate([`/signin-quiz/${this.quizId}`]);
+      }
+    );
+  }
 }

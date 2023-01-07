@@ -20,7 +20,13 @@ export class AuthService {
   register(userModel: any) {
     if(!userModel.role)
     userModel.role='admin'
-    return this.http.post(`${this.serverUrl}auth/sign-up`, userModel);
+    serverUrl = environment.serverURL;
+    loggedUserDetail: any = {};
+    enableProfile = "true";
+  
+    public userDetails = new BehaviorSubject<any>({});
+  
+    constructor(private http: HttpClient) {}
   }
 
   login(authModel: any) {

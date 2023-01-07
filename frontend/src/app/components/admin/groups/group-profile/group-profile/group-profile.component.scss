@@ -1,0 +1,198 @@
+.create-button {
+  width: 90px;
+  background-color: #268e9b;
+  border: none;
+  outline: none;
+  height: 30px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: 0.5s;
+  font-size: 12px;
+}
+
+.bulk {
+  background-color: #268e9b;
+  background-color: #268e9b;
+  border: none;
+  outline: none;
+  height: 30px !important;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: 0.5s;
+  font-size: 12px;
+}
+
+.create-button:hover {
+  background-color: #268e9b;
+  color: #fff;
+}
+
+@media screen and(max-width:768px) {
+  .text-success {
+    font-size: 14px !important;
+    padding-right: 5px;
+  }
+
+  .text-danger {
+    font-size: 14px !important;
+  }
+  .word-br {
+    word-break: break-all;
+  }
+
+  .th-w-25 {
+    width: 25% !important;
+  }
+
+  .th-w-20 {
+    width: 20% !important;
+  }
+  th.mat-header-cell:first-of-type,
+  td.mat-cell:first-of-type,
+  td.mat-footer-cell:first-of-type {
+    padding-left: 0 !important;
+  }
+  th.mat-header-cell {
+    text-align: center !important;
+  }
+  th {
+    width: 18% !important;
+    border: none !important;
+    font-size: 10px;
+    padding-right: 5px;
+    margin: 2px;
+  }
+
+  td {
+    font-size: 10px;
+    width: 18% !important;
+    border: none !important;
+    word-break: break-all;
+    padding-right: 5px;
+    margin: 2px;
+  }
+  .bulk {
+    font-size: 7px;
+    height: 10px;
+    font-weight: 400;
+  }
+  mat-table {
+    font-size: 8px;
+    text-align: center;
+    mat-checkbox {
+      width: 3px;
+    }
+  }
+
+  mat-cell {
+    font-size: 10px;
+  }
+
+  .create-button {
+    font-size: 7px;
+    font-weight: 400;
+    width: 60px;
+  }
+}
+
+.header {
+  background-color: #e5e5e5;
+}
+.matSelect {
+  width: 20px;
+}
+
+.mat-row:hover {
+  cursor: pointer;
+  background-color: whitesmoke;
+}
+mat-header-cell {
+  color: black;
+}
+
+.main {
+  background-color: #e6e6e6;
+}
+.layout {
+  background-color: white;
+}
+mat-table {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-bottom: none !important;
+}
+mat-card-content {
+  background-color: white;
+}
+
+.search_icon {
+  position: relative;
+  top: -5px;
+  padding: 2px;
+}
+
+th {
+  width: 10% !important;
+  border: none !important;
+}
+
+td {
+  width: 10% !important;
+  border: none !important;
+  word-break: break-all;
+}
+
+.text-success {
+  position: relative;
+  top: 1px;
+  font-size: 17px !important;
+}
+
+.text-danger {
+  font-size: 17px !important;
+}
+
+.word-br {
+  word-break: break-all;
+}
+
+.th-w-25 {
+  width: 25% !important;
+}
+
+.th-w-20 {
+  width: 20% !important;
+}
+
+
+@media screen and (min-width:768px) {
+  .btn{
+    margin: 10px !important;
+  }
+}
+
+
+.input-group-addon {
+  padding: 10px 12px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  color: #555;
+  text-align: center;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.col-md-4{
+  margin-top: auto;
+  margin-bottom: auto;
+}

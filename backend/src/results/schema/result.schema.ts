@@ -10,8 +10,10 @@ export const ResultSchema = new mongoose.Schema({
            totalCorrectAnswers:Number,
            totalQuestions:Number,
            totalPoints:Number,
+           attempts:Number,
            playedOn:{type:Date,default:Date.now}
            
         }
-    ]
+    ],
+    attempts:{type:Number,default:2}
 })

@@ -1,0 +1,10 @@
+<div mat-dialog-container>
+    <h4 mat-dialog-title class="head-div">New Group</h4>
+    <div class="input_q">
+        <input placeholder="Enter Group Name" class="form-control" name="groupName" [(ngModel)]="groupName" appFormErrorMsg required>
+    </div>
+    <mat-dialog-actions class="float-right">
+        <button class="btn border-0 cancel-btn" (click)="onNoClick()">Cancel</button>
+        <button class="btn border-0" (click)="createGroupTitle()">Create</button>
+    </mat-dialog-actions>
+</div>

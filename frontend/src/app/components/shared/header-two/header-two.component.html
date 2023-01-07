@@ -21,6 +21,10 @@
           routerLinkActive="active" [routerLink]="['/admin/user-dashboard']" class="nav-link">Users</a>
       </li>
       <li class="nav-item">
+        <a *ngIf="router.url === '/home/dashboard'||router.url==='/admin/user-dashboard' || router.url==='/admin/user-result' ||router.url==='/admin/group-dashboard'|| router.url.includes('/admin/edit-user') || showMenu|| router.url.includes('quiz-preview') ||router.url=='/admin/add-users' || router.url.includes('/admin/quiz/grading')|| router.url.includes('/admin/quiz/result')  "
+          routerLinkActive="active" [routerLink]="['/admin/group-dashboard']" class="nav-link">Groups</a>
+      </li>
+      <li class="nav-item">
         <a *ngIf="router.url === '/home/dashboard' || router.url==='/admin/quiz/result' || router.url==='/admin/user-result' || router.url.includes('/admin/edit-user') || showMenu ||router.url.includes('quiz-preview') || router.url=='/admin/user-dashboard' || router.url=='/admin/add-users' || router.url.includes('/admin/quiz/result') ||router.url.includes('/admin/quiz/grading') "
           class="nav-link" routerLinkActive="active">Settings</a>
       </li>

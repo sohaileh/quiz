@@ -8,6 +8,8 @@ import { ResultSchema } from 'src/results/schema/result.schema';
 import { OrganizeSchema } from 'src/organize/schemas/organize.schema';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { GradeSchema } from './schemas/grade.schema';
+import { ResponseSchema } from 'src/response/schemas/response.schema';
+
 @Module({
   imports: [
     MailerModule.forRoot({
@@ -26,7 +28,8 @@ import { GradeSchema } from './schemas/grade.schema';
       { name: 'Users', schema: UserSchema },
       { name: 'Results', schema: ResultSchema },
       { name: 'Organizes', schema: OrganizeSchema },
-      {name:'Grade', schema:GradeSchema}
+      {name:'Grade', schema:GradeSchema},
+      {name:'Responses',schema:ResponseSchema}
     ]),
   ],
   controllers: [QuizController],
