@@ -15,11 +15,11 @@ export class GroupController {
     }
   }
 
-  @Patch('edit-group/:id')
+  @Patch('edit-group/:organizationId/:groupId')
   async editGroup(@Res() res, @Body() body,@Param() param){
     try{
-      const {id:organizationId} = param
-    const organizationGroups = await this.groupService.editGroup(body,organizationId)
+      const {organizationId,groupId} = param
+    const organizationGroups = await this.groupService.editGroup(body,organizationId,groupId)
           res.status(HttpStatus.OK).json(organizationGroups)
     }catch(err){
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);

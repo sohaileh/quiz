@@ -26,10 +26,10 @@ export class GroupService {
                 
         }
     }
-    async editGroup(groupDetails,organizationId){
+    async editGroup(groupDetails,organizationId,groupId){
         
     try{
-        const editedGroup = await this.groupModel.findOneAndUpdate({_id:organizationId},groupDetails)
+      await this.groupModel.findOneAndUpdate({_id:groupId},groupDetails)
         const organizationGroups = await this.groupModel.find({organizationId:organizationId})
         return organizationGroups
     }catch(err){
