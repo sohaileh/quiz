@@ -5,6 +5,7 @@ export class groupDto{
 
     public groupName:String;
     public organizationId:ObjectId;
+    public created:Date
 } 
   
 

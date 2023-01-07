@@ -25,8 +25,8 @@ const routes: Routes = [
   {path: 'quiz/result/:id',component: ResultComponent},
   {path:'user-result',component:UserResultComponent},
   {path:'quiz/grading',component:GradingComponent},
-  {path:'group-dashboard',component:GroupProfileComponent}
-
+  {path:'group-dashboard',component:GroupProfileComponent},
+  {path:'quiz/quiz-analyze/:id',component:QuizAnalyzeComponent}
 
 ]
 

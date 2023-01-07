@@ -128,7 +128,6 @@ export class ConfigureComponent implements OnInit {
         const configurationDetails= response
         configurationDetails.quizId=this.quizId
         this.configureForm.patchValue(configurationDetails)
-        console.log('thisconfiguew',this.configureForm)
         if(configurationDetails.time_check){
           const event={target:{checked:true}}
           this.setTimePerQuestion(event)
