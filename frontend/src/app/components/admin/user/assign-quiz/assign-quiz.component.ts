@@ -165,7 +165,7 @@ export class AssignQuizComponent implements OnInit {
     const dialogData = {
       available: this.organizationQuizList,
       assignedQuiz: this.quizAllocatedToUser,
-    };
+    }; 
     const dialogRef = this.dialog.open(AssignQuizDialogComponent, {
       width: "900px",
       maxHeight: "100%",
