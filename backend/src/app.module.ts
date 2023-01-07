@@ -9,6 +9,7 @@ import {ConfigModule} from '@nestjs/config'
 import { ResultModule } from './results/results.module';
 import { OrganizeModule } from './organize/organize.module';
 import { RoleModule } from './role/role.module';
+import { GroupModule } from './group/group.module';
 
 @Module({
   imports: [QuizModule, AuthModule, ResponseModule,ResultModule,
@@ -18,6 +19,7 @@ import { RoleModule } from './role/role.module';
   }),
   OrganizeModule,
   RoleModule,
+  GroupModule,
   
 ],
 

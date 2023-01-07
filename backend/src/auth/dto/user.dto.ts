@@ -45,4 +45,5 @@ export class UserModelDto {
   public quizzesPlayed: [];
 
   public assignedQuizzes: [];
+  public groupId:ObjectId
 }

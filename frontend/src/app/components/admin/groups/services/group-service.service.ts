@@ -11,7 +11,6 @@ export class GroupServiceService {
   createGroup(id:any,name:any){
     this.groupModel.organizationId=id;
     this.groupModel.groupName=name;
-    console.log(this.groupModel)
-    return this.http.post(`${this.serverUrl}auth/sign-up`, this.groupModel);
+    return this.http.post(`${this.serverUrl}group/create-group`, this.groupModel);
   }
 }

@@ -65,6 +65,13 @@
             class="form-control"
             formControlName="organization"
           />
+          <mat-error
+          *ngIf="
+            checkError('organization', 'required') &&
+            assignQuizForm.get('organization').touched
+          "
+          >Organization is required</mat-error
+        >
         </div>
       </div>
       <div class="row d-flex flex-column flex-sm-row mb-4">
@@ -77,6 +84,13 @@
               {{ role._id }}
             </option>
           </select>
+          <mat-error
+          *ngIf="
+          assignQuizForm.get('role').errors?.invalidRole &&
+            assignQuizForm.get('role').touched
+          "
+          >Select valid Role</mat-error
+        >
         </div>
       </div>
       <div

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from "@angular/forms";
 import { AdminService } from "../../services/admin.service";
 import { Router } from "@angular/router";
 import { ActivatedRoute } from "@angular/router";
@@ -45,7 +45,7 @@ export class AssignQuizComponent implements OnInit {
 
   ngOnInit(): void {
     this.assignQuizForm = this.fb.group({
-      role: ["Choose Role"],
+      role: ["Choose Role",[this.validateRole()]],
       password: [
         "",
         [
@@ -67,7 +67,7 @@ export class AssignQuizComponent implements OnInit {
           Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$"),
         ],
       ],
-      organization: [""],
+      organization: ["",[Validators.required]],
     });
 
     this.getOrganizationQuizzes();
@@ -106,10 +106,7 @@ export class AssignQuizComponent implements OnInit {
 
   saveUserDetails() {
     if (!this.assignQuizForm.valid) {
-      this.dialog.open(InfoDialogComponent, {
-        data: "Please fill all required fields",
-        disableClose: true,
-      });
+      this.assignQuizForm.markAllAsTouched()
       return;
     }
     this.save();
@@ -132,9 +129,7 @@ export class AssignQuizComponent implements OnInit {
   editUserDetails() {
     this.save();
     if (!this.assignQuizForm.valid) {
-      this.dialog.open(InfoDialogComponent, {
-        data: "Please fill all required fields correctly",
-      });
+      this.assignQuizForm.markAllAsTouched()
       return;
     }
 
@@ -210,5 +205,12 @@ export class AssignQuizComponent implements OnInit {
       },
       data: quiz,
     });
+  }
+
+  validateRole():ValidatorFn{
+    return (control:AbstractControl):ValidationErrors|null=>{
+        const role = control.value
+        return role =='Choose Role'?{invalidRole:true} :null
+    }
   }
 }

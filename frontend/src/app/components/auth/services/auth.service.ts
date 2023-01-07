@@ -12,7 +12,6 @@ export class AuthService {
   serverUrl = environment.serverURL;
   loggedUserDetail: any = {};
   enableProfile = "true";
-
   public userDetails = new BehaviorSubject<any>({});
 
   constructor(private http: HttpClient) {}
@@ -20,13 +19,7 @@ export class AuthService {
   register(userModel: any) {
     if(!userModel.role)
     userModel.role='admin'
-    serverUrl = environment.serverURL;
-    loggedUserDetail: any = {};
-    enableProfile = "true";
-  
-    public userDetails = new BehaviorSubject<any>({});
-  
-    constructor(private http: HttpClient) {}
+    return this.http.post(`${this.serverUrl}auth/sign-up`, userModel);
   }
 
   login(authModel: any) {

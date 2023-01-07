@@ -29,6 +29,7 @@ export class GroupTitleDialogComponent implements OnInit {
   createGroup() {
     this.organizationId = localStorage.getItem("userId");
     this.groupservice.createGroup(this.organizationId,this.groupName).subscribe((res:any)=>{
+      console.log('response',res)
       this.dialogRef.close();
       
     })

@@ -19,8 +19,8 @@ export const UserSchema = new mongoose.Schema({
         quizTitle:String,
 
 
-    }]
-
+    }],
+groupId:{type:mongoose.Schema.Types.ObjectId}
 
 })
 
