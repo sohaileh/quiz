@@ -1,28 +1,28 @@
-import { SelectionModel } from '@angular/cdk/collections';
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
-import { ConfirmationDialogComponent } from 'src/app/components/shared/confirmation-dialog/confirmation-dialog.component';
-import { SharedServiceService } from 'src/app/components/shared/services/shared-service.service';
-import { ToasterNotificationsService } from 'src/app/components/shared/services/toaster-notifications.service';
-import { AdminService } from '../../../services/admin.service';
-import { GroupTitleDialogComponent } from '../../group-title-dialog/group-title-dialog.component';
+import { SelectionModel } from "@angular/cdk/collections";
+import { Component, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { MatTableDataSource } from "@angular/material/table";
+import { Router } from "@angular/router";
+import { ConfirmationDialogComponent } from "src/app/components/shared/confirmation-dialog/confirmation-dialog.component";
+import { SharedServiceService } from "src/app/components/shared/services/shared-service.service";
+import { ToasterNotificationsService } from "src/app/components/shared/services/toaster-notifications.service";
+import { AdminService } from "../../../services/admin.service";
+import { EditGroupDialogComponent } from "../../edit-group-dialog/edit-group-dialog/edit-group-dialog.component";
+import { GroupTitleDialogComponent } from "../../group-title-dialog/group-title-dialog.component";
+import { GroupServiceService } from "../../services/group-service.service";
 
 export interface groupInterface {
   groupName: string;
   organisationName: string;
   created: Date;
-  action:any
+  action: any;
 }
 @Component({
-  selector: 'app-group-profile',
-  templateUrl: './group-profile.component.html',
-  styleUrls: ['./group-profile.component.scss']
+  selector: "app-group-profile",
+  templateUrl: "./group-profile.component.html",
+  styleUrls: ["./group-profile.component.scss"],
 })
-
 export class GroupProfileComponent implements OnInit {
-
   userDetails: any = [];
   checked: boolean = false;
   searchData: string;
@@ -41,12 +41,19 @@ export class GroupProfileComponent implements OnInit {
   ];
   dataSource = new MatTableDataSource<groupInterface>(this.userDetails);
   selection = new SelectionModel<groupInterface>(true, []);
+  organizationId: string;
 
-  constructor(private router: Router, private adminService: AdminService,private dialog:MatDialog,private sharedService:SharedServiceService,private toastr:ToasterNotificationsService) {}
+  constructor(
+    private router: Router,
+    private adminService: AdminService,
+    private dialog: MatDialog,
+    private groupservice: GroupServiceService,
+    private toastr: ToasterNotificationsService
+  ) {}
 
   ngOnInit(): void {
     this.userId = localStorage.getItem("userId");
-    this.getLoggedUser();
+    this.getGroups();
   }
   searchShow() {
     this.search = false;
@@ -55,18 +62,9 @@ export class GroupProfileComponent implements OnInit {
   assignQuizToUser() {
     this.router.navigate(["/admin/add-users"]);
   }
-  getLoggedUser() {
-    this.user.id = this.userId;
-    this.adminService.getLoggedUser(this.user).subscribe((res: any) => {
-      this.loggedUser = res;
-      this.getOrganizationUsers();
-    });
-  }
-
-  getOrganizationUsers() {
-    this.user.organizationId = localStorage.getItem("userId");
-    this.adminService.getOrganizationUsers(this.user).subscribe((res: any) => {
-      res.push(this.loggedUser);
+  getGroups() {
+    this.organizationId = localStorage.getItem("userId");
+    this.groupservice.getGroups(this.organizationId).subscribe((res: any) => {
       this.dataSource = new MatTableDataSource<groupInterface>(res);
     });
   }
@@ -90,32 +88,39 @@ export class GroupProfileComponent implements OnInit {
     }`;
   }
 
-  getUserInfo(user: any) {
-    const id = user._id;
-    this.router.navigate([
-      '/admin/edit-user'],{queryParams:{id}});
-  }
-
   openDialog() {
-
-let dialogRef = this.dialog.open(GroupTitleDialogComponent, {
-  width: '600px',
-  position: {
-    top: '60px',
+    let dialogRef = this.dialog.open(GroupTitleDialogComponent, {
+      width: "600px",
+      position: {
+        top: "60px",
+      },
+    });
+    // dialogRef.afterClosed().subscribe(({ confirmation }) => {
+    //     if(!confirmation)
+    //     return
+    //     this.sharedService.deleteUser(user).subscribe((res)=> {
+    //       if(res){
+    //     this.getLoggedUser();
+    //     this.toastr.showSuccess("User deleted successfully");
+    //       }
+    //    })
+    // });
   }
-
-});
-// dialogRef.afterClosed().subscribe(({ confirmation }) => {
-//     if(!confirmation)
-//     return
-//     this.sharedService.deleteUser(user).subscribe((res)=> {
-//       if(res){
-//     this.getLoggedUser();
-//     this.toastr.showSuccess("User deleted successfully");
-//       }
-
-//    })
-// });
-
-}
+  renameGroup(group: any) {
+    let dialogRef = this.dialog.open(EditGroupDialogComponent, {
+      width: "600px",
+      position: {
+        top: "60px",
+      },
+      data: group,
+    });
+    dialogRef.afterClosed().subscribe(({ data }) => {
+      this.groupservice.renameGroup(data, group._id).subscribe((res: any) => {
+        this.dataSource = new MatTableDataSource<groupInterface>(res);
+      });
+    });
+  }
+  getGroupMembers(members:any){
+    console.log(members)
+  }
 }

@@ -13,4 +13,12 @@ export class GroupServiceService {
     this.groupModel.groupName=name;
     return this.http.post(`${this.serverUrl}group/create-group`, this.groupModel);
   }
+  getGroups(organizationId:any){
+    console.log(organizationId)
+    return this.http.get(`${this.serverUrl}group/get-organization-groups/${organizationId}` );
+  }
+  renameGroup(groupModel:any,groupId:any){
+    const organizationId=localStorage.getItem('userId')
+    return this.http.patch(`${this.serverUrl}group/edit-group/${organizationId}/${groupId}`,groupModel );
+  }
 }
