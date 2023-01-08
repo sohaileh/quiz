@@ -41,6 +41,8 @@ import { GroupProfileComponent } from './groups/group-profile/group-profile/grou
 import { GroupTitleDialogComponent } from './groups/group-title-dialog/group-title-dialog.component';
 import { QuizAnalyzeComponent } from './quiz-analyze/quiz-analyze.component';
 import { EditGroupDialogComponent } from './groups/edit-group-dialog/edit-group-dialog/edit-group-dialog.component';
+import { GroupInfoComponent } from './groups/group-info/group-info/group-info.component';
+import { AddMemberComponent } from './groups/add-member/add-member/add-member.component';
 
 
 
@@ -64,6 +66,8 @@ import { EditGroupDialogComponent } from './groups/edit-group-dialog/edit-group-
     GroupTitleDialogComponent,
     QuizAnalyzeComponent,
     EditGroupDialogComponent,
+    GroupInfoComponent,
+    AddMemberComponent,
     // FormErrorMsgDirective
     
    

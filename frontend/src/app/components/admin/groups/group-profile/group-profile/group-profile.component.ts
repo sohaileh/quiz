@@ -121,6 +121,6 @@ export class GroupProfileComponent implements OnInit {
     });
   }
   getGroupMembers(members:any){
-    console.log(members)
+   this.router.navigateByUrl(`/admin/group-info/${members._id}`);
   }
 }

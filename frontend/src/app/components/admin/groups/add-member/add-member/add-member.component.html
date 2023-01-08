@@ -1,0 +1,183 @@
+<app-header-three
+  *ngIf="router.url.includes('/admin/add-member')"
+></app-header-three>
+<div class="h-75 d-flex justify-content-center">
+  <div
+    class="pl-4 pr-4 pt-4 pb-3 mat-card"
+    [ngClass]="{ 'add-member': router.url.includes('add-member') }"
+  >
+    <form class="w-100" [formGroup]="addGroupMemberForm">
+      <div class="row d-flex flex-column flex-sm-row mb-4">
+        <div class="col-12 col-sm-6 mb-2 mb-sm-0">
+          <label class="font-weight-bold">First name</label>
+          <input type="text" class="form-control" formControlName="firstName" />
+          <!-- <mat-error
+            class="mt-1"
+            *ngIf="
+              checkError('firstName', 'required') &&
+              assignQuizForm.get('firstName').touched
+            "
+            >First name is required</mat-error
+          > -->
+        </div>
+        <div class="col-12 col-sm-6 mb-2 mb-sm-0">
+          <label class="font-weight-bold">Last name</label>
+          <input type="text" class="form-control" formControlName="lastName" />
+          <!-- <mat-error
+            class="mt-1"
+            *ngIf="
+              checkError('lastName', 'required') &&
+              assignQuizForm.get('lastName').touched
+            "
+            >Last name is required</mat-error
+          > -->
+        </div>
+      </div>
+      <div class="row d-flex flex-column flex-sm-row mb-4">
+        <div class="col-12 col-sm-6 mb-2 mb-sm-0">
+          <label class="font-weight-bold">Email</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="emailAddress"
+          />
+          <!-- <mat-error
+            class="mt-1"
+            *ngIf="
+              checkError('emailAddress', 'required') &&
+              assignQuizForm.get('emailAddress').touched
+            "
+            >Email is required</mat-error
+          > -->
+          <!-- <mat-error
+            class="mt-1"
+            *ngIf="
+              checkError('emailAddress', 'pattern') &&
+              assignQuizForm.get('emailAddress').touched
+            "
+            >Invalid Email</mat-error
+          > -->
+        </div>
+        <div class="col-12 col-sm-6 mb-2 mb-sm-0">
+          <label class="font-weight-bold">Organization</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="organization"
+          />
+          <!-- <mat-error
+          *ngIf="
+            checkError('organization', 'required') &&
+            assignQuizForm.get('organization').touched
+          "
+          >Organization is required</mat-error
+        > -->
+        </div>
+      </div>
+    
+      <!-- <div
+        class="row d-flex flex-column flex-sm-row mb-4 align-items-lg-end"
+        *ngIf="router.url.includes('/admin/edit-user')"
+      > -->
+        <!-- <div class="col-8 col-lg-2 mb-2 mb-lg-0">
+          <button class="btn button btn-sm" (click)="resetPassword()">
+            Reset Password
+          </button>
+        </div> -->
+      <!-- </div> -->
+      <div
+        class="row d-flex flex-column flex-sm-row mb-4"
+        *ngIf="router.url.includes('/admin/add-member')"
+      >
+        <div class="col-12 col-sm-6 mb-2 mb-sm-0 parent-position">
+          <label class="font-weight-bold">Password</label>
+          <input
+            [type]="hide ? 'password' : 'text'"
+            class="form-control"
+            formControlName="password"
+            #pass
+          />
+          <!-- <i
+            class="fa fa-eye-slash cursor"
+            [ngClass]="{
+              'error-position':
+                assignQuizForm.get('password')?.errors?.required &&
+                assignQuizForm.get('password').touched,
+              'position': assignQuizForm.get('password').errors || !assignQuizForm.get('password').errors ,
+              'error-password-strength':
+                assignQuizForm.get('password')?.errors?.pattern &&
+                assignQuizForm.get('password').touched
+            }"
+            aria-hidden="true"
+            (click)="hide = !hide"
+            *ngIf="hide"
+          ></i> -->
+          <!-- <i
+            class="fa fa-eye cursor cursor"
+            [ngClass]="{
+              'error-position':
+                assignQuizForm.get('password')?.errors?.required &&
+                assignQuizForm.get('password').touched,
+                'position': assignQuizForm.get('password').errors || !assignQuizForm.get('password').errors,
+              'error-password-strength':
+                assignQuizForm.get('password')?.errors?.pattern &&
+                assignQuizForm.get('password').touched
+            }" -->
+            <!-- aria-hidden="true"
+            (click)="hide = !hide"
+            *ngIf="!hide"
+          ></i> -->
+          <!-- <mat-error
+            *ngIf="
+              checkError('password', 'required') &&
+              assignQuizForm.get('password').touched
+            "
+            >Password is required</mat-error
+          >
+          <mat-error
+            *ngIf="
+              checkError('password', 'pattern') &&
+              assignQuizForm.get('password').touched
+            "
+            >Password must be 8 characters, 1 uppercase , 1 special
+            character</mat-error
+          > -->
+        </div>
+      </div>
+      <div class="row d-flex mb-4">
+        <div class="d-flex align-items-baseline col-3 mb-2 mb-sm-0">
+          <label class="font-weight-bold mr-2">Suspended</label>
+          <input type="checkbox" />
+        </div>
+      </div>
+     
+     
+      
+      <div class="row d-flex mt-4">
+        <mat-card-actions align="end" class="col-12 mb-2 mb-sm-0 mt-2 mt-md-0">
+          <!-- <button
+            class="btn btn-light cancel"
+            [routerLink]="['/admin/user-dashboard']"
+          >
+            Cancel
+          </button> -->
+           <button
+            class="btn btn-light save"
+        
+            (click)="saveMemberDetails()"
+          >
+            Save
+          </button>
+          <!-- <button
+            class="btn btn-light save"
+         
+            (click)="editUserDetails()"
+          > 
+            Update
+          </button>  -->
+        </mat-card-actions>
+      </div>
+    </form>
+  </div>
+</div>
+

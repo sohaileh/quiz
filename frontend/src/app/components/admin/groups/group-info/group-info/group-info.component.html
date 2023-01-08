@@ -1,0 +1,160 @@
+<div class="h-100 d-flex justify-content-center">
+    <div class="form-horizontal" role="form" class="formContainer">
+      <div class="sectionTab">
+        <div>
+          <div class="panel panel-primary resultPanel">
+            <div class="panel-heading">Group</div>
+  
+            <div class="panel-body resultViewer">
+              <div class="row resultToolbar">
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-search"></i>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Search"
+                    />
+                  </div>
+                </div>
+  
+                <div class="col-md-8">
+                  <span class="navbar-right toolbarMenuItem export-button">
+                    <i class="fa fa-user-plus export"></i>
+                    <button
+                      class="btn btn-sm outline-none" (click)="addMember()"
+                    >Add Member
+                    </button>
+                  </span>
+                </div>
+              </div>
+  
+              <table class="resultText tableContainer">
+                <tbody>
+                  <tr>
+                    <td class="td_totalQuizzes">Group Name</td>
+                    <td>{{ totalQuizzes }}</td>
+                  </tr>
+                  <tr>
+                    <td>Total Members</td>
+                    <td>0</td>
+                  </tr>
+                  <tr>
+                    <td>Quiz's Assigned</td>
+                    <td>/</td>
+                  </tr>
+                </tbody>
+              </table>
+  
+              <table class="table table-condensed resultText desktop-only">
+               
+                    
+                <thead>
+                    <div class="">
+                        <div class="panel-heading">
+                            <h4 class="text-white">Members</h4>
+                        </div>
+                        </div>
+                  <tr>
+                    <th>
+                      <a>
+                      First Name 
+                      </a>
+                    </th>
+  
+                    <th>
+                      <a>last Name</a>
+                    </th>
+                    <th>
+                      <a>Email</a>
+                    </th>
+                    <th>
+                      <a>Created</a>
+                    </th>
+                    <!-- <th>
+                      <a> Duration </a>
+                    </th> -->
+                    <th>
+                      <a> Action</a>
+                    </th>
+                    <!-- <th>
+                      <a> Avg. Score </a>
+                    </th> -->
+                   
+                  </tr>
+                  <tr *ngFor="let quiz of userResults">
+                    <td>{{ quiz?.results?.output[0]?.quizTitle }}</td>
+                    <td>{{ quiz?.results?.playedOn | date }}</td>
+                    <td>{{ quiz?.results?.score }}</td>
+                    <td>/</td>
+                    <td>/</td>
+                    <!-- <td>/</td> -->
+                    <!-- <td>/</td> -->
+                    <td class="cursor" (click)="printcertificate(quiz)"><a>Download</a></td>
+                  </tr>
+                </thead>
+              </table>
+              <table
+                class="table table-condensed resultText mobile-only"
+                *ngFor="let quiz of userResults"
+              >
+                <tr>
+                  <th>
+                    <a>
+                      Quiz
+                      <i class="fa fa-caret-down"></i>
+                    </a>
+                  </th>
+                  <td>{{ quiz?.results?.output[0]?.quizTitle }}</td>
+                </tr>
+                <tr>
+                  <th>
+                    <a> Date submitted </a>
+                  </th>
+                  <td>{{ quiz?.results?.playedOn | date }}</td>
+                </tr>
+                <tr>
+                  <th>
+                    <a> Score </a>
+                  </th>
+                  <td>{{ quiz?.results?.score }}</td>
+                </tr>
+                <tr>
+                  <th>
+                    <a> Grade </a>
+                  </th>
+                  <td>/</td>
+                </tr>
+                <!-- <tr>
+                  <th>
+                    <a> Duration </a>
+                  </th>
+                  <td>/</td>
+                </tr> -->
+                <tr>
+                  <th>
+                    <a> Pass </a>
+                  </th>
+                  <td>/</td>
+                </tr>
+                <!-- <tr>
+                  <th>
+                    <a> Avg. Score </a>
+                  </th>
+                  <td>/</td>
+                </tr> -->
+                <tr>
+                <th>
+                  <a>Certificate</a>
+                </th>
+                <td class="cursor" (click)="printcertificate(quiz)"><a>Download</a></td>
+              </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

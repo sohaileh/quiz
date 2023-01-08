@@ -1,0 +1,129 @@
+mat-form-field {
+  font-size: 15px;
+  width: 33vw;
+}
+@media screen and (max-width: 628px) {
+  mat-card {
+    margin: 10px;
+  }
+  mat-form-field {
+    font-size: 15px;
+    width: 78vw;
+  }
+}
+.mat-card {
+  width: 80%;
+  background-color: white;
+  max-height: 98vh;
+  box-sizing: border-box;
+  overflow: auto;
+}
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+.add-member {
+  width: 75%;
+  background-color: #fafafa;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+}
+.button {
+  background-color: #268e9b;
+  border: none;
+  outline: none;
+  color: #fff;
+}
+.cursor {
+  cursor: pointer;
+}
+.parent-position {
+  position: relative;
+}
+.position {
+  position: absolute;
+  bottom: 0.6em;
+  right: 1.3em;
+}
+.error-position{
+  position: absolute;
+  bottom: 2.1em;
+  right: 1.3em;
+}
+.error-password-strength{
+  position: absolute;
+  bottom: 2.2em;
+  right: 1.3em;
+}
+.assign-quiz {
+  min-height: calc(1.5em + 0.75rem + 2px);
+  overflow-y: auto;
+}
+.assign-btn {
+  position: relative;
+  top: 8px;
+}
+.assign-input {
+  outline: none;
+  border: none;
+}
+
+.cancel {
+  margin: 10px;
+}
+.save {
+  background-color: #268e9b;
+  border: none;
+  outline: none;
+  color: #fff;
+}
+
+@media screen and (max-width:1260px){
+  .error-password-strength{
+    position: absolute;
+    bottom: 3.4em;
+    right: 1.3em;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .save {
+    margin: 10px;
+    width: 5vw !important;
+    background-color: #268e9b;
+    border: none;
+    outline: none;
+    color: #fff;
+  }
+
+  // .button {
+  //   width: 9vw;
+  // }
+
+}
+
+@media screen and (max-width:670px){
+  .error-password-strength{
+    position: absolute;
+    bottom: 4.9em;
+    right: 1.3em;
+  }
+}
+@media screen and (max-width:570px){
+  .error-password-strength{
+    position: absolute;
+    bottom: 3.6em;
+    right: 1.3em;
+  }
+}
+@media screen and (max-width:330px){
+  .error-password-strength{
+    position: absolute;
+    bottom: 4.9em;
+    right: 1.3em;
+  }
+}
+

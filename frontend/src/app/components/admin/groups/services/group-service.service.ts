@@ -21,4 +21,8 @@ export class GroupServiceService {
     const organizationId=localStorage.getItem('userId')
     return this.http.patch(`${this.serverUrl}group/edit-group/${organizationId}/${groupId}`,groupModel );
   }
+  saveMemberDetails(groupId:any,groupModel:any){
+    groupModel.organizationId=localStorage.getItem('userId')
+    return this.http.post(`${this.serverUrl}group/add-members/${groupId}`,groupModel);
+  }
 }
