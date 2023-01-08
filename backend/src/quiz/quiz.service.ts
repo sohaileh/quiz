@@ -26,6 +26,7 @@ import { responseModel } from 'src/response/models/response.model';
 import { MailerService } from '@nestjs-modules/mailer';
 import * as bcrypt from 'bcrypt';
 import { ResponseModelDto } from 'src/response/dto/response.dto';
+import { assignModelDto } from 'src/assign/dto/assign.dto';
 @Injectable()
 export class QuizService {
   totalTeamsEnteredQuiz: any = 0;
@@ -41,6 +42,8 @@ export class QuizService {
     @InjectModel('Grade') private readonly gradeModel: Model<GradeModelDto>,
     @InjectModel('Responses')
     private readonly responseModel: Model<ResponseModelDto>,
+    @InjectModel('Assigns') private readonly assignModel: Model<assignModelDto>,
+
   ) {}
   public sendEmailInvitation(emailPayload: any) {
     this.mailerService
@@ -319,6 +322,8 @@ export class QuizService {
   async deleteQuiz(quiz: any) {
     try {
       const { _id } = quiz;
+        await this.assignModel.updateMany({},{$pull:{assignedQuizzes:{quizId:new Types.ObjectId(_id)}}})
+        await this.userModel.updateMany({},{$pull:{assignedQuizzes:{quizId:new Types.ObjectId(_id)}}})
       const updatedquiz = await this.quizModel.deleteOne({ _id: _id });
       return updatedquiz;
     } catch (err) {

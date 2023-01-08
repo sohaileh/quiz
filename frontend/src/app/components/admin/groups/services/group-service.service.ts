@@ -38,4 +38,9 @@ export class GroupServiceService {
  deleteMember(memberId:any){
   return this.http.delete(`${this.serverUrl}group/delete-group-member/${memberId}`)
  }
+  assignQuizzesToGroup(groupId,assignedQuiz){
+    const groupDetails ={assignedQuizzes:assignedQuiz}
+    const organizationId= localStorage.getItem('userId')
+    return this.http.post(`${this.serverUrl}assign/assign-quiz/${groupId}/${organizationId}`,groupDetails);
+  }
 }

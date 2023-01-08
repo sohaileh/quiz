@@ -114,7 +114,6 @@ export class GroupProfileComponent implements OnInit {
     });
   }
   getGroupMembers(members:any){
-    console.log(members)
    this.router.navigate([`/admin/group-info/${members._id}`],{queryParams:{groupName:members.groupName}});
   }
   deleteGroup(groupDetails){

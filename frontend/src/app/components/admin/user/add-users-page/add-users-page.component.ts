@@ -99,6 +99,7 @@ export class AddUsersPageComponent implements OnInit {
   }
 
   deleteUser(user: any) {
+    console.log('user',user)
 const dialogRef= this.dialog.open(ConfirmationDialogComponent,{
   data:'Are you sure you want to delete this user.',
   disableClose: true
