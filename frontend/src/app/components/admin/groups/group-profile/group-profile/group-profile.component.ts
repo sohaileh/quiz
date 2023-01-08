@@ -95,16 +95,10 @@ export class GroupProfileComponent implements OnInit {
         top: "60px",
       },
     });
-    // dialogRef.afterClosed().subscribe(({ confirmation }) => {
-    //     if(!confirmation)
-    //     return
-    //     this.sharedService.deleteUser(user).subscribe((res)=> {
-    //       if(res){
-    //     this.getLoggedUser();
-    //     this.toastr.showSuccess("User deleted successfully");
-    //       }
-    //    })
-    // });
+    dialogRef.afterClosed().subscribe(({ groups }) => {
+      this.dataSource = new MatTableDataSource<groupInterface>(groups);
+        
+    });
   }
   renameGroup(group: any) {
     let dialogRef = this.dialog.open(EditGroupDialogComponent, {
