@@ -11,7 +11,7 @@ async function bootstrap() {
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe({whitelist:true,transform:true}));
   await app.listen(3000);
-  mongoose.set('debug', true);
+  // mongoose.set('debug', true);
 
 }
 bootstrap();

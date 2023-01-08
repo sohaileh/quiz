@@ -199,7 +199,7 @@ export class QuizService {
         );
 
       const { type } = questionBank;
-      if (type == 'Choose Question Type')
+      if (type !== 'image' || 'video' || 'audio')
         throw new HttpException(
           'Fill Valid question Type',
           HttpStatus.BAD_REQUEST,
@@ -573,7 +573,6 @@ export class QuizService {
 
   async checkIfPlayed(user: any) {
     try {
-      // console.log('user',user)
       const hasPlayed = await this.userModel.exists({
         _id: user.userId,
         'quizzesPlayed.quizId': new Types.ObjectId(user.quizId),
@@ -731,7 +730,6 @@ export class QuizService {
           },
         },
       ]);
-      console.log(questions);
       return questions;
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);

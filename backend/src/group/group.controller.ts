@@ -55,4 +55,14 @@ export class GroupController {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
   }
+  @Get('get-group-members/:groupId')
+  async getGroupMembers(@Param() param ,@Res() res){
+    try{
+      const {groupId}= param
+        const groupMembers= await this.groupService.getGroupMembers(groupId)
+        res.status(HttpStatus.OK).json(groupMembers)
+    }catch(err){
+      throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+    }
+  }
 }

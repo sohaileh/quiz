@@ -59,7 +59,7 @@ export class AddMemberComponent implements OnInit {
       ],
       organization: ["",[Validators.required]],
     });
-    this.groupId = this.route.snapshot.queryParamMap.get("id");
+    this.groupId = this.route.snapshot.paramMap.get("id");
 
   }
 

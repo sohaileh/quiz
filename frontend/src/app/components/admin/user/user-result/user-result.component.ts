@@ -45,7 +45,6 @@ export class UserResultComponent implements OnInit {
   getOrganizationUsers() {
     this.user.organizationId = localStorage.getItem("userId");
     this.adminService.getOrganizationUsers(this.user).subscribe((res: any) => {
-      console.log(res)
     });
   }
 

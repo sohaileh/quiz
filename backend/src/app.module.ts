@@ -10,6 +10,7 @@ import { ResultModule } from './results/results.module';
 import { OrganizeModule } from './organize/organize.module';
 import { RoleModule } from './role/role.module';
 import { GroupModule } from './group/group.module';
+import { AssignModule } from './assign/assign.module';
 
 @Module({
   imports: [QuizModule, AuthModule, ResponseModule,ResultModule,
@@ -20,6 +21,7 @@ import { GroupModule } from './group/group.module';
   OrganizeModule,
   RoleModule,
   GroupModule,
+  AssignModule,
   
 ],
 
