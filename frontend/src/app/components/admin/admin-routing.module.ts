@@ -13,6 +13,7 @@ import { GroupProfileComponent } from './groups/group-profile/group-profile/grou
 import { QuizAnalyzeComponent } from './quiz-analyze/quiz-analyze.component';
 import { GroupInfoComponent } from './groups/group-info/group-info/group-info.component';
 import { AddMemberComponent } from './groups/add-member/add-member/add-member.component';
+import { EditProfileComponent } from './groups/edit-profile/edit-profile.component';
 
 
 
@@ -30,7 +31,8 @@ const routes: Routes = [
   {path:'group-dashboard',component:GroupProfileComponent},
   {path:'group-info/:id',component:GroupInfoComponent},
   {path:'quiz/quiz-analyze/:id',component:QuizAnalyzeComponent},
-  {path:'add-member/:id',component:AddMemberComponent}
+  {path:'add-member/:id',component:AddMemberComponent},
+  {path:'edit-member',component:EditProfileComponent}
 
 
 ]

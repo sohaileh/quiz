@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
+import { ConfirmationDialogComponent } from "src/app/components/shared/confirmation-dialog/confirmation-dialog.component";
+import { SharedServiceService } from "src/app/components/shared/services/shared-service.service";
 import { AssignQuizDialogComponent } from "../../../assign-quiz-dialog/assign-quiz-dialog.component";
 import { AdminService } from "../../../services/admin.service";
 import { GroupServiceService } from "../../services/group-service.service";
@@ -25,7 +27,8 @@ export class GroupInfoComponent implements OnInit {
     private route: ActivatedRoute,
     private groupservice: GroupServiceService,
     private dialog: MatDialog,
-    private adminService: AdminService
+    private adminService: AdminService,
+    private sharedService:SharedServiceService
   ) {}
 
   ngOnInit(): void {
@@ -58,5 +61,27 @@ export class GroupInfoComponent implements OnInit {
         maxHeight: "100%",
         disableClose: true,
       };
+  }
+  editMember(userId:any,groupId:any){
+    this.router.navigate([
+      '/admin/edit-user'],{queryParams:{id:userId,groupId}});
+  }
+  deleteMember(userId:any){
+    const dialogRef= this.dialog.open(ConfirmationDialogComponent,{
+      data:'Are you sure you want to delete this Member.',
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe(({ confirmation }) => {
+        if(!confirmation)
+        return
+        this.groupservice.deleteMember(userId).subscribe({
+          next:(res:any)=>{
+           this.memberData=res;
+          },
+          error:(error)=>{},
+          complete:()=>{}
+        })
+    });
+
   }
 }

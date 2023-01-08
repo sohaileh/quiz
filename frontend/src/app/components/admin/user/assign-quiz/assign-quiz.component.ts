@@ -34,6 +34,7 @@ export class AssignQuizComponent implements OnInit {
   dialogOpened = false;
   roles: string[];
   passwordError=false
+  groupId: any;
   constructor(
     private fb: FormBuilder,
     private adminService: AdminService,
@@ -44,6 +45,7 @@ export class AssignQuizComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.groupId=this.route.snapshot.queryParamMap.get("groupId")
     this.assignQuizForm = this.fb.group({
       role: ["Choose Role",[this.validateRole()]],
       password: [
@@ -72,6 +74,7 @@ export class AssignQuizComponent implements OnInit {
 
     this.getOrganizationQuizzes();
     this.userId = this.route.snapshot.queryParamMap.get("id");
+   
     if (this.userId) {
       this.assignQuizForm.get("password").disable();
       this.adminService.getUserDetails(this.userId).subscribe({
@@ -136,7 +139,10 @@ export class AssignQuizComponent implements OnInit {
     this.userModel.userId = this.userId;
     this.adminService.editUserDetails(this.userModel).subscribe({
       next: (reponse) => {
-        if (reponse) {
+        if (this.groupId) {
+          this.router.navigate(["/admin/group-dashboard"]);
+          this.toatr.showSuccess("User edited successfully");
+        }else{
           this.router.navigate(["/admin/user-dashboard"]);
           this.toatr.showSuccess("User edited successfully");
         }

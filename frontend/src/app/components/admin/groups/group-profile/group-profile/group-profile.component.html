@@ -72,6 +72,10 @@
             <th mat-header-cell *matHeaderCellDef>Action</th>
             <td mat-cell *matCellDef="let element" fxLayoutGap="4px" class="ml-2 ml-md-0">
               <span><i class="fa fa-edit text-success" (click)="renameGroup(element)"></i>
+
+              </span>
+              <span title="assign quiz"><i class="fa fa-tasks text-success" (click)="assignQuiz(element)"></i>
+              
               </span>
               <span
                 ><i

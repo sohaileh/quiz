@@ -21,15 +21,9 @@
                 </div>
 
                 <div class="col-md-8">
-                  <span class="navbar-right toolbarMenuItem export-button">
-                    
+                  <span class="navbar-right toolbarMenuItem ">
                     <button
-                      class="btn btn-sm outline-none" (click)="openDialog()"
-                    >Assign Quiz
-                    </button>
-                    <i class="fa fa-user-plus export"></i>
-                    <button
-                      class="btn btn-sm outline-none" (click)="addMember()"
+                      class="btn btn-sm outline-none member-button" (click)="addMember()"
                     >Add Member
                     </button>
                   </span>
@@ -94,7 +88,15 @@
                     <td>{{ member.lastName}}</td>
                     <td>{{member.emailAddress }}</td>
                     <td>{{member.created|date}}</td>
-                    <td>/</td>
+                    <td>{{member.organization}}</td>
+                    <td>
+                        <span>
+                            <i class="fa fa-edit text-success" (click)="editMember(member._id,member.groupId)">
+
+                            </i>
+                            <i class="fa fa-trash pl-3 text-danger" (click)="deleteMember(member._id)"></i>
+                        </span>
+                      </td>
                     <!-- <td>/</td> -->
                     <!-- <td>/</td> -->
                    
@@ -137,7 +139,13 @@
                   <th>
                     <a> Actions </a>
                   </th>
-                  <td>/</td>
+                  <td>
+                    <span>
+                        <i class="fa fa-edit">
+                        </i>
+                        <i class="fa fa-delete"></i>
+                    </span>
+                  </td>
                 </tr>
                
               

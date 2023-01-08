@@ -21,6 +21,7 @@ import { ErrorPageComponent } from './components/pages/error-page/error-page.com
 import { AuthInterceptor } from './components/auth/interceptors/auth.interceptor';
 // import { FormErrorMsgDirective } from 'src/app/Directives/formErrorMsg/form-error-msg.directive';
 import {ToastrModule} from 'ngx-toastr'
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import {ToastrModule} from 'ngx-toastr'
     QuizModule,
     AuthModule,
     HomeModule,
+    MatTabsModule,
     ToastrModule.forRoot(),
     BlockUIModule.forRoot({delayStart:1,delayStop:3,message:"Loading..."}),
     BlockUIHttpModule.forRoot({requestFilters:[BlockUIFilterFuntion]})

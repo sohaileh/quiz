@@ -35,4 +35,7 @@ export class GroupServiceService {
   getAssignedQuizes(groupId:any){
     return this.http.get(`${this.serverUrl}assign/get-assigned-group-quizzes/${groupId}` );
   }
+ deleteMember(memberId:any){
+  return this.http.delete(`${this.serverUrl}group/delete-group-member/${memberId}`)
+ }
 }

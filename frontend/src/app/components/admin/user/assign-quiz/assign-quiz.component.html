@@ -74,7 +74,7 @@
         >
         </div>
       </div>
-      <div class="row d-flex flex-column flex-sm-row mb-4">
+      <div class="row d-flex flex-column flex-sm-row mb-4" *ngIf="!groupId">
         <div class="col-12 col-sm-6 mb-2 mb-sm-0 parent-position">
           <label class="font-weight-bold">Role</label>
           <!-- <input type="text" class="form-control" formControlName="role"> -->
@@ -162,14 +162,14 @@
           >
         </div>
       </div>
-      <div class="row d-flex mb-4">
+      <div class="row d-flex mb-4" *ngIf="!groupId">
         <div class="d-flex align-items-baseline col-3 mb-2 mb-sm-0">
           <label class="font-weight-bold mr-2">Suspended</label>
           <input type="checkbox" />
         </div>
       </div>
-      <div class="row d-flex flex-column flex-sm-row mb-4 align-items-sm-end">
-        <div class="col-12 col-sm-8 mb-2 mb-sm-0" *ngIf="!userId">
+      <div class="row d-flex flex-column flex-sm-row mb-4 align-items-sm-end" >
+        <div class="col-12 col-sm-8 mb-2 mb-sm-0" *ngIf="!userId && !groupId">
           <label class="font-weight-bold">Assigned Quizzes</label>
           <div class="border assign-quiz rounded">
             <input
@@ -181,7 +181,7 @@
             />
           </div>
         </div>
-        <div class="col-12 col-sm-8 mb-2 mb-sm-0" *ngIf="userId">
+        <div class="col-12 col-sm-8 mb-2 mb-sm-0" *ngIf="userId && !groupId">
           <label class="font-weight-bold">Assigned Quizzes</label>
           <div class="border assign-quiz rounded">
             <input
@@ -193,7 +193,7 @@
             />
           </div>
         </div>
-        <div
+        <div *ngIf="!groupId"
           class="col-8 col-md-3 mb-sm-0 mt-2 mt-md-0 align-items-baseline pb-2"
         >
           <button
@@ -204,16 +204,16 @@
           </button>
         </div>
       </div>
-      <div class="row d-flex flex-column flex-sm-row mb-4 align-items-sm-end">
+      <div class="row d-flex flex-column flex-sm-row mb-4 align-items-sm-end" *ngIf="!groupId">
         <div class="col-12 col-sm-8 mb-2 mb-sm-0">
           <label class="font-weight-bold">Assigned Groups</label>
           <input type="text" class="form-control" />
         </div>
-        <div class="col-8 col-md-3 mb-2 mb-md-0 mb-sm-0 mt-2 mt-md-0">
+        <div class="col-8 col-md-3 mb-2 mb-md-0 mb-sm-0 mt-2 mt-md-0" *ngIf="!groupId">
           <button class="btn button mb-0 btn-sm">Assign Group</button>
         </div>
       </div>
-      <div class="row d-flex flex-column flex-sm-row mb-4 align-items-sm-end">
+      <div class="row d-flex flex-column flex-sm-row mb-4 align-items-sm-end" *ngIf="!groupId">
         <div class="col-12 mb-2 mb-sm-0">
           <label class="font-weight-bold">Notes</label>
           <textarea class="form-control" cols="30" rows="5"></textarea>

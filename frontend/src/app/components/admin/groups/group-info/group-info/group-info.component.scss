@@ -11,7 +11,20 @@
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-
+.member-button{
+width: 92px;
+background-color: #268e9b;
+border: none;
+outline: none;
+height: 30px;
+color: #fff;
+text-transform: uppercase;
+font-weight: 400;
+margin: 10px 0;
+cursor: pointer;
+transition: 0.5s;
+font-size: 12px;
+}
 .sectionTab {
   border-bottom: 1px solid #ddd;
   border-right: 1px solid #ddd;
@@ -187,4 +200,7 @@ a {
   width: 100%;
   border-top: 1px solid black; /* for demo */
   background: yellow; /* for demo */
+}
+i{
+  cursor: pointer;
 }

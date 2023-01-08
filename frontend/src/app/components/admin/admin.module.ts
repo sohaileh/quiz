@@ -44,7 +44,8 @@ import { EditGroupDialogComponent } from './groups/edit-group-dialog/edit-group-
 import { GroupInfoComponent } from './groups/group-info/group-info/group-info.component';
 import { AddMemberComponent } from './groups/add-member/add-member/add-member.component';
 
-
+import {MatTabsModule} from '@angular/material/tabs';
+import { EditProfileComponent } from './groups/edit-profile/edit-profile.component';
 
 
 @NgModule({
@@ -68,6 +69,7 @@ import { AddMemberComponent } from './groups/add-member/add-member/add-member.co
     EditGroupDialogComponent,
     GroupInfoComponent,
     AddMemberComponent,
+    EditProfileComponent,
     // FormErrorMsgDirective
     
    
@@ -95,8 +97,8 @@ import { AddMemberComponent } from './groups/add-member/add-member/add-member.co
     MatTableModule,
     MatDividerModule,
     SharedModule,
-    NgxPrintModule
-    
+    NgxPrintModule,
+    MatTabsModule
     
 
   ],

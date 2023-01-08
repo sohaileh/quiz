@@ -135,4 +135,7 @@ export class GroupProfileComponent implements OnInit {
     });
 
   }
+  assignQuiz(group:any){
+  
+  }
 }
