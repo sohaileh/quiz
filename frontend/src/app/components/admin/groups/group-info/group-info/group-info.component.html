@@ -22,6 +22,11 @@
 
                 <div class="col-md-8">
                   <span class="navbar-right toolbarMenuItem export-button">
+                    
+                    <button
+                      class="btn btn-sm outline-none" (click)="openDialog()"
+                    >Assign Quiz
+                    </button>
                     <i class="fa fa-user-plus export"></i>
                     <button
                       class="btn btn-sm outline-none" (click)="addMember()"
@@ -35,15 +40,15 @@
                 <tbody>
                   <tr>
                     <td class="td_totalQuizzes">Group Name</td>
-                    <td>{{ groupName }}</td>
+                    <td>{{ groupName}} </td>
                   </tr>
                   <tr>
                     <td>Total Members</td>
-                    <td>{{userResults?.length}}</td>
+                    <td>{{totalMembers}}</td>
                   </tr>
                   <tr>
                     <td>Quiz's Assigned</td>
-                    <td>0</td>
+                    <td>{{quizzesAssigned}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -57,7 +62,7 @@
                             <h4 class="text-white">Members</h4>
                         </div>
                         </div>
-                  <tr>
+                  <tr >
                     <th>
                       <a>
                       First Name
@@ -84,75 +89,58 @@
                     </th>
 
                   </tr>
-                  <tr *ngFor="let quiz of userResults">
-                    <td>{{ quiz?.firstName }}</td>
-                    <td>{{ quiz?.lastName }}</td>
-                    <td>{{ quiz?.emailAddress }}</td>
-                    <td>{{ quiz?.created | date }}</td>
-                    <td>{{ quiz?.organization }}</td>
-                    <td> <span><i class="fa fa-edit text-success" (click)="renameGroup(element)"></i>
-                    </span>
-                    <span><i class=" ml-2 fa fa-trash text-danger" (click)="deleteUser(element)"></i></span></td>
+                  <tr *ngFor="let member of memberData">
+                    <td>{{ member.firstName}}</td>
+                    <td>{{ member.lastName}}</td>
+                    <td>{{member.emailAddress }}</td>
+                    <td>{{member.created|date}}</td>
+                    <td>/</td>
                     <!-- <td>/</td> -->
-                    <!-- <td class="cursor" (click)="printcertificate(quiz)"><a>Download</a></td> -->
+                    <!-- <td>/</td> -->
+                   
                   </tr>
                 </thead>
               </table>
               <table
                 class="table table-condensed resultText mobile-only"
-                *ngFor="let quiz of userResults"
+                *ngFor="let member of memberData"
               >
                 <tr>
                   <th>
                     <a>
-                      Quiz
-                      <i class="fa fa-caret-down"></i>
+                     First Name
+                   
                     </a>
                   </th>
-                  <td>{{ quiz?.results?.output[0]?.quizTitle }}</td>
+                  <td>{{ member.firstName }}</td>
                 </tr>
                 <tr>
                   <th>
-                    <a> Date submitted </a>
+                    <a> Last Name</a>
                   </th>
-                  <td>{{ quiz?.results?.playedOn | date }}</td>
+                  <td>{{member.lastName }}</td>
                 </tr>
                 <tr>
                   <th>
-                    <a> Score </a>
+                    <a> Email </a>
                   </th>
-                  <td>{{ quiz?.results?.score }}</td>
+                  <td>{{ member.emailAddress }}</td>
                 </tr>
                 <tr>
                   <th>
-                    <a> Grade </a>
+                    <a>Created</a>
+                  </th>
+                  <td>{{member.created|date}}</td>
+                </tr>
+               
+                <tr>
+                  <th>
+                    <a> Actions </a>
                   </th>
                   <td>/</td>
                 </tr>
-                <!-- <tr>
-                  <th>
-                    <a> Duration </a>
-                  </th>
-                  <td>/</td>
-                </tr> -->
-                <tr>
-                  <th>
-                    <a> Pass </a>
-                  </th>
-                  <td>/</td>
-                </tr>
-                <!-- <tr>
-                  <th>
-                    <a> Avg. Score </a>
-                  </th>
-                  <td>/</td>
-                </tr> -->
-                <tr>
-                <th>
-                  <a>Certificate</a>
-                </th>
-                <td class="cursor" (click)="printcertificate(quiz)"><a>Download</a></td>
-              </tr>
+               
+              
               </table>
             </div>
           </div>

@@ -7,6 +7,7 @@ export class AssignController {
 
   @Post('assign-quiz/:groupId/:organizationId')
   async assignQuizToGroup(@Body() body,@Param() param,@Res() res){
+    console.log(param)
       try{
         const {groupId,organizationId}= param
         const quizAssigned  = await this.assignService.assignQuizToGroup(body,groupId,organizationId)

@@ -32,4 +32,7 @@ export class GroupServiceService {
     const {_id:groupId,organizationId}= groupDetails
     return this.http.delete(`${this.serverUrl}group/delete-group/${groupId}/${organizationId}`)
   }
+  getAssignedQuizes(groupId:any){
+    return this.http.get(`${this.serverUrl}assign/get-assigned-group-quizzes/${groupId}` );
+  }
 }
