@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { GroupServiceService } from '../../services/group-service.service';
 
 @Component({
   selector: 'app-group-info',
@@ -11,11 +12,13 @@ userResults: any;
 totalQuizzes: any;
   groupId: string;
 
-  constructor(private router:Router,private route:ActivatedRoute) { }
+  constructor(private router:Router,private route:ActivatedRoute,private groupservice:GroupServiceService) { }
 
   ngOnInit(): void {
     this.groupId=this.route.snapshot.paramMap.get('id')
-    console.log(this.groupId)
+    this.groupservice.getGroupMembers(this.groupId).subscribe((res)=>{
+      console.log(res)
+    })
   }
   addMember(){
     this.router.navigateByUrl(`/admin/add-member/${this.groupId}`)

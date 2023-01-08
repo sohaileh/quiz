@@ -25,4 +25,7 @@ export class GroupServiceService {
     groupModel.organizationId=localStorage.getItem('userId')
     return this.http.post(`${this.serverUrl}group/add-members/${groupId}`,groupModel);
   }
+  getGroupMembers(groupId:any){
+    return this.http.get(`${this.serverUrl}group/get-group-members/${groupId}` );
+  }
 }
