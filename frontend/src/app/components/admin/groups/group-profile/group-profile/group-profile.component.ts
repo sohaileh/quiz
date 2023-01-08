@@ -34,8 +34,8 @@ export class GroupProfileComponent implements OnInit {
   selectedQuiz: any = {};
   loggedUser: any = {};
   displayedColumns: string[] = [
+    "organisationCode",
     "groupName",
-    "organisationName",
     "created",
     "action",
   ];
@@ -49,7 +49,7 @@ export class GroupProfileComponent implements OnInit {
     private dialog: MatDialog,
     private groupservice: GroupServiceService,
     private toastr: ToasterNotificationsService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.userId = localStorage.getItem("userId");
@@ -83,9 +83,8 @@ export class GroupProfileComponent implements OnInit {
     if (!row) {
       return `${this.isAllSelected() ? "deselect" : "select"} all`;
     }
-    return `${this.selection.isSelected(row) ? "deselect" : "select"} row ${
-      row.groupName + 1
-    }`;
+    return `${this.selection.isSelected(row) ? "deselect" : "select"} row ${row.groupName + 1
+      }`;
   }
 
   openDialog() {
@@ -95,16 +94,17 @@ export class GroupProfileComponent implements OnInit {
         top: "60px",
       },
     });
-    // dialogRef.afterClosed().subscribe(({ confirmation }) => {
-    //     if(!confirmation)
-    //     return
-    //     this.sharedService.deleteUser(user).subscribe((res)=> {
-    //       if(res){
-    //     this.getLoggedUser();
-    //     this.toastr.showSuccess("User deleted successfully");
-    //       }
-    //    })
-    // });
+    dialogRef.afterClosed().subscribe((_) => {
+      this.getGroups()
+      //   if(!confirmation)
+      //   return
+      //   this.sharedService.deleteUser(user).subscribe((res)=> {
+      //     if(res){
+      //   this.getLoggedUser();
+      //   this.toastr.showSuccess("User deleted successfully");
+      //     }
+      //  })
+    });
   }
   renameGroup(group: any) {
     let dialogRef = this.dialog.open(EditGroupDialogComponent, {
@@ -120,7 +120,7 @@ export class GroupProfileComponent implements OnInit {
       });
     });
   }
-  getGroupMembers(members:any){
-   this.router.navigateByUrl(`/admin/group-info/${members._id}`);
+  getGroupMembers(members: any) {
+    this.router.navigateByUrl(`/admin/group-info/${members._id}?name=${members.groupName}`);
   }
 }

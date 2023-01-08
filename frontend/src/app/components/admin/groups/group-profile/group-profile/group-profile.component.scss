@@ -42,6 +42,7 @@
   .text-danger {
     font-size: 14px !important;
   }
+
   .word-br {
     word-break: break-all;
   }
@@ -53,14 +54,17 @@
   .th-w-20 {
     width: 20% !important;
   }
+
   th.mat-header-cell:first-of-type,
   td.mat-cell:first-of-type,
   td.mat-footer-cell:first-of-type {
     padding-left: 0 !important;
   }
+
   th.mat-header-cell {
     text-align: center !important;
   }
+
   th {
     width: 30% !important;
     border: none !important;
@@ -77,14 +81,17 @@
     padding-right: 5px;
     margin: 2px;
   }
+
   .bulk {
     font-size: 7px;
     height: 10px;
     font-weight: 400;
   }
+
   mat-table {
     font-size: 8px;
     text-align: center;
+
     mat-checkbox {
       width: 3px;
     }
@@ -104,6 +111,7 @@
 .header {
   background-color: #e5e5e5;
 }
+
 .matSelect {
   width: 20px;
 }
@@ -112,6 +120,7 @@
   cursor: pointer;
   background-color: whitesmoke;
 }
+
 mat-header-cell {
   color: black;
 }
@@ -119,14 +128,17 @@ mat-header-cell {
 .main {
   background-color: #e6e6e6;
 }
+
 .layout {
   background-color: white;
 }
+
 mat-table {
   background-color: white;
   border: 1px solid #ddd;
   border-bottom: none !important;
 }
+
 mat-card-content {
   background-color: white;
 }
@@ -172,7 +184,7 @@ td {
 
 
 @media screen and (min-width:768px) {
-  .btn{
+  .btn {
     margin: 10px !important;
   }
 }
@@ -192,7 +204,13 @@ td {
   border-bottom-right-radius: 0;
 }
 
-.col-md-4{
+.col-md-4 {
   margin-top: auto;
   margin-bottom: auto;
+}
+
+.btn-css {
+  border: solid 0.01rem #e5e5e5;
+  font-size: 11px;
+  background: #e7e7e7;
 }
