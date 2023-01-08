@@ -16,5 +16,13 @@ async assignQuizToGroup(body,groupId,organizationId){
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
 }
+async getAssignedGroupQuizzes(groupId){
+    try{
+      const assignedQuizzes = await this.assignModel.findOne({groupId:groupId},{assignedQuizzes:1})
+      return assignedQuizzes
+    }catch(err){
+    throw new HttpException(err.message, HttpStatus.BAD_REQUEST); 
+    }
+  }
 }
 
