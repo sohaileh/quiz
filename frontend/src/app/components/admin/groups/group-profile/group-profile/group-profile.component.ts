@@ -94,16 +94,9 @@ export class GroupProfileComponent implements OnInit {
         top: "60px",
       },
     });
-    dialogRef.afterClosed().subscribe((_) => {
-      this.getGroups()
-      //   if(!confirmation)
-      //   return
-      //   this.sharedService.deleteUser(user).subscribe((res)=> {
-      //     if(res){
-      //   this.getLoggedUser();
-      //   this.toastr.showSuccess("User deleted successfully");
-      //     }
-      //  })
+    dialogRef.afterClosed().subscribe(({ groups }) => {
+      this.dataSource = new MatTableDataSource<groupInterface>(groups);
+
     });
   }
   renameGroup(group: any) {
@@ -120,7 +113,25 @@ export class GroupProfileComponent implements OnInit {
       });
     });
   }
-  getGroupMembers(members: any) {
-    this.router.navigateByUrl(`/admin/group-info/${members._id}?name=${members.groupName}`);
+  getGroupMembers(members:any){
+   this.router.navigateByUrl(`/admin/group-info/${members._id}`);
+  }
+  deleteGroup(groupDetails){
+    const dialogRef= this.dialog.open(ConfirmationDialogComponent,{
+      data:'Are you sure you want to delete this group.',
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe(({ confirmation }) => {
+        if(!confirmation)
+        return
+        this.groupservice.deleteGroup(groupDetails).subscribe({
+          next:(res:any)=>{
+            this.dataSource = new MatTableDataSource<groupInterface>(res);
+          },
+          error:(error)=>{},
+          complete:()=>{}
+        })
+    });
+
   }
 }
