@@ -28,4 +28,8 @@ export class GroupServiceService {
   getGroupMembers(groupId:any){
     return this.http.get(`${this.serverUrl}group/get-group-members/${groupId}` );
   }
+  deleteGroup(groupDetails){
+    const {_id:groupId,organizationId}= groupDetails
+    return this.http.delete(`${this.serverUrl}group/delete-group/${groupId}/${organizationId}`)
+  }
 }

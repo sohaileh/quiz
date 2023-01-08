@@ -117,4 +117,22 @@ export class GroupProfileComponent implements OnInit {
   getGroupMembers(members:any){
    this.router.navigateByUrl(`/admin/group-info/${members._id}`);
   }
+  deleteGroup(groupDetails){
+    const dialogRef= this.dialog.open(ConfirmationDialogComponent,{
+      data:'Are you sure you want to delete this group.',
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe(({ confirmation }) => {
+        if(!confirmation)
+        return
+        this.groupservice.deleteGroup(groupDetails).subscribe({
+          next:(res:any)=>{
+            this.dataSource = new MatTableDataSource<groupInterface>(res);
+          },
+          error:(error)=>{},
+          complete:()=>{}
+        })
+    });
+   
+  }
 }
