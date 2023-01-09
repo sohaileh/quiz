@@ -3,9 +3,11 @@ import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatTableDataSource } from "@angular/material/table";
 import { Router } from "@angular/router";
+import { HomeService } from "src/app/components/home/services/home.service";
 import { ConfirmationDialogComponent } from "src/app/components/shared/confirmation-dialog/confirmation-dialog.component";
 import { SharedServiceService } from "src/app/components/shared/services/shared-service.service";
 import { ToasterNotificationsService } from "src/app/components/shared/services/toaster-notifications.service";
+import { AssignQuizDialogComponent } from "../../../assign-quiz-dialog/assign-quiz-dialog.component";
 import { AdminService } from "../../../services/admin.service";
 import { EditGroupDialogComponent } from "../../edit-group-dialog/edit-group-dialog/edit-group-dialog.component";
 import { GroupTitleDialogComponent } from "../../group-title-dialog/group-title-dialog.component";
@@ -41,20 +43,50 @@ export class GroupProfileComponent implements OnInit {
   ];
   dataSource = new MatTableDataSource<groupInterface>(this.userDetails);
   selection = new SelectionModel<groupInterface>(true, []);
-  organizationId: string;
-
+  organizationId: any;
+  organisation: any = {};
+  organizationQuizList = [];
+  quizAllocatedToGroup: any = [];
+  availableQuizzes=[];
+  assignQuizzes=[];
+assignedQuizzes=[];
+totalQuizzes: any;
+  quizzesAssigned: any;
   constructor(
     private router: Router,
     private adminService: AdminService,
     private dialog: MatDialog,
     private groupservice: GroupServiceService,
-    private toastr: ToasterNotificationsService
+    private toastr: ToasterNotificationsService,
+    private homeService:HomeService
   ) { }
 
   ngOnInit(): void {
     this.userId = localStorage.getItem("userId");
     this.getGroups();
+    // this.groupId = this.route.snapshot.paramMap.get("id");
+    // this.groupName = this.route.snapshot.queryParamMap.get("groupName");
+    // this.groupservice.getGroupMembers(this.groupId).subscribe((res: any) => {
+    //   this.memberData = res;
+    //   this.totalMembers = res?.length;
+    // });
+    // this.groupservice.getAssignedQuizes(this.groupId).subscribe((res: any) => {
+    //   this.quizzesAssigned = res?.assignedQuizzes?.length;
+    //   if(res?.assignedQuizzes)
+    //   this.quizAllocatedToGroup = res.assignedQuizzes.map(
+    //     (data) => data.quizTitle
+    //   );
+    // });
+    this.organisation.userId = localStorage.getItem("userId");
+    
+    this.adminService.getOrganizationQuizzes(this.organisation)
+      .subscribe((res: any) => {
+        console.log(res)
+        this.totalQuizzes = res;
+        this.organizationQuizList = res.map((data) => data.quizTitle);
+      });
   }
+  
   searchShow() {
     this.search = false;
   }
@@ -134,7 +166,37 @@ export class GroupProfileComponent implements OnInit {
     });
 
   }
-  assignQuiz(group:any){
-  
-  }
+  assignQuiz(group:any) {
+    const dialogData = {
+      available: this.organizationQuizList,
+      assignedQuiz: this.quizAllocatedToGroup,
+      groupId:group._id
+    }; 
+   const dialogRef= this.dialog.open(AssignQuizDialogComponent,
+      {
+        data:dialogData,
+        width: "900px",
+        maxHeight: "100%",
+        disableClose: true,
+      }
+  )
+  dialogRef.afterClosed().subscribe(({ Quizzes })=>{
+     this.assignQuizzes= this.totalQuizzes.filter((quiz) =>
+    Quizzes.includes(quiz.quizTitle)
+  );
+  console.log('assign quiz',this.assignQuizzes)
+   this.assignQuizzes.forEach((quiz,i)=>{
+    this.assignedQuizzes.push({quizId:quiz._id,quizTitle:quiz.quizTitle})
+  })
+    this.groupservice.assignQuizzesToGroup(group._id,this.assignedQuizzes).subscribe({
+    
+      next:(response)=>{
+      
+        this.assignQuizzes=[]
+        this.assignedQuizzes=[]
+      }
+    })
+  })
+    
+}
 }

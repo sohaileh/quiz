@@ -55,6 +55,7 @@ passValue(data:any) {
   }
 
   getOrganizationQuizzes(organizationId: any) {
+  
     return this.http.post(`${this.serverUrl}quiz/getQuizzes`, organizationId)
   }
 

@@ -4,6 +4,7 @@ import { CartItem } from "src/app/modals/cart-item";
 import { CartService } from "../services/cart.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AdminService } from "../../admin/services/admin.service";
+import { GroupServiceService } from "../../admin/groups/services/group-service.service";
 
 @Component({
   selector: "app-header-three",
@@ -33,13 +34,17 @@ export class HeaderThreeComponent implements OnInit {
   totalUsers: any;
   userId: any={};
   emailAddress={}
-
+  organizationId: string;
+totalGroups:any;
+  groupName: any;
   // @ViewChild(ProductLeftSidebarComponent,{static:false}) MenuItem:ProductLeftSidebarComponent
   constructor(
     private cartService: CartService,
     public router: Router,
     private adminService: AdminService,
-    private route:ActivatedRoute
+    private route:ActivatedRoute,
+    private groupService:GroupServiceService,
+  
   ) {
     this.cartService
       .getItems()
@@ -49,6 +54,7 @@ export class HeaderThreeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.groupName=this.route.snapshot.queryParamMap.get("groupName")
     this.currency = this.currencies[0];
     this.flag = this.flags[0];
     this.adminService.organizationUsers$.subscribe({
@@ -67,7 +73,7 @@ export class HeaderThreeComponent implements OnInit {
         }
       })
     }
-   
+   this.getGroups()
   }
   getLoggedUser() {
     this.user.id = this.userId;
@@ -92,5 +98,11 @@ export class HeaderThreeComponent implements OnInit {
   }
   public changeLang(flag) {
     this.flag = flag;
+  }
+  getGroups() {
+    this.organizationId = localStorage.getItem("userId");
+    this.groupService.getGroups(this.organizationId).subscribe((res: any) => {
+   this.totalGroups=res.length
+    });
   }
 }
