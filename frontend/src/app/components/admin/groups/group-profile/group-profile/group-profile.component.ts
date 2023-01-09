@@ -169,7 +169,6 @@ totalQuizzes: any;
   assignQuiz(group:any) {
     const dialogData = {
       available: this.organizationQuizList,
-      assignedQuiz: this.quizAllocatedToGroup,
       groupId:group._id
     }; 
    const dialogRef= this.dialog.open(AssignQuizDialogComponent,
@@ -180,22 +179,24 @@ totalQuizzes: any;
         disableClose: true,
       }
   )
-  dialogRef.afterClosed().subscribe(({ Quizzes })=>{
-     this.assignQuizzes= this.totalQuizzes.filter((quiz) =>
-    Quizzes.includes(quiz.quizTitle)
-  );
-  console.log('assign quiz',this.assignQuizzes)
-   this.assignQuizzes.forEach((quiz,i)=>{
-    this.assignedQuizzes.push({quizId:quiz._id,quizTitle:quiz.quizTitle})
-  })
-    this.groupservice.assignQuizzesToGroup(group._id,this.assignedQuizzes).subscribe({
-    
-      next:(response)=>{
-      
-        this.assignQuizzes=[]
-        this.assignedQuizzes=[]
-      }
+  dialogRef.afterClosed().subscribe(({ Quizzes,cancel })=>{
+    if(cancel){
+      this.assignQuizzes= this.totalQuizzes.filter((quiz) =>
+      Quizzes.includes(quiz.quizTitle)
+    );
+     this.assignQuizzes.forEach((quiz,i)=>{
+      this.assignedQuizzes.push({quizId:quiz._id,quizTitle:quiz.quizTitle})
     })
+      this.groupservice.assignQuizzesToGroup(group._id,this.assignedQuizzes).subscribe({
+       
+        next:(response)=>{
+        
+          this.assignQuizzes=[]
+          this.assignedQuizzes=[]
+        }
+      })
+    }
+ 
   })
     
 }
