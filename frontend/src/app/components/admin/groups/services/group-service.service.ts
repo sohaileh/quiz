@@ -30,13 +30,13 @@ export class GroupServiceService {
   }
   deleteGroup(groupDetails){
     const {_id:groupId,organizationId}= groupDetails
-    return this.http.delete(`${this.serverUrl}group/delete-group/${groupId}/${organizationId}`)
+    return this.http.delete(`${this.serverUrl}group/delete-group/${groupId}/${organizationId}`);
   }
   getAssignedQuizes(groupId:any){
-    return this.http.get(`${this.serverUrl}assign/get-assigned-group-quizzes/${groupId}` );
+    return this.http.get(`${this.serverUrl}assign/get-assigned-group-quizzes/${groupId}`);
   }
- deleteMember(memberId:any){
-  return this.http.delete(`${this.serverUrl}group/delete-group-member/${memberId}`)
+ deleteMember(userId:any,groupId:any){
+  return this.http.delete(`${this.serverUrl}group/delete-group-member/${userId}/${groupId}`);
  }
   assignQuizzesToGroup(groupId,assignedQuiz){
     const groupDetails ={assignedQuizzes:assignedQuiz}

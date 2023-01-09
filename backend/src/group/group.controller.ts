@@ -65,4 +65,15 @@ export class GroupController {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
   }
+  @Delete('delete-group-member/:userId/:groupId')
+
+  async deleteMember(@Res() res, @Param() param){
+    try{
+      const {userId,groupId} = param
+      const organizationGroups = await this.groupService.deleteMember(userId,groupId)
+      res.status(HttpStatus.OK).json(organizationGroups)
+    }catch(err){
+      throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+    }
+  }
 }

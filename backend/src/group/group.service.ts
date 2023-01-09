@@ -95,4 +95,16 @@ export class GroupService {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST); 
       }
     }
+    async deleteMember(userId,groupId){
+      try{
+          const user = await this.userModel.findOne({_id:userId})
+          if(!user)
+           throw new HttpException("member does not exist", HttpStatus.BAD_REQUEST)
+           await this.userModel.deleteOne({_id:new Types.ObjectId(userId)})
+           const groupMember = await this.userModel.find({groupId:groupId})
+           return groupMember
+      }catch(err){
+    throw new HttpException(err.message, HttpStatus.BAD_REQUEST); 
+      }
+  }
 }

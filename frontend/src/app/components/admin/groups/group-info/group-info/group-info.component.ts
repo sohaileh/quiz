@@ -96,11 +96,11 @@ assignedQuizzes=[]
   })
     
 }
-editMember(userId:any,groupId:any){
+editMember(groupId:any,userId:any){
   this.router.navigate([
-    '/admin/edit-user'],{queryParams:{id:userId,groupId}});
+    '/admin/edit-user'],{queryParams:{id:groupId,userId}});
 }
-deleteMember(userId:any){
+deleteMember(userId:any,groupId:any){
   const dialogRef= this.dialog.open(ConfirmationDialogComponent,{
     data:'Are you sure you want to delete this Member.',
     disableClose: true
@@ -108,7 +108,7 @@ deleteMember(userId:any){
   dialogRef.afterClosed().subscribe(({ confirmation }) => {
       if(!confirmation)
       return
-      this.groupservice.deleteMember(userId).subscribe({
+      this.groupservice.deleteMember(userId,groupId).subscribe({
         next:(res:any)=>{
          this.memberData=res;
         },
