@@ -16,6 +16,12 @@
      <li class="breadcrumb-item"><a>{{emailAddress}}</a></li>
     </ol>
   </nav>
+  <nav aria-label="breadcrumb"*ngIf="router.url.includes('/admin/edit-user?groupId=')">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/admin/group-dashboard']">Groups</a></li>
+     <li class="breadcrumb-item"><a>{{emailAddress}}</a></li>
+    </ol>
+  </nav>
   <nav aria-label="breadcrumb" *ngIf="router.url==='/admin/group-dashboard'">
     <ol class="breadcrumb" >
       <p >Total Groups:  {{totalGroups}}</p>
@@ -25,6 +31,13 @@
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a [routerLink]="['/admin/group-dashboard']">Groups</a></li>
      <li class="breadcrumb-item"><a>{{groupName}}</a></li>
+    </ol>
+  </nav>
+  
+  <nav aria-label="breadcrumb"*ngIf="router.url.includes('/add-users?groupId=')">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/admin/group-dashboard']">Groups</a></li>
+     <li class="breadcrumb-item"><a>New</a></li>
     </ol>
   </nav>
 </div>

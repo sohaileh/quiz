@@ -23,20 +23,20 @@ export class GroupInfoComponent implements OnInit {
   organizationId: any = {};
   organizationQuizList = [];
   quizAllocatedToGroup: any = [];
-  availableQuizzes=[]
-  assignQuizzes=[]
-assignedQuizzes=[]
+  availableQuizzes = [];
+  assignQuizzes = [];
+  assignedQuizzes = [];
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private groupservice: GroupServiceService,
     private dialog: MatDialog,
     private adminService: AdminService,
-    private sharedService:SharedServiceService
+    private sharedService: SharedServiceService
   ) {}
 
   ngOnInit(): void {
-    this.groupId = this.route.snapshot.paramMap.get("id");
+    this.groupId = this.route.snapshot.queryParamMap.get("groupId");
     this.groupName = this.route.snapshot.queryParamMap.get("groupName");
     this.groupservice.getGroupMembers(this.groupId).subscribe((res: any) => {
       this.memberData = res;
@@ -44,78 +44,83 @@ assignedQuizzes=[]
     });
     this.groupservice.getAssignedQuizes(this.groupId).subscribe((res: any) => {
       this.quizzesAssigned = res?.assignedQuizzes?.length;
-      if(res?.assignedQuizzes)
-      this.quizAllocatedToGroup = res.assignedQuizzes.map(
-        (data) => data.quizTitle
-      );
+      if (res?.assignedQuizzes)
+        this.quizAllocatedToGroup = res.assignedQuizzes.map(
+          (data) => data.quizTitle
+        );
     });
 
     this.organizationId.userId = localStorage.getItem("userId");
 
-    this.adminService.getOrganizationQuizzes(this.organizationId)
+    this.adminService
+      .getOrganizationQuizzes(this.organizationId)
       .subscribe((res: any) => {
-        
         this.totalQuizzes = res;
         this.organizationQuizList = res.map((data) => data.quizTitle);
       });
   }
   addMember() {
-    this.router.navigateByUrl(`/admin/add-member/${this.groupId}`);
+    this.router.navigate(["/admin/add-users"], {
+      queryParams: { groupId: this.groupId },
+      queryParamsHandling:"merge"
+    });
   }
   openDialog() {
     const dialogData = {
       available: this.organizationQuizList,
-      groupId:this.groupId
+      groupId: this.groupId,
       // assignedQuiz: this.quizAllocatedToGroup,
-    }; 
-   const dialogRef= this.dialog.open(AssignQuizDialogComponent,
-      {
-        data:dialogData,
-        width: "900px",
-        maxHeight: "100%",
-        disableClose: true,
-      }
-  )
-  dialogRef.afterClosed().subscribe(({ Quizzes })=>{
-      this.assignQuizzes= this.totalQuizzes.filter((quiz) =>
-     Quizzes.includes(quiz.quizTitle)
-   );
-   console.log('assign quiz',this.assignQuizzes)
-    this.assignQuizzes.forEach((quiz,i)=>{
-     this.assignedQuizzes.push({quizId:quiz._id,quizTitle:quiz.quizTitle})
-   })
-   
-     this.groupservice.assignQuizzesToGroup(this.groupId,this.assignedQuizzes).subscribe({
-       next:(response)=>{
-         this.assignQuizzes=[]
-         this.assignedQuizzes=[]
-       }
-     })
-  
-  
-  })
-    
-}
-editMember(groupId:any,userId:any){
-  this.router.navigate([
-    '/admin/edit-user'],{queryParams:{id:groupId,userId}});
-}
-deleteMember(userId:any,groupId:any){
-  const dialogRef= this.dialog.open(ConfirmationDialogComponent,{
-    data:'Are you sure you want to delete this Member.',
-    disableClose: true
-  });
-  dialogRef.afterClosed().subscribe(({ confirmation }) => {
-      if(!confirmation)
-      return
-      this.groupservice.deleteMember(userId,groupId).subscribe({
-        next:(res:any)=>{
-         this.memberData=res;
-        },
-        error:(error)=>{},
-        complete:()=>{}
-      })
-  });
+    };
+    const dialogRef = this.dialog.open(AssignQuizDialogComponent, {
+      data: dialogData,
+      width: "900px",
+      maxHeight: "100%",
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe(({ Quizzes }) => {
+      this.assignQuizzes = this.totalQuizzes.filter((quiz) =>
+        Quizzes.includes(quiz.quizTitle)
+      );
+      console.log("assign quiz", this.assignQuizzes);
+      this.assignQuizzes.forEach((quiz, i) => {
+        this.assignedQuizzes.push({
+          quizId: quiz._id,
+          quizTitle: quiz.quizTitle,
+        });
+      });
 
-}
+      this.groupservice
+        .assignQuizzesToGroup(this.groupId, this.assignedQuizzes)
+        .subscribe({
+          next: (response) => {
+            this.assignQuizzes = [];
+            this.assignedQuizzes = [];
+          },
+        });
+    });
+  }
+  editMember(userId: any, groupId: any) {
+    this.router.navigate(["/admin/edit-user"], {
+      queryParams: {id: userId,groupId:groupId },
+      queryParamsHandling:"merge"
+
+    });
+  }
+  deleteMember(userId: any, groupId: any) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: "Are you sure you want to delete this Member.",
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe(({ confirmation }) => {
+      if (!confirmation) return;
+      this.groupservice.deleteMember(userId, groupId).subscribe({
+        next: (res: any) => {
+          this.memberData = res;
+          this.totalMembers=res?.length;
+        },
+        error: (error) => {},
+        complete: () => {},
+      });
+    });
+  }
 }

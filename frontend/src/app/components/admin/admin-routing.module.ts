@@ -29,7 +29,7 @@ const routes: Routes = [
   {path:'user-result',component:UserResultComponent},
   {path:'quiz/grading',component:GradingComponent},
   {path:'group-dashboard',component:GroupProfileComponent},
-  {path:'group-info/:id',component:GroupInfoComponent},
+  {path:'group-info',component:GroupInfoComponent},
   {path:'quiz/quiz-analyze/:id',component:QuizAnalyzeComponent},
   {path:'add-member/:id',component:AddMemberComponent},
   {path:'edit-member',component:EditProfileComponent}

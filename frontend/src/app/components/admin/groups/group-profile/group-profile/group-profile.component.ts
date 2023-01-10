@@ -81,7 +81,6 @@ totalQuizzes: any;
     
     this.adminService.getOrganizationQuizzes(this.organisation)
       .subscribe((res: any) => {
-        console.log(res)
         this.totalQuizzes = res;
         this.organizationQuizList = res.map((data) => data.quizTitle);
       });
@@ -145,8 +144,8 @@ totalQuizzes: any;
       });
     });
   }
-  getGroupMembers(members:any){
-   this.router.navigate([`/admin/group-info/${members._id}`],{queryParams:{groupName:members.groupName}});
+  getGroupMembers(group:any){
+   this.router.navigate([`/admin/group-info`],{queryParams:{groupId:group._id,groupName:group.groupName}});
   }
   deleteGroup(groupDetails){
     const dialogRef= this.dialog.open(ConfirmationDialogComponent,{

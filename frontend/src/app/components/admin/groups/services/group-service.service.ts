@@ -14,7 +14,6 @@ export class GroupServiceService {
     return this.http.post(`${this.serverUrl}group/create-group`, this.groupModel);
   }
   getGroups(organizationId:any){
-    console.log(organizationId)
     return this.http.get(`${this.serverUrl}group/get-organization-groups/${organizationId}` );
   }
   renameGroup(groupModel:any,groupId:any){

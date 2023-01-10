@@ -8,6 +8,7 @@ import { AssignQuizDialogComponent } from "../../assign-quiz-dialog/assign-quiz-
 import { InfoDialogComponent } from "src/app/components/shared/info-dialog/info-dialog.component";
 import { ToasterNotificationsService } from "src/app/components/shared/services/toaster-notifications.service";
 import { ResetPasswordComponent } from "../reset-password/reset-password.component";
+import { GroupServiceService } from "../../groups/services/group-service.service";
 
 @Component({
   selector: "app-assign-quiz",
@@ -41,11 +42,38 @@ export class AssignQuizComponent implements OnInit {
     public router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private toatr: ToasterNotificationsService
+    private toatr: ToasterNotificationsService,
+    private groupservice:GroupServiceService
   ) {}
 
   ngOnInit(): void {
     this.groupId=this.route.snapshot.queryParamMap.get("groupId")
+    if(this.groupId){
+      this.assignQuizForm = this.fb.group({
+        password: [
+          "",
+          [
+            Validators.required,
+            Validators.pattern(
+              "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
+            ),
+            Validators.minLength(8),
+          ],
+        ],
+        firstName: ["", Validators.required],
+        lastName: ["", Validators.required],
+        emailAddress: [
+          "",
+          [
+            Validators.required,
+            Validators.email,
+            Validators.required,
+            Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$"),
+          ],
+        ],
+        organization: ["",[Validators.required]],
+      });
+    }else{
     this.assignQuizForm = this.fb.group({
       role: ["Choose Role",[this.validateRole()]],
       password: [
@@ -71,9 +99,10 @@ export class AssignQuizComponent implements OnInit {
       ],
       organization: ["",[Validators.required]],
     });
-
+  }
     this.getOrganizationQuizzes();
     this.userId = this.route.snapshot.queryParamMap.get("id");
+    
    
     if (this.userId) {
       this.assignQuizForm.get("password").disable();
@@ -113,6 +142,16 @@ export class AssignQuizComponent implements OnInit {
       return;
     }
     this.save();
+    
+     if(this.groupId){
+      this.groupservice.saveMemberDetails(this.groupId,this.assignQuizForm.value).subscribe((res)=>{
+        if(res){
+          this.router.navigate([`/admin/group-info`],{queryParamsHandling:"merge"});
+          this.toatr.showSuccess("Member added successfully");
+        }
+       
+      })
+    }else{
     this.adminService.assignQuizs(this.userModel).subscribe({
       next: (response) => {
         if (response) {
@@ -128,7 +167,7 @@ export class AssignQuizComponent implements OnInit {
       },
     });
   }
-
+}
   editUserDetails() {
     this.save();
     if (!this.assignQuizForm.valid) {
@@ -140,8 +179,8 @@ export class AssignQuizComponent implements OnInit {
     this.adminService.editUserDetails(this.userModel).subscribe({
       next: (reponse) => {
         if (this.groupId) {
-          this.router.navigate(["/admin/group-dashboard"]);
-          this.toatr.showSuccess("User edited successfully");
+          this.router.navigate([`/admin/group-info`],{queryParamsHandling:"merge"});
+          this.toatr.showSuccess("Member edited successfully");
         }else{
           this.router.navigate(["/admin/user-dashboard"]);
           this.toatr.showSuccess("User edited successfully");
