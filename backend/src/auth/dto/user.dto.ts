@@ -46,4 +46,6 @@ export class UserModelDto {
 
   public assignedQuizzes: [];
   public groupId:ObjectId
+   public organizerId:ObjectId;
+
 }

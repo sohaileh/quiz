@@ -105,7 +105,7 @@ export class QuizService {
     try {
       const { userId } = organizationData;
       const quizzes = await this.quizModel.find(
-        { organizationId: new Types.ObjectId(userId) },
+        { organizerId: new Types.ObjectId(userId) },
         { questionBank: 0 },
       );
       return quizzes;
@@ -202,7 +202,7 @@ export class QuizService {
         );
 
       const { type } = questionBank;
-      if (type !== 'image' || 'video' || 'audio')
+      if (type =='Choose Question Type')
         throw new HttpException(
           'Fill Valid question Type',
           HttpStatus.BAD_REQUEST,

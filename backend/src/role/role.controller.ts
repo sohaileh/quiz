@@ -1,4 +1,7 @@
-import { Body, Controller, Get, HttpStatus, Res } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Res, UseGuards } from '@nestjs/common';
+import { Roles } from 'src/auth/authorization/decorator/roles.decorator';
+import { RolesGuard } from 'src/auth/authorization/guard/roles.guard';
+import { JwtAuthGuard } from 'src/auth/gaurds/auth.gaurd';
 import { RoleService } from './role.service';
 
 @Controller('role')
@@ -7,6 +10,8 @@ export class RoleController {
 
   }
 
+  @UseGuards(JwtAuthGuard,RolesGuard)
+  @Roles('organizer')
   @Get('get-roles')
   async getRoles(@Body() body,@Res() res){
     try{

@@ -18,7 +18,7 @@ const appRoutes: Routes = [
     children: [
       {
         path: 'home',
-        loadChildren: () => import('./components/home/home.module').then(m=>m.HomeModule)
+        loadChildren: () => import('./components/home/home.module').then(m=>m.HomeModule),
       },
       {
         path:'admin',
@@ -52,7 +52,7 @@ const appRoutes: Routes = [
         component:QuizPreviewComponent
       }
     
-    ]}]
+    ],canActivate:[CanActivateGuard]}]
 
 @NgModule({
   declarations: [],

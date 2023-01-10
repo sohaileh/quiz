@@ -8,21 +8,23 @@ export class ResultController {
   constructor(private resultService: ResultService) {}
 
   // @UseGuards(JwtAuthGuard,RolesGuard)
-  // @Roles('user')
+  // @Roles('organizer','student')
   @Get('get-user-results/:id')
   async getUseresults(@Body() body: any, @Res() res,@Param() param) {
     const userResults = await this.resultService.getUseresults(param);
     res.status(HttpStatus.OK).json(userResults);
   }
 
-  @UseGuards(JwtAuthGuard,RolesGuard)
-  @Roles('user')
+  // @UseGuards(JwtAuthGuard,RolesGuard)
+  // @Roles('organizer','student')
   @Post('get-user-result')
   async getUserResult(@Body() body: any, @Res() res: any) {
     const result = await this.resultService.getUserResult(body);
     res.status(200).json(result);
   }
-  @Post('get-user-quiz-result')
+  // @UseGuards(JwtAuthGuard,RolesGuard)
+  // @Roles('organizer')
+  // @Post('get-user-quiz-result')
   async getUserQuizResult(@Body() body,@Res() res){
     try{
     const userResultDetails= await this.resultService.getUserQuizResult(body)

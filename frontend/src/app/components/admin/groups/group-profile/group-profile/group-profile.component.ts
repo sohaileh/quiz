@@ -34,6 +34,7 @@ export class GroupProfileComponent implements OnInit {
   user: any = {};
   existingUser: any = {};
   selectedQuiz: any = {};
+  organizerId:any={}
   loggedUser: any = {};
   displayedColumns: string[] = [
     "organisationCode",
@@ -94,8 +95,8 @@ totalQuizzes: any;
     this.router.navigate(["/admin/add-users"]);
   }
   getGroups() {
-    this.organizationId = localStorage.getItem("userId");
-    this.groupservice.getGroups(this.organizationId).subscribe((res: any) => {
+    this.organizerId = localStorage.getItem("userId");
+    this.groupservice.getGroups(this.organizerId).subscribe((res: any) => {
       this.dataSource = new MatTableDataSource<groupInterface>(res);
     });
   }

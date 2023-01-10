@@ -9,27 +9,29 @@ export class GroupServiceService {
   groupModel:any={}
   constructor(private http: HttpClient) {}
   createGroup(id:any,name:any){
-    this.groupModel.organizationId=id;
+    this.groupModel.organizerId=id;
     this.groupModel.groupName=name;
+    this.groupModel.organizationId=localStorage.getItem('organizationId')
     return this.http.post(`${this.serverUrl}group/create-group`, this.groupModel);
   }
-  getGroups(organizationId:any){
-    return this.http.get(`${this.serverUrl}group/get-organization-groups/${organizationId}` );
+  getGroups(organizerId:any){
+    return this.http.get(`${this.serverUrl}group/get-organization-groups/${organizerId}` );
   }
   renameGroup(groupModel:any,groupId:any){
     const organizationId=localStorage.getItem('userId')
     return this.http.patch(`${this.serverUrl}group/edit-group/${organizationId}/${groupId}`,groupModel );
   }
   saveMemberDetails(groupId:any,groupModel:any){
-    groupModel.organizationId=localStorage.getItem('userId')
+    groupModel.organizerId=localStorage.getItem('userId')
+    groupModel.organizationId=localStorage.getItem('organizationId')
     return this.http.post(`${this.serverUrl}group/add-members/${groupId}`,groupModel);
   }
   getGroupMembers(groupId:any){
     return this.http.get(`${this.serverUrl}group/get-group-members/${groupId}` );
   }
   deleteGroup(groupDetails){
-    const {_id:groupId,organizationId}= groupDetails
-    return this.http.delete(`${this.serverUrl}group/delete-group/${groupId}/${organizationId}`);
+    const {_id:groupId,organizerId}= groupDetails
+    return this.http.delete(`${this.serverUrl}group/delete-group/${groupId}/${organizerId}`);
   }
   getAssignedQuizes(groupId:any){
     return this.http.get(`${this.serverUrl}assign/get-assigned-group-quizzes/${groupId}`);
@@ -39,7 +41,8 @@ export class GroupServiceService {
  }
   assignQuizzesToGroup(groupId,assignedQuiz){
     const groupDetails ={assignedQuizzes:assignedQuiz}
-    const organizationId= localStorage.getItem('userId')
-    return this.http.post(`${this.serverUrl}assign/assign-quiz/${groupId}/${organizationId}`,groupDetails);
+    const organizerId= localStorage.getItem('userId')
+    const organizationId= localStorage.getItem('organizationId')
+    return this.http.post(`${this.serverUrl}assign/assign-quiz/${groupId}/${organizerId}/${organizationId}`,groupDetails);
   }
 }

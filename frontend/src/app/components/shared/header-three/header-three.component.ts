@@ -84,9 +84,9 @@ totalGroups:any;
   }
 
   getOrganizationUsers() {
-    this.user.organizationId = localStorage.getItem("userId");
+    this.user.organizerId = localStorage.getItem("userId");
     this.adminService.getOrganizationUsers(this.user).subscribe((res: any) => {
-      res.push(this.loggedUser);
+      // res.push(this.loggedUser);
       this.totalUsers = res.length;
     });
   }

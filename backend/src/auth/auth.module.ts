@@ -10,6 +10,7 @@ import {JwtStrategy} from './strategy/jwt.strategy'
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './authorization/guard/roles.guard';
 import { ResultSchema } from 'src/results/schema/result.schema';
+import { HttpModule } from '@nestjs/axios';
 @Module({
   imports: [
     MongooseModule.forFeature([
@@ -17,7 +18,8 @@ import { ResultSchema } from 'src/results/schema/result.schema';
       {name:'Organization', schema:OrganizationSchema},
       {name:'Results',schema:ResultSchema}
     ]),
-    JwtModule.registerAsync(jwtConfig)
+    JwtModule.registerAsync(jwtConfig),
+   HttpModule,
   ],
   controllers: [AuthController],
   providers: [AuthService,JwtStrategy]

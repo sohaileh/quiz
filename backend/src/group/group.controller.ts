@@ -1,10 +1,14 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Patch, Post, Put, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Patch, Post, Put, Res, UseGuards } from '@nestjs/common';
+import { Roles } from 'src/auth/authorization/decorator/roles.decorator';
+import { RolesGuard } from 'src/auth/authorization/guard/roles.guard';
+import { JwtAuthGuard } from 'src/auth/gaurds/auth.gaurd';
 import { GroupService } from './group.service';
 
 @Controller('group')
 export class GroupController {
   constructor(private readonly groupService: GroupService) {}
-
+  @UseGuards(JwtAuthGuard,RolesGuard)
+  @Roles('organizer')
   @Post('create-group')
   async createOrganizationGroup(@Res() res,@Body() body){
     try{
@@ -15,6 +19,8 @@ export class GroupController {
     }
   }
 
+  @UseGuards(JwtAuthGuard,RolesGuard)
+  @Roles('organizer')
   @Patch('edit-group/:organizationId/:groupId')
   async editGroup(@Res() res, @Body() body,@Param() param){
     try{
@@ -25,16 +31,20 @@ export class GroupController {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
   }
-  @Delete('delete-group/:groupId/:organizationId')
+  @UseGuards(JwtAuthGuard,RolesGuard)
+  @Roles('organizer')
+  @Delete('delete-group/:groupId/:organizerId')
   async deleteGroup(@Res() res, @Param() param){
     try{
-      const {groupId,organizationId} = param
-      const organizationGroups = await this.groupService.deleteGroup(groupId,organizationId)
+      const {groupId,organizerId} = param
+      const organizationGroups = await this.groupService.deleteGroup(groupId,organizerId)
       res.status(HttpStatus.OK).json(organizationGroups)
     }catch(err){
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
   }
+  @UseGuards(JwtAuthGuard,RolesGuard)
+  @Roles('organizer')
   @Post('add-members/:groupId')
   async addMembers(@Body() body,@Param() param,@Res() res){
     try{
@@ -45,16 +55,20 @@ export class GroupController {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
   }
-  @Get('get-organization-groups/:organizationId')
+  @UseGuards(JwtAuthGuard,RolesGuard)
+  @Roles('organizer')
+  @Get('get-organization-groups/:organizerId')
   async getOrganizationGroups(@Param() param,@Res() res){
     try{
-      const{organizationId}=param
-      const organizations = await this.groupService.getOrganizationGroups(organizationId)
+      const{organizerId}=param
+      const organizations = await this.groupService.getOrganizationGroups(organizerId)
       res.status(HttpStatus.OK).json(organizations)
     }catch(err){
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
   }
+  @UseGuards(JwtAuthGuard,RolesGuard)
+  @Roles('organizer')
   @Get('get-group-members/:groupId')
   async getGroupMembers(@Param() param ,@Res() res){
     try{
@@ -65,6 +79,8 @@ export class GroupController {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
   }
+  @UseGuards(JwtAuthGuard,RolesGuard)
+  @Roles('organizer')
   @Delete('delete-group-member/:userId/:groupId')
 
   async deleteMember(@Res() res, @Param() param){

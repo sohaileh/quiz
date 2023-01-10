@@ -19,8 +19,8 @@ import { ResponseService } from './response.service';
 export class ResponseController {
   constructor(private readonly responseService: ResponseService) {}
 
-  @UseGuards(JwtAuthGuard,RolesGuard)
-  @Roles('user')
+  // @UseGuards(JwtAuthGuard,RolesGuard)
+  // @Roles('user')
   @Post('submit')
   async submitResponse(@Res() res: any, @Body() body: any) {
     try {
@@ -31,7 +31,8 @@ export class ResponseController {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
   }
-  // @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard,RolesGuard)
+  // @Roles('organizer','student')
   @Post('submit-student-response')
   async submitStudentResponse (@Body() body:any,@Res() res){
    try{
@@ -42,7 +43,8 @@ export class ResponseController {
 
    }
   }
-
+  // @UseGuards(JwtAuthGuard,RolesGuard)
+  // @Roles('organizer','student')
   @Get('get-user-quiz-response/:quizId/:userId')
   async getUserQuizResponse(@Res() res,@Param() params){
     try{

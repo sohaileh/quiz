@@ -132,7 +132,8 @@ export class AssignQuizComponent implements OnInit {
     this.quizIdObject = [];
     this.userModel = this.assignQuizForm.value;
     this.userModel.assignedQuizzes = this.assignedQuizzes;
-    this.userModel.organizationId = localStorage.getItem("userId");
+    this.userModel.organizerId = localStorage.getItem("userId");
+    this.userModel.organizationId= localStorage.getItem("organizationId"); 
     this.assignedQuizzes = [];
   }
 
@@ -150,6 +151,8 @@ export class AssignQuizComponent implements OnInit {
           this.toatr.showSuccess("Member added successfully");
         }
        
+      },(error)=>{
+        this.toatr.showError(error.error.message);
       })
     }else{
     this.adminService.assignQuizs(this.userModel).subscribe({

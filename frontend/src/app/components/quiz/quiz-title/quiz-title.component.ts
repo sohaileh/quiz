@@ -33,8 +33,9 @@ export class QuizTitleComponent implements OnInit {
 
   createQuizTitle()
   { 
-    this.quiz.organizationId=localStorage.getItem('userId')
-this.quiz.quizTitle=this.quizTitle;
+    this.quiz.organizerId=localStorage.getItem('userId')
+    this.quiz.organizationId=localStorage.getItem('organizationId')
+    this.quiz.quizTitle=this.quizTitle;
 
 this.quizservice.createQuizTitle(this.quiz).subscribe((res:any)=>{
   this.dialogRef.close();

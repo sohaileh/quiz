@@ -167,5 +167,6 @@ public redirectOnQuizCompletion: String;
 public quizTimeLimit: Number;
 
 public questionSequence:Boolean
+public organizerId:ObjectId;
 }
 

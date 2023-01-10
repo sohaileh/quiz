@@ -20,7 +20,8 @@ export const UserSchema = new mongoose.Schema({
 
 
     }],
-groupId:{type:mongoose.Schema.Types.ObjectId}
+groupId:{type:mongoose.Schema.Types.ObjectId},
+organizerId:{type:mongoose.Schema.Types.ObjectId},
 
 })
 

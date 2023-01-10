@@ -7,7 +7,7 @@ import { CommonService } from '../services/common.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AuthService } from '../../auth/services/auth.service';
 import { AdminService } from '../../admin/services/admin.service';
-
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-header-two',
   templateUrl: './header-two.component.html',
@@ -27,7 +27,8 @@ export class HeaderTwoComponent implements OnInit {
   enableProfile= null
   quizId:any
   showMenu:boolean
-  
+  returnUrl= environment.returnUrl
+  appURL=environment.appURL
 
   constructor(public router:Router,private authService:AuthService,private route:ActivatedRoute,private adminService:AdminService) {
     // this.cartService.getItems().subscribe(shoppingCartItems => this.shoppingCartItems = shoppingCartItems);
@@ -62,8 +63,13 @@ export class HeaderTwoComponent implements OnInit {
 
 logout()
 {
-  this.router.navigate(['/auth/login'])
-this.authService.logout()
+//   this.router.navigate(['/auth/login'])
+// this.authService.logout()
+localStorage.removeItem('gToken')
+localStorage.removeItem('accessToken')
+localStorage.removeItem('quizId')
+let redirectURL = `${this.appURL}/exgsfsso/logout?post_logout_redirect_uri=${this.returnUrl}`
+window.location.href=`${redirectURL}`
 
 }  
 

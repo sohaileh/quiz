@@ -15,6 +15,8 @@ import { MatRadioModule } from "@angular/material/radio";
 import { DirectivesModule } from "src/app/Directives/directives.module";
 import { MatSelectModule } from "@angular/material/select";
 import { ForgotPasswordComponent } from "./my-account/forgot-password/forgot-password.component";
+import { OauthComponent } from './my-account/oauth/oauth.component';
+import { CallbackComponent } from './my-account/callback/callback.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { ForgotPasswordComponent } from "./my-account/forgot-password/forgot-pas
     RegisterComponent,
     // FormErrorMsgDirective,
     ForgotPasswordComponent,
+    OauthComponent,
+    CallbackComponent,
   ],
   imports: [
     CommonModule,

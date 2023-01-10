@@ -5,6 +5,7 @@ export const QuizSchema = new mongoose.Schema({
   quizTitle: String,
   status: { type: String, default: 'In design' },
   organizationId: { type: mongoose.Schema.Types.ObjectId },
+  organizerId:{type:mongoose.Schema.Types.ObjectId},
   eventName: String,
   organizationName: String,
   totalTime: Number,

@@ -80,5 +80,29 @@ export class AuthService {
       shareReplay()
     )
   }
-  
+
+  ouathLogin(){
+    return this.http.get(`${this.serverUrl}auth/oauth/login`)
+  }
+
+  getToken(code,state){
+    return this.http.get(`${this.serverUrl}auth/oauth/get-token`,{params: {code: code, state: state}}).pipe(
+      tap((data)=>{this.setToken(data)})
+    )
+
+  }
+
+  setToken(data){
+    const accessToken = data?.data?.accessToken
+    const gToken= data?.data?.gToken
+    localStorage.setItem('gToken',gToken)
+    localStorage.setItem('accessToken',accessToken)
+    const {user_id:userId,org_id:organizationId} = JSON.parse(atob(accessToken.split('.')[1]))
+    localStorage.setItem('userId',userId)
+    localStorage.setItem('organizationId',organizationId)
+
+  }
+  getGsfUrl(){
+    return this.http.get(`${this.serverUrl}auth/get-gsf-url`)
+  }
 }

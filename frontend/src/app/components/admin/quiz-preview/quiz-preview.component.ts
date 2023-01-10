@@ -143,7 +143,7 @@ export class QuizPreviewComponent implements OnInit {
         },
         error: (error) => {
           this.submitting = false;
-          this.router.navigate(['/home/dashboard'])
+          // this.router.navigate(['/home/dashboard']
         },
         complete: () => {
           if(this.router.url.includes('admin')){

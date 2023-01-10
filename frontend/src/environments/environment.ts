@@ -4,8 +4,13 @@
 
 export const environment = {
   production: false,
+  serverUrL:'http://localhost:4200/oauth/callback',
+  appId:'63bba42e5ae42f5628b0d338',
+  ClientId:'63bba4774f3dd05d344c5ce1',
+  returnUrl:'http://localhost:4200/oauth/login',
+  appURL:'https://gsftestapi.educian.com/',
   serverURL:'http://localhost:3000/',
-  // serverURL:'http://192.168.1.12:3000/',
+  // serverUrRL:'http://192.168.1.12:3000/',
   apiUrl:"http://test.quiz.com/api/"
 };
 

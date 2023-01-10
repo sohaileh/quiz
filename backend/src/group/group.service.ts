@@ -19,18 +19,15 @@ export class GroupService {
     }
     async createOrganizationGroup(groupDetails:any){
         try{
-            const {organizationId,groupName}= groupDetails
+            const {organizationId,groupName,organizerId}= groupDetails
             
-            const organizer = await this.userModel.findOne({_id:organizationId})
-            if(!organizer)
-             throw new HttpException("Organizer does not exists", HttpStatus.BAD_REQUEST)
-             const groupExists = await this.groupModel.exists({groupName:groupName,organizationId:organizationId})
+             const groupExists = await this.groupModel.exists({groupName:groupName,organizerId:organizerId})
              if(groupExists)
              throw new HttpException("Group exists", HttpStatus.BAD_REQUEST)
             const newGroup = await new this.groupModel(groupDetails)
             await newGroup.save()
-            const organizationGroups = await this.groupModel.find({organizationId:organizationId})
-            return organizationGroups
+            const organizerGroups = await this.groupModel.find({organizerId:organizerId})
+            return organizerGroups
         }catch(err){
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
                 
@@ -46,14 +43,11 @@ export class GroupService {
     throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
     }
-    async deleteGroup(groupId,organizationId){
+    async deleteGroup(groupId,organizerId){
         try{
-            const organization = await this.userModel.findOne({_id:organizationId})
-            if(!organization)
-             throw new HttpException("Organizer does not exists", HttpStatus.BAD_REQUEST)
              await this.groupModel.findOneAndDelete({_id:new Types.ObjectId(groupId)})
              await this.userModel.deleteMany({groupId:new Types.ObjectId(groupId)})
-             const organizationGroups = await this.groupModel.find({organizationId:organizationId})
+             const organizationGroups = await this.groupModel.find({organizerId:organizerId})
              return organizationGroups
         }catch(err){
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST); 
@@ -78,10 +72,10 @@ export class GroupService {
 
         }
     }
-    async getOrganizationGroups(organizationId){
+    async getOrganizationGroups(organizerId){
         try{
-            const organizations = await this.groupModel.find({organizationId:organizationId})
-            return organizations
+            const organizerGroups = await this.groupModel.find({organizerId:organizerId})
+            return organizerGroups
         }catch(err){
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST); 
 

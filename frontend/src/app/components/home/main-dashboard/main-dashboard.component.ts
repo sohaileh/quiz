@@ -66,6 +66,7 @@ export class MainDashboardComponent implements OnInit,OnDestroy {
   
 
   ngOnInit(): void {
+
     this.quizservice.newQuiz$.subscribe((res: any) => {
       this.getOrganizationQuizzes()
     })

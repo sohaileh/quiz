@@ -6,5 +6,6 @@ export const AssignSchema = new mongoose.Schema({
         quizTitle:String,
         quizId:{type: mongoose.Schema.Types.ObjectId}
     }],
-    organizationId:{type:mongoose.Schema.Types.ObjectId}
+    organizationId:{type:mongoose.Schema.Types.ObjectId},
+    organizerId:{type:mongoose.Schema.Types.ObjectId}
 })

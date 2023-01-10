@@ -48,7 +48,8 @@ export class AddUsersPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = localStorage.getItem("userId");
-    this.getLoggedUser();
+    // this.getLoggedUser();
+    this.getOrganizationUsers()
   }
   searchShow() {
     this.search = false;
@@ -57,18 +58,18 @@ export class AddUsersPageComponent implements OnInit {
   assignQuizToUser() {
     this.router.navigate(["/admin/add-users"]);
   }
-  getLoggedUser() {
-    this.user.id = this.userId;
-    this.adminService.getLoggedUser(this.user).subscribe((res: any) => {
-      this.loggedUser = res;
-      this.getOrganizationUsers();
-    });
-  }
+  // getLoggedUser() {
+  //   this.user.id = this.userId;
+  //   this.adminService.getLoggedUser(this.user).subscribe((res: any) => {
+  //     this.loggedUser = res;
+  //     this.getOrganizationUsers();
+  //   });
+  // }
 
   getOrganizationUsers() {
-    this.user.organizationId = localStorage.getItem("userId");
+    this.user.organizerId = localStorage.getItem("userId");
     this.adminService.getOrganizationUsers(this.user).subscribe((res: any) => {
-      res.push(this.loggedUser);
+      // res.push(this.loggedUser);
       this.dataSource = new MatTableDataSource<usersInterface>(res);
     });
   }
@@ -99,6 +100,7 @@ export class AddUsersPageComponent implements OnInit {
   }
 
   deleteUser(user: any) {
+    user.organizerId=localStorage.getItem('userId')
 const dialogRef= this.dialog.open(ConfirmationDialogComponent,{
   data:'Are you sure you want to delete this user.',
   disableClose: true
@@ -106,9 +108,10 @@ const dialogRef= this.dialog.open(ConfirmationDialogComponent,{
 dialogRef.afterClosed().subscribe(({ confirmation }) => {
     if(!confirmation)
     return
-    this.sharedService.deleteUser(user).subscribe((res)=> {
+    this.sharedService.deleteUser(user).subscribe((res:any)=> {
       if(res){
-    this.getLoggedUser();
+    // this.getLoggedUser();
+    this.dataSource = new MatTableDataSource<usersInterface>(res);
     this.toastr.showSuccess("User deleted successfully");
       }
 

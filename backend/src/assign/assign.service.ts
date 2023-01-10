@@ -8,15 +8,15 @@ export class AssignService {
     @InjectModel('Assigns') private readonly assignModel: Model<assignModelDto>,
   ) {}
 
-  async assignQuizToGroup(body, groupId, organizationId) {
+  async assignQuizToGroup(body, groupId, organizerId,organizationId) {
     try {
       const assignDetails = {
         assignedQuizzes: body.assignedQuizzes,
         groupId: groupId,
         organizationId: organizationId,
+        organizerId:organizerId
       };
       const groupExists = await this.assignModel.exists({groupId:groupId})
-      console.log('groupExists',groupExists)
         if(!groupExists){
           const assignQuiz = await new this.assignModel(assignDetails);
          await assignQuiz.save();

@@ -53,7 +53,8 @@ export class QuizController {
     }
   }
 
-  // @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard,RolesGuard)
+  // @Roles('organizer','student')
   @Get('get-quiz-questions/:id')
   async getQuizQuestions(
     @Param() params: any,
@@ -76,6 +77,8 @@ export class QuizController {
     }
   }
 
+  @UseGuards(JwtAuthGuard,RolesGuard)
+  @Roles('organizer')
   @Post('getQuizzes')
   async getQuizzes(@Res() res: any, @Body() body:any) {
     try {
@@ -86,6 +89,8 @@ export class QuizController {
     }
   }
 
+  @UseGuards(JwtAuthGuard,RolesGuard)
+  @Roles('organizer','student')
   @UseGuards(JwtAuthGuard)
   @Post('get-quiz-time')
   async getQuizTime(@Res() res: any, @Body() body: any) {
@@ -97,8 +102,8 @@ export class QuizController {
     }
   }
 
-  @UseGuards(JwtAuthGuard)
-  // @Roles('organizer')
+  @UseGuards(JwtAuthGuard,RolesGuard)
+  @Roles('organizer')
   @Post('upload-file/:id')
   @UseInterceptors(FileInterceptor('file'))
   async addQuestionToQuiz(
@@ -121,6 +126,8 @@ export class QuizController {
     }
   }
 
+  @UseGuards(JwtAuthGuard,RolesGuard)
+  @Roles('organizer')
   @Patch('edit-question/:quizId/:questionId')
   @UseInterceptors(FileInterceptor('file'))
   async editQuestion(
@@ -143,6 +150,8 @@ export class QuizController {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
   }
+  @UseGuards(JwtAuthGuard,RolesGuard)
+  @Roles('organizer')
   @Patch('delete-question/:id')
   async deleteQuestion(
     @Body() body: any,
@@ -161,6 +170,8 @@ export class QuizController {
     }
   }
 
+  @UseGuards(JwtAuthGuard,RolesGuard)
+  @Roles('organizer')
   @UseGuards(JwtAuthGuard)
   @Post('generate-certificate')
   async generateCertificate(@Body() body: any, @Res() res: any) {
@@ -210,7 +221,8 @@ export class QuizController {
     }
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard,RolesGuard)
+  @Roles('organizer')
   @Post('quizzes-Played')
   async QuizzesPlayedByUser(@Body() body: any, @Res() res: any) {
     try {
@@ -220,6 +232,8 @@ export class QuizController {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
   }
+  @UseGuards(JwtAuthGuard,RolesGuard)
+  @Roles('organizer')
   @Post('quiz-title')
   async createQuizTitle(@Body() body: any, @Res() res: any) {
     try {
@@ -231,6 +245,8 @@ export class QuizController {
     }
   }
 
+  @UseGuards(JwtAuthGuard,RolesGuard)
+  @Roles('organizer')
   @Post('delete-quiz')
   async deleteQuiz(@Body() body: any, @Res() res: any) {
     try {
@@ -242,6 +258,8 @@ export class QuizController {
     }
   }
 
+  @UseGuards(JwtAuthGuard,RolesGuard)
+  @Roles('organizer')
   @Post('rename-quiz-title')
   async renameQuizTitle(@Body() body: any, @Res() res: any) {
     try {
@@ -261,6 +279,8 @@ export class QuizController {
       res.status(HttpStatus.BAD_REQUEST).json(err.message);
     }
   }
+  @UseGuards(JwtAuthGuard,RolesGuard)
+  @Roles('organizer')
   @Patch('configure-general')
   async configure(@Body() body: any, @Res() res: any) {
     try {
@@ -271,6 +291,8 @@ export class QuizController {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
   }
+  @UseGuards(JwtAuthGuard,RolesGuard)
+  @Roles('organizer')
   @Get('get-configuration-details/:id')
   async getConfigurationDetails(@Body() body,@Res() res,@Param() quizId){
       try{
@@ -281,6 +303,8 @@ export class QuizController {
 
       }
   }
+  @UseGuards(JwtAuthGuard,RolesGuard)
+  @Roles('organizer')
   @Post('sendEmailInvitation')
   async sendEmailInvitation(@Body() body: any, @Res() res) {
     try {
@@ -290,6 +314,8 @@ export class QuizController {
       res.status(HttpStatus.BAD_REQUEST).json(err.message);
     }
   }
+  @UseGuards(JwtAuthGuard,RolesGuard)
+  @Roles('organizer')
   @Post('grade')
   async grade(@Body() body: any, @Res() res) {
     try {
@@ -299,6 +325,7 @@ export class QuizController {
       res.status(HttpStatus.BAD_REQUEST).json(err.message);
     }
   }
+
   @Delete('retake-test/:quizId/:userId/:attempts')
 async retakeQuiz(@Param('quizId') quizId: string, @Param('userId') userId: string,@Param ('attempts') attempts:number, @Res() res) {
   try {
@@ -309,7 +336,8 @@ async retakeQuiz(@Param('quizId') quizId: string, @Param('userId') userId: strin
   }
 }
 
-  @UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard,RolesGuard)
+@Roles('organizer')
   @Post('get-quiz-publish-date')
   async getQuizPublishDate(@Res() res: any, @Body() body: any) {
     try {
