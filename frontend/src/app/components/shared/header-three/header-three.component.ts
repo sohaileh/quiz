@@ -37,6 +37,7 @@ export class HeaderThreeComponent implements OnInit {
   organizationId: string;
 totalGroups:any;
   groupName: any;
+  groupId:any;
   // @ViewChild(ProductLeftSidebarComponent,{static:false}) MenuItem:ProductLeftSidebarComponent
   constructor(
     private cartService: CartService,
@@ -54,7 +55,12 @@ totalGroups:any;
   }
 
   ngOnInit() {
-    this.groupName=this.route.snapshot.queryParamMap.get("groupName")
+    this.groupId=this.route.snapshot.queryParamMap.get("groupId")
+    this.groupService.getGroup(this.groupId).subscribe((res:any)=>{
+      for (const { groupName: n} of res) {
+        this.groupName=n;
+      }
+    })
     this.currency = this.currencies[0];
     this.flag = this.flags[0];
     this.adminService.organizationUsers$.subscribe({

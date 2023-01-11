@@ -26,6 +26,7 @@ export class GroupInfoComponent implements OnInit {
   availableQuizzes = [];
   assignQuizzes = [];
   assignedQuizzes = [];
+  data:any;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -37,7 +38,6 @@ export class GroupInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.groupId = this.route.snapshot.queryParamMap.get("groupId");
-    this.groupName = this.route.snapshot.queryParamMap.get("groupName");
     this.groupservice.getGroupMembers(this.groupId).subscribe((res: any) => {
       this.memberData = res;
       this.totalMembers = res?.length;
@@ -49,7 +49,12 @@ export class GroupInfoComponent implements OnInit {
           (data) => data.quizTitle
         );
     });
-
+    this.groupservice.getGroup(this.groupId).subscribe((res:any)=>{
+      for (const { groupName: n} of res) {
+        this.groupName=n;
+      }
+      
+    })
     this.organizationId.userId = localStorage.getItem("userId");
 
     this.adminService
@@ -62,7 +67,6 @@ export class GroupInfoComponent implements OnInit {
   addMember() {
     this.router.navigate(["/admin/add-users"], {
       queryParams: { groupId: this.groupId },
-      queryParamsHandling:"merge"
     });
   }
   openDialog() {
@@ -102,8 +106,6 @@ export class GroupInfoComponent implements OnInit {
   editMember(userId: any, groupId: any) {
     this.router.navigate(["/admin/edit-user"], {
       queryParams: {id: userId,groupId:groupId },
-      queryParamsHandling:"merge"
-
     });
   }
   deleteMember(userId: any, groupId: any) {

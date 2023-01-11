@@ -27,7 +27,7 @@
       <p >Total Groups:  {{totalGroups}}</p>
     </ol> 
     </nav>
-  <nav aria-label="breadcrumb"*ngIf="router.url.includes('/admin/group-info')">
+  <nav aria-label="breadcrumb"*ngIf="router.url.includes('/admin/group-info?groupId=')">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a [routerLink]="['/admin/group-dashboard']">Groups</a></li>
      <li class="breadcrumb-item"><a>{{groupName}}</a></li>

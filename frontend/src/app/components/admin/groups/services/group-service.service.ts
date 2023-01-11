@@ -45,4 +45,7 @@ export class GroupServiceService {
     const organizationId= localStorage.getItem('organizationId')
     return this.http.post(`${this.serverUrl}assign/assign-quiz/${groupId}/${organizerId}/${organizationId}`,groupDetails);
   }
+  getGroup(groupId:any){
+    return this.http.get(`${this.serverUrl}group/get-organization-group/${groupId}` );
+  }
 }

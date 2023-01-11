@@ -101,4 +101,12 @@ export class GroupService {
     throw new HttpException(err.message, HttpStatus.BAD_REQUEST); 
       }
   }
+  async getGroup(groupId){
+    try{
+      const group = await this.groupModel.find({groupId:groupId})
+      return group
+    }catch(err){
+    throw new HttpException(err.message, HttpStatus.BAD_REQUEST); 
+    }
+  }
 }

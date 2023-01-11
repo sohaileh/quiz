@@ -92,4 +92,16 @@ export class GroupController {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
   }
+  @UseGuards(JwtAuthGuard,RolesGuard)
+  @Roles('organizer')
+  @Get('get-organization-group/:groupId')
+  async getGroup(@Param() param ,@Res() res){
+    try{
+      const {groupId}= param
+        const groupMembers= await this.groupService.getGroup(groupId)
+        res.status(HttpStatus.OK).json(groupMembers)
+    }catch(err){
+      throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+    }
+  }
 }

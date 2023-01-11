@@ -1,159 +1,158 @@
 <app-header-three></app-header-three>
 <div class="h-100 d-flex justify-content-center">
-    <div class="form-horizontal" role="form" class="formContainer">
-      <div class="sectionTab">
-        <div>
-          <div class="panel panel-primary resultPanel">
-            <div class="panel-heading">Group</div>
+  <div class="form-horizontal" role="form" class="formContainer">
+    <div class="sectionTab">
+      <div>
+        <div class="panel panel-primary resultPanel">
+          <div class="panel-heading">Group</div>
 
-            <div class="panel-body resultViewer">
-              <div class="row resultToolbar">
-                <div class="col-md-4">
-                  <div class="input-group">
-                    <div class="input-group-addon">
-                      <i class="fa fa-search"></i>
-                    </div>
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="Search"
-                    />
+          <div class="panel-body resultViewer">
+            <div class="row resultToolbar">
+              <div class="col-md-4">
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-search"></i>
                   </div>
-                </div>
-
-                <div class="col-md-8">
-                  
-                    <button
-                      class="btn btn-sm outline-none member-button float-right" (click)="addMember()"
-                    >Add Member
-                    </button>
-               
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Search"
+                  />
                 </div>
               </div>
 
-              <table class="resultText tableContainer">
-                <tbody>
-                  <tr>
-                    <td class="td_totalQuizzes">Group Name</td>
-                    <td>{{ groupName}} </td>
-                  </tr>
-                  <tr>
-                    <td>Total Members</td>
-                    <td>{{totalMembers}}</td>
-                  </tr>
-                  <tr>
-                    <td>Quiz's Assigned</td>
-                    <td>{{quizzesAssigned}}</td>
-                  </tr>
-                </tbody>
-              </table>
-              <div class=" panel panel-primary resultPanel">
-                <div class="panel-heading">
-                    <h4 class="text-white">Members</h4>
-                </div>
-                </div>
-              <table class="table table-condensed resultText desktop-only">
-                
+              <div class="col-md-8">
+                <button
+                  class="btn btn-sm outline-none member-button float-right"
+                  (click)="addMember()"
+                >
+                  Add Member
+                </button>
+              </div>
+            </div>
 
-                <thead>
-                    
-                  <tr >
-                    <th>
-                      <a>
-                      First Name
-                      </a>
-                    </th>
-
-                    <th>
-                      <a>last Name</a>
-                    </th>
-                    <th>
-                      <a>Email</a>
-                    </th>
-                    <th>
-                      <a>Created</a>
-                    </th>
-                    <!-- <th>
-                      <a> Duration </a>
-                    </th> -->
-                    <th>
-                      <a> Organization</a>
-                    </th>
-                    <th>
-                      <a> Actions </a>
-                    </th>
-
-                  </tr>
-                  <tr *ngFor="let member of memberData">
-                    <td>{{ member.firstName}}</td>
-                    <td>{{ member.lastName}}</td>
-                    <td>{{member.emailAddress }}</td>
-                    <td>{{member.created|date}}</td>
-                    <td>{{member.organization}}</td>
-                    <td>
-                        <span>
-                            <i class="fa fa-edit text-success" (click)="editMember(member._id,member.groupId)">
-
-                            </i>
-                            <i class="fa fa-trash pl-3 text-danger" (click)="deleteMember(member._id,member.groupId)"></i>
-                        </span>
-                      </td>
-                    <!-- <td>/</td> -->
-                    <!-- <td>/</td> -->
-                   
-                  </tr>
-                </thead>
-              </table>
-              <table
-                class="table table-condensed resultText mobile-only"
-                *ngFor="let member of memberData"
-              >
+            <table class="resultText tableContainer">
+              <tbody>
                 <tr>
-                  <th>
-                    <a>
-                     First Name
-                   
-                    </a>
-                  </th>
-                  <td>{{ member.firstName }}</td>
+                  <td class="td_totalQuizzes">Group Name</td>
+                  <td>{{ groupName }}</td>
                 </tr>
                 <tr>
-                  <th>
-                    <a> Last Name</a>
-                  </th>
-                  <td>{{member.lastName }}</td>
+                  <td>Total Members</td>
+                  <td>{{ totalMembers }}</td>
                 </tr>
                 <tr>
-                  <th>
-                    <a> Email </a>
-                  </th>
-                  <td>{{ member.emailAddress }}</td>
+                  <td>Quiz's Assigned</td>
+                  <td>{{ quizzesAssigned }}</td>
                 </tr>
+              </tbody>
+            </table>
+            <div class="panel panel-primary resultPanel">
+              <div class="panel-heading">
+                <h4 class="text-white">Members</h4>
+              </div>
+            </div>
+            <table class="table table-condensed resultText desktop-only">
+              <thead>
                 <tr>
+                  <th>
+                    <a> First Name </a>
+                  </th>
+
+                  <th>
+                    <a>last Name</a>
+                  </th>
+                  <th>
+                    <a>Email</a>
+                  </th>
                   <th>
                     <a>Created</a>
                   </th>
-                  <td>{{member.created|date}}</td>
-                </tr>
-               
-                <tr>
+                  <!-- <th>
+                      <a> Duration </a>
+                    </th> -->
+                  <th>
+                    <a> Organization</a>
+                  </th>
                   <th>
                     <a> Actions </a>
                   </th>
+                </tr>
+                <tr *ngFor="let member of memberData">
+                  <td>{{ member.firstName }}</td>
+                  <td>{{ member.lastName }}</td>
+                  <td>{{ member.emailAddress }}</td>
+                  <td>{{ member.created | date }}</td>
+                  <td>{{ member.organization }}</td>
                   <td>
                     <span>
-                        <i class="fa fa-edit">
-                        </i>
-                        <i class="fa fa-delete"></i>
+                      <i
+                        class="fa fa-edit text-success"
+                        (click)="editMember(member._id, member.groupId)"
+                      >
+                      </i>
+                      <i
+                        class="fa fa-trash pl-3 text-danger"
+                        (click)="deleteMember(member._id, member.groupId)"
+                      ></i>
                     </span>
                   </td>
+                  <!-- <td>/</td> -->
+                  <!-- <td>/</td> -->
                 </tr>
-               
-              
-              </table>
-            </div>
+              </thead>
+            </table>
+            <table
+              class="table table-condensed resultText mobile-only"
+              *ngFor="let member of memberData"
+            >
+              <tr>
+                <th>
+                  <a> First Name </a>
+                </th>
+                <td>{{ member.firstName }}</td>
+              </tr>
+              <tr>
+                <th>
+                  <a> Last Name</a>
+                </th>
+                <td>{{ member.lastName }}</td>
+              </tr>
+              <tr>
+                <th>
+                  <a> Email </a>
+                </th>
+                <td>{{ member.emailAddress }}</td>
+              </tr>
+              <tr>
+                <th>
+                  <a>Created</a>
+                </th>
+                <td>{{ member.created | date }}</td>
+              </tr>
+
+              <tr>
+                <th>
+                  <a> Actions </a>
+                </th>
+                <td>
+                  <span>
+                    <i
+                      class="fa fa-edit text-success"
+                      (click)="editMember(member._id, member.groupId)"
+                    >
+                    </i>
+                    <i
+                      class="fa fa-trash pl-3 text-danger"
+                      (click)="deleteMember(member._id, member.groupId)"
+                    ></i>
+                  </span>
+                </td>
+              </tr>
+            </table>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
