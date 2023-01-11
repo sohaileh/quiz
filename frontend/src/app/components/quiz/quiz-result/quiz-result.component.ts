@@ -57,11 +57,14 @@ this.getResultInfo()
     })
   }
   redirect(){
-    const userId = localStorage.getItem('userId')
-    if(userId)
-    this.router.navigate(['/home/dashboard'])
-    else
-    this.router.navigate([`/signin-quiz/${this.quizId}`])
+    const accessToken = localStorage.getItem('accessToken')
+     const {groups}  = JSON.parse(atob(accessToken.split('.')[1]))
+    groups.map((group)=>{
+      if(group.name=='ORGANIZER')
+      this.router.navigate(['/home/dashboard'])
+      else
+      this.router.navigate([`/signin-quiz/${this.quizId}`])
+    })
   }
   retakeTest(){
     this.userId =  this.route.snapshot.queryParams['userId']

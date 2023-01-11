@@ -102,7 +102,7 @@ export class AuthService {
     localStorage.setItem('organizationId',organizationId)
 
   }
-  getGsfUrl(){
-    return this.http.get(`${this.serverUrl}auth/get-gsf-url`)
+  getClientId(){
+    return this.http.get(`${this.serverUrl}auth/ClientId`)
   }
 }

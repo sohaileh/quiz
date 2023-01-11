@@ -189,9 +189,9 @@ export class AuthController {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
   }
-  // @Get('get-gsf-login-url')
-  // async getGsfLoginUrl(@Res() res){
-  //   const gsfLoginData = await this.authService.getGsfLoginUrl()
-  //   res.status(HttpStatus.OK).json(gsfLoginData)
-  // }
+  @Get('ClientId')
+  async getClientId(@Res() res){
+    const gsfLoginData = await this.authService.getClientId()
+    res.status(HttpStatus.OK).json(gsfLoginData)
+  }
 }

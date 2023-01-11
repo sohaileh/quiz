@@ -273,9 +273,8 @@ export class AuthService {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
   }
-  // getGsfLoginUrl(){
-  
-  //   const gsfData={ appUrl:process.env.appUrl,ClientId:process.env.ClientId,appURL:process.env.appURL,serverURL:process.env.serverURL}
-  //   return gsfData
-  // }
+  getClientId(){
+    const gsfData={ClientId:process.env.ClientId}
+    return gsfData
+  }
 }

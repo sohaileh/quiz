@@ -21,12 +21,7 @@ export class CanActivateGuard implements CanActivate {
       return true
     } 
     else {
-      // const appId = '63bba42e5ae42f5628b0d338';
-      // const ClientId = '63bba4774f3dd05d344c5ce1';
-      // const appURL = 'https://gsftestapi.educian.com/';
-      // const serverURL = 'http://localhost:4200/oauth/callback';
-      let url = `${this.appURL}/exgsfsso/authorize?response_type=code&redirect_uri=${this.serverUrL}&app_id=${this.appId}&client_id=${this.ClientId}&scope=openid%20profile&state=xjsueokjdi_der`;
-      window.location.href=`${url}`
+        this.router.navigate(['oauth/login'])
       return false
     }
 

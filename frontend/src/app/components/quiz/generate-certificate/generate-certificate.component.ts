@@ -41,7 +41,6 @@ export class GenerateCertificateComponent implements OnInit {
     });
     this.adminService.getUserQuizResult(this.userId,this.quizId).subscribe({
       next:(response:any)=>{
-        console.log('userResult',response)
         this.quizTitle = response.quizTitle
         this.playedOn=response?.userResultDetails?.results[0]?.playedOn
         console.log(response.userResultDetails.results[0].playedOn)
