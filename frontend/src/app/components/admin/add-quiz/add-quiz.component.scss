@@ -1,4 +1,4 @@
-#title{
+#title {
   visibility: hidden;
 }
 .custom-row {
@@ -45,10 +45,10 @@ mat-form-field {
 }
 
 .button {
-  background-color: #268e9b;
-  border: none;
-  outline: none;
   color: #fff;
+  background-color: #28a745;
+  border-color: #28a745;
+  // outline: none;
 }
 
 .options {
@@ -73,20 +73,18 @@ mat-card-actions {
   .options-width {
     width: 80%;
   }
-  #content{
+  #content {
     width: 100%;
     orientation: landscape;
   }
-
 }
-@media print{
-  #content{
+@media print {
+  #content {
     width: 250vw;
   }
 }
 
 @media screen and(max-width:768px) {
-  
   mat-table {
     font-size: 10px;
     text-align: center;
@@ -132,4 +130,9 @@ mat-card-actions {
   top: 7.5%;
   left: 50%;
   transform-origin: center bottom;
+}
+
+
+.f-18{
+  font-size: 18px;
 }

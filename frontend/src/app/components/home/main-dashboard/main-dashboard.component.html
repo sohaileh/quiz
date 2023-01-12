@@ -1,8 +1,8 @@
 <mat-card class="w-100 h-100 layout p-0 p-md-3">
   <mat-card-content class="p-md-4 mt-3 mt-md-0 h-100 w-100">
-    <div class="d-flex pl-5 pr-2 justify-content-between header rounded-top" fxLayoutAlign="space-between center"
+    <div class="d-flex pl-4 pr-2 justify-content-between header rounded-top" fxLayoutAlign="space-between center"
       fxLayoutGap="5px" fxLayout.xs="row" fxLayout.sm="row" fxLayout="row">
-      <div fxLayoutAlign="center center">Quizs</div>
+      <div fxLayoutAlign="center center f-600">Quizzes</div>
 
       <div class="mr-1" fxLayoutAlign="center center">
         <span><button class="btn create-button border-0" (click)="openQuizTitle()">
@@ -57,10 +57,10 @@
             <ng-container matColumnDef="action">
               <th mat-header-cell *matHeaderCellDef class="p-1">Action</th>
               <td mat-cell *matCellDef="let row" fxLayoutGap="8px">
-                <span><i class="fa fa-edit text-success" (click)="editQuiz(row)"></i>
+                <span><i class="fa fa-edit text-primary" (click)="editQuiz(row)"></i>
                 </span>
                 <span><i class="fa fa-file-text-o text-primary" (click)="renameQuizTitle(row)"></i></span>
-                <span><i class="fa fa-trash text-danger" (click)="deleteQuiz(row)"></i></span>
+                <span><i class="fa fa-trash text-primary" (click)="deleteQuiz(row)"></i></span>
               </td>
             </ng-container>
           </div>

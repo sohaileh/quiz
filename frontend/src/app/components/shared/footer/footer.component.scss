@@ -1,39 +1,86 @@
 .headerText {
-    color: #f9d302;
-    letter-spacing: 1px;
-    font-weight: 400;
-    font-family: 'Roboto', sans-serif;
-    // margin-top: 10px;
-
-
+  color: white;
+  letter-spacing: 1px;
+  font-weight: 400;
+  font-family: "Roboto", sans-serif;
+  // margin-top: 10px;
 }
 
 .market {
-    font-size: 13px;
-    letter-spacing: 4px;
-    margin-top: -10px;
-    margin-left: 4px;
+  font-size: 13px;
+  letter-spacing: 4px;
+  margin-top: -10px;
+  margin-left: 4px;
 }
 
 .head {
-    font-size: 26px;
-
+  font-size: 26px;
 }
 
 .alt-padding {
-    padding: 15px 0px;
+  padding: 15px 0px;
 }
 
 .bg-dark {
-    background-color: rgb(77, 72, 72) !important;
-    color: white !important;
-    // position: absolute;
-    // width: 100vw;
-    text-align: center;
-    padding:5px
-
-
+  background-color: #00062A !important;
+  color: white !important;
+  // position: absolute;
+  // width: 100vw;
+  text-align: center;
+  padding: 5px;
 }
 .logo-row {
-    margin-bottom: 13px !important;
+  margin-bottom: 13px !important;
+}
+
+img {
+  width: 72%;
+}
+
+// body{
+//     background-color: black;
+// }
+
+a {
+  color: white !important;
+}
+
+ul {
+  text-align: initial !important;
+  font-size: medium;
+}
+
+.fa {
+  color: white !important;
+}
+
+.btn {
+  color: var(--color);
+  background-color: var(--background-color);
+  font-weight: var(--font-weight);
+}
+
+.btn-sub {
+  float: left;
+  margin-top: 5px;
+  font-weight: bold;
+  border-radius: 30px;
+  text-align: center;
+  vertical-align: middle;
+  text-transform: uppercase;
+  border: none;
+  color: #fff;
+  background: #e9a400;
+  padding: 8px 28px;
+}
+
+.inp-foot {
+  height: 30px;
+  margin-bottom: 10px;
+}
+
+.p-foot {
+  font-size: 10px;
+  text-align: initial;
+  line-height: 15px;
 }

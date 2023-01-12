@@ -12,15 +12,15 @@
 //   width: 13em;
 // }
 .container-fluid{
-  background-color: lightblue;
+  background-color: #fff;
   height:100%;
   overflow: auto;
+  border: 1px solid #ddd;
  }
  .btn{
   width: 150px;
-  background-color: #268e9b;
-  border: none;
-  outline: none;
+  background-color: #28a745;
+  border-color: #28a745;
   color: #fff;
   text-transform: uppercase;
   cursor: pointer;

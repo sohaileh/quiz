@@ -6,24 +6,24 @@
   color: #555;
   text-align: center;
   background-color: #eee;
-  border: 1px solid #ccc;
+  // border: 1px solid #ccc;
+  border: 1px solid #ddd;
   border-radius: 4px;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-.member-button{
-width: 92px;
-background-color: #268e9b;
-border: none;
-outline: none;
-height: 30px;
-color: #fff;
-text-transform: uppercase;
-font-weight: 400;
-margin: 10px 0;
-cursor: pointer;
-transition: 0.5s;
-font-size: 12px;
+.member-button {
+  // width: 92px;
+  color: #fff;
+  background-color: #28a745;
+  border-color: #28a745;
+  height: 30px;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: 0.5s;
+  font-size: 12px;
 }
 .sectionTab {
   border-bottom: 1px solid #ddd;
@@ -43,7 +43,8 @@ font-size: 12px;
 .panel-primary > .panel-heading {
   color: #fff;
   background-color: #337ab7;
-  border-color: #337ab7;
+  // border-color: #337ab7;
+  border: 1px solid #ddd;
 }
 
 .resultViewer {
@@ -68,13 +69,15 @@ font-size: 12px;
 }
 .panel-primary {
   border-color: #337ab7;
-  border: 1px solid;
+  // border: 1px solid;
+  border: 1px solid #ddd;
 }
 
 .panel {
   margin-bottom: 20px;
   background-color: #fff;
-  border: 1px solid #337ab7;
+  // border: 1px solid #337ab7;
+  border: 1px solid #ddd;
   border-radius: 4px;
   padding: 1px;
   -webkit-box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
@@ -137,9 +140,10 @@ a {
 }
 .mobile-only {
   display: table !important;
-  border: 1px solid #337ab7;
+  // border: 1px solid #337ab7;
+  border: 1px solid #ddd;
 }
-.cursor{
+.cursor {
   cursor: pointer;
 }
 @media screen and (min-width: 768px) {
@@ -175,20 +179,20 @@ a {
   padding: 0.75rem;
   vertical-align: top;
 }
-.heading{
+.heading {
   border-bottom: 1px solid #ddd;
   margin: 10px;
   padding-bottom: 20px;
 }
-.result{
+.result {
   border-bottom: 2px solid #ddd;
   margin: 20px;
 }
-.result_data td{
+.result_data td {
   padding: 0.75rem;
   vertical-align: top;
 }
-.btn{
+.btn {
   outline: none;
 }
 .btn:focus {
@@ -201,6 +205,6 @@ a {
   border-top: 1px solid black; /* for demo */
   background: yellow; /* for demo */
 }
-i{
+i {
   cursor: pointer;
 }

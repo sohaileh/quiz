@@ -100,14 +100,14 @@
             >
               <span
                 ><i
-                  class="fa fa-edit text-success"
+                  class="fa fa-edit text-primary"
                   *ngIf="element?.role !== 'admin'"
                   (click)="getUserInfo(element)"
                 ></i>
               </span>
               <span
                 ><i
-                  class="fa fa-trash text-danger"
+                  class="fa fa-trash text-primary"
                   *ngIf="element?.role !== 'admin'"
                   (click)="deleteUser(element)"
                 ></i

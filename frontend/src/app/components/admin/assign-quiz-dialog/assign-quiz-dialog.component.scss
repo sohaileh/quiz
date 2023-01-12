@@ -1,24 +1,24 @@
-.assign-height{
-    height: 200px;
-    overflow-y: scroll;
+.assign-height {
+  height: 200px;
+  overflow-y: scroll;
 }
-.selected-Option{
-    background-color: #337ab7;
-    color: white;
-    padding-left: 5px;
+.selected-Option {
+  background-color: #337ab7;
+  color: white;
+  padding-left: 5px;
 }
-::-webkit-scrollbar{
-    width: 0;
-    background: transparent;
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
 }
-.button{
-
-    background-color: #268e9b;
-    border: none;
-    outline: none;
-    color: #fff;
-    margin: 10px 0;
-  }
-  .cursor{
-    cursor: pointer;
-  }
+.button {
+  // background-color: #268e9b;
+  color: #fff;
+  background-color: #28a745;
+  border-color: #28a745;
+  color: #fff;
+  margin: 10px 0;
+}
+.cursor {
+  cursor: pointer;
+}

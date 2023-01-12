@@ -245,8 +245,8 @@ i {
 /*------------- ---------------------------------------------------- navbar -----------------------------------*/
 
 .navbar {
-  background-color: #268e9b;
-
+  // background-color: #268e9b;
+  background-color:  #00062A;
   color: #fff;
 
   min-height: 60px;
@@ -290,12 +290,6 @@ ul li a {
   -webkit-transition: transform 250ms;
 
   transition: transform 250ms;
-}
-
-.navbar ul li a:hover:after {
-  // -webkit-transform: translateX(-100%) scaleX(1);
-
-  // transform: translateX(-100%) scaleX(1);
 }
 
 .nav-2 ul li a:hover:after {
@@ -366,10 +360,10 @@ a {
 
   text-decoration: none;
 }
-.navbar ul li a:hover{
-    border-bottom: #fff 3px solid;
-    -webkit-transition: transform 400ms;
-    transition: transform 450ms;
+.navbar ul li a:hover {
+  border-bottom: #fff 3px solid;
+  -webkit-transition: transform 400ms;
+  transition: transform 450ms;
 }
 .previewButton {
   padding-right: 196px;
@@ -378,11 +372,11 @@ a {
 
   cursor: pointer;
 }
-.active{
- border-bottom: #fff 3px solid;
-//  margin: 0px 2px;
- -webkit-transition: transform 250ms;
- transition: transform 300ms;
+.active {
+  border-bottom: #fff 3px solid;
+  //  margin: 0px 2px;
+  -webkit-transition: transform 250ms;
+  transition: transform 300ms;
 }
 mat-toolbar {
   padding-left: 116px;
@@ -415,7 +409,7 @@ mat-toolbar {
   color: white;
 }
 mat-toolbar a:hover {
-  border: 1px solid;
+  border: 1px solid #ddd;
   border-radius: 1px;
 }
 .mat-toolbar {
@@ -428,8 +422,13 @@ mat-toolbar a:hover {
 .spacer {
   flex: 1 1 auto;
 }
-.printButton{
+.printButton {
   padding-right: 40px;
   margin-top: 5px;
   cursor: pointer;
+}
+
+.f-i {
+  color: #fff;
+  font-size: 28px;
 }

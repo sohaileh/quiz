@@ -1,228 +1,134 @@
+<div class="d-flex justify-content-between" *ngIf="!data.question">
+  <mat-card-header>New Question</mat-card-header>
+  <button type="button" class="close shadow-none" (click)="closeDialogModel()">
+    &times;
+  </button>
 
-  <div class="d-flex justify-content-between" *ngIf="!data.question">
-    <mat-card-header >New Question</mat-card-header>
-    <button
-      type="button"
-      class="close shadow-none"
-     (click)="closeDialogModel()"
-     
-    >
-      &times;
-    </button>
-  
-  </div>
-  
+</div>
 
-  <mat-dialog-content class="mat-dialog-content" *ngIf="!data.question">
-    <hr />
-      <div [formGroup]="questionBank">
+
+<mat-dialog-content class="mat-dialog-content" *ngIf="!data.question">
+  <hr />
+  <div [formGroup]="questionBank">
     <div class="form-group d-flex flex-column flex-lg-row align-items-baseline">
-      <label class="col-lg-2 control-label p-0 font-weight-bold"
-        >Question Type</label
-      >
+      <label class="col-lg-2 control-label p-0 font-weight-bold">Question Type</label>
       <div class="col-lg-4" ngClass.lt-md="p-0">
-        <select
-          class="form-control question-type"
-          ngClass.lt-md="w-100"
-          id="exampleFormControlSelect1"
-          formControlName="type"
-          (change)="setQuestionType($event.target.value)"
-          name="Type of Question"
-        >
+        <select class="form-control question-type" ngClass.lt-md="w-100" id="exampleFormControlSelect1"
+          formControlName="type" (change)="setQuestionType($event.target.value)" name="Type of Question">
           <option disabled>Choose Question Type</option>
-          <option
-            *ngFor="let questiontype of typeOfQuestions"
-            [value]="questiontype.type"
-          >
+          <option *ngFor="let questiontype of typeOfQuestions" [value]="questiontype.type">
             {{ questiontype.type }}
           </option>
         </select>
-        
+
       </div>
-      <div
-        class="col-lg-3 d-flex mt-2 mt-lg-0 justify-content-between align-items-baseline p-0 mr-2"
-      >
+      <div class="col-lg-3 d-flex mt-2 mt-lg-0 justify-content-between align-items-baseline p-0 mr-2">
         <label class="control-label mr-1 font-weight-bold">Time(min)</label>
         <div class="w-100" ngClass.lt-lg="d-flex flex-column align-items-end">
-          <input
-          type="number"
-          placeholder="minutes"
-          formControlName="timeLimit"
-          name="Time"
-          min="1"
-          class="form-control time"
-          ngClass.lt-md="w-50"
-          ngClass.lt-sm="w-100"
-          
-        />
-        <mat-error 
-        *ngIf="
+          <input type="number" placeholder="minutes" formControlName="timeLimit" name="Time" min="1"
+            class="form-control time text-right" ngClass.lt-md="w-50" ngClass.lt-sm="w-100" />
+          <mat-error *ngIf="
           checkError('timeLimit', 'required') &&
           questionBank.get('timeLimit').touched
-        "
-        >Time is required</mat-error
-      >
-        </div>
-        
-      </div>
-      <div
-        class="col-lg-3 mt-2 mt-lg-0 d-flex justify-content-between align-items-baseline p-0"
-      >
-        <label class="control-label mr-1 font-weight-bold">Points</label>
-        <div class="w-100" ngClass.lt-lg="d-flex flex-column align-items-end">
-          <input
-          type="number"
-          class="form-control marks"
-          formControlName="points"
-          name="points"
-          min="1"
-          placeholder="points"
-          ngClass.lt-md="w-50"
-          ngClass.lt-sm="w-100"
-        />
-        <mat-error 
-        *ngIf="
-          checkError('points', 'required') &&
-          questionBank.get('points').touched
-        "
-        >Points is required</mat-error
-      >
+        ">Time is required</mat-error>
         </div>
 
-        
+      </div>
+      <div class="col-lg-3 mt-2 mt-lg-0 d-flex justify-content-between align-items-baseline p-0">
+        <label class="control-label mr-1 font-weight-bold">Points</label>
+        <div class="w-100" ngClass.lt-lg="d-flex flex-column align-items-end">
+          <input type="number" class="form-control marks text-right" formControlName="points" name="points" min="1"
+            placeholder="points" ngClass.lt-md="w-50" ngClass.lt-sm="w-100" />
+          <mat-error *ngIf="
+          checkError('points', 'required') &&
+          questionBank.get('points').touched
+        ">Points is required</mat-error>
+        </div>
+
+
       </div>
     </div>
 
     <div class="form-group d-flex flex-column flex-lg-row ">
-      <label class="col-lg-2 control-label p-0 font-weight-bold"
-      >Question</label
-    >
-    <div class="col-lg-10">
-      <ckeditor
-        formControlName="question"
-        [config]="ckeConfig"
-      ></ckeditor>
-      <mat-error 
-      *ngIf="
+      <label class="col-lg-2 control-label p-0 font-weight-bold">Question</label>
+      <div class="col-lg-10">
+        <ckeditor formControlName="question" [config]="ckeConfig"></ckeditor>
+        <mat-error *ngIf="
         checkError('question', 'required') &&
         questionBank.get('question').touched 
-      "
-      >Question is required</mat-error>
+      ">Question is required</mat-error>
+      </div>
     </div>
-    </div>
-   
-    <div
-                class="form-group d-flex"
-                ngClass.lt-sm="d-flex flex-column"
-                *ngIf="
+
+    <div class="form-group d-flex" ngClass.lt-sm="d-flex flex-column" *ngIf="
                   questionType == 'image' ||
                   questionType == 'audio' ||
                   questionType == 'video'
-                "
-              >
-                <label class="col-sm-2 control-label p-0 font-weight-bold"
-                  >File</label
-                >
-                <div class="col-sm-10">
-                  <span>
-                    <input
-                      type="file"
-                      name="myfile"
-                      formControlName="file"
-                      (change)="uploadFile($event)"
-                      name="file"
-                    />
-                  </span>
-                </div>
-              </div>
-              <div class="form-group d-flex" ngClass.lt-sm="d-flex flex-column">
-                <hr />
-                <label class="col-sm-2 p-0 font-weight-bold">Options</label>
-                <div class="col-sm-10 d-flex flex-column">
-                  <ng-container formArrayName="options">
-                    <ng-container
-                      *ngFor="
+                ">
+      <label class="col-sm-2 control-label p-0 font-weight-bold">File</label>
+      <div class="col-sm-10">
+        <span>
+          <input type="file" name="myfile" formControlName="file" (change)="uploadFile($event)" name="file" />
+        </span>
+      </div>
+    </div>
+    <div class="form-group d-flex" ngClass.lt-sm="d-flex flex-column">
+      <hr />
+      <label class="col-sm-2 p-0 font-weight-bold">Options</label>
+      <div class="col-sm-10 d-flex flex-column">
+        <ng-container formArrayName="options">
+          <ng-container *ngFor="
                         let questionOptions of options.controls;
                         let i = index
-                      "
-                    >
-                      <div
-                        [formGroup]="questionOptions"
-                        class="d-flex flex-grow-1 align-items-baseline"
-                      >
-                        <input
-                          class="form-control mr-3"
-                          type="text"
-                          formControlName="option"
-                          name="option"
-                          appFormErrorMsg
-                          minlength="1"
-                        />
-                        <div class="d-flex ">
-                          <mat-checkbox
-                          color="primary"
-                            [checked]=" correctAnswerIndex == i "
-                            class="example-margin custom-checkbox"
-                            (change)="getCorrectAnswer(i, $event)"
-                          >
-                            Correct
-                          </mat-checkbox>
-                          <div>
-                            <i
-                            class="fa fa-times  ml-2   text-danger cursor"
-                            (click)="removeOption(i)"
-                          ></i>
-                          </div>
-                         
-                        </div>
-                      </div>
-                  
-                      <hr />
-                    </ng-container>
-                  </ng-container>
+                      ">
+            <div [formGroup]="questionOptions" class="d-flex flex-grow-1 align-items-baseline">
+              <input class="form-control mr-3" type="text" formControlName="option" name="option" appFormErrorMsg
+                minlength="1" />
+              <div class="d-flex ">
+                <mat-checkbox color="primary" [checked]=" correctAnswerIndex == i "
+                  class="example-margin custom-checkbox" (change)="getCorrectAnswer(i, $event)">
+                  Correct
+                </mat-checkbox>
+                <div>
+                  <i class="fa fa-times  ml-2   text-danger cursor" (click)="removeOption(i)"></i>
                 </div>
-              </div>
-              <div class="form-group d-flex" ngClass.lt-sm="d-flex flex-column">
-                <label class="col-sm-2 p-0" fxHide.lt-sm="true"></label>
-                <button
-                  class="button btn"
-                  ngClass.lt-sm="w-50"
-                  (click)="addOptions()"
-                  [disabled]="maxOptionsLimitReached"
-                >
-                  Add options
-                </button>
-              </div>
-            </div>         
-  </mat-dialog-content>
-  <mat-card-actions align="end" *ngIf="!data.question" class="d-flex flex-column align-items-end align-items-md-center flex-md-row">
-    <button
-      type="button"
-      class=" btn btn-light mb-2 mb-md-0"
-     (click)="closeDialogModel()"
-    >
-      Cancel
-    </button>
 
-    <button type="button" [disabled]="savingQuestion" class="btn button ml-1 mb-2 mb-md-0" (click)="addQuestion()">
-     {{savingQuestion?'Saving...':'Save and Add Another'}}
-    </button>
-    <button type="button" class="btn button ml-1 mb-2 mb-md-0"  (click)="saveQuiz()">
-      Finish
-    </button>
-  </mat-card-actions>
- 
- 
+              </div>
+            </div>
+
+            <hr />
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+    <div class="form-group d-flex" ngClass.lt-sm="d-flex flex-column">
+      <label class="col-sm-2 p-0" fxHide.lt-sm="true"></label>
+      <button class="button btn" ngClass.lt-sm="w-50" (click)="addOptions()" [disabled]="maxOptionsLimitReached">
+        Add options
+      </button>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-card-actions align="end" *ngIf="!data.question"
+  class="d-flex flex-column align-items-end align-items-md-center flex-md-row">
+  <button type="button" class=" btn btn-light mb-2 mb-md-0" (click)="closeDialogModel()">
+    Cancel
+  </button>
+
+  <button type="button" [disabled]="savingQuestion" class="btn button ml-1 mb-2 mb-md-0" (click)="addQuestion()">
+    {{savingQuestion?'Saving...':'Save and Add Another'}}
+  </button>
+  <button type="button" class="btn button ml-1 mb-2 mb-md-0" (click)="saveQuiz()">
+    Finish
+  </button>
+</mat-card-actions>
+
+
 <!-- edit dialog -->
 
 <div class="d-flex justify-content-between" *ngIf="data.question">
   <mat-card-header>Edit Question</mat-card-header>
-  <button
-    type="button"
-    class="close border-0"
-   (click)="closeDialogModel()"
-   
-  >
+  <button type="button" class="close border-0" (click)="closeDialogModel()">
     &times;
   </button>
 </div>
@@ -230,193 +136,110 @@
 
 <mat-dialog-content class="mat-dialog-content" *ngIf="data.question">
   <hr />
-    <div [formGroup]="questionBank">
-  <div class="form-group d-flex flex-column flex-lg-row align-items-baseline">
-    <label class="col-lg-2 control-label p-0 font-weight-bold"
-      >Question Type</label
-    >
-    <div class="col-lg-4"  ngClass.lt-md="p-0 mb-1" >
-      <select
-        class="form-control"
-        ngClass.lt-md="w-100"
-        id="exampleFormControlSelect1"
-        formControlName="type"
-        (change)="setQuestionType($event.target.value)"
-        name="Type of Question"
-      >
-        <option disabled>Choose Question Type</option>
-        <option
-          *ngFor="let questiontype of typeOfQuestions"
-          [value]="questiontype.type"
-        >
-          {{ questiontype.type }}
-        </option>
-      </select>
-    </div>
-    <div
-      class="col-lg-3 d-flex  t-2 mt-lg-0 justify-content-between align-items-baseline p-0 mr-2"
-    >
-      <label class="control-label mr-1 font-weight-bold">Time</label>
-      <div class="w-100" ngClass.lt-lg="d-flex flex-column align-items-end">
-        <input
-        type="number"
-        formControlName="timeLimit"
-        name="Time"
-        class="form-control time"
-        ngClass.lt-md="w-50"
-        ngClass.lt-sm="w-100"
-        min="1" 
-      />
-      <mat-error 
-        *ngIf="
+  <div [formGroup]="questionBank">
+    <div class="form-group d-flex flex-column flex-lg-row align-items-baseline">
+      <label class="col-lg-2 control-label p-0 font-weight-bold">Question Type</label>
+      <div class="col-lg-4" ngClass.lt-md="p-0 mb-1">
+        <select class="form-control" ngClass.lt-md="w-100" id="exampleFormControlSelect1" formControlName="type"
+          (change)="setQuestionType($event.target.value)" name="Type of Question">
+          <option disabled>Choose Question Type</option>
+          <option *ngFor="let questiontype of typeOfQuestions" [value]="questiontype.type">
+            {{ questiontype.type }}
+          </option>
+        </select>
+      </div>
+      <div class="col-lg-3 d-flex  t-2 mt-lg-0 justify-content-between align-items-baseline p-0 mr-2">
+        <label class="control-label mr-1 font-weight-bold">Time</label>
+        <div class="w-100" ngClass.lt-lg="d-flex flex-column align-items-end">
+          <input type="number" formControlName="timeLimit" name="Time" class="form-control time" ngClass.lt-md="w-50"
+            ngClass.lt-sm="w-100" min="1" />
+          <mat-error *ngIf="
           checkError('timeLimit', 'required') &&
           questionBank.get('timeLimit').touched
-        "
-        >Time is required</mat-error
-      >
+        ">Time is required</mat-error>
+        </div>
+
+
       </div>
-
-      
-    </div>
-    <div
-      class="col-lg-3 mt-2 mt-lg-0 d-flex justify-content-between align-items-baseline p-0"
-    >
-      <label class="control-label mr-1 font-weight-bold">Points</label>
-      <div class="w-100" ngClass.lt-lg="d-flex flex-column align-items-end">
-        <input
-        type="number"
-        class="form-control marks"
-        formControlName="points"
-        name="points"
-        min="1"
-        ngClass.lt-md="w-50"
-        ngClass.lt-sm="w-100"
-
-      />
-      <mat-error 
-      *ngIf="
+      <div class="col-lg-3 mt-2 mt-lg-0 d-flex justify-content-between align-items-baseline p-0">
+        <label class="control-label mr-1 font-weight-bold">Points</label>
+        <div class="w-100" ngClass.lt-lg="d-flex flex-column align-items-end">
+          <input type="number" class="form-control marks" formControlName="points" name="points" min="1"
+            ngClass.lt-md="w-50" ngClass.lt-sm="w-100" />
+          <mat-error *ngIf="
         checkError('points', 'required') &&
         questionBank.get('points').touched
-      "
-      >Points is required</mat-error
-    >
-      </div>
-     
-    </div>
-  </div>
+      ">Points is required</mat-error>
+        </div>
 
-  <div class="form-group d-flex flex-column flex-lg-row ">
-    <label class="col-lg-2 control-label p-0 font-weight-bold"
-    >Question</label
-  >
-  <div class="col-lg-10">
-    <ckeditor
-      formControlName="question"
-      [config]="ckeConfig"
-    ></ckeditor>
-    <mat-error 
-      *ngIf="
+      </div>
+    </div>
+
+    <div class="form-group d-flex flex-column flex-lg-row ">
+      <label class="col-lg-2 control-label p-0 font-weight-bold">Question</label>
+      <div class="col-lg-10">
+        <ckeditor formControlName="question" [config]="ckeConfig"></ckeditor>
+        <mat-error *ngIf="
         checkError('question', 'required') &&
         questionBank.get('question').touched 
-      "
-      >Question is required</mat-error>
-  </div>
-  </div>
-  <div
-              class="form-group d-flex"
-              ngClass.lt-sm="d-flex flex-column"
-              *ngIf="
+      ">Question is required</mat-error>
+      </div>
+    </div>
+    <div class="form-group d-flex" ngClass.lt-sm="d-flex flex-column" *ngIf="
                 questionType == 'image' ||
                 questionType == 'audio' ||
                 questionType == 'video'
-              "
-            >
-              <label class="col-sm-2 control-label p-0 font-weight-bold"
-                >Image</label
-              >
-              <div class="col-sm-10">
-                <span>
-                  <input
-                    type="file"
-                    name="myfile"
-                    formControlName="file"
-                    (change)="uploadFile($event)"
-                    name="file"
-                  />
-                </span>
-              </div>
-            </div>
-            <div class="form-group d-flex" ngClass.lt-sm="d-flex flex-column">
-              <hr />
-              <label class="col-sm-2 p-0 font-weight-bold">Options</label>
-              <div class="col-sm-10 d-flex flex-column">
-                <ng-container formArrayName="options">
-                  <ng-container
-                    *ngFor="
+              ">
+      <label class="col-sm-2 control-label p-0 font-weight-bold">Image</label>
+      <div class="col-sm-10">
+        <span>
+          <input type="file" name="myfile" formControlName="file" (change)="uploadFile($event)" name="file" />
+        </span>
+      </div>
+    </div>
+    <div class="form-group d-flex" ngClass.lt-sm="d-flex flex-column">
+      <hr />
+      <label class="col-sm-2 p-0 font-weight-bold">Options</label>
+      <div class="col-sm-10 d-flex flex-column">
+        <ng-container formArrayName="options">
+          <ng-container *ngFor="
                       let questionOptions of options.controls;
                       let i = index
-                    "
-                  >
-                    <div
-                      [formGroup]="questionOptions"
-                      class="d-flex flex-grow-1 align-items-baseline"
-                    >
-                      <input
-                        class="form-control mr-3"
-                        type="text"
-                        formControlName="option"
-                        name="option"
-                        appFormErrorMsg
-                        minlength="1"
-                      />
-                      <div class="d-flex">
-                        <mat-checkbox
-                          color="primary"
-                          class="example-margin"
-                          [checked]="correctAnswerIndex==i"
-                          (change)="getCorrectAnswer(i, $event)"
-                        >
-                          Correct
-                        </mat-checkbox>
-                        <div>
-                          <i
-                          class="fa fa-times ml-2  text-danger cursor"
-                          (click)="removeOption(i)"
-                        ></i>
-                        </div>
-                      </div>
-                    </div>
-                    <hr />
-                  </ng-container>
-                </ng-container>
+                    ">
+            <div [formGroup]="questionOptions" class="d-flex flex-grow-1 align-items-baseline">
+              <input class="form-control mr-3" type="text" formControlName="option" name="option" appFormErrorMsg
+                minlength="1" />
+              <div class="d-flex">
+                <mat-checkbox color="primary" class="example-margin" [checked]="correctAnswerIndex==i"
+                  (change)="getCorrectAnswer(i, $event)">
+                  Correct
+                </mat-checkbox>
+                <div>
+                  <i class="fa fa-times ml-2  text-danger cursor" (click)="removeOption(i)"></i>
+                </div>
               </div>
             </div>
-            <div class="form-group d-flex" ngClass.lt-sm="d-flex flex-column">
-              <label class="col-sm-2 p-0" fxHide.lt-sm="true"></label>
-              <button
-                class="button btn"
-                ngClass.lt-sm="w-50"
-                [disabled]="maxOptionsLimitReached"
-                (click)="addOptions()"
-              >
-                Add options
-              </button>
-            </div>
-          </div>
-        </mat-dialog-content>
+            <hr />
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+    <div class="form-group d-flex" ngClass.lt-sm="d-flex flex-column">
+      <label class="col-sm-2 p-0" fxHide.lt-sm="true"></label>
+      <button class="button btn" ngClass.lt-sm="w-50" [disabled]="maxOptionsLimitReached" (click)="addOptions()">
+        Add options
+      </button>
+    </div>
+  </div>
+</mat-dialog-content>
 
-  <mat-card-actions align="end" class="border-top d-flex flex-column align-items-end flex-md-row pt-2 " *ngIf="data.question">
-    <button
-      type="button"
-      class="btn btn-light mb-2 mb-md-0  "
-     (click)="closeDialogModel()"
-    >
-      Cancel
-    </button>
+<mat-card-actions align="end" class="border-top d-flex flex-column align-items-end flex-md-row pt-2 "
+  *ngIf="data.question">
+  <button type="button" class="btn btn-light mb-2 mb-md-0  " (click)="closeDialogModel()">
+    Cancel
+  </button>
 
-    <button type="button" class="btn button  ml-1 mb-2 mb-md-0 " [disabled]="editingQuestion" (click)="editQuestion()">
-      {{editingQuestion?'Editing...':'Edit'}}
-    </button>
-  </mat-card-actions>
-
-
+  <button type="button" class="btn button  ml-1 mb-2 mb-md-0 " [disabled]="editingQuestion" (click)="editQuestion()">
+    {{editingQuestion?'Editing...':'Edit'}}
+  </button>
+</mat-card-actions>

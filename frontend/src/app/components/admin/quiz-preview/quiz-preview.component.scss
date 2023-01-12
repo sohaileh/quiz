@@ -1,129 +1,142 @@
-.header{
-    background-color: #5bc0de;
-    width: 100%;
-    position: absolute;
-    height: 70px;
-    left: 0;
-    top: 60px;
-    color: #222;
-    z-index: 0;
+.header {
+  // background-color: #5bc0de;
+
+  background-color: #173230;
+  width: 100%;
+  position: absolute;
+  height: 70px;
+  left: 0;
+  top: 60px;
+  color: white;
+  z-index: 0;
+}
+.title {
+  color: white !important;
+}
+.t-p {
+  color: white !important;
+}
+.attempt-header {
+  background-color: #173230;
+  color: white;
+  width: 100%;
+  position: absolute;
+  height: 70px;
+  left: 0;
+  top: 0;
+  color: #222;
+  z-index: 9999;
+}
+.content {
+  position: relative;
+  top: 100px;
+  height: calc(100vh - 64px - 70px);
+}
+.container {
+  padding: 0 0 !important;
 }
 
-.attempt-header{
-    background-color: #5bc0de;
-    width: 100%;
-    position: absolute;
-    height: 70px;
-    left: 0;
-    top: 0;
-    color: #222;
-    z-index: 9999;  
-}
-.content{
-    position: relative;
-    top: 100px;
-    height: calc(100vh - 64px - 70px);  
-}
-.container{
-    padding: 0 0 !important;
- 
-}
-
-.content-footer{
-    height: 70px;
-    width: 100%;
-    padding-bottom: 10px;
+.content-footer {
+  height: 70px;
+  width: 100%;
+  padding-bottom: 10px;
 }
 
 .btn {
-  
-    background-color: #268e9b;
-    border: none;
-    outline: none;
-    color: #fff;
-  }
-
-.container{
-    padding: 0;
+  background-color: #28a745;
+  border-color: #28a745;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.8rem;
 }
 
-.media-container{
-    width: 100%;
-    height: 200px;
+.container {
+  padding: 0;
 }
 
-.media{
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+.media-container {
+  width: 100%;
+  height: 200px;
 }
-.body{
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 16px;
-  }
 
-// attempt-quiz      
-  .time {
-    width: 100%;
-  color: #268e9b;
+.media {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+}
+
+// attempt-quiz
+.time {
+  width: 100%;
+  color: blue;
   font-size: 30px;
-  }
-  .attempt-container{
-    margin-top: 100px;
-    margin-right: 4px;
-    margin-left: 4px;
-  }
-  .submit-card-height{
-    height: 250px;
-  }
-  .title{
-    position: relative;
-    left: 131px;
-    width: 76%;
-  }
+  margin-left: 24.6vw;
+}
+.attempt-container {
+  margin-top: 100px;
+  margin-right: 4px;
+  margin-left: 4px;
+}
+.submit-card-height {
+  height: 250px;
+}
+.title {
+  position: relative;
+  left: 131px;
+  width: 76%;
+}
 
-  @media  screen and (max-width:974px){
-    .title{
-      width: 100%;
-      position: relative;
-      left: 10px;
-    }
-  }
-
-  #clock {
-    width: 300px;
-    height: 300px;
-    border: 1px solid black;
-    border-radius: 50%;
+@media screen and (max-width: 974px) {
+  .title {
+    width: 100%;
     position: relative;
+    left: 10px;
+    color: white;
   }
-  
-  #hour-hand {
-    width: 20%;
-    height: 50%;
-    background: black;
-    position: absolute;
-    top: 25%;
-    left: 50%;
-    transform-origin: center bottom;
-  }
-  
-  #minute-hand {
-    width: 20%;
-    height: 75%;
-    background: black;
-    position: absolute;
-    top: 12.5%;
-    left: 50%;
-    transform-origin: center bottom;
-  }
-  
-  #second-hand {
-    width: 10%;
-    height: 85%;
-    background: red;
-    position: absolute;
-    top: 7.5%;
-    left: 50%;
-    transform-origin: center bottom;
-  }
+}
+
+#clock {
+  width: 300px;
+  height: 300px;
+  border: 1px solid black;
+  border-radius: 50%;
+  position: relative;
+}
+
+#hour-hand {
+  width: 20%;
+  height: 50%;
+  background: black;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform-origin: center bottom;
+}
+
+#minute-hand {
+  width: 20%;
+  height: 75%;
+  background: black;
+  position: absolute;
+  top: 12.5%;
+  left: 50%;
+  transform-origin: center bottom;
+}
+
+#second-hand {
+  width: 10%;
+  height: 85%;
+  background: red;
+  position: absolute;
+  top: 7.5%;
+  left: 50%;
+  transform-origin: center bottom;
+}
+
+.f-22 {
+  font-size: 2.2rem;
+}

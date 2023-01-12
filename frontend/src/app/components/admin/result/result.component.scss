@@ -115,7 +115,7 @@ label {
   .margin-1v {
     margin-bottom: 3vw;
   }
-  
+
   .control-label {
     text-align: right;
   }
@@ -179,8 +179,19 @@ label {
   position: relative !important;
   display: block !important;
   padding: 5px 5px !important;
-  background-color: #f1f1f1; 
-border: 0 !important;
+  background-color: #f1f1f1;
+  border: 0 !important;
 }
 
+.passf {
+  border-left: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
+  padding: 20px;
+  border-radius: 0 0 4px 4px;
+  background-color: #fafafa;
+}
 
+.help-mt{
+  margin-top: 12px;
+}

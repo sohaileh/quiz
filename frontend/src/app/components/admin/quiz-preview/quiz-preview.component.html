@@ -11,7 +11,7 @@
       <div class="inline-block">
       <img src="../../../../assets/images/logo2.png" alt="quiz-image" width="70px" height="40px">
       </div>
-      <div class="inline-block mt-1  ml-5">
+      <div class="inline-block mt-1  ml-5 t-p">
       {{ quizTitle }}
       </div>
     </div>
@@ -22,10 +22,10 @@
 <div class="h-100" *ngIf="totalQuestions && !responseSubmitted">
   
   <div class="container content h-100">
-    <div class="time d-flex justify-content-center justify-content-sm-end" >
+    <div class="time d-flex justify-content-center" >
      <div class="d-flex flex-column">
       <div *ngIf="router.url.includes('admin')">
-        <button class="btn btn-sm"[routerLink]="['/home/dashboard']">Stop preview</button>
+        <button class="btn btn-sm" [routerLink]="['/home/dashboard']">Stop Preview</button>
       </div>
       <!-- <div *ngIf="quizDetails[0].time_check || quizDetails[0].whole_check  "> -->
         <div>
@@ -64,7 +64,7 @@
           Q{{ i + 1 + questionSequenceStartAT }}
             </div>
             <div
-              class=" h5"
+              class=" h5 f-22"
               [innerHTML]="question.question | sanitizedHtml"
             ></div>
           </div>
@@ -140,3 +140,4 @@
   </mat-card>
  
 </div>
+

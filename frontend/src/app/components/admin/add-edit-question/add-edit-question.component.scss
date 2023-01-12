@@ -18,7 +18,8 @@ mat-card-actions {
   margin-bottom: 0;
 }
 .button {
-  background-color: #268e9b;
+  background-color: #28a745;
+  border-color: #28a745;
   height: 37px;
   border: none;
   outline: none;
@@ -72,3 +73,6 @@ mat-select span{
   left: 10px;
   }
 
+.text-right{
+  text-align: right;
+}

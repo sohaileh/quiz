@@ -70,11 +70,13 @@ mat-card img {
 }
 
 .create-button {
-  background-color: #268e9b;
+  color: #fff;
+  background-color: #28a745;
+  border-color: #28a745;
   border: none;
   outline: none;
   height: 30px !important;
-  color: #fff;
+  // color: #fff;
   text-transform: uppercase;
   font-weight: 400;
   margin: 10px;
@@ -85,7 +87,7 @@ mat-card img {
 }
 
 .create-button:hover {
-  background-color: #268e9b;
+  // background-color: #268e9b;
   color: #fff;
 }
 
@@ -172,4 +174,9 @@ td {
 
 .text-danger {
   font-size: 17px !important;
+}
+
+.f-600 {
+  font-weight: 600;
+  font-size: 0.8rem;
 }

@@ -32,10 +32,10 @@ mat-form-field {
   border-left: 1px solid #ddd;
 }
 .button {
-  background-color: #268e9b;
-  border: none;
-  outline: none;
+  // background-color: #268e9b;
   color: #fff;
+  background-color: #28a745;
+  border-color: #28a745;
 }
 .cursor {
   cursor: pointer;
@@ -48,12 +48,12 @@ mat-form-field {
   bottom: 0.6em;
   right: 1.3em;
 }
-.error-position{
+.error-position {
   position: absolute;
   bottom: 2.1em;
   right: 1.3em;
 }
-.error-password-strength{
+.error-password-strength {
   position: absolute;
   bottom: 2.2em;
   right: 1.3em;
@@ -75,14 +75,14 @@ mat-form-field {
   margin: 10px;
 }
 .save {
-  background-color: #268e9b;
-  border: none;
-  outline: none;
+  // background-color: #268e9b;
   color: #fff;
+  background-color: #28a745;
+  border-color: #28a745;
 }
 
-@media screen and (max-width:1260px){
-  .error-password-strength{
+@media screen and (max-width: 1260px) {
+  .error-password-strength {
     position: absolute;
     bottom: 3.4em;
     right: 1.3em;
@@ -93,37 +93,35 @@ mat-form-field {
   .save {
     margin: 10px;
     width: 5vw !important;
-    background-color: #268e9b;
-    border: none;
-    outline: none;
+    // background-color: #268e9b;
     color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
   }
 
   // .button {
   //   width: 9vw;
   // }
-
 }
 
-@media screen and (max-width:670px){
-  .error-password-strength{
+@media screen and (max-width: 670px) {
+  .error-password-strength {
     position: absolute;
     bottom: 4.9em;
     right: 1.3em;
   }
 }
-@media screen and (max-width:570px){
-  .error-password-strength{
+@media screen and (max-width: 570px) {
+  .error-password-strength {
     position: absolute;
     bottom: 3.6em;
     right: 1.3em;
   }
 }
-@media screen and (max-width:330px){
-  .error-password-strength{
+@media screen and (max-width: 330px) {
+  .error-password-strength {
     position: absolute;
     bottom: 4.9em;
     right: 1.3em;
   }
 }
-
